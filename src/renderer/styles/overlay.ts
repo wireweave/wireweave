@@ -86,6 +86,7 @@ export function generateOverlayStyles(_theme: ThemeConfig, prefix: string): stri
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 

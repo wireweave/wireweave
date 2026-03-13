@@ -5,8 +5,10 @@
 export function generateTextStyles(prefix: string): string {
   return `/* Text Components */
 .${prefix}-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .${prefix}-text-xs { font-size: 12px; }
@@ -31,6 +33,7 @@ export function generateTextStyles(prefix: string): string {
 .${prefix}-text-muted { color: var(--${prefix}-muted); }
 
 .${prefix}-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -49,6 +52,7 @@ h5.${prefix}-title { font-size: 18px; }
 h6.${prefix}-title { font-size: 16px; }
 
 .${prefix}-link {
+  display: inline;
   color: var(--${prefix}-fg);
   text-decoration: underline;
   cursor: pointer;

@@ -131,8 +131,21 @@ export function generateContainerStyles(prefix: string): string {
   border-bottom: 1px solid var(--${prefix}-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.${prefix}-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--${prefix}-muted);
+  border-bottom: 2px solid var(--${prefix}-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .${prefix}-accordion-header:hover {

@@ -24,6 +24,7 @@ export function generateNavigationStyles(_theme: ThemeConfig, prefix: string): s
   text-decoration: none;
   border-radius: var(--${prefix}-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -57,6 +58,7 @@ export function generateNavigationStyles(_theme: ThemeConfig, prefix: string): s
 }
 
 .${prefix}-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--${prefix}-border);
@@ -78,6 +80,7 @@ export function generateNavigationStyles(_theme: ThemeConfig, prefix: string): s
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--${prefix}-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -99,6 +102,7 @@ export function generateNavigationStyles(_theme: ThemeConfig, prefix: string): s
 }
 
 .${prefix}-breadcrumb-item {
+  display: inline-flex;
   color: var(--${prefix}-fg);
   text-decoration: none;
 }

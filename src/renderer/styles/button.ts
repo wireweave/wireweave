@@ -19,6 +19,7 @@ export function generateButtonStyles(_theme: ThemeConfig, prefix: string): strin
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
