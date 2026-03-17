@@ -32,10 +32,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10.11.0
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
@@ -52,13 +52,13 @@ jobs:
         run: npx release-it --preRelease=beta --ci
 
       - name: Publish Release (main branch)
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[skip ci]')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx release-it --ci
 
       - name: Sync main to develop
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[skip ci]')
         run: |
           git fetch origin develop
           git checkout develop

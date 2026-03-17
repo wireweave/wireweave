@@ -27,6 +27,7 @@ export function generateFeedbackStyles(_theme: ThemeConfig, prefix: string): str
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -44,17 +45,28 @@ export function generateFeedbackStyles(_theme: ThemeConfig, prefix: string): str
   font-size: 14px;
 }
 
+.${prefix}-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.${prefix}-progress-wrapper .${prefix}-progress {
+  flex: 1;
+}
+
 .${prefix}-progress {
-  height: 8px;
-  background: var(--${prefix}-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--${prefix}-border);
 }
 
 .${prefix}-progress-bar {
   height: 100%;
   background: var(--${prefix}-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -73,6 +85,15 @@ export function generateFeedbackStyles(_theme: ThemeConfig, prefix: string): str
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--${prefix}-muted);
+}
+
+.${prefix}-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--${prefix}-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .${prefix}-spinner {

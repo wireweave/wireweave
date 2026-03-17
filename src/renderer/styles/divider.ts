@@ -8,6 +8,7 @@ export function generateDividerStyles(prefix: string = 'wf'): string {
   return `
 /* Divider */
 .${prefix}-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--${prefix}-border);

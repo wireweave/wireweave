@@ -27,6 +27,7 @@ export function generateInputStyles(_theme: ThemeConfig, prefix: string): string
   border-radius: var(--${prefix}-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--${prefix}-bg);
   color: var(--${prefix}-fg);
   transition: border-color 0.15s ease;
@@ -100,11 +101,14 @@ export function generateInputStyles(_theme: ThemeConfig, prefix: string): string
 }
 
 .${prefix}-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .${prefix}-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -122,6 +126,7 @@ export function generateInputStyles(_theme: ThemeConfig, prefix: string): string
 
 .${prefix}-checkbox input,
 .${prefix}-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -177,12 +182,14 @@ export function generateInputStyles(_theme: ThemeConfig, prefix: string): string
 }
 
 .${prefix}-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--${prefix}-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .${prefix}-slider::-webkit-slider-thumb {

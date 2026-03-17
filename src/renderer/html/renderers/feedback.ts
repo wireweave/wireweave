@@ -62,13 +62,10 @@ export function renderProgress(node: ProgressNode, ctx: RenderContext): string {
   const label = node.label ? `<span class="${ctx.prefix}-progress-label">${ctx.escapeHtml(node.label)}</span>` : '';
 
   if (node.indeterminate) {
-    return `<div class="${classes} ${ctx.prefix}-progress-indeterminate"${styleAttr} role="progressbar">${label}</div>`;
+    return `${label}<div class="${ctx.prefix}-progress-wrapper"${styleAttr}><div class="${classes} ${ctx.prefix}-progress-indeterminate" role="progressbar"><div class="${ctx.prefix}-progress-bar"></div></div></div>`;
   }
 
-  return `<div class="${classes}"${styleAttr} role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="${max}">
-  ${label}
-  <div class="${ctx.prefix}-progress-bar" style="width: ${percentage}%"></div>
-</div>`;
+  return `${label}<div class="${ctx.prefix}-progress-wrapper"${styleAttr}><div class="${classes}" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="${max}"><div class="${ctx.prefix}-progress-bar" style="width: ${percentage}%"></div></div><span class="${ctx.prefix}-progress-value">${percentage}%</span></div>`;
 }
 
 /**

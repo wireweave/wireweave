@@ -7,16 +7,32 @@ import type { ThemeConfig } from '../types';
 export function generateDataStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Data Components */
 .${prefix}-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--${prefix}-border);
   font-size: 14px;
 }
 
+.${prefix}-table thead {
+  display: table-header-group;
+}
+
+.${prefix}-table tbody {
+  display: table-row-group;
+}
+
+.${prefix}-table tr {
+  display: table-row;
+}
+
 .${prefix}-table th,
 .${prefix}-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--${prefix}-border);
 }
 
@@ -39,6 +55,7 @@ export function generateDataStyles(_theme: ThemeConfig, prefix: string): string 
 }
 
 .${prefix}-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -49,11 +66,17 @@ export function generateDataStyles(_theme: ThemeConfig, prefix: string): string 
   padding-left: 24px;
 }
 
+.${prefix}-list-ordered .${prefix}-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .${prefix}-list-none {
   list-style: none;
 }
 
 .${prefix}-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--${prefix}-border);
 }

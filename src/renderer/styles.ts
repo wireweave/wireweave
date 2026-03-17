@@ -92,6 +92,12 @@ function generateBaseStyles(prefix: string): string {
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.${prefix}-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .${prefix}-page.${prefix}-flex,
 .${prefix}-page[class*="${prefix}-justify-"],

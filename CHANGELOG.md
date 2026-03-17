@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.7.0-beta.0](https://github.com/wireweave/core/compare/v2.6.2...v2.7.0-beta.0) (2026-03-17)
+
+### Features
+
+* **storybook:** add storybook setup and component stories ([f40360c](https://github.com/wireweave/core/commit/f40360cb7d39717609d388017ca3c82504e6f1ad))
+
+### Documentation
+
+* **claude:** simplify core package documentation ([62db518](https://github.com/wireweave/core/commit/62db518280ebd7ee87606ecc461d99d32da75174))
+
 ## [2.6.2](https://github.com/wireweave/core/compare/v2.6.2-beta.0...v2.6.2) (2026-03-09)
 
 ## [2.6.2-beta.0](https://github.com/wireweave/core/compare/v2.6.1...v2.6.2-beta.0) (2026-03-09)

@@ -55,6 +55,12 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -657,8 +663,21 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -671,8 +690,10 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -697,6 +718,7 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -715,6 +737,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -746,6 +769,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -819,11 +843,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -841,6 +868,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -896,12 +924,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -936,6 +966,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -1256,16 +1287,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -1288,6 +1335,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -1298,11 +1346,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -1333,6 +1387,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -1350,17 +1405,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -1379,6 +1445,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -1482,6 +1557,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -1517,6 +1593,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -1550,6 +1627,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -1571,6 +1649,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1592,6 +1671,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -1731,6 +1811,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -1917,6 +1998,12 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -2519,8 +2606,21 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -2533,8 +2633,10 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -2559,6 +2661,7 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -2577,6 +2680,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -2608,6 +2712,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -2681,11 +2786,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -2703,6 +2811,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -2758,12 +2867,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -2798,6 +2909,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -3118,16 +3230,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -3150,6 +3278,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -3160,11 +3289,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -3195,6 +3330,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -3212,17 +3348,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -3241,6 +3388,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -3344,6 +3500,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -3379,6 +3536,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -3412,6 +3570,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -3433,6 +3592,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -3454,6 +3614,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -3593,6 +3754,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -3856,6 +4018,12 @@ body {
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -4458,8 +4626,21 @@ body {
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -4472,8 +4653,10 @@ body {
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -4498,6 +4681,7 @@ body {
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -4516,6 +4700,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -4547,6 +4732,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -4620,11 +4806,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -4642,6 +4831,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -4697,12 +4887,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -4737,6 +4929,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -5057,16 +5250,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -5089,6 +5298,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -5099,11 +5309,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -5134,6 +5350,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -5151,17 +5368,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -5180,6 +5408,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -5283,6 +5520,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -5318,6 +5556,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -5351,6 +5590,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -5372,6 +5612,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -5393,6 +5634,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -5532,6 +5774,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -5748,6 +5991,12 @@ body {
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -6350,8 +6599,21 @@ body {
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -6364,8 +6626,10 @@ body {
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -6390,6 +6654,7 @@ body {
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -6408,6 +6673,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -6439,6 +6705,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -6512,11 +6779,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -6534,6 +6804,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -6589,12 +6860,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -6629,6 +6902,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -6949,16 +7223,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -6981,6 +7271,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -6991,11 +7282,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -7026,6 +7323,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -7043,17 +7341,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -7072,6 +7381,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -7175,6 +7493,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -7210,6 +7529,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -7243,6 +7563,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -7264,6 +7585,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -7285,6 +7607,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -7424,6 +7747,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -7599,10 +7923,7 @@ exports[`Render Snapshots > HTML Snapshots > should render empty page 1`] = `
 exports[`Render Snapshots > HTML Snapshots > should render feedback components 1`] = `
 "<div class="wf-page" style="position: relative; width: 1440px; height: 900px; overflow: hidden" data-viewport-width="1440" data-viewport-height="900" data-viewport-label="Desktop">
   <div class="wf-alert wf-alert-success" role="alert">Success message</div>
-  <div class="wf-progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-  
-    <div class="wf-progress-bar" style="width: 75%"></div>
-  </div>
+  <div class="wf-progress-wrapper"><div class="wf-progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><div class="wf-progress-bar" style="width: 75%"></div></div><span class="wf-progress-value">75%</span></div>
   <span class="wf-spinner" role="status" aria-label="Loading..."></span>
 </div>"
 `;
@@ -7763,6 +8084,12 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
 
 .wf-page *, .wf-page *::before, .wf-page *::after {
   box-sizing: inherit;
+}
+
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
 }
 
 /* Page with flex layout - enables justify/align for centering content */
@@ -8367,8 +8694,21 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -8381,8 +8721,10 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -8407,6 +8749,7 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -8425,6 +8768,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -8456,6 +8800,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -8529,11 +8874,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -8551,6 +8899,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -8606,12 +8955,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -8646,6 +8997,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -8966,16 +9318,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -8998,6 +9366,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -9008,11 +9377,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -9043,6 +9418,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -9060,17 +9436,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -9089,6 +9476,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -9192,6 +9588,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -9227,6 +9624,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -9260,6 +9658,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -9281,6 +9680,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -9302,6 +9702,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -9441,6 +9842,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -9651,6 +10053,12 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -10253,8 +10661,21 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -10267,8 +10688,10 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -10293,6 +10716,7 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -10311,6 +10735,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -10342,6 +10767,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -10415,11 +10841,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -10437,6 +10866,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -10492,12 +10922,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -10532,6 +10964,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -10852,16 +11285,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -10884,6 +11333,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -10894,11 +11344,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -10929,6 +11385,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -10946,17 +11403,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -10975,6 +11443,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -11078,6 +11555,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -11113,6 +11591,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -11146,6 +11625,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -11167,6 +11647,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -11188,6 +11669,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -11327,6 +11809,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -11538,6 +12021,12 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -12140,8 +12629,21 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -12154,8 +12656,10 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -12180,6 +12684,7 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -12198,6 +12703,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -12229,6 +12735,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -12302,11 +12809,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -12324,6 +12834,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -12379,12 +12890,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -12419,6 +12932,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -12739,16 +13253,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -12771,6 +13301,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -12781,11 +13312,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -12816,6 +13353,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -12833,17 +13371,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -12862,6 +13411,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -12965,6 +13523,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -13000,6 +13559,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -13033,6 +13593,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -13054,6 +13615,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -13075,6 +13637,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -13214,6 +13777,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -13426,6 +13990,12 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -14028,8 +14598,21 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -14042,8 +14625,10 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -14068,6 +14653,7 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -14086,6 +14672,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -14117,6 +14704,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -14190,11 +14778,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -14212,6 +14803,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -14267,12 +14859,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -14307,6 +14901,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -14627,16 +15222,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -14659,6 +15270,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -14669,11 +15281,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -14704,6 +15322,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -14721,17 +15340,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -14750,6 +15380,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -14853,6 +15492,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -14888,6 +15528,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -14921,6 +15562,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -14942,6 +15584,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -14963,6 +15606,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -15102,6 +15746,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -15318,6 +15963,12 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -15920,8 +16571,21 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -15934,8 +16598,10 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -15960,6 +16626,7 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -15978,6 +16645,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -16009,6 +16677,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -16082,11 +16751,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -16104,6 +16776,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -16159,12 +16832,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -16199,6 +16874,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -16519,16 +17195,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -16551,6 +17243,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -16561,11 +17254,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -16596,6 +17295,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -16613,17 +17313,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -16642,6 +17353,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -16745,6 +17465,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -16780,6 +17501,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -16813,6 +17535,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -16834,6 +17557,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -16855,6 +17579,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -16994,6 +17719,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -17202,6 +17928,12 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
   box-sizing: inherit;
 }
 
+/* Host CSS isolation reset - :where() keeps specificity at (0,0,0) so component styles always win */
+.wf-page :where(input, button, select, textarea, a, table, thead, tbody, th, td, tr, ul, ol, li, label, hr, h1, h2, h3, h4, h5, h6, p, nav, fieldset, legend) {
+  all: unset;
+  box-sizing: border-box;
+}
+
 /* Page with flex layout - enables justify/align for centering content */
 .wf-page.wf-flex,
 .wf-page[class*="wf-justify-"],
@@ -17804,8 +18536,21 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
   border-bottom: 1px solid var(--wf-border);
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   text-align: left;
+  outline: none;
+}
+
+.wf-accordion-header::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--wf-muted);
+  border-bottom: 2px solid var(--wf-muted);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .wf-accordion-header:hover {
@@ -17818,8 +18563,10 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
 
 /* Text Components */
 .wf-text {
+  display: block;
   margin: 0;
   line-height: 1.5;
+  white-space: normal;
 }
 
 .wf-text-xs { font-size: 12px; }
@@ -17844,6 +18591,7 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
 .wf-text-muted { color: var(--wf-muted); }
 
 .wf-title {
+  display: block;
   margin: 0 0 8px 0;
   font-weight: 600;
   line-height: 1.25;
@@ -17862,6 +18610,7 @@ h5.wf-title { font-size: 18px; }
 h6.wf-title { font-size: 16px; }
 
 .wf-link {
+  display: inline;
   color: var(--wf-fg);
   text-decoration: underline;
   cursor: pointer;
@@ -17893,6 +18642,7 @@ h6.wf-title { font-size: 16px; }
   border-radius: var(--wf-radius);
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
   background: var(--wf-bg);
   color: var(--wf-fg);
   transition: border-color 0.15s ease;
@@ -17966,11 +18716,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-textarea {
+  display: block;
   min-height: 80px;
   resize: vertical;
+  white-space: pre-wrap;
 }
 
 .wf-select {
+  cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -17988,6 +18741,7 @@ h6.wf-title { font-size: 16px; }
 
 .wf-checkbox input,
 .wf-radio input {
+  appearance: auto;
   width: 18px;
   height: 18px;
   margin: 0;
@@ -18043,12 +18797,14 @@ h6.wf-title { font-size: 16px; }
 }
 
 .wf-slider {
+  display: block;
   appearance: none;
   width: 100%;
   height: 6px;
   background: var(--wf-border);
   border-radius: 3px;
   outline: none;
+  margin: 8px 0;
 }
 
 .wf-slider::-webkit-slider-thumb {
@@ -18083,6 +18839,7 @@ h6.wf-title { font-size: 16px; }
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -18403,16 +19160,32 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Data Components */
 .wf-table {
+  display: table;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--wf-border);
   font-size: 14px;
 }
 
+.wf-table thead {
+  display: table-header-group;
+}
+
+.wf-table tbody {
+  display: table-row-group;
+}
+
+.wf-table tr {
+  display: table-row;
+}
+
 .wf-table th,
 .wf-table td {
+  display: table-cell;
   padding: 10px 12px;
   text-align: left;
+  line-height: 1.5;
+  vertical-align: top;
   border-bottom: 1px solid var(--wf-border);
 }
 
@@ -18435,6 +19208,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-list {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -18445,11 +19219,17 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   padding-left: 24px;
 }
 
+.wf-list-ordered .wf-list-item {
+  display: list-item;
+  list-style: decimal;
+}
+
 .wf-list-none {
   list-style: none;
 }
 
 .wf-list-item {
+  display: list-item;
   padding: 8px 0;
   border-bottom: 1px solid var(--wf-border);
 }
@@ -18480,6 +19260,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   background: transparent;
   border: none;
   font-size: 18px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -18497,17 +19278,28 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   font-size: 14px;
 }
 
+.wf-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wf-progress-wrapper .wf-progress {
+  flex: 1;
+}
+
 .wf-progress {
-  height: 8px;
-  background: var(--wf-border);
-  border-radius: 4px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
   overflow: hidden;
+  border: 1px solid var(--wf-border);
 }
 
 .wf-progress-bar {
   height: 100%;
   background: var(--wf-fg);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
@@ -18526,6 +19318,15 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--wf-muted);
+}
+
+.wf-progress-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wf-fg);
+  white-space: nowrap;
+  min-width: 32px;
+  text-align: right;
 }
 
 .wf-spinner {
@@ -18629,6 +19430,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   text-align: left;
   font-size: 14px;
+  line-height: 1.5;
   cursor: pointer;
 }
 
@@ -18664,6 +19466,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   text-decoration: none;
   border-radius: var(--wf-radius);
   font-size: 14px;
+  line-height: 1.5;
   transition: background-color 0.15s ease;
 }
 
@@ -18697,6 +19500,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-nav-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
@@ -18718,6 +19522,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
   border: none;
   border-bottom: 2px solid transparent;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--wf-fg);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -18739,6 +19544,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 }
 
 .wf-breadcrumb-item {
+  display: inline-flex;
   color: var(--wf-fg);
   text-decoration: none;
 }
@@ -18878,6 +19684,7 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 
 /* Divider */
 .wf-divider {
+  display: block;
   margin: 8px 0;
   border: none;
   border-top: 1px solid var(--wf-border);
