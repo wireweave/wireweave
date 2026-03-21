@@ -29,6 +29,7 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -1972,6 +1973,7 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -3992,6 +3994,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -5965,6 +5968,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -8060,6 +8064,7 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -10027,6 +10032,7 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -11995,6 +12001,7 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -13964,6 +13971,7 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -15937,6 +15945,7 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -17902,6 +17911,7 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;

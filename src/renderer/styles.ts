@@ -66,6 +66,7 @@ function generateBaseStyles(prefix: string): string {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* Wireframe boundary visualization */
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
