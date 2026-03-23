@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.7.1-beta.0](https://github.com/wireweave/core/compare/v2.7.0...v2.7.1-beta.0) (2026-03-21)
+
+### Bug Fixes
+
+* **renderer:** prevent page shrinking in flex containers ([9d23737](https://github.com/wireweave/core/commit/9d2373786c57215bbfcfa67533ee47fe9d8298ff))
+
+### Documentation
+
+* **rules:** add fixed layout rendering philosophy ([96a503f](https://github.com/wireweave/core/commit/96a503f3154a7fcf68c1eefda2849bb6b0a534fa))
+
 ## [2.7.0](https://github.com/wireweave/core/compare/v2.7.0-beta.0...v2.7.0) (2026-03-17)
 
 ## [2.7.0-beta.0](https://github.com/wireweave/core/compare/v2.6.2...v2.7.0-beta.0) (2026-03-17)
