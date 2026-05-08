@@ -379,6 +379,9 @@ function generateLayoutClasses(prefix: string): string {
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -420,7 +423,7 @@ function generateLayoutClasses(prefix: string): string {
 }
 
 .${prefix}-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--${prefix}-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
