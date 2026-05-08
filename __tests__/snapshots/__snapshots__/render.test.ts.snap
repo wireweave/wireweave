@@ -447,6 +447,9 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -488,7 +491,7 @@ exports[`Render Snapshots > CSS Snapshots > should generate dark theme CSS 1`] =
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -2391,6 +2394,9 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -2432,7 +2438,7 @@ exports[`Render Snapshots > CSS Snapshots > should generate light theme CSS 1`] 
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -4412,6 +4418,9 @@ body {
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -4453,7 +4462,7 @@ body {
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -6386,6 +6395,9 @@ body {
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -6427,7 +6439,7 @@ body {
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -8482,6 +8494,9 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -8523,7 +8538,7 @@ exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -10450,6 +10465,9 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -10491,7 +10509,7 @@ exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -12419,6 +12437,9 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -12460,7 +12481,7 @@ exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -14389,6 +14410,9 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -14430,7 +14454,7 @@ exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -16363,6 +16387,9 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -16404,7 +16431,7 @@ exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`]
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;
@@ -18329,6 +18356,9 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
   padding: 16px;
   display: flex;
   flex-direction: column;
+  /* Default vertical spacing between stacked content blocks.
+     Inline gap from DSL (main gap=N) overrides this. */
+  gap: 16px;
   min-height: 0;
 }
 
@@ -18370,7 +18400,7 @@ exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = 
 }
 
 .wf-sidebar {
-  width: 256px;
+  width: 224px;
   border-right: 1px solid var(--wf-border);
   padding: 16px 16px 16px 20px;
   flex-shrink: 0;

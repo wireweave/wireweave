@@ -139,6 +139,8 @@ export function renderBreadcrumb(node: BreadcrumbNode, ctx: RenderContext): stri
   const styles = ctx.buildCommonStyles(node);
   const styleAttr = styles ? ` style="${styles}"` : '';
 
+  const separator = `<span class="${ctx.prefix}-breadcrumb-separator" aria-hidden="true">|</span>`;
+
   const items = node.items
     .map((item, idx) => {
       const isLast = idx === node.items.length - 1;
@@ -151,7 +153,7 @@ export function renderBreadcrumb(node: BreadcrumbNode, ctx: RenderContext): stri
         ? `<span class="${ctx.prefix}-breadcrumb-item" aria-current="page">${ctx.escapeHtml(item.label)}</span>`
         : `<a class="${ctx.prefix}-breadcrumb-item" href="${item.href || '#'}">${ctx.escapeHtml(item.label)}</a>`;
     })
-    .join(' / ');
+    .join(separator);
 
   return `<nav class="${classes}"${styleAttr} aria-label="Breadcrumb">${items}</nav>`;
 }
