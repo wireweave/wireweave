@@ -30,6 +30,28 @@ export interface RenderResult {
   css: string;
 }
 
+/**
+ * Result of rendering a single page in isolation (`renderPage`).
+ * Carries the resolved pixel dimensions so callers (export pipelines, hosts)
+ * can size their wrapper without re-resolving viewport/device themselves.
+ */
+export interface PageRenderResult extends RenderResult {
+  width: number;
+  height: number;
+}
+
+export interface CanvasOptions extends RenderOptions {
+  /** Gap between auto-laid-out pages, in pixels. Default `64`. */
+  gap?: number;
+}
+
+export interface CanvasRenderResult extends RenderResult {
+  /** Total canvas width — bounding box of all pages. */
+  width: number;
+  /** Total canvas height — bounding box of all pages. */
+  height: number;
+}
+
 export interface SvgRenderOptions {
   /** Width of the SVG viewport */
   width?: number;

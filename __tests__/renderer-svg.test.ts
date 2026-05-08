@@ -28,12 +28,14 @@ describe('SVG Renderer', () => {
       const doc = createDocument([]);
       const result = renderToSvg(doc);
 
+      // No explicit viewport on the page → resolves to DEFAULT_VIEWPORT (1440x900).
+      // SVG sizes itself to the page's natural dimensions, not an arbitrary canvas.
       expect(result.svg).toContain('<?xml version="1.0" encoding="UTF-8"?>');
       expect(result.svg).toContain('<svg xmlns="http://www.w3.org/2000/svg"');
-      expect(result.svg).toContain('viewBox="0 0 800 600"');
+      expect(result.svg).toContain('viewBox="0 0 1440 900"');
       expect(result.svg).toContain('<foreignObject');
-      expect(result.width).toBe(800);
-      expect(result.height).toBe(600);
+      expect(result.width).toBe(1440);
+      expect(result.height).toBe(900);
     });
 
     it('should render with custom dimensions', () => {

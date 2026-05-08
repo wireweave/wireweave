@@ -16,10 +16,12 @@
   }
 
   // Helper: Flatten array of attributes into object
+  // attrs entries can be a single { name, value } or an array of them
+  // (functional-form attributes like at(x, y) emit multiple).
   function attrsToObject(attrs) {
     if (!attrs || attrs.length === 0) return {};
     const result = {};
-    for (const attr of attrs) {
+    for (const attr of attrs.flat()) {
       result[attr.name] = attr.value;
     }
     return result;
@@ -31,8 +33,10 @@
 // ============================================================
 
 Document
-  = _ children:TopLevelElement* _ {
-      return createNode('Document', { children: children.filter(c => c !== null) });
+  = _ children:(TopLevelElement _)* {
+      return createNode('Document', {
+        children: children.map(c => c[0]).filter(c => c !== null)
+      });
     }
 
 TopLevelElement
@@ -681,7 +685,15 @@ Attributes
   = attrs:Attribute+ { return attrs; }
 
 Attribute
-  = _ name:AttributeName _ "=" _ value:AttributeValue {
+  = _ "at" !IdentifierChar _ "(" _ x:Number _ "," _ y:Number _ ")" {
+      // Canvas coordinates for `page` placement: `page "X" at(0, 0) { ... }`
+      // Emits two attributes (x, y) to be flattened by attrsToObject.
+      return [
+        { name: 'x', value: x },
+        { name: 'y', value: y }
+      ];
+    }
+  / _ name:AttributeName _ "=" _ value:AttributeValue {
       return { name, value };
     }
   / _ flag:AttributeName &(_ (ChildKeyword / AttributeName / "=" / "{" / "}" / "[" / "//" / "/*" / !.)) {

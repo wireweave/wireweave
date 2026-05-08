@@ -92,7 +92,6 @@ export function renderDropdown(node: DropdownNode, ctx: RenderContext): string {
         'data-action': dropdownItem.action,
       };
       const interactiveAttrStr = ctx.buildAttrsString(interactiveAttrs);
-      const hrefAttr = dropdownItem.href ? ` href="${ctx.escapeHtml(dropdownItem.href)}"` : '';
       const disabledAttr = dropdownItem.disabled ? ' disabled="disabled"' : '';
 
       // Use <a> if href is provided, otherwise use <button>
