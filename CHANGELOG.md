@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.8.0](https://github.com/wireweave/core/compare/v2.7.1...v2.8.0) (2026-05-08)
+
+### Features
+
+* **renderer:** default vertical gap on main, tighter sidebar, visible breadcrumb separator ([27668b7](https://github.com/wireweave/core/commit/27668b778e4db6f0c0d93393a014cbd88085d3a9))
+
 ## [2.7.1](https://github.com/wireweave/core/compare/v2.7.1-beta.0...v2.7.1) (2026-03-23)
 
 ## [2.7.1-beta.0](https://github.com/wireweave/core/compare/v2.7.0...v2.7.1-beta.0) (2026-03-21)
