@@ -8035,12 +8035,12 @@ exports[`Render Snapshots > HTML Snapshots > should render table 1`] = `
 exports[`Render Snapshots > SVG Snapshots > should render buttons to SVG 1`] = `
 "<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 800 600" width="800" height="600">
+     viewBox="0 0 1440 900" width="1440" height="900">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <foreignObject x="0" y="0" width="800" height="600">
+  <foreignObject x="0" y="0" width="1440" height="900">
     <div xmlns="http://www.w3.org/1999/xhtml" style="
-      width: 800px;
-      height: 600px;
+      width: 1440px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -10006,12 +10006,12 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 exports[`Render Snapshots > SVG Snapshots > should render card to SVG 1`] = `
 "<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 800 600" width="800" height="600">
+     viewBox="0 0 1440 900" width="1440" height="900">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <foreignObject x="0" y="0" width="800" height="600">
+  <foreignObject x="0" y="0" width="1440" height="900">
     <div xmlns="http://www.w3.org/1999/xhtml" style="
-      width: 800px;
-      height: 600px;
+      width: 1440px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -11978,12 +11978,12 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 exports[`Render Snapshots > SVG Snapshots > should render form to SVG 1`] = `
 "<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 800 600" width="800" height="600">
+     viewBox="0 0 1440 900" width="1440" height="900">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <foreignObject x="0" y="0" width="800" height="600">
+  <foreignObject x="0" y="0" width="1440" height="900">
     <div xmlns="http://www.w3.org/1999/xhtml" style="
-      width: 800px;
-      height: 600px;
+      width: 1440px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -13951,12 +13951,12 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 exports[`Render Snapshots > SVG Snapshots > should render layout to SVG 1`] = `
 "<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 800 600" width="800" height="600">
+     viewBox="0 0 1440 900" width="1440" height="900">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <foreignObject x="0" y="0" width="800" height="600">
+  <foreignObject x="0" y="0" width="1440" height="900">
     <div xmlns="http://www.w3.org/1999/xhtml" style="
-      width: 800px;
-      height: 600px;
+      width: 1440px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -15928,12 +15928,12 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 exports[`Render Snapshots > SVG Snapshots > should render simple text to SVG 1`] = `
 "<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 800 600" width="800" height="600">
+     viewBox="0 0 1440 900" width="1440" height="900">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <foreignObject x="0" y="0" width="800" height="600">
+  <foreignObject x="0" y="0" width="1440" height="900">
     <div xmlns="http://www.w3.org/1999/xhtml" style="
-      width: 800px;
-      height: 600px;
+      width: 1440px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -17897,12 +17897,12 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
 exports[`Render Snapshots > SVG Snapshots > should respect padding option 1`] = `
 "<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 800 600" width="800" height="600">
+     viewBox="0 0 1440 900" width="1440" height="900">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <foreignObject x="0" y="0" width="800" height="600">
+  <foreignObject x="0" y="0" width="1440" height="900">
     <div xmlns="http://www.w3.org/1999/xhtml" style="
-      width: 800px;
-      height: 600px;
+      width: 1440px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       justify-content: center;

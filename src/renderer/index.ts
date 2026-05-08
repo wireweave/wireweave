@@ -6,8 +6,9 @@
 
 import type { WireframeDocument } from '../ast/types';
 import { createHtmlRenderer } from './html';
-import type { RenderOptions, RenderResult, SvgRenderOptions, SvgRenderResult } from './types';
-import { resolveViewport } from '../viewport';
+import type { RenderOptions, RenderResult, SvgRenderOptions, SvgRenderResult, CanvasOptions } from './types';
+import { renderCanvas } from './canvas-renderer';
+import { resolvePageDimensions } from './page-renderer';
 
 // Re-export types
 export * from './types';
@@ -15,18 +16,41 @@ export { HtmlRenderer, createHtmlRenderer } from './html';
 export { generateStyles } from './styles';
 export { generateComponentStyles } from './styles-components';
 
+// Multi-page primitives — see canvas-renderer.ts / page-renderer.ts for the
+// architecture rationale. `renderPage` is the export-side single source of
+// truth; `renderCanvas` is the display-side composition.
+export { renderPage, resolvePageDimensions } from './page-renderer';
+export { renderCanvas, layoutCanvas } from './canvas-renderer';
+export type { PlacedPage } from './canvas-renderer';
+
 // Re-export icons (ensures they're bundled with renderer)
 export { getIconData, renderIconSvg, lucideIcons } from '../icons/lucide-icons';
 export type { IconData, IconElement } from '../icons/lucide-icons';
 
 /**
- * Render AST to HTML and CSS
+ * Render AST to HTML and CSS.
  *
- * @param document - Parsed wireframe document
- * @param options - Render options
- * @returns Object containing HTML and CSS strings
+ * Two modes, decided automatically by page count:
+ *   1. Multiple pages → canvas mode (bounded layout, absolutely-positioned
+ *      boards). Hosts wrap this in their own viewport / grid / pan-zoom layer.
+ *   2. Single page → legacy mode (page only, no canvas wrapper) for
+ *      backward compatibility with single-page consumers (markdown-plugin,
+ *      dashboard previews, vscode-extension).
+ *
+ * Use `renderPage(page)` for explicit single-page export, or
+ * `renderCanvas(doc)` for explicit multi-page composition.
  */
-export function render(document: WireframeDocument, options: RenderOptions = {}): RenderResult {
+export function render(
+  document: WireframeDocument,
+  options: RenderOptions | CanvasOptions = {}
+): RenderResult {
+  const isMultiPage = document.children.length > 1;
+
+  if (isMultiPage) {
+    const result = renderCanvas(document, options);
+    return { html: result.html, css: result.css };
+  }
+
   const renderer = createHtmlRenderer(options);
   return renderer.render(document);
 }
@@ -77,6 +101,10 @@ ${html}
  * This approach embeds HTML+CSS inside SVG using foreignObject,
  * which allows CSS flexbox/grid layouts to work properly.
  *
+ * Multi-page documents are auto-rendered as a bounded canvas, with the
+ * SVG viewBox sized to the canvas bounding box. Single-page documents
+ * keep their legacy single-page sizing.
+ *
  * @param document - Parsed wireframe document
  * @param options - SVG render options
  * @returns Object containing SVG string and dimensions
@@ -85,32 +113,35 @@ export function renderToSvg(
   document: WireframeDocument,
   options: SvgRenderOptions = {}
 ): SvgRenderResult {
-  // Check for viewport settings in the first page
-  const firstPage = document.children[0];
+  const isMultiPage = document.children.length > 1;
   let width = options.width ?? 800;
   let height = options.height ?? 600;
+  let html: string;
+  let css: string;
 
-  // Use page dimensions if set and no explicit options provided
-  // Check direct width/height first, then viewport/device
-  if (firstPage && options.width === undefined && options.height === undefined) {
-    const pageAny = firstPage as typeof firstPage & { width?: number; height?: number };
-    const explicitW = firstPage.w ?? pageAny.width;
-    const explicitH = firstPage.h ?? pageAny.height;
-
-    if (typeof explicitW === 'number' && typeof explicitH === 'number') {
-      width = explicitW;
-      height = explicitH;
-    } else if (firstPage.viewport !== undefined || firstPage.device !== undefined) {
-      const viewport = resolveViewport(firstPage.viewport, firstPage.device);
-      width = viewport.width;
-      height = viewport.height;
+  if (isMultiPage) {
+    const canvas = renderCanvas(document, {
+      theme: options.theme ?? 'light',
+    });
+    if (options.width === undefined && options.height === undefined) {
+      width = canvas.width;
+      height = canvas.height;
     }
+    html = canvas.html;
+    css = canvas.css;
+  } else {
+    const firstPage = document.children[0];
+    if (firstPage && options.width === undefined && options.height === undefined) {
+      const dims = resolvePageDimensions(firstPage);
+      width = dims.width;
+      height = dims.height;
+    }
+    const result = render(document, { theme: options.theme ?? 'light' });
+    html = result.html;
+    css = result.css;
   }
 
   const background = options.background ?? '#ffffff';
-
-  // Use HTML renderer to generate content
-  const { html, css } = render(document, { theme: options.theme ?? 'light' });
 
   // Build SVG with foreignObject containing HTML+CSS
   // Use same wrapper styles as renderToHtml for consistency

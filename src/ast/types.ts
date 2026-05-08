@@ -145,6 +145,17 @@ export interface InteractiveProps {
 // Document Node
 // ===========================================
 
+/**
+ * Wireframe Document — root node, holds zero or more `Page`s.
+ *
+ * Multi-page semantics:
+ * - A document is a *canvas* of pages. `renderPage` consumes one page;
+ *   `renderCanvas` composes all pages into one canvas (grid auto-layout
+ *   when no coords are set, absolute positioning when `at(x, y)` is set).
+ * - The canvas itself (gap, layout) is a *renderer* concern, not part of
+ *   the DSL — see `CanvasOptions` in `renderer/types.ts`. Chrome / grid /
+ *   pan-zoom are host concerns and live entirely outside the renderer.
+ */
 export interface WireframeDocument extends BaseNode {
   type: 'Document';
   children: PageNode[];
@@ -154,6 +165,18 @@ export interface WireframeDocument extends BaseNode {
 // Layout Nodes
 // ===========================================
 
+/**
+ * Page — a single fixed-size board (one wireframe screen).
+ *
+ * Note on `x` / `y` (inherited from `PositionProps` via `CommonProps`):
+ * for `Page` these are **canvas coordinates** — the position of this page's
+ * top-left corner on the multi-page canvas, in pixels. They are written in
+ * DSL as `page "Login" at(0, 0) { ... }`. Pages without `at(...)` get
+ * auto-grid placement at canvas-render time.
+ *
+ * For non-page nodes the same `x` / `y` mean position inside a `Relative`
+ * parent — context disambiguates.
+ */
 export interface PageNode extends BaseNode, CommonProps {
   type: 'Page';
   title?: string | null;

@@ -332,7 +332,12 @@ export class HtmlRenderer extends BaseRenderer {
 
     // Build common styles (padding, margin, etc.) and combine with viewport dimensions
     // Add position: relative to serve as containing block for absolute positioned children
-    const commonStyles = this.buildCommonStyles(node);
+    // Page's x/y are canvas-level metadata (from `at(x, y)`) — placement is the
+    // canvas wrapper's responsibility, never the page element's own style.
+    const { x: _canvasX, y: _canvasY, ...nodeWithoutCanvasPos } = node;
+    void _canvasX;
+    void _canvasY;
+    const commonStyles = this.buildCommonStyles(nodeWithoutCanvasPos);
     let viewportStyle = `position: relative; width: ${viewport.width}px; height: ${viewport.height}px; overflow: hidden`;
 
     // Apply background option as inline style (not to theme.colors.background)

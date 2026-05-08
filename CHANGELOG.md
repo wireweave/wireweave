@@ -1,5 +1,41 @@
 # Changelog
 
+## [3.0.0-beta.0](https://github.com/wireweave/core/compare/v2.8.0...v3.0.0-beta.0) (2026-05-08)
+
+### ⚠ BREAKING CHANGES
+
+* **renderer:** renderCanvas no longer emits chrome / grid / labels.
+The renderer now produces a single bounded `<div class="wf-canvas">` of the
+exact layout extent containing absolutely-positioned `<div class="wf-canvas-board">`
+wrappers. Hosts (dashboard infinite-canvas viewer, markdown-plugin, vscode-extension,
+SVG export) are responsible for chrome, grid, pan-zoom, and labels.
+
+Removed:
+- `CanvasChrome` type and `chrome` / `canvasBackground` options on `CanvasOptions`
+- chrome routing in `render()` / `renderToSvg()`
+
+Added:
+- `page "X" at(x, y) { ... }` grammar — canvas coordinates resolved into
+  `Page.x` / `Page.y` for explicit placement; pages without `at(...)` auto-flow
+  horizontally with configurable gap (default 64px)
+- `renderPage(page)` — pure single-page export primitive
+- `renderCanvas(doc, opts?)` — multi-page composition (gap-only options)
+- `layoutCanvas(pages, gap?)` — pure utility that returns `{ placed, width, height }`
+  so hosts can compose their own DOM
+- `PlacedPage` public type
+- `data-page-x` / `data-page-y` / `data-page-w` / `data-page-h` /
+  `data-page-title` attributes on each board for host-DOM communication
+
+Migration:
+- `renderCanvas(doc, { chrome: 'editor' })` → `renderCanvas(doc)` and let the host
+  apply its own chrome (Figma-style grid is the dashboard editor's responsibility)
+- `chrome: 'preview'` consumers (markdown-plugin, vscode-extension preview)
+  already work — they don't pass `chrome` and now receive bare bounded layout
+
+### Features
+
+* **renderer:** multi-page canvas with bounded layout output ([a93548f](https://github.com/wireweave/core/commit/a93548fd484505da098d8e463da9d3df080572a1))
+
 ## [2.8.0](https://github.com/wireweave/core/compare/v2.7.1...v2.8.0) (2026-05-08)
 
 ### Features
