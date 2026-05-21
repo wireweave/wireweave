@@ -5,7 +5,7 @@
  * The output can be directly used by a Figma plugin to create nodes.
  */
 
-import type { WireframeDocument, AnyNode, SpacingValue, ValueWithUnit } from '../ast/types';
+import type { WireframeDocument, AnyNode, SpacingValue, ValueWithUnit } from '../ast/types'
 import type {
   FigmaNode,
   FigmaExportResult,
@@ -21,8 +21,8 @@ import type {
   FigmaColor,
   FigmaSolidFill,
   FigmaStroke,
-} from './types';
-import { getNodeContent, extractAttributes, getComponentTypes } from './utils';
+} from './types'
+import { getNodeContent, extractAttributes, getComponentTypes } from './utils'
 
 // ===========================================
 // Constants
@@ -46,7 +46,7 @@ const SPACING_SCALE: Record<number, number> = {
   12: 48,
   14: 56,
   16: 64,
-};
+}
 
 /**
  * Text size scale: token -> px
@@ -60,7 +60,7 @@ const TEXT_SIZE_SCALE: Record<string, number> = {
   xl: 20,
   '2xl': 24,
   '3xl': 30,
-};
+}
 
 /**
  * Font weight scale: token -> numeric
@@ -70,7 +70,7 @@ const FONT_WEIGHT_SCALE: Record<string, number> = {
   medium: 500,
   semibold: 600,
   bold: 700,
-};
+}
 
 /**
  * Predefined colors
@@ -82,20 +82,20 @@ const COLORS: Record<string, FigmaColor> = {
   border: { r: 0.9, g: 0.9, b: 0.9, a: 1 },
   text: { r: 0.1, g: 0.1, b: 0.1, a: 1 },
   textMuted: { r: 0.5, g: 0.5, b: 0.5, a: 1 },
-};
+}
 
 // ===========================================
 // ID Generator
 // ===========================================
 
-let figmaIdCounter = 0;
+let figmaIdCounter = 0
 
 function generateFigmaId(): string {
-  return `node-${++figmaIdCounter}`;
+  return `node-${++figmaIdCounter}`
 }
 
 export function resetFigmaIdCounter(): void {
-  figmaIdCounter = 0;
+  figmaIdCounter = 0
 }
 
 // ===========================================
@@ -106,44 +106,44 @@ export function resetFigmaIdCounter(): void {
  * Convert spacing value to pixels
  */
 function spacingToPx(value: SpacingValue | undefined): number {
-  if (value === undefined) return 0;
+  if (value === undefined) return 0
 
   if (typeof value === 'number') {
-    return SPACING_SCALE[value] ?? value * 4;
+    return SPACING_SCALE[value] ?? value * 4
   }
 
   // ValueWithUnit
-  const unit = value.unit;
-  if (unit === 'px') return value.value;
-  if (unit === 'rem') return value.value * 16;
-  if (unit === 'em') return value.value * 16;
+  const unit = value.unit
+  if (unit === 'px') return value.value
+  if (unit === 'rem') return value.value * 16
+  if (unit === 'em') return value.value * 16
 
-  return value.value;
+  return value.value
 }
 
 /**
  * Convert text size to pixels
  */
 function textSizeToPx(size: string | ValueWithUnit | undefined): number {
-  if (size === undefined) return 16;
+  if (size === undefined) return 16
 
   if (typeof size === 'string') {
-    return TEXT_SIZE_SCALE[size] ?? 16;
+    return TEXT_SIZE_SCALE[size] ?? 16
   }
 
   // ValueWithUnit
-  if (size.unit === 'px') return size.value;
-  if (size.unit === 'rem') return size.value * 16;
+  if (size.unit === 'px') return size.value
+  if (size.unit === 'rem') return size.value * 16
 
-  return size.value;
+  return size.value
 }
 
 /**
  * Convert font weight to numeric
  */
 function fontWeightToNumeric(weight: string | undefined): number {
-  if (weight === undefined) return 400;
-  return FONT_WEIGHT_SCALE[weight] ?? 400;
+  if (weight === undefined) return 400
+  return FONT_WEIGHT_SCALE[weight] ?? 400
 }
 
 /**
@@ -151,33 +151,33 @@ function fontWeightToNumeric(weight: string | undefined): number {
  */
 function sizeValueToPx(
   value: number | ValueWithUnit | 'full' | 'auto' | 'screen' | 'fit' | undefined,
-  defaultValue: number = 0
+  defaultValue: number = 0,
 ): { value: number; sizing: FigmaSizingMode } {
   if (value === undefined) {
-    return { value: defaultValue, sizing: 'HUG' };
+    return { value: defaultValue, sizing: 'HUG' }
   }
 
   if (value === 'full' || value === 'screen') {
-    return { value: defaultValue, sizing: 'FILL' };
+    return { value: defaultValue, sizing: 'FILL' }
   }
 
   if (value === 'auto' || value === 'fit') {
-    return { value: defaultValue, sizing: 'HUG' };
+    return { value: defaultValue, sizing: 'HUG' }
   }
 
   if (typeof value === 'number') {
-    return { value, sizing: 'FIXED' };
+    return { value, sizing: 'FIXED' }
   }
 
   // ValueWithUnit
   if (value.unit === 'px') {
-    return { value: value.value, sizing: 'FIXED' };
+    return { value: value.value, sizing: 'FIXED' }
   }
   if (value.unit === '%') {
-    return { value: 0, sizing: 'FILL' };
+    return { value: 0, sizing: 'FILL' }
   }
 
-  return { value: value.value, sizing: 'FIXED' };
+  return { value: value.value, sizing: 'FIXED' }
 }
 
 // ===========================================
@@ -196,9 +196,9 @@ function mapToFigmaType(type: string): FigmaNodeType {
     image: 'RECTANGLE',
     placeholder: 'RECTANGLE',
     divider: 'RECTANGLE',
-  };
+  }
 
-  return typeMap[type.toLowerCase()] || 'FRAME';
+  return typeMap[type.toLowerCase()] || 'FRAME'
 }
 
 /**
@@ -212,8 +212,8 @@ function mapJustify(justify: string | undefined): FigmaPrimaryAxisAlign {
     between: 'SPACE_BETWEEN',
     around: 'SPACE_BETWEEN', // Figma doesn't have SPACE_AROUND
     evenly: 'SPACE_BETWEEN', // Figma doesn't have SPACE_EVENLY
-  };
-  return map[justify || 'start'] || 'MIN';
+  }
+  return map[justify || 'start'] || 'MIN'
 }
 
 /**
@@ -226,8 +226,8 @@ function mapAlign(align: string | undefined): FigmaCounterAxisAlign {
     end: 'MAX',
     stretch: 'STRETCH',
     baseline: 'BASELINE',
-  };
-  return map[align || 'stretch'] || 'STRETCH';
+  }
+  return map[align || 'stretch'] || 'STRETCH'
 }
 
 /**
@@ -239,8 +239,8 @@ function mapTextAlign(align: string | undefined): FigmaTextAlign {
     center: 'CENTER',
     right: 'RIGHT',
     justify: 'JUSTIFIED',
-  };
-  return map[align || 'left'] || 'LEFT';
+  }
+  return map[align || 'left'] || 'LEFT'
 }
 
 // ===========================================
@@ -251,7 +251,7 @@ function mapTextAlign(align: string | undefined): FigmaTextAlign {
  * Get attribute from node safely
  */
 function getAttr<T>(node: AnyNode, key: string): T | undefined {
-  return (node as unknown as Record<string, T>)[key];
+  return (node as unknown as Record<string, T>)[key]
 }
 
 /**
@@ -259,38 +259,38 @@ function getAttr<T>(node: AnyNode, key: string): T | undefined {
  */
 function extractAutoLayout(node: AnyNode): FigmaAutoLayout {
   // Determine layout mode
-  let layoutMode: FigmaLayoutMode = 'VERTICAL'; // Default for containers
-  const direction = getAttr<string>(node, 'direction');
+  let layoutMode: FigmaLayoutMode = 'VERTICAL' // Default for containers
+  const direction = getAttr<string>(node, 'direction')
 
   if (direction === 'row' || direction === 'row-reverse') {
-    layoutMode = 'HORIZONTAL';
+    layoutMode = 'HORIZONTAL'
   } else if (direction === 'column' || direction === 'column-reverse') {
-    layoutMode = 'VERTICAL';
+    layoutMode = 'VERTICAL'
   }
 
   // Special cases: Row is horizontal, Col/Stack is vertical
-  const type = node.type.toLowerCase();
-  if (type === 'row') layoutMode = 'HORIZONTAL';
-  if (type === 'col' || type === 'stack') layoutMode = 'VERTICAL';
+  const type = node.type.toLowerCase()
+  if (type === 'row') layoutMode = 'HORIZONTAL'
+  if (type === 'col' || type === 'stack') layoutMode = 'VERTICAL'
 
   // Extract padding
-  const p = spacingToPx(getAttr<SpacingValue>(node, 'p'));
-  const pxVal = getAttr<SpacingValue>(node, 'px');
-  const pyVal = getAttr<SpacingValue>(node, 'py');
-  const px = pxVal !== undefined ? spacingToPx(pxVal) : p;
-  const py = pyVal !== undefined ? spacingToPx(pyVal) : p;
-  const ptVal = getAttr<SpacingValue>(node, 'pt');
-  const prVal = getAttr<SpacingValue>(node, 'pr');
-  const pbVal = getAttr<SpacingValue>(node, 'pb');
-  const plVal = getAttr<SpacingValue>(node, 'pl');
-  const pt = ptVal !== undefined ? spacingToPx(ptVal) : py;
-  const pr = prVal !== undefined ? spacingToPx(prVal) : px;
-  const pb = pbVal !== undefined ? spacingToPx(pbVal) : py;
-  const pl = plVal !== undefined ? spacingToPx(plVal) : px;
+  const p = spacingToPx(getAttr<SpacingValue>(node, 'p'))
+  const pxVal = getAttr<SpacingValue>(node, 'px')
+  const pyVal = getAttr<SpacingValue>(node, 'py')
+  const px = pxVal !== undefined ? spacingToPx(pxVal) : p
+  const py = pyVal !== undefined ? spacingToPx(pyVal) : p
+  const ptVal = getAttr<SpacingValue>(node, 'pt')
+  const prVal = getAttr<SpacingValue>(node, 'pr')
+  const pbVal = getAttr<SpacingValue>(node, 'pb')
+  const plVal = getAttr<SpacingValue>(node, 'pl')
+  const pt = ptVal !== undefined ? spacingToPx(ptVal) : py
+  const pr = prVal !== undefined ? spacingToPx(prVal) : px
+  const pb = pbVal !== undefined ? spacingToPx(pbVal) : py
+  const pl = plVal !== undefined ? spacingToPx(plVal) : px
 
   // Extract sizing
-  const wResult = sizeValueToPx(getAttr(node, 'w'), 0);
-  const hResult = sizeValueToPx(getAttr(node, 'h'), 0);
+  const wResult = sizeValueToPx(getAttr(node, 'w'), 0)
+  const hResult = sizeValueToPx(getAttr(node, 'h'), 0)
 
   return {
     layoutMode,
@@ -304,72 +304,78 @@ function extractAutoLayout(node: AnyNode): FigmaAutoLayout {
     paddingLeft: pl,
     itemSpacing: spacingToPx(getAttr<SpacingValue>(node, 'gap')),
     layoutWrap: getAttr(node, 'wrap') ? 'WRAP' : 'NO_WRAP',
-  };
+  }
 }
 
 /**
  * Extract size properties from node
  */
-function extractSize(node: AnyNode, defaultWidth: number = 100, defaultHeight: number = 100): FigmaSize {
-  const wResult = sizeValueToPx(getAttr(node, 'w'), defaultWidth);
-  const hResult = sizeValueToPx(getAttr(node, 'h'), defaultHeight);
+function extractSize(
+  node: AnyNode,
+  defaultWidth: number = 100,
+  defaultHeight: number = 100,
+): FigmaSize {
+  const wResult = sizeValueToPx(getAttr(node, 'w'), defaultWidth)
+  const hResult = sizeValueToPx(getAttr(node, 'h'), defaultHeight)
 
   const size: FigmaSize = {
     width: wResult.value || defaultWidth,
     height: hResult.value || defaultHeight,
-  };
+  }
 
-  const minW = getAttr<SpacingValue>(node, 'minW');
-  const maxW = getAttr<SpacingValue>(node, 'maxW');
-  const minH = getAttr<SpacingValue>(node, 'minH');
-  const maxH = getAttr<SpacingValue>(node, 'maxH');
+  const minW = getAttr<SpacingValue>(node, 'minW')
+  const maxW = getAttr<SpacingValue>(node, 'maxW')
+  const minH = getAttr<SpacingValue>(node, 'minH')
+  const maxH = getAttr<SpacingValue>(node, 'maxH')
 
-  if (minW !== undefined) size.minWidth = spacingToPx(minW);
-  if (maxW !== undefined) size.maxWidth = spacingToPx(maxW);
-  if (minH !== undefined) size.minHeight = spacingToPx(minH);
-  if (maxH !== undefined) size.maxHeight = spacingToPx(maxH);
+  if (minW !== undefined) size.minWidth = spacingToPx(minW)
+  if (maxW !== undefined) size.maxWidth = spacingToPx(maxW)
+  if (minH !== undefined) size.minHeight = spacingToPx(minH)
+  if (maxH !== undefined) size.maxHeight = spacingToPx(maxH)
 
-  return size;
+  return size
 }
 
 /**
  * Extract text style properties from node
  */
 function extractTextStyle(node: AnyNode): FigmaTextStyle {
-  const content = getNodeContent(node) || '';
+  const content = getNodeContent(node) || ''
 
   return {
     fontSize: textSizeToPx(getAttr(node, 'size')),
     fontWeight: fontWeightToNumeric(getAttr<string>(node, 'weight')),
     textAlignHorizontal: mapTextAlign(getAttr<string>(node, 'align')),
     characters: content,
-  };
+  }
 }
 
 /**
  * Extract fills from node
  */
 function extractFills(node: AnyNode): FigmaSolidFill[] | undefined {
-  const bg = getAttr<string>(node, 'bg');
+  const bg = getAttr<string>(node, 'bg')
 
-  if (!bg) return undefined;
+  if (!bg) return undefined
 
-  const color = COLORS[bg];
-  if (!color) return undefined;
+  const color = COLORS[bg]
+  if (!color) return undefined
 
-  return [{ type: 'SOLID', color }];
+  return [{ type: 'SOLID', color }]
 }
 
 /**
  * Extract strokes from node
  */
-function extractStrokes(node: AnyNode): { strokes: FigmaStroke[]; strokeWeight: number } | undefined {
-  if (!getAttr(node, 'border')) return undefined;
+function extractStrokes(
+  node: AnyNode,
+): { strokes: FigmaStroke[]; strokeWeight: number } | undefined {
+  if (!getAttr(node, 'border')) return undefined
 
   return {
     strokes: [{ type: 'SOLID', color: COLORS.border }],
     strokeWeight: 1,
-  };
+  }
 }
 
 // ===========================================
@@ -380,8 +386,8 @@ function extractStrokes(node: AnyNode): { strokes: FigmaStroke[]; strokeWeight: 
  * Convert AST node to Figma-compatible node
  */
 function nodeToFigma(node: AnyNode): FigmaNode {
-  const figmaType = mapToFigmaType(node.type);
-  const content = getNodeContent(node);
+  const figmaType = mapToFigmaType(node.type)
+  const content = getNodeContent(node)
 
   const figmaNode: FigmaNode = {
     id: generateFigmaId(),
@@ -389,65 +395,65 @@ function nodeToFigma(node: AnyNode): FigmaNode {
     type: figmaType,
     visible: true,
     wireweaveType: node.type.toLowerCase(),
-  };
+  }
 
   // Add original attributes for reference
-  const attrs = extractAttributes(node, { includeEmptyAttributes: false });
+  const attrs = extractAttributes(node, { includeEmptyAttributes: false })
   if (Object.keys(attrs).length > 0) {
-    figmaNode.wireweaveAttributes = attrs;
+    figmaNode.wireweaveAttributes = attrs
   }
 
   // Add type-specific properties
   if (figmaType === 'FRAME') {
-    figmaNode.autoLayout = extractAutoLayout(node);
-    figmaNode.size = extractSize(node);
+    figmaNode.autoLayout = extractAutoLayout(node)
+    figmaNode.size = extractSize(node)
 
-    const fills = extractFills(node);
-    if (fills) figmaNode.fills = fills;
+    const fills = extractFills(node)
+    if (fills) figmaNode.fills = fills
 
-    const strokeInfo = extractStrokes(node);
+    const strokeInfo = extractStrokes(node)
     if (strokeInfo) {
-      figmaNode.strokes = strokeInfo.strokes;
-      figmaNode.strokeWeight = strokeInfo.strokeWeight;
+      figmaNode.strokes = strokeInfo.strokes
+      figmaNode.strokeWeight = strokeInfo.strokeWeight
     }
 
     // Card specific: corner radius
     if (node.type.toLowerCase() === 'card') {
-      figmaNode.cornerRadius = 8;
+      figmaNode.cornerRadius = 8
     }
   } else if (figmaType === 'TEXT') {
-    figmaNode.textStyle = extractTextStyle(node);
+    figmaNode.textStyle = extractTextStyle(node)
 
     // Muted text color
     if (getAttr(node, 'muted')) {
-      figmaNode.fills = [{ type: 'SOLID', color: COLORS.textMuted }];
+      figmaNode.fills = [{ type: 'SOLID', color: COLORS.textMuted }]
     }
   } else if (figmaType === 'RECTANGLE') {
-    figmaNode.size = extractSize(node, 200, 150);
+    figmaNode.size = extractSize(node, 200, 150)
 
-    const fills = extractFills(node);
+    const fills = extractFills(node)
     if (fills) {
-      figmaNode.fills = fills;
+      figmaNode.fills = fills
     } else {
       // Default placeholder/image background
-      figmaNode.fills = [{ type: 'SOLID', color: COLORS.muted }];
+      figmaNode.fills = [{ type: 'SOLID', color: COLORS.muted }]
     }
   }
 
   // Process children
   if ('children' in node && Array.isArray(node.children)) {
-    const children: FigmaNode[] = [];
+    const children: FigmaNode[] = []
     for (const child of node.children) {
       if (child && typeof child === 'object' && 'type' in child) {
-        children.push(nodeToFigma(child as AnyNode));
+        children.push(nodeToFigma(child as AnyNode))
       }
     }
     if (children.length > 0) {
-      figmaNode.children = children;
+      figmaNode.children = children
     }
   }
 
-  return figmaNode;
+  return figmaNode
 }
 
 // ===========================================
@@ -468,7 +474,7 @@ function nodeToFigma(node: AnyNode): FigmaNode {
  * @returns Figma export result
  */
 export function exportToFigma(doc: WireframeDocument): FigmaExportResult {
-  resetFigmaIdCounter();
+  resetFigmaIdCounter()
 
   const documentNode: FigmaNode = {
     id: generateFigmaId(),
@@ -476,19 +482,17 @@ export function exportToFigma(doc: WireframeDocument): FigmaExportResult {
     type: 'DOCUMENT',
     visible: true,
     children: [],
-  };
+  }
 
   for (const page of doc.children || []) {
-    (documentNode.children as FigmaNode[]).push(
-      nodeToFigma(page as unknown as AnyNode)
-    );
+    ;(documentNode.children as FigmaNode[]).push(nodeToFigma(page))
   }
 
   // Build component mappings
-  const componentMappings: Record<string, string> = {};
-  const types = getComponentTypes(doc);
+  const componentMappings: Record<string, string> = {}
+  const types = getComponentTypes(doc)
   for (const type of types) {
-    componentMappings[type] = mapToFigmaType(type);
+    componentMappings[type] = mapToFigmaType(type)
   }
 
   return {
@@ -496,7 +500,7 @@ export function exportToFigma(doc: WireframeDocument): FigmaExportResult {
     format: 'figma',
     document: documentNode,
     componentMappings,
-  };
+  }
 }
 
 /**
@@ -506,12 +510,7 @@ export function exportToFigma(doc: WireframeDocument): FigmaExportResult {
  * @param prettyPrint - Whether to pretty print the output
  * @returns JSON string
  */
-export function exportToFigmaString(
-  doc: WireframeDocument,
-  prettyPrint: boolean = true
-): string {
-  const result = exportToFigma(doc);
-  return prettyPrint
-    ? JSON.stringify(result, null, 2)
-    : JSON.stringify(result);
+export function exportToFigmaString(doc: WireframeDocument, prettyPrint: boolean = true): string {
+  const result = exportToFigma(doc)
+  return prettyPrint ? JSON.stringify(result, null, 2) : JSON.stringify(result)
 }
