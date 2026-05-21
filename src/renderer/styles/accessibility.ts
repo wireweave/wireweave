@@ -36,5 +36,5 @@ export function generateAccessibilityStyles(prefix: string): string {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}`;
+}`
 }

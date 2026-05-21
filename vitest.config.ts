@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -16,9 +16,9 @@ export default defineConfig({
         'src/parser/generated-parser.js',
         'src/index.ts',
         'src/ast/index.ts',
-        'src/ast/guards.ts',  // Type guard utilities
-        'src/renderer/html/layout.ts',  // Internal module tested via public API
-        'src/renderer/html/components.ts',  // Internal module tested via public API
+        'src/ast/guards.ts', // Type guard utilities
+        'src/renderer/html/layout.ts', // Internal module tested via public API
+        'src/renderer/html/components.ts', // Internal module tested via public API
       ],
       thresholds: {
         lines: 80,
@@ -28,4 +28,4 @@ export default defineConfig({
       },
     },
   },
-});
+})

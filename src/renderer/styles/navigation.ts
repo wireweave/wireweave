@@ -2,7 +2,7 @@
  * Navigation component styles (Nav, Tabs, Breadcrumb)
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateNavigationStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Navigation Components */
@@ -118,5 +118,5 @@ export function generateNavigationStyles(_theme: ThemeConfig, prefix: string): s
 .${prefix}-breadcrumb-separator {
   margin: 0 8px;
   color: var(--${prefix}-muted);
-}`;
+}`
 }

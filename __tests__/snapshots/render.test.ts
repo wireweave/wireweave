@@ -2,22 +2,22 @@
  * Snapshot tests for HTML and SVG rendering
  */
 
-import { describe, it, expect } from 'vitest';
-import { parse, render, renderToSvg, renderToHtml } from '../../src';
+import { describe, it, expect } from 'vitest'
+import { parse, render, renderToSvg, renderToHtml } from '../../src'
 
 describe('Render Snapshots', () => {
   describe('HTML Snapshots', () => {
     it('should render empty page', () => {
-      const doc = parse('page { }');
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      const doc = parse('page { }')
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render page with title', () => {
-      const doc = parse('page "Home" { }');
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      const doc = parse('page "Home" { }')
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render basic layout', () => {
       const doc = parse(`
@@ -26,10 +26,10 @@ describe('Render Snapshots', () => {
           main { text "Content" }
           footer { text "Footer" }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render grid layout', () => {
       const doc = parse(`
@@ -40,10 +40,10 @@ describe('Render Snapshots', () => {
             col span=4 { text "Column 3" }
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render card with content', () => {
       const doc = parse(`
@@ -54,10 +54,10 @@ describe('Render Snapshots', () => {
             button "Action" primary
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render form elements', () => {
       const doc = parse(`
@@ -69,20 +69,20 @@ describe('Render Snapshots', () => {
             button "Submit" primary
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render navigation', () => {
       const doc = parse(`
         page {
           nav ["Home", "About", "Contact"] vertical
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render table', () => {
       const doc = parse(`
@@ -93,10 +93,10 @@ describe('Render Snapshots', () => {
             row ["Bob", "bob@example.com", "User"]
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render feedback components', () => {
       const doc = parse(`
@@ -105,10 +105,10 @@ describe('Render Snapshots', () => {
           progress value=75 max=100
           spinner
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render modal', () => {
       const doc = parse(`
@@ -121,10 +121,10 @@ describe('Render Snapshots', () => {
             }
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     // Note: Responsive breakpoints intentionally not implemented
     // Wireframes use fixed layouts with scale mode for preview
@@ -135,54 +135,54 @@ describe('Render Snapshots', () => {
             col span=6 { card { text "Item" } }
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
-  });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
+  })
 
   describe('CSS Snapshots', () => {
     it('should generate light theme CSS', () => {
-      const doc = parse('page { }');
-      const { css } = render(doc, { theme: 'light' });
-      expect(css).toMatchSnapshot();
-    });
+      const doc = parse('page { }')
+      const { css } = render(doc, { theme: 'light' })
+      expect(css).toMatchSnapshot()
+    })
 
     it('should generate dark theme CSS', () => {
-      const doc = parse('page { }');
-      const { css } = render(doc, { theme: 'dark' });
-      expect(css).toMatchSnapshot();
-    });
+      const doc = parse('page { }')
+      const { css } = render(doc, { theme: 'dark' })
+      expect(css).toMatchSnapshot()
+    })
 
     // Note: Responsive breakpoints intentionally not implemented
     it('should NOT include responsive breakpoints (fixed layout design)', () => {
-      const doc = parse('page { row { col span=6 { } } }');
-      const { css } = render(doc);
-      expect(css).not.toContain('@media (min-width: 576px)');
-      expect(css).not.toContain('@media (min-width: 768px)');
-    });
-  });
+      const doc = parse('page { row { col span=6 { } } }')
+      const { css } = render(doc)
+      expect(css).not.toContain('@media (min-width: 576px)')
+      expect(css).not.toContain('@media (min-width: 768px)')
+    })
+  })
 
   describe('Full HTML Document Snapshots', () => {
     it('should render complete HTML document', () => {
-      const doc = parse('page "Test" { text "Hello" }');
-      const html = renderToHtml(doc);
-      expect(html).toMatchSnapshot();
-    });
+      const doc = parse('page "Test" { text "Hello" }')
+      const html = renderToHtml(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render complete HTML with dark theme', () => {
-      const doc = parse('page "Dark" { card { text "Dark mode" } }');
-      const html = renderToHtml(doc, { theme: 'dark' });
-      expect(html).toMatchSnapshot();
-    });
-  });
+      const doc = parse('page "Dark" { card { text "Dark mode" } }')
+      const html = renderToHtml(doc, { theme: 'dark' })
+      expect(html).toMatchSnapshot()
+    })
+  })
 
   describe('SVG Snapshots', () => {
     it('should render simple text to SVG', () => {
-      const doc = parse('page { text "Hello World" }');
-      const { svg } = renderToSvg(doc);
-      expect(svg).toMatchSnapshot();
-    });
+      const doc = parse('page { text "Hello World" }')
+      const { svg } = renderToSvg(doc)
+      expect(svg).toMatchSnapshot()
+    })
 
     it('should render card to SVG', () => {
       const doc = parse(`
@@ -192,10 +192,10 @@ describe('Render Snapshots', () => {
             text "Card content"
           }
         }
-      `);
-      const { svg } = renderToSvg(doc);
-      expect(svg).toMatchSnapshot();
-    });
+      `)
+      const { svg } = renderToSvg(doc)
+      expect(svg).toMatchSnapshot()
+    })
 
     it('should render layout to SVG', () => {
       const doc = parse(`
@@ -204,10 +204,10 @@ describe('Render Snapshots', () => {
           main { text "Content" }
           footer { text "Footer" }
         }
-      `);
-      const { svg } = renderToSvg(doc);
-      expect(svg).toMatchSnapshot();
-    });
+      `)
+      const { svg } = renderToSvg(doc)
+      expect(svg).toMatchSnapshot()
+    })
 
     it('should render buttons to SVG', () => {
       const doc = parse(`
@@ -216,10 +216,10 @@ describe('Render Snapshots', () => {
             button "Primary" primary
           }
         }
-      `);
-      const { svg } = renderToSvg(doc);
-      expect(svg).toMatchSnapshot();
-    });
+      `)
+      const { svg } = renderToSvg(doc)
+      expect(svg).toMatchSnapshot()
+    })
 
     it('should render form to SVG', () => {
       const doc = parse(`
@@ -229,24 +229,24 @@ describe('Render Snapshots', () => {
             button "Submit" primary
           }
         }
-      `);
-      const { svg } = renderToSvg(doc);
-      expect(svg).toMatchSnapshot();
-    });
+      `)
+      const { svg } = renderToSvg(doc)
+      expect(svg).toMatchSnapshot()
+    })
 
     it('should respect width option', () => {
-      const doc = parse('page { text "Test" }');
-      const { svg, width } = renderToSvg(doc, { width: 800 });
-      expect(width).toBe(800);
-      expect(svg).toContain('width="800"');
-    });
+      const doc = parse('page { text "Test" }')
+      const { svg, width } = renderToSvg(doc, { width: 800 })
+      expect(width).toBe(800)
+      expect(svg).toContain('width="800"')
+    })
 
     it('should respect padding option', () => {
-      const doc = parse('page { text "Test" }');
-      const { svg } = renderToSvg(doc, { padding: 40 });
-      expect(svg).toMatchSnapshot();
-    });
-  });
+      const doc = parse('page { text "Test" }')
+      const { svg } = renderToSvg(doc, { padding: 40 })
+      expect(svg).toMatchSnapshot()
+    })
+  })
 
   describe('Complex Page Snapshots', () => {
     it('should render login page', () => {
@@ -265,10 +265,10 @@ describe('Render Snapshots', () => {
             }
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
 
     it('should render dashboard page', () => {
       const doc = parse(`
@@ -295,9 +295,9 @@ describe('Render Snapshots', () => {
             }
           }
         }
-      `);
-      const { html } = render(doc);
-      expect(html).toMatchSnapshot();
-    });
-  });
-});
+      `)
+      const { html } = render(doc)
+      expect(html).toMatchSnapshot()
+    })
+  })
+})

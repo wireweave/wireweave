@@ -2,7 +2,7 @@
  * Feedback component styles (Alert, Toast, Progress, Spinner)
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateFeedbackStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Feedback Components */
@@ -114,5 +114,5 @@ export function generateFeedbackStyles(_theme: ThemeConfig, prefix: string): str
 
 @keyframes ${prefix}-spin {
   to { transform: rotate(360deg); }
-}`;
+}`
 }

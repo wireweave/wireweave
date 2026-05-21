@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Data',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const BasicTable: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       table {
         columns ["Name", "Email", "Role"]
@@ -19,10 +20,11 @@ export const BasicTable: Story = {
       }
     }
   `),
-};
+}
 
 export const StripedTable: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       table striped {
         columns ["Product", "Price", "Stock"]
@@ -33,20 +35,22 @@ export const StripedTable: Story = {
       }
     }
   `),
-};
+}
 
 export const UnorderedList: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       list ["First item", "Second item", "Third item"]
     }
   `),
-};
+}
 
 export const OrderedList: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       list ["Step one", "Step two", "Step three"] ordered
     }
   `),
-};
+}

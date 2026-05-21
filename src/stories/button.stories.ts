@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Button',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const Default: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 {
         button "Default"
@@ -20,10 +21,11 @@ export const Default: Story = {
       }
     }
   `),
-};
+}
 
 export const Sizes: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 align=center {
         button "XS" size=xs
@@ -34,10 +36,11 @@ export const Sizes: Story = {
       }
     }
   `),
-};
+}
 
 export const WithIcon: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 {
         button "Save" icon=save primary
@@ -46,10 +49,11 @@ export const WithIcon: Story = {
       }
     }
   `),
-};
+}
 
 export const States: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 {
         button "Normal"
@@ -58,4 +62,4 @@ export const States: Story = {
       }
     }
   `),
-};
+}

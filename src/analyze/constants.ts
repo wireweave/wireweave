@@ -12,7 +12,7 @@ export const INTERACTIVE_COMPONENTS = [
   'Switch',
   'Slider',
   'Textarea',
-];
+]
 
 export const FORM_COMPONENTS = [
   'Input',
@@ -22,26 +22,13 @@ export const FORM_COMPONENTS = [
   'Switch',
   'Slider',
   'Textarea',
-];
+]
 
-export const NAVIGATION_COMPONENTS = [
-  'Nav',
-  'NavItem',
-  'Tabs',
-  'Tab',
-  'Breadcrumb',
-];
+export const NAVIGATION_COMPONENTS = ['Nav', 'NavItem', 'Tabs', 'Tab', 'Breadcrumb']
 
-export const DATA_DISPLAY_COMPONENTS = ['Table', 'List', 'ListItem'];
+export const DATA_DISPLAY_COMPONENTS = ['Table', 'List', 'ListItem']
 
-export const FEEDBACK_COMPONENTS = [
-  'Alert',
-  'Toast',
-  'Progress',
-  'Spinner',
-  'Tooltip',
-  'Popover',
-];
+export const FEEDBACK_COMPONENTS = ['Alert', 'Toast', 'Progress', 'Spinner', 'Tooltip', 'Popover']
 
 export const LAYOUT_COMPONENTS = [
   'Header',
@@ -55,4 +42,4 @@ export const LAYOUT_COMPONENTS = [
   'Modal',
   'Drawer',
   'Accordion',
-];
+]

@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Input',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const TextInput: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=3 {
         input "Email address" placeholder="you@example.com"
@@ -18,18 +19,20 @@ export const TextInput: Story = {
       }
     }
   `),
-};
+}
 
 export const InputWithIcon: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       input "Search" icon=search placeholder="Search..."
     }
   `),
-};
+}
 
 export const Textarea: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=3 {
         textarea "Description" placeholder="Enter description..."
@@ -37,10 +40,11 @@ export const Textarea: Story = {
       }
     }
   `),
-};
+}
 
 export const Select: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=3 {
         select "Country" ["Korea", "Japan", "USA", "UK"]
@@ -48,10 +52,11 @@ export const Select: Story = {
       }
     }
   `),
-};
+}
 
 export const Checkbox: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=2 {
         checkbox "Accept terms" checked
@@ -60,10 +65,11 @@ export const Checkbox: Story = {
       }
     }
   `),
-};
+}
 
 export const Radio: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=2 {
         radio "Small" name=size
@@ -72,10 +78,11 @@ export const Radio: Story = {
       }
     }
   `),
-};
+}
 
 export const Switch: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=2 {
         switch "Dark mode" checked
@@ -83,10 +90,11 @@ export const Switch: Story = {
       }
     }
   `),
-};
+}
 
 export const Slider: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=3 {
         slider value=60
@@ -94,10 +102,11 @@ export const Slider: Story = {
       }
     }
   `),
-};
+}
 
 export const FormField: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       col gap=3 {
         input "Full Name" placeholder="John Doe"
@@ -111,4 +120,4 @@ export const FormField: Story = {
       }
     }
   `),
-};
+}

@@ -7,10 +7,10 @@
  * building block `renderCanvas` composes when laying multiple pages out.
  */
 
-import type { PageNode } from '../ast/types';
-import type { RenderOptions, PageRenderResult } from './types';
-import { HtmlRenderer } from './html';
-import { resolveViewport } from '../viewport';
+import type { PageNode } from '../ast/types'
+import type { RenderOptions, PageRenderResult } from './types'
+import { HtmlRenderer } from './html'
+import { resolveViewport } from '../viewport'
 
 /**
  * Render a single page to self-contained HTML + CSS.
@@ -21,13 +21,13 @@ import { resolveViewport } from '../viewport';
  * applies uniformly.
  */
 export function renderPage(page: PageNode, options: RenderOptions = {}): PageRenderResult {
-  const renderer = new HtmlRenderer(options);
+  const renderer = new HtmlRenderer(options)
   const { html, css } = renderer.render({
     type: 'Document',
     children: [page],
-  });
-  const { width, height } = resolvePageDimensions(page);
-  return { html, css, width, height };
+  })
+  const { width, height } = resolvePageDimensions(page)
+  return { html, css, width, height }
 }
 
 /**
@@ -41,14 +41,14 @@ export function renderPage(page: PageNode, options: RenderOptions = {}): PageRen
  * to the viewport — those are layout-internal hints, not canvas dimensions.
  */
 export function resolvePageDimensions(page: PageNode): { width: number; height: number } {
-  const pageAny = page as PageNode & { width?: number; height?: number };
-  const explicitW = page.w ?? pageAny.width;
-  const explicitH = page.h ?? pageAny.height;
+  const pageAny = page as PageNode & { width?: number; height?: number }
+  const explicitW = page.w ?? pageAny.width
+  const explicitH = page.h ?? pageAny.height
 
   if (typeof explicitW === 'number' && typeof explicitH === 'number') {
-    return { width: explicitW, height: explicitH };
+    return { width: explicitW, height: explicitH }
   }
 
-  const viewport = resolveViewport(page.viewport, page.device);
-  return { width: viewport.width, height: viewport.height };
+  const viewport = resolveViewport(page.viewport, page.device)
+  return { width: viewport.width, height: viewport.height }
 }

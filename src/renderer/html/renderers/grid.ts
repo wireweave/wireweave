@@ -2,30 +2,27 @@
  * Grid Renderers (Row, Col, Stack, Relative)
  */
 
-import type { RowNode, ColNode, StackNode, RelativeNode } from '../../../ast/types';
-import type { RenderContext } from './types';
+import type { RowNode, ColNode, StackNode, RelativeNode } from '../../../ast/types'
+import type { RenderContext } from './types'
 
 /**
  * Extended context for Col renderer
  */
 export interface GridRenderContext extends RenderContext {
-  buildColStyles: (node: ColNode) => string;
+  buildColStyles: (node: ColNode) => string
 }
 
 /**
  * Render Row node
  */
 export function renderRow(node: RowNode, ctx: RenderContext): string {
-  const classes = ctx.buildClassString([
-    `${ctx.prefix}-row`,
-    ...ctx.getCommonClasses(node),
-  ]);
+  const classes = ctx.buildClassString([`${ctx.prefix}-row`, ...ctx.getCommonClasses(node)])
 
-  const styles = ctx.buildCommonStyles(node);
-  const styleAttr = styles ? ` style="${styles}"` : '';
+  const styles = ctx.buildCommonStyles(node)
+  const styleAttr = styles ? ` style="${styles}"` : ''
 
-  const children = ctx.renderChildren(node.children);
-  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`;
+  const children = ctx.renderChildren(node.children)
+  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`
 }
 
 /**
@@ -43,14 +40,14 @@ export function renderCol(node: ColNode, ctx: GridRenderContext): string {
     // Scroll support
     node.scroll ? `${ctx.prefix}-scroll` : undefined,
     ...ctx.getCommonClasses(node),
-  ]);
+  ])
 
   // Build inline styles for numeric width/height and order
-  const styles = ctx.buildColStyles(node);
-  const styleAttr = styles ? ` style="${styles}"` : '';
+  const styles = ctx.buildColStyles(node)
+  const styleAttr = styles ? ` style="${styles}"` : ''
 
-  const children = ctx.renderChildren(node.children);
-  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`;
+  const children = ctx.renderChildren(node.children)
+  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`
 }
 
 /**
@@ -61,16 +58,13 @@ export function renderCol(node: ColNode, ctx: GridRenderContext): string {
  * fills available space (flex: 1).
  */
 export function renderStack(node: StackNode, ctx: RenderContext): string {
-  const classes = ctx.buildClassString([
-    `${ctx.prefix}-stack`,
-    ...ctx.getCommonClasses(node),
-  ]);
+  const classes = ctx.buildClassString([`${ctx.prefix}-stack`, ...ctx.getCommonClasses(node)])
 
-  const styles = ctx.buildCommonStyles(node);
-  const styleAttr = styles ? ` style="${styles}"` : '';
+  const styles = ctx.buildCommonStyles(node)
+  const styleAttr = styles ? ` style="${styles}"` : ''
 
-  const children = ctx.renderChildren(node.children);
-  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`;
+  const children = ctx.renderChildren(node.children)
+  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`
 }
 
 /**
@@ -81,14 +75,11 @@ export function renderStack(node: StackNode, ctx: RenderContext): string {
  * Child elements can use `anchor` attribute to specify position.
  */
 export function renderRelative(node: RelativeNode, ctx: RenderContext): string {
-  const classes = ctx.buildClassString([
-    `${ctx.prefix}-relative`,
-    ...ctx.getCommonClasses(node),
-  ]);
+  const classes = ctx.buildClassString([`${ctx.prefix}-relative`, ...ctx.getCommonClasses(node)])
 
-  const styles = ctx.buildCommonStyles(node);
-  const styleAttr = styles ? ` style="${styles}"` : '';
+  const styles = ctx.buildCommonStyles(node)
+  const styleAttr = styles ? ` style="${styles}"` : ''
 
-  const children = ctx.renderChildren(node.children);
-  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`;
+  const children = ctx.renderChildren(node.children)
+  return `<div class="${classes}"${styleAttr}>\n${children}\n</div>`
 }

@@ -5,7 +5,7 @@
  * These help visualize semantic meaning while being readable by LLMs
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateSemanticMarkerStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Semantic Markers */
@@ -91,5 +91,5 @@ export function generateSemanticMarkerStyles(_theme: ThemeConfig, prefix: string
 .${prefix}-cell-avatar-text span:last-child:not(:first-child) {
   font-size: 12px;
   color: var(--${prefix}-muted);
-}`;
+}`
 }

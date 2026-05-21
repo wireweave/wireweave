@@ -4,18 +4,18 @@
  * Provides traversal and search utilities for AST nodes
  */
 
-import type { AnyNode, WireframeDocument, NodeType } from './types';
-import { hasChildren } from './guards';
+import type { AnyNode, WireframeDocument, NodeType } from './types'
+import { hasChildren } from './guards'
 
 /**
  * Callback function for AST traversal
  */
-export type WalkCallback = (node: AnyNode, parent?: AnyNode, depth?: number) => void | boolean;
+export type WalkCallback = (node: AnyNode, parent?: AnyNode, depth?: number) => void | boolean
 
 /**
  * Predicate function for finding nodes
  */
-export type NodePredicate = (node: AnyNode) => boolean;
+export type NodePredicate = (node: AnyNode) => boolean
 
 /**
  * Walk through all nodes in the AST
@@ -29,18 +29,18 @@ export function walk(
   node: AnyNode,
   callback: WalkCallback,
   parent?: AnyNode,
-  depth: number = 0
+  depth: number = 0,
 ): void {
-  const result = callback(node, parent, depth);
+  const result = callback(node, parent, depth)
 
   // Stop traversal if callback returns false
   if (result === false) {
-    return;
+    return
   }
 
   if (hasChildren(node)) {
     for (const child of node.children) {
-      walk(child, callback, node, depth + 1);
+      walk(child, callback, node, depth + 1)
     }
   }
 }
@@ -53,7 +53,7 @@ export function walk(
  */
 export function walkDocument(document: WireframeDocument, callback: WalkCallback): void {
   for (const page of document.children) {
-    walk(page, callback);
+    walk(page, callback)
   }
 }
 
@@ -66,19 +66,19 @@ export function walkDocument(document: WireframeDocument, callback: WalkCallback
  */
 export function find(node: AnyNode, predicate: NodePredicate): AnyNode | undefined {
   if (predicate(node)) {
-    return node;
+    return node
   }
 
   if (hasChildren(node)) {
     for (const child of node.children) {
-      const found = find(child, predicate);
+      const found = find(child, predicate)
       if (found) {
-        return found;
+        return found
       }
     }
   }
 
-  return undefined;
+  return undefined
 }
 
 /**
@@ -89,15 +89,15 @@ export function find(node: AnyNode, predicate: NodePredicate): AnyNode | undefin
  * @returns Array of matching nodes
  */
 export function findAll(node: AnyNode, predicate: NodePredicate): AnyNode[] {
-  const results: AnyNode[] = [];
+  const results: AnyNode[] = []
 
   walk(node, (n) => {
     if (predicate(n)) {
-      results.push(n);
+      results.push(n)
     }
-  });
+  })
 
-  return results;
+  return results
 }
 
 /**
@@ -107,11 +107,8 @@ export function findAll(node: AnyNode, predicate: NodePredicate): AnyNode[] {
  * @param type - The node type to find
  * @returns Array of matching nodes
  */
-export function findByType<T extends AnyNode>(
-  node: AnyNode,
-  type: NodeType
-): T[] {
-  return findAll(node, (n) => n.type === type) as T[];
+export function findByType<T extends AnyNode>(node: AnyNode, type: NodeType): T[] {
+  return findAll(node, (n) => n.type === type) as T[]
 }
 
 /**
@@ -121,11 +118,11 @@ export function findByType<T extends AnyNode>(
  * @returns Total number of nodes
  */
 export function countNodes(node: AnyNode): number {
-  let count = 0;
+  let count = 0
   walk(node, () => {
-    count++;
-  });
-  return count;
+    count++
+  })
+  return count
 }
 
 /**
@@ -135,13 +132,13 @@ export function countNodes(node: AnyNode): number {
  * @returns Maximum depth
  */
 export function getMaxDepth(node: AnyNode): number {
-  let maxDepth = 0;
+  let maxDepth = 0
   walk(node, (_n, _p, depth) => {
     if (depth !== undefined && depth > maxDepth) {
-      maxDepth = depth;
+      maxDepth = depth
     }
-  });
-  return maxDepth;
+  })
+  return maxDepth
 }
 
 /**
@@ -152,27 +149,27 @@ export function getMaxDepth(node: AnyNode): number {
  * @returns Array of ancestor nodes, or empty array if not found
  */
 export function getAncestors(root: AnyNode, target: AnyNode): AnyNode[] {
-  const path: AnyNode[] = [];
+  const path: AnyNode[] = []
 
   function findPath(node: AnyNode, ancestors: AnyNode[]): boolean {
     if (node === target) {
-      path.push(...ancestors);
-      return true;
+      path.push(...ancestors)
+      return true
     }
 
     if (hasChildren(node)) {
       for (const child of node.children) {
         if (findPath(child, [...ancestors, node])) {
-          return true;
+          return true
         }
       }
     }
 
-    return false;
+    return false
   }
 
-  findPath(root, []);
-  return path;
+  findPath(root, [])
+  return path
 }
 
 /**
@@ -183,11 +180,11 @@ export function getAncestors(root: AnyNode, target: AnyNode): AnyNode[] {
  * @returns New AST with transformed nodes
  */
 export function mapNodes<T>(node: AnyNode, mapper: (node: AnyNode) => T): T[] {
-  const results: T[] = [];
+  const results: T[] = []
   walk(node, (n) => {
-    results.push(mapper(n));
-  });
-  return results;
+    results.push(mapper(n))
+  })
+  return results
 }
 
 /**
@@ -197,7 +194,7 @@ export function mapNodes<T>(node: AnyNode, mapper: (node: AnyNode) => T): T[] {
  * @returns A deep clone of the node
  */
 export function cloneNode<T extends AnyNode>(node: T): T {
-  return JSON.parse(JSON.stringify(node)) as T;
+  return JSON.parse(JSON.stringify(node)) as T
 }
 
 /**
@@ -209,18 +206,18 @@ export function cloneNode<T extends AnyNode>(node: T): T {
  */
 export function contains(node: AnyNode, target: AnyNode): boolean {
   if (node === target) {
-    return true;
+    return true
   }
 
   if (hasChildren(node)) {
     for (const child of node.children) {
       if (contains(child, target)) {
-        return true;
+        return true
       }
     }
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -230,9 +227,9 @@ export function contains(node: AnyNode, target: AnyNode): boolean {
  * @returns Set of node types
  */
 export function getNodeTypes(node: AnyNode): Set<NodeType> {
-  const types = new Set<NodeType>();
+  const types = new Set<NodeType>()
   walk(node, (n) => {
-    types.add(n.type as NodeType);
-  });
-  return types;
+    types.add(n.type)
+  })
+  return types
 }

@@ -34,5 +34,5 @@ export function generateDividerStyles(prefix: string = 'wf'): string {
   width: 0;
   height: auto;
 }
-  `.trim();
+  `.trim()
 }

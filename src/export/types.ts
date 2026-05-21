@@ -9,18 +9,18 @@
  */
 export interface JsonNode {
   /** Node type (e.g., 'page', 'button', 'input') */
-  type: string;
+  type: string
   /** Node content or label */
-  content?: string;
+  content?: string
   /** Node attributes */
-  attributes: Record<string, unknown>;
+  attributes: Record<string, unknown>
   /** Child nodes */
-  children: JsonNode[];
+  children: JsonNode[]
   /** Source location (optional) */
   location?: {
-    line: number;
-    column: number;
-  };
+    line: number
+    column: number
+  }
 }
 
 /**
@@ -28,18 +28,18 @@ export interface JsonNode {
  */
 export interface JsonExportResult {
   /** Export format version */
-  version: string;
+  version: string
   /** Export format */
-  format: 'json';
+  format: 'json'
   /** Exported pages */
-  pages: JsonNode[];
+  pages: JsonNode[]
   /** Metadata */
   metadata: {
-    exportedAt: string;
-    sourceFormat: 'wireweave';
-    nodeCount: number;
-    componentTypes: string[];
-  };
+    exportedAt: string
+    sourceFormat: 'wireweave'
+    nodeCount: number
+    componentTypes: string[]
+  }
 }
 
 /**
@@ -53,97 +53,97 @@ export type FigmaNodeType =
   | 'TEXT'
   | 'RECTANGLE'
   | 'INSTANCE'
-  | 'COMPONENT';
+  | 'COMPONENT'
 
 /**
  * Figma Auto Layout mode
  */
-export type FigmaLayoutMode = 'NONE' | 'HORIZONTAL' | 'VERTICAL';
+export type FigmaLayoutMode = 'NONE' | 'HORIZONTAL' | 'VERTICAL'
 
 /**
  * Figma sizing mode for Auto Layout
  */
-export type FigmaSizingMode = 'FIXED' | 'HUG' | 'FILL';
+export type FigmaSizingMode = 'FIXED' | 'HUG' | 'FILL'
 
 /**
  * Figma primary axis alignment (justify)
  */
-export type FigmaPrimaryAxisAlign = 'MIN' | 'CENTER' | 'MAX' | 'SPACE_BETWEEN';
+export type FigmaPrimaryAxisAlign = 'MIN' | 'CENTER' | 'MAX' | 'SPACE_BETWEEN'
 
 /**
  * Figma counter axis alignment (align)
  */
-export type FigmaCounterAxisAlign = 'MIN' | 'CENTER' | 'MAX' | 'STRETCH' | 'BASELINE';
+export type FigmaCounterAxisAlign = 'MIN' | 'CENTER' | 'MAX' | 'STRETCH' | 'BASELINE'
 
 /**
  * Figma text alignment
  */
-export type FigmaTextAlign = 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED';
+export type FigmaTextAlign = 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED'
 
 /**
  * Figma color (RGBA, 0-1 range)
  */
 export interface FigmaColor {
-  r: number;
-  g: number;
-  b: number;
-  a: number;
+  r: number
+  g: number
+  b: number
+  a: number
 }
 
 /**
  * Figma solid fill
  */
 export interface FigmaSolidFill {
-  type: 'SOLID';
-  color: FigmaColor;
-  opacity?: number;
+  type: 'SOLID'
+  color: FigmaColor
+  opacity?: number
 }
 
 /**
  * Figma stroke
  */
 export interface FigmaStroke {
-  type: 'SOLID';
-  color: FigmaColor;
+  type: 'SOLID'
+  color: FigmaColor
 }
 
 /**
  * Figma Auto Layout properties
  */
 export interface FigmaAutoLayout {
-  layoutMode: FigmaLayoutMode;
-  layoutSizingHorizontal: FigmaSizingMode;
-  layoutSizingVertical: FigmaSizingMode;
-  primaryAxisAlignItems: FigmaPrimaryAxisAlign;
-  counterAxisAlignItems: FigmaCounterAxisAlign;
-  paddingTop: number;
-  paddingRight: number;
-  paddingBottom: number;
-  paddingLeft: number;
-  itemSpacing: number;
-  layoutWrap?: 'NO_WRAP' | 'WRAP';
+  layoutMode: FigmaLayoutMode
+  layoutSizingHorizontal: FigmaSizingMode
+  layoutSizingVertical: FigmaSizingMode
+  primaryAxisAlignItems: FigmaPrimaryAxisAlign
+  counterAxisAlignItems: FigmaCounterAxisAlign
+  paddingTop: number
+  paddingRight: number
+  paddingBottom: number
+  paddingLeft: number
+  itemSpacing: number
+  layoutWrap?: 'NO_WRAP' | 'WRAP'
 }
 
 /**
  * Figma size properties
  */
 export interface FigmaSize {
-  width: number;
-  height: number;
-  minWidth?: number;
-  maxWidth?: number;
-  minHeight?: number;
-  maxHeight?: number;
+  width: number
+  height: number
+  minWidth?: number
+  maxWidth?: number
+  minHeight?: number
+  maxHeight?: number
 }
 
 /**
  * Figma text properties
  */
 export interface FigmaTextStyle {
-  fontSize: number;
-  fontWeight: number;
-  textAlignHorizontal: FigmaTextAlign;
-  characters: string;
+  fontSize: number
+  fontWeight: number
+  textAlignHorizontal: FigmaTextAlign
+  characters: string
 }
 
 /**
@@ -152,33 +152,33 @@ export interface FigmaTextStyle {
  */
 export interface FigmaNode {
   /** Unique identifier */
-  id: string;
+  id: string
   /** Node name */
-  name: string;
+  name: string
   /** Node type */
-  type: FigmaNodeType;
+  type: FigmaNodeType
   /** Visibility */
-  visible: boolean;
+  visible: boolean
   /** Original Wireweave type */
-  wireweaveType?: string;
+  wireweaveType?: string
   /** Original Wireweave attributes */
-  wireweaveAttributes?: Record<string, unknown>;
+  wireweaveAttributes?: Record<string, unknown>
   /** Child nodes */
-  children?: FigmaNode[];
+  children?: FigmaNode[]
   /** Auto Layout properties (for FRAME) */
-  autoLayout?: FigmaAutoLayout;
+  autoLayout?: FigmaAutoLayout
   /** Size properties */
-  size?: FigmaSize;
+  size?: FigmaSize
   /** Text properties (for TEXT) */
-  textStyle?: FigmaTextStyle;
+  textStyle?: FigmaTextStyle
   /** Background fills */
-  fills?: FigmaSolidFill[];
+  fills?: FigmaSolidFill[]
   /** Border strokes */
-  strokes?: FigmaStroke[];
+  strokes?: FigmaStroke[]
   /** Stroke weight */
-  strokeWeight?: number;
+  strokeWeight?: number
   /** Corner radius */
-  cornerRadius?: number;
+  cornerRadius?: number
 }
 
 /**
@@ -186,13 +186,13 @@ export interface FigmaNode {
  */
 export interface FigmaExportResult {
   /** Export format version */
-  version: string;
+  version: string
   /** Export format */
-  format: 'figma';
+  format: 'figma'
   /** Document structure */
-  document: FigmaNode;
+  document: FigmaNode
   /** Component mappings for reference */
-  componentMappings: Record<string, string>;
+  componentMappings: Record<string, string>
 }
 
 /**
@@ -200,9 +200,9 @@ export interface FigmaExportResult {
  */
 export interface ExportOptions {
   /** Include source locations */
-  includeLocations?: boolean;
+  includeLocations?: boolean
   /** Pretty print JSON (with indentation) */
-  prettyPrint?: boolean;
+  prettyPrint?: boolean
   /** Include empty attributes */
-  includeEmptyAttributes?: boolean;
+  includeEmptyAttributes?: boolean
 }

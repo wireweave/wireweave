@@ -4,28 +4,34 @@
  * Provides render functions to convert AST to HTML/CSS and SVG
  */
 
-import type { WireframeDocument } from '../ast/types';
-import { createHtmlRenderer } from './html';
-import type { RenderOptions, RenderResult, SvgRenderOptions, SvgRenderResult, CanvasOptions } from './types';
-import { renderCanvas } from './canvas-renderer';
-import { resolvePageDimensions } from './page-renderer';
+import type { WireframeDocument } from '../ast/types'
+import { createHtmlRenderer } from './html'
+import type {
+  RenderOptions,
+  RenderResult,
+  SvgRenderOptions,
+  SvgRenderResult,
+  CanvasOptions,
+} from './types'
+import { renderCanvas } from './canvas-renderer'
+import { resolvePageDimensions } from './page-renderer'
 
 // Re-export types
-export * from './types';
-export { HtmlRenderer, createHtmlRenderer } from './html';
-export { generateStyles } from './styles';
-export { generateComponentStyles } from './styles-components';
+export * from './types'
+export { HtmlRenderer, createHtmlRenderer } from './html'
+export { generateStyles } from './styles'
+export { generateComponentStyles } from './styles-components'
 
 // Multi-page primitives — see canvas-renderer.ts / page-renderer.ts for the
 // architecture rationale. `renderPage` is the export-side single source of
 // truth; `renderCanvas` is the display-side composition.
-export { renderPage, resolvePageDimensions } from './page-renderer';
-export { renderCanvas, layoutCanvas } from './canvas-renderer';
-export type { PlacedPage } from './canvas-renderer';
+export { renderPage, resolvePageDimensions } from './page-renderer'
+export { renderCanvas, layoutCanvas } from './canvas-renderer'
+export type { PlacedPage } from './canvas-renderer'
 
 // Re-export icons (ensures they're bundled with renderer)
-export { getIconData, renderIconSvg, lucideIcons } from '../icons/lucide-icons';
-export type { IconData, IconElement } from '../icons/lucide-icons';
+export { getIconData, renderIconSvg, lucideIcons } from '../icons/lucide-icons'
+export type { IconData, IconElement } from '../icons/lucide-icons'
 
 /**
  * Render AST to HTML and CSS.
@@ -42,17 +48,17 @@ export type { IconData, IconElement } from '../icons/lucide-icons';
  */
 export function render(
   document: WireframeDocument,
-  options: RenderOptions | CanvasOptions = {}
+  options: RenderOptions | CanvasOptions = {},
 ): RenderResult {
-  const isMultiPage = document.children.length > 1;
+  const isMultiPage = document.children.length > 1
 
   if (isMultiPage) {
-    const result = renderCanvas(document, options);
-    return { html: result.html, css: result.css };
+    const result = renderCanvas(document, options)
+    return { html: result.html, css: result.css }
   }
 
-  const renderer = createHtmlRenderer(options);
-  return renderer.render(document);
+  const renderer = createHtmlRenderer(options)
+  return renderer.render(document)
 }
 
 /**
@@ -63,7 +69,7 @@ export function render(
  * @returns Complete HTML document string
  */
 export function renderToHtml(document: WireframeDocument, options: RenderOptions = {}): string {
-  const { html, css } = render(document, options);
+  const { html, css } = render(document, options)
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -92,7 +98,7 @@ ${css}
 <body>
 ${html}
 </body>
-</html>`;
+</html>`
 }
 
 /**
@@ -111,37 +117,37 @@ ${html}
  */
 export function renderToSvg(
   document: WireframeDocument,
-  options: SvgRenderOptions = {}
+  options: SvgRenderOptions = {},
 ): SvgRenderResult {
-  const isMultiPage = document.children.length > 1;
-  let width = options.width ?? 800;
-  let height = options.height ?? 600;
-  let html: string;
-  let css: string;
+  const isMultiPage = document.children.length > 1
+  let width = options.width ?? 800
+  let height = options.height ?? 600
+  let html: string
+  let css: string
 
   if (isMultiPage) {
     const canvas = renderCanvas(document, {
       theme: options.theme ?? 'light',
-    });
+    })
     if (options.width === undefined && options.height === undefined) {
-      width = canvas.width;
-      height = canvas.height;
+      width = canvas.width
+      height = canvas.height
     }
-    html = canvas.html;
-    css = canvas.css;
+    html = canvas.html
+    css = canvas.css
   } else {
-    const firstPage = document.children[0];
+    const firstPage = document.children[0]
     if (firstPage && options.width === undefined && options.height === undefined) {
-      const dims = resolvePageDimensions(firstPage);
-      width = dims.width;
-      height = dims.height;
+      const dims = resolvePageDimensions(firstPage)
+      width = dims.width
+      height = dims.height
     }
-    const result = render(document, { theme: options.theme ?? 'light' });
-    html = result.html;
-    css = result.css;
+    const result = render(document, { theme: options.theme ?? 'light' })
+    html = result.html
+    css = result.css
   }
 
-  const background = options.background ?? '#ffffff';
+  const background = options.background ?? '#ffffff'
 
   // Build SVG with foreignObject containing HTML+CSS
   // Use same wrapper styles as renderToHtml for consistency
@@ -165,7 +171,7 @@ ${css}
       ${html}
     </div>
   </foreignObject>
-</svg>`;
+</svg>`
 
-  return { svg, width, height };
+  return { svg, width, height }
 }

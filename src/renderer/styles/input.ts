@@ -2,7 +2,7 @@
  * Input component styles (Input, Textarea, Select, Checkbox, Radio, Switch, Slider)
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateInputStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Input Components */
@@ -208,5 +208,5 @@ export function generateInputStyles(_theme: ThemeConfig, prefix: string): string
   border: none;
   border-radius: 50%;
   cursor: pointer;
-}`;
+}`
 }

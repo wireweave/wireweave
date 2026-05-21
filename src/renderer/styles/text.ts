@@ -60,5 +60,5 @@ h6.${prefix}-title { font-size: 16px; }
 
 .${prefix}-link:hover {
   opacity: 0.7;
-}`;
+}`
 }

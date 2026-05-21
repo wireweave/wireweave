@@ -5,25 +5,20 @@
 /**
  * Attribute value type
  */
-export type AttributeValueType =
-  | 'boolean'
-  | 'number'
-  | 'string'
-  | 'string[]'
-  | 'enum';
+export type AttributeValueType = 'boolean' | 'number' | 'string' | 'string[]' | 'enum'
 
 /**
  * Attribute definition
  */
 export interface AttributeSpec {
   /** Attribute name */
-  name: string;
+  name: string
   /** Value type */
-  type: AttributeValueType;
+  type: AttributeValueType
   /** Enum values (if type is 'enum') */
-  values?: readonly string[];
+  values?: readonly string[]
   /** Description for documentation */
-  description?: string;
+  description?: string
 }
 
 /**
@@ -40,22 +35,22 @@ export type ComponentCategory =
   | 'feedback'
   | 'overlay'
   | 'navigation'
-  | 'annotation';
+  | 'annotation'
 
 /**
  * Component definition
  */
 export interface ComponentSpec {
   /** Component name (lowercase, as used in DSL) */
-  name: string;
+  name: string
   /** AST node type (PascalCase) */
-  nodeType: string;
+  nodeType: string
   /** Component category */
-  category: ComponentCategory;
+  category: ComponentCategory
   /** Valid attributes for this component (names only, definitions in ATTRIBUTES) */
-  attributes: readonly string[];
+  attributes: readonly string[]
   /** Whether this component can have children */
-  hasChildren: boolean;
+  hasChildren: boolean
   /** Description for documentation */
-  description?: string;
+  description?: string
 }

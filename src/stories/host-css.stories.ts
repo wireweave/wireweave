@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { parse, render } from '../index';
+import type { Meta, StoryObj } from '@storybook/html'
+import { parse, render } from '../index'
 
 const meta: Meta = {
   title: 'Tests/Host CSS Isolation',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 /**
  * Aggressive host CSS that simulates interference from Claude Desktop,
@@ -27,11 +27,11 @@ li { color: magenta; padding: 16px; }
 hr { border: 5px solid red; }
 label { color: blue; font-size: 24px; }
 nav { background: lightblue; padding: 20px; }
-`;
+`
 
 function renderWithHostCSS(dsl: string): string {
-  const doc = parse(dsl);
-  const { html, css } = render(doc);
+  const doc = parse(dsl)
+  const { html, css } = render(doc)
   return `
     <style>${hostCSS}</style>
     <style>${css}</style>
@@ -42,11 +42,12 @@ function renderWithHostCSS(dsl: string): string {
       </p>
       ${html}
     </div>
-  `;
+  `
 }
 
 export const FormElements: Story = {
-  render: () => renderWithHostCSS(`
+  render: () =>
+    renderWithHostCSS(`
     page p=4 w=500 {
       col gap=3 {
         input "Email" placeholder="you@example.com"
@@ -64,10 +65,11 @@ export const FormElements: Story = {
       }
     }
   `),
-};
+}
 
 export const TextElements: Story = {
-  render: () => renderWithHostCSS(`
+  render: () =>
+    renderWithHostCSS(`
     page p=4 w=500 {
       title "Main Heading" level=1
       title "Sub Heading" level=2
@@ -77,10 +79,11 @@ export const TextElements: Story = {
       link "Click this link" href="#"
     }
   `),
-};
+}
 
 export const TableAndList: Story = {
-  render: () => renderWithHostCSS(`
+  render: () =>
+    renderWithHostCSS(`
     page p=4 w=600 {
       table {
         columns ["Name", "Email", "Role"]
@@ -91,10 +94,11 @@ export const TableAndList: Story = {
       list ["Step one", "Step two"] ordered
     }
   `),
-};
+}
 
 export const NavigationElements: Story = {
-  render: () => renderWithHostCSS(`
+  render: () =>
+    renderWithHostCSS(`
     page w=600 {
       nav ["Home", "About", "Contact"]
       divider
@@ -103,10 +107,11 @@ export const NavigationElements: Story = {
       breadcrumb ["Home", "Products", "Detail"]
     }
   `),
-};
+}
 
 export const CompletePageWithHostCSS: Story = {
-  render: () => renderWithHostCSS(`
+  render: () =>
+    renderWithHostCSS(`
     page w=800 h=600 {
       header {
         row justify=between align=center {
@@ -143,4 +148,4 @@ export const CompletePageWithHostCSS: Story = {
       }
     }
   `),
-};
+}

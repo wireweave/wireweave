@@ -4,7 +4,7 @@
  * Complete list of all valid attributes in Wireweave DSL.
  */
 
-import type { AttributeSpec } from './types';
+import type { AttributeSpec } from './types'
 
 /**
  * All valid attributes in Wireweave DSL
@@ -45,9 +45,24 @@ export const ATTRIBUTE_SPECS: readonly AttributeSpec[] = [
   // Flex/Grid Layout Attributes
   // ============================================
   { name: 'flex', type: 'boolean', description: 'Enable flexbox' },
-  { name: 'direction', type: 'enum', values: ['row', 'column', 'row-reverse', 'column-reverse'], description: 'Flex direction' },
-  { name: 'justify', type: 'enum', values: ['start', 'center', 'end', 'between', 'around', 'evenly'], description: 'Main axis alignment' },
-  { name: 'align', type: 'enum', values: ['start', 'center', 'end', 'stretch', 'baseline'], description: 'Cross axis alignment' },
+  {
+    name: 'direction',
+    type: 'enum',
+    values: ['row', 'column', 'row-reverse', 'column-reverse'],
+    description: 'Flex direction',
+  },
+  {
+    name: 'justify',
+    type: 'enum',
+    values: ['start', 'center', 'end', 'between', 'around', 'evenly'],
+    description: 'Main axis alignment',
+  },
+  {
+    name: 'align',
+    type: 'enum',
+    values: ['start', 'center', 'end', 'stretch', 'baseline'],
+    description: 'Cross axis alignment',
+  },
   { name: 'wrap', type: 'boolean', description: 'Enable flex wrap' },
   { name: 'span', type: 'number', description: 'Grid column span (1-12)' },
   { name: 'sm', type: 'number', description: 'Responsive span at 576px+' },
@@ -61,21 +76,57 @@ export const ATTRIBUTE_SPECS: readonly AttributeSpec[] = [
   // ============================================
   { name: 'x', type: 'number', description: 'Horizontal position' },
   { name: 'y', type: 'number', description: 'Vertical position' },
-  { name: 'position', type: 'enum', values: ['left', 'right', 'top', 'bottom', 'top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'], description: 'Position preset' },
+  {
+    name: 'position',
+    type: 'enum',
+    values: [
+      'left',
+      'right',
+      'top',
+      'bottom',
+      'top-left',
+      'top-center',
+      'top-right',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+    ],
+    description: 'Position preset',
+  },
 
   // ============================================
   // Visual Attributes
   // ============================================
   { name: 'border', type: 'boolean', description: 'Show border' },
   { name: 'rounded', type: 'boolean', description: 'Apply border radius' },
-  { name: 'shadow', type: 'enum', values: ['none', 'sm', 'md', 'lg', 'xl'], description: 'Box shadow' },
-  { name: 'bg', type: 'enum', values: ['muted', 'primary', 'secondary'], description: 'Background variant' },
+  {
+    name: 'shadow',
+    type: 'enum',
+    values: ['none', 'sm', 'md', 'lg', 'xl'],
+    description: 'Box shadow',
+  },
+  {
+    name: 'bg',
+    type: 'enum',
+    values: ['muted', 'primary', 'secondary'],
+    description: 'Background variant',
+  },
 
   // ============================================
   // Text Attributes
   // ============================================
-  { name: 'size', type: 'enum', values: ['xs', 'sm', 'base', 'md', 'lg', 'xl', '2xl', '3xl'], description: 'Size preset' },
-  { name: 'weight', type: 'enum', values: ['normal', 'medium', 'semibold', 'bold'], description: 'Font weight' },
+  {
+    name: 'size',
+    type: 'enum',
+    values: ['xs', 'sm', 'base', 'md', 'lg', 'xl', '2xl', '3xl'],
+    description: 'Size preset',
+  },
+  {
+    name: 'weight',
+    type: 'enum',
+    values: ['normal', 'medium', 'semibold', 'bold'],
+    description: 'Font weight',
+  },
   { name: 'level', type: 'number', description: 'Heading level (1-6)' },
   { name: 'muted', type: 'boolean', description: 'Muted/dimmed style' },
   { name: 'bold', type: 'boolean', description: 'Bold text' },
@@ -92,12 +143,22 @@ export const ATTRIBUTE_SPECS: readonly AttributeSpec[] = [
   // ============================================
   // Status Variant Attributes
   // ============================================
-  { name: 'variant', type: 'enum', values: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'], description: 'Status variant' },
+  {
+    name: 'variant',
+    type: 'enum',
+    values: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
+    description: 'Status variant',
+  },
 
   // ============================================
   // Form Attributes
   // ============================================
-  { name: 'inputType', type: 'enum', values: ['text', 'email', 'password', 'number', 'tel', 'url', 'search', 'date'], description: 'Input field type' },
+  {
+    name: 'inputType',
+    type: 'enum',
+    values: ['text', 'email', 'password', 'number', 'tel', 'url', 'search', 'date'],
+    description: 'Input field type',
+  },
   { name: 'placeholder', type: 'string', description: 'Placeholder text' },
   { name: 'value', type: 'string', description: 'Default value' },
   { name: 'label', type: 'string', description: 'Field label' },
@@ -152,36 +213,58 @@ export const ATTRIBUTE_SPECS: readonly AttributeSpec[] = [
   // ============================================
   { name: 'viewport', type: 'string', description: 'Viewport size (e.g., "1440x900")' },
   { name: 'device', type: 'string', description: 'Device preset' },
-] as const;
+] as const
 
 /**
  * Set of all valid attribute names for quick lookup
  */
 export const VALID_ATTRIBUTE_NAMES: ReadonlySet<string> = new Set(
-  ATTRIBUTE_SPECS.map(attr => attr.name)
-);
+  ATTRIBUTE_SPECS.map((attr) => attr.name),
+)
 
 /**
  * Map of attribute name to spec for quick lookup
  */
 export const ATTRIBUTE_MAP: ReadonlyMap<string, AttributeSpec> = new Map(
-  ATTRIBUTE_SPECS.map(attr => [attr.name, attr])
-);
+  ATTRIBUTE_SPECS.map((attr) => [attr.name, attr]),
+)
 
 /**
  * Common attributes available to most components
  */
 export const COMMON_ATTRIBUTES: readonly string[] = [
   // Spacing
-  'p', 'px', 'py', 'pt', 'pr', 'pb', 'pl',
-  'm', 'mx', 'my', 'mt', 'mr', 'mb', 'ml',
+  'p',
+  'px',
+  'py',
+  'pt',
+  'pr',
+  'pb',
+  'pl',
+  'm',
+  'mx',
+  'my',
+  'mt',
+  'mr',
+  'mb',
+  'ml',
   'gap',
   // Size
-  'w', 'h', 'minW', 'maxW', 'minH', 'maxH',
+  'w',
+  'h',
+  'minW',
+  'maxW',
+  'minH',
+  'maxH',
   // Flex
-  'flex', 'direction', 'justify', 'align', 'wrap',
+  'flex',
+  'direction',
+  'justify',
+  'align',
+  'wrap',
   // Grid
   'span',
   // Position
-  'x', 'y',
-] as const;
+  'x',
+  'y',
+] as const

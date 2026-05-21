@@ -2,7 +2,7 @@
  * Button component styles
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateButtonStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Button Components */
@@ -130,5 +130,5 @@ export function generateButtonStyles(_theme: ThemeConfig, prefix: string): strin
 /* Button justify overrides - higher specificity to override default center */
 .${prefix}-button.${prefix}-justify-start { justify-content: flex-start; }
 .${prefix}-button.${prefix}-justify-end { justify-content: flex-end; }
-.${prefix}-button.${prefix}-justify-between { justify-content: space-between; }`;
+.${prefix}-button.${prefix}-justify-between { justify-content: space-between; }`
 }

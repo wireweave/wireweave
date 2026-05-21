@@ -5,8 +5,8 @@
  * Each component specifies its valid attributes.
  */
 
-import type { ComponentSpec } from './types';
-import { COMMON_ATTRIBUTES } from './attributes';
+import type { ComponentSpec } from './types'
+import { COMMON_ATTRIBUTES } from './attributes'
 
 /**
  * All valid components in Wireweave DSL
@@ -19,7 +19,15 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
     name: 'page',
     nodeType: 'Page',
     category: 'layout',
-    attributes: [...COMMON_ATTRIBUTES, 'title', 'width', 'height', 'viewport', 'device', 'centered'],
+    attributes: [
+      ...COMMON_ATTRIBUTES,
+      'title',
+      'width',
+      'height',
+      'viewport',
+      'device',
+      'centered',
+    ],
     hasChildren: true,
     description: 'Root container for a wireframe page',
   },
@@ -171,7 +179,19 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
     name: 'input',
     nodeType: 'Input',
     category: 'input',
-    attributes: [...COMMON_ATTRIBUTES, 'label', 'inputType', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'icon', 'size', 'rounded'],
+    attributes: [
+      ...COMMON_ATTRIBUTES,
+      'label',
+      'inputType',
+      'placeholder',
+      'value',
+      'disabled',
+      'required',
+      'readonly',
+      'icon',
+      'size',
+      'rounded',
+    ],
     hasChildren: false,
     description: 'Text input field',
   },
@@ -179,7 +199,15 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
     name: 'textarea',
     nodeType: 'Textarea',
     category: 'input',
-    attributes: [...COMMON_ATTRIBUTES, 'label', 'placeholder', 'value', 'rows', 'disabled', 'required'],
+    attributes: [
+      ...COMMON_ATTRIBUTES,
+      'label',
+      'placeholder',
+      'value',
+      'rows',
+      'disabled',
+      'required',
+    ],
     hasChildren: false,
     description: 'Multi-line text input',
   },
@@ -227,7 +255,18 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
     name: 'button',
     nodeType: 'Button',
     category: 'input',
-    attributes: [...COMMON_ATTRIBUTES, 'primary', 'secondary', 'outline', 'ghost', 'danger', 'size', 'icon', 'disabled', 'loading'],
+    attributes: [
+      ...COMMON_ATTRIBUTES,
+      'primary',
+      'secondary',
+      'outline',
+      'ghost',
+      'danger',
+      'size',
+      'icon',
+      'disabled',
+      'loading',
+    ],
     hasChildren: false,
     description: 'Clickable button',
   },
@@ -427,42 +466,42 @@ export const COMPONENT_SPECS: readonly ComponentSpec[] = [
     hasChildren: true,
     description: 'Individual annotation entry with marker number and title',
   },
-] as const;
+] as const
 
 /**
  * Set of all valid component names for quick lookup
  */
 export const VALID_COMPONENT_NAMES: ReadonlySet<string> = new Set(
-  COMPONENT_SPECS.map(comp => comp.name)
-);
+  COMPONENT_SPECS.map((comp) => comp.name),
+)
 
 /**
  * Map of component name to spec for quick lookup
  */
 export const COMPONENT_MAP: ReadonlyMap<string, ComponentSpec> = new Map(
-  COMPONENT_SPECS.map(comp => [comp.name, comp])
-);
+  COMPONENT_SPECS.map((comp) => [comp.name, comp]),
+)
 
 /**
  * Map of AST node type to spec for quick lookup
  */
 export const NODE_TYPE_MAP: ReadonlyMap<string, ComponentSpec> = new Map(
-  COMPONENT_SPECS.map(comp => [comp.nodeType, comp])
-);
+  COMPONENT_SPECS.map((comp) => [comp.nodeType, comp]),
+)
 
 /**
  * Get valid attributes for a component (by name or node type)
  */
 export function getValidAttributes(componentNameOrType: string): readonly string[] | undefined {
-  const spec = COMPONENT_MAP.get(componentNameOrType) ?? NODE_TYPE_MAP.get(componentNameOrType);
-  return spec?.attributes;
+  const spec = COMPONENT_MAP.get(componentNameOrType) ?? NODE_TYPE_MAP.get(componentNameOrType)
+  return spec?.attributes
 }
 
 /**
  * Check if an attribute is valid for a component
  */
 export function isValidAttribute(componentNameOrType: string, attributeName: string): boolean {
-  const validAttrs = getValidAttributes(componentNameOrType);
-  if (!validAttrs) return false;
-  return validAttrs.includes(attributeName);
+  const validAttrs = getValidAttributes(componentNameOrType)
+  if (!validAttrs) return false
+  return validAttrs.includes(attributeName)
 }

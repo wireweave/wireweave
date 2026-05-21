@@ -7,7 +7,7 @@
  * - Responsive design
  */
 
-import type { ThemeConfig } from './types';
+import type { ThemeConfig } from './types'
 import {
   generateContainerStyles,
   generateTextStyles,
@@ -22,7 +22,7 @@ import {
   generateAccessibilityStyles,
   generateDividerStyles,
   generateAnnotationStyles,
-} from './styles/index';
+} from './styles/index'
 
 /**
  * Generate all component-specific CSS styles
@@ -42,7 +42,7 @@ export function generateComponentStyles(_theme: ThemeConfig, prefix: string = 'w
     generateAccessibilityStyles(prefix),
     generateDividerStyles(prefix),
     generateAnnotationStyles(_theme, prefix),
-  ];
+  ]
 
-  return parts.join('\n\n');
+  return parts.join('\n\n')
 }

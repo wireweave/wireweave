@@ -2,7 +2,7 @@
  * Overlay component styles (Tooltip, Popover, Dropdown)
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateOverlayStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Overlay Components */
@@ -101,5 +101,5 @@ export function generateOverlayStyles(_theme: ThemeConfig, prefix: string): stri
 .${prefix}-dropdown-item-disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}`;
+}`
 }

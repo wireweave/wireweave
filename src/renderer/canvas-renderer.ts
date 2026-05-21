@@ -16,22 +16,22 @@
  * the canvas DOM themselves can reuse the placement math.
  */
 
-import type { WireframeDocument, PageNode } from '../ast/types';
-import type { CanvasOptions, CanvasRenderResult } from './types';
-import { HtmlRenderer } from './html';
-import { resolvePageDimensions } from './page-renderer';
-import { generateStyles } from './styles';
-import { defaultTheme, darkTheme } from './types';
+import type { WireframeDocument, PageNode } from '../ast/types'
+import type { CanvasOptions, CanvasRenderResult } from './types'
+import { HtmlRenderer } from './html'
+import { resolvePageDimensions } from './page-renderer'
+import { generateStyles } from './styles'
+import { defaultTheme, darkTheme } from './types'
 
-const DEFAULT_GAP = 64;
-const DEFAULT_PREFIX = 'wf';
+const DEFAULT_GAP = 64
+const DEFAULT_PREFIX = 'wf'
 
 export interface PlacedPage {
-  page: PageNode;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+  page: PageNode
+  x: number
+  y: number
+  w: number
+  h: number
 }
 
 /**
@@ -48,32 +48,32 @@ export interface PlacedPage {
  */
 export function layoutCanvas(
   pages: PageNode[],
-  gap: number = DEFAULT_GAP
+  gap: number = DEFAULT_GAP,
 ): { placed: PlacedPage[]; width: number; height: number } {
-  const placed: PlacedPage[] = [];
-  let cursorX = 0;
-  let maxRight = 0;
-  let maxBottom = 0;
+  const placed: PlacedPage[] = []
+  let cursorX = 0
+  let maxRight = 0
+  let maxBottom = 0
 
   for (const page of pages) {
-    const { width, height } = resolvePageDimensions(page);
-    const explicitX = typeof page.x === 'number' ? page.x : undefined;
-    const explicitY = typeof page.y === 'number' ? page.y : undefined;
+    const { width, height } = resolvePageDimensions(page)
+    const explicitX = typeof page.x === 'number' ? page.x : undefined
+    const explicitY = typeof page.y === 'number' ? page.y : undefined
 
-    const x = explicitX ?? cursorX;
-    const y = explicitY ?? 0;
+    const x = explicitX ?? cursorX
+    const y = explicitY ?? 0
 
-    placed.push({ page, x, y, w: width, h: height });
+    placed.push({ page, x, y, w: width, h: height })
 
     if (explicitX === undefined) {
-      cursorX = x + width + gap;
+      cursorX = x + width + gap
     }
 
-    maxRight = Math.max(maxRight, x + width);
-    maxBottom = Math.max(maxBottom, y + height);
+    maxRight = Math.max(maxRight, x + width)
+    maxBottom = Math.max(maxBottom, y + height)
   }
 
-  return { placed, width: maxRight, height: maxBottom };
+  return { placed, width: maxRight, height: maxBottom }
 }
 
 /**
@@ -85,14 +85,14 @@ export function layoutCanvas(
  */
 export function renderCanvas(
   doc: WireframeDocument,
-  options: CanvasOptions = {}
+  options: CanvasOptions = {},
 ): CanvasRenderResult {
-  const gap = options.gap ?? DEFAULT_GAP;
-  const prefix = options.classPrefix ?? DEFAULT_PREFIX;
-  const includeStyles = options.includeStyles !== false;
+  const gap = options.gap ?? DEFAULT_GAP
+  const prefix = options.classPrefix ?? DEFAULT_PREFIX
+  const includeStyles = options.includeStyles !== false
 
-  const theme = options.theme === 'dark' ? darkTheme : defaultTheme;
-  const css = includeStyles ? generateStyles(theme, prefix) : '';
+  const theme = options.theme === 'dark' ? darkTheme : defaultTheme
+  const css = includeStyles ? generateStyles(theme, prefix) : ''
 
   if (doc.children.length === 0) {
     return {
@@ -100,39 +100,37 @@ export function renderCanvas(
       css,
       width: 0,
       height: 0,
-    };
+    }
   }
 
-  const { placed, width, height } = layoutCanvas(doc.children, gap);
+  const { placed, width, height } = layoutCanvas(doc.children, gap)
 
-  const pageRenderer = new HtmlRenderer({ ...options, includeStyles: false });
+  const pageRenderer = new HtmlRenderer({ ...options, includeStyles: false })
   const boards = placed
     .map((p) => {
       const { html: pageHtml } = pageRenderer.render({
         type: 'Document',
         children: [p.page],
-      });
-      return wrapBoard(pageHtml, p, prefix);
+      })
+      return wrapBoard(pageHtml, p, prefix)
     })
-    .join('\n');
+    .join('\n')
 
-  const canvasStyle = `position: relative; width: ${width}px; height: ${height}px;`;
-  const html = `<div class="${prefix}-canvas" style="${canvasStyle}" data-page-count="${placed.length}">\n${boards}\n</div>`;
+  const canvasStyle = `position: relative; width: ${width}px; height: ${height}px;`
+  const html = `<div class="${prefix}-canvas" style="${canvasStyle}" data-page-count="${placed.length}">\n${boards}\n</div>`
 
-  return { html, css, width, height };
+  return { html, css, width, height }
 }
 
 function wrapBoard(pageHtml: string, placed: PlacedPage, prefix: string): string {
-  const { x, y, w, h, page } = placed;
-  const positionStyle = `position: absolute; left: ${x}px; top: ${y}px; width: ${w}px; height: ${h}px;`;
-  const titleAttr = page.title
-    ? ` data-page-title="${escapeAttr(page.title)}"`
-    : '';
-  const dataAttrs = ` data-page-x="${x}" data-page-y="${y}" data-page-w="${w}" data-page-h="${h}"${titleAttr}`;
+  const { x, y, w, h, page } = placed
+  const positionStyle = `position: absolute; left: ${x}px; top: ${y}px; width: ${w}px; height: ${h}px;`
+  const titleAttr = page.title ? ` data-page-title="${escapeAttr(page.title)}"` : ''
+  const dataAttrs = ` data-page-x="${x}" data-page-y="${y}" data-page-w="${w}" data-page-h="${h}"${titleAttr}`
 
-  return `<div class="${prefix}-canvas-board" style="${positionStyle}"${dataAttrs}>\n${pageHtml}\n</div>`;
+  return `<div class="${prefix}-canvas-board" style="${positionStyle}"${dataAttrs}>\n${pageHtml}\n</div>`
 }
 
 function escapeAttr(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 }

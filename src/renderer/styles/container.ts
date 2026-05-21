@@ -154,5 +154,5 @@ export function generateContainerStyles(prefix: string): string {
 
 .${prefix}-accordion-content {
   padding: 16px;
-}`;
+}`
 }

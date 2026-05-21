@@ -2,20 +2,20 @@
  * Button Renderer
  */
 
-import type { ButtonNode } from '../../../ast/types';
-import type { RenderContext } from './types';
-import { getIconData, renderIconSvg } from '../../../icons/lucide-icons';
-import { resolveSizeValue } from '../components';
+import type { ButtonNode } from '../../../ast/types'
+import type { RenderContext } from './types'
+import { getIconData, renderIconSvg } from '../../../icons/lucide-icons'
+import { resolveSizeValue } from '../components'
 
 /**
  * Render Button node
  */
 export function renderButton(node: ButtonNode, ctx: RenderContext): string {
   // Icon-only button: has icon but no text content (or default "Button" text)
-  const isIconOnly = node.icon && (!node.content.trim() || node.content === 'Button');
+  const isIconOnly = node.icon && (!node.content.trim() || node.content === 'Button')
 
   // Resolve size: token string (xs, sm, md, lg, xl) or custom px number/ValueWithUnit
-  const sizeResolved = resolveSizeValue(node.size, 'button', ctx.prefix);
+  const sizeResolved = resolveSizeValue(node.size, 'button', ctx.prefix)
 
   const classes = ctx.buildClassString([
     `${ctx.prefix}-button`,
@@ -29,14 +29,13 @@ export function renderButton(node: ButtonNode, ctx: RenderContext): string {
     node.loading ? `${ctx.prefix}-button-loading` : undefined,
     isIconOnly ? `${ctx.prefix}-button-icon-only` : undefined,
     ...ctx.getCommonClasses(node),
-  ]);
+  ])
 
-  const baseStyles = ctx.buildCommonStyles(node);
-  const sizeStyle = sizeResolved.style || '';
-  const combinedStyles = baseStyles && sizeStyle
-    ? `${baseStyles}; ${sizeStyle}`
-    : baseStyles || sizeStyle;
-  const styleAttr = combinedStyles ? ` style="${combinedStyles}"` : '';
+  const baseStyles = ctx.buildCommonStyles(node)
+  const sizeStyle = sizeResolved.style || ''
+  const combinedStyles =
+    baseStyles && sizeStyle ? `${baseStyles}; ${sizeStyle}` : baseStyles || sizeStyle
+  const styleAttr = combinedStyles ? ` style="${combinedStyles}"` : ''
 
   const attrs: Record<string, string | boolean | undefined> = {
     class: classes,
@@ -46,20 +45,22 @@ export function renderButton(node: ButtonNode, ctx: RenderContext): string {
     'data-opens': node.opens,
     'data-toggles': node.toggles,
     'data-action': node.action,
-  };
+  }
 
-  let icon = '';
+  let icon = ''
   if (node.icon) {
-    const iconData = getIconData(node.icon);
+    const iconData = getIconData(node.icon)
     if (iconData) {
-      icon = renderIconSvg(iconData, 16, 2, `${ctx.prefix}-icon`);
+      icon = renderIconSvg(iconData, 16, 2, `${ctx.prefix}-icon`)
     } else {
-      icon = `<span class="${ctx.prefix}-icon">[${ctx.escapeHtml(node.icon)}]</span>`;
+      icon = `<span class="${ctx.prefix}-icon">[${ctx.escapeHtml(node.icon)}]</span>`
     }
   }
-  const loading = node.loading ? `<span class="${ctx.prefix}-spinner ${ctx.prefix}-spinner-sm"></span>` : '';
+  const loading = node.loading
+    ? `<span class="${ctx.prefix}-spinner ${ctx.prefix}-spinner-sm"></span>`
+    : ''
   // Don't show text for icon-only buttons
-  const content = isIconOnly ? '' : ctx.escapeHtml(node.content);
+  const content = isIconOnly ? '' : ctx.escapeHtml(node.content)
 
-  return `<button${ctx.buildAttrsString(attrs)}${styleAttr}>${loading}${icon}${content}</button>`;
+  return `<button${ctx.buildAttrsString(attrs)}${styleAttr}>${loading}${icon}${content}</button>`
 }

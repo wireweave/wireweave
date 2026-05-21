@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Layout',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const HeaderFooter: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page w=800 h=400 {
       header {
         text "My App" weight=bold
@@ -22,10 +23,11 @@ export const HeaderFooter: Story = {
       }
     }
   `),
-};
+}
 
 export const SidebarLayout: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page w=800 h=400 {
       header {
         text "Dashboard" weight=bold
@@ -41,10 +43,11 @@ export const SidebarLayout: Story = {
       }
     }
   `),
-};
+}
 
 export const Stack: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=400 {
       stack gap=2 {
         text "Stack takes only content height"
@@ -53,10 +56,11 @@ export const Stack: Story = {
       }
     }
   `),
-};
+}
 
 export const Section: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       section {
         title "Section 1" level=3
@@ -68,4 +72,4 @@ export const Section: Story = {
       }
     }
   `),
-};
+}

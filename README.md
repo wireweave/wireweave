@@ -19,7 +19,7 @@ yarn add @wireweave/core
 ## Quick Start
 
 ```typescript
-import { parse, render, renderToSvg, renderToHtml } from '@wireweave/core';
+import { parse, render, renderToSvg, renderToHtml } from '@wireweave/core'
 
 const source = `
   page "Hello" {
@@ -29,19 +29,19 @@ const source = `
       button "Get Started" primary
     }
   }
-`;
+`
 
 // Parse DSL to AST
-const doc = parse(source);
+const doc = parse(source)
 
 // Render to HTML + CSS
-const { html, css } = render(doc);
+const { html, css } = render(doc)
 
 // Render to complete HTML document
-const fullHtml = renderToHtml(doc);
+const fullHtml = renderToHtml(doc)
 
 // Render to SVG
-const { svg, width, height } = renderToSvg(doc);
+const { svg, width, height } = renderToSvg(doc)
 ```
 
 ## API Reference
@@ -53,10 +53,10 @@ const { svg, width, height } = renderToSvg(doc);
 Parses wireframe DSL source code into an AST (Abstract Syntax Tree).
 
 ```typescript
-import { parse } from '@wireweave/core';
+import { parse } from '@wireweave/core'
 
-const doc = parse('page { text "Hello" }');
-console.log(doc.children[0].type); // 'Page'
+const doc = parse('page { text "Hello" }')
+console.log(doc.children[0].type) // 'Page'
 ```
 
 **Throws**: `ParseError` if the source contains syntax errors.
@@ -68,10 +68,10 @@ console.log(doc.children[0].type); // 'Page'
 Renders the AST to HTML and CSS.
 
 ```typescript
-import { parse, render } from '@wireweave/core';
+import { parse, render } from '@wireweave/core'
 
-const doc = parse('page { card { text "Hello" } }');
-const { html, css } = render(doc);
+const doc = parse('page { card { text "Hello" } }')
+const { html, css } = render(doc)
 ```
 
 **Options**:
@@ -86,10 +86,10 @@ const { html, css } = render(doc);
 Renders the AST to a complete HTML document with embedded CSS.
 
 ```typescript
-import { parse, renderToHtml } from '@wireweave/core';
+import { parse, renderToHtml } from '@wireweave/core'
 
-const doc = parse('page "Test" { text "Hello" }');
-const html = renderToHtml(doc, { theme: 'dark' });
+const doc = parse('page "Test" { text "Hello" }')
+const html = renderToHtml(doc, { theme: 'dark' })
 // Returns: <!DOCTYPE html><html>...</html>
 ```
 
@@ -100,13 +100,13 @@ const html = renderToHtml(doc, { theme: 'dark' });
 Renders the AST to SVG format.
 
 ```typescript
-import { parse, renderToSvg } from '@wireweave/core';
+import { parse, renderToSvg } from '@wireweave/core'
 
-const doc = parse('page { button "Click" primary }');
+const doc = parse('page { button "Click" primary }')
 const { svg, width, height } = renderToSvg(doc, {
   width: 800,
-  padding: 20
-});
+  padding: 20,
+})
 ```
 
 **Options**:
@@ -125,21 +125,21 @@ const { svg, width, height } = renderToSvg(doc, {
 Analyzes a wireframe document and returns comprehensive statistics.
 
 ```typescript
-import { parse, analyze } from '@wireweave/core';
+import { parse, analyze } from '@wireweave/core'
 
-const doc = parse('page { card { text "Hello" button "Click" } }');
-const result = analyze(doc);
+const doc = parse('page { card { text "Hello" button "Click" } }')
+const result = analyze(doc)
 
-console.log(result.summary);
+console.log(result.summary)
 // { totalComponents: 4, uniqueTypes: 4, mostUsedType: 'Page', ... }
 
-console.log(result.tree);
+console.log(result.tree)
 // { totalNodes: 4, maxDepth: 3, avgDepth: 2, ... }
 
-console.log(result.accessibility);
+console.log(result.accessibility)
 // { score: 100, imagesWithAlt: 0, inputsWithLabels: 0, ... }
 
-console.log(result.complexity);
+console.log(result.complexity)
 // { score: 2, level: 'simple', interactiveElements: 1, ... }
 ```
 
@@ -159,16 +159,16 @@ console.log(result.complexity);
 Compares two wireframe documents and returns detailed differences.
 
 ```typescript
-import { parse, diff } from '@wireweave/core';
+import { parse, diff } from '@wireweave/core'
 
-const oldDoc = parse('page { text "Hello" }');
-const newDoc = parse('page { text "Hello" button "Click" }');
+const oldDoc = parse('page { text "Hello" }')
+const newDoc = parse('page { text "Hello" button "Click" }')
 
-const result = diff(oldDoc, newDoc);
+const result = diff(oldDoc, newDoc)
 
-console.log(result.identical); // false
-console.log(result.description); // "Added 1 component(s): Button."
-console.log(result.summary);
+console.log(result.identical) // false
+console.log(result.description) // "Added 1 component(s): Button."
+console.log(result.summary)
 // { addedCount: 1, removedCount: 0, changedCount: 0, ... }
 ```
 
@@ -177,12 +177,12 @@ console.log(result.summary);
 Quick check if two documents are identical.
 
 ```typescript
-import { parse, areIdentical } from '@wireweave/core';
+import { parse, areIdentical } from '@wireweave/core'
 
-const doc1 = parse('page { text "Hello" }');
-const doc2 = parse('page { text "Hello" }');
+const doc1 = parse('page { text "Hello" }')
+const doc2 = parse('page { text "Hello" }')
 
-console.log(areIdentical(doc1, doc2)); // true
+console.log(areIdentical(doc1, doc2)) // true
 ```
 
 #### `getChangeSummary(oldDoc: WireframeDocument, newDoc: WireframeDocument): string`
@@ -190,12 +190,12 @@ console.log(areIdentical(doc1, doc2)); // true
 Returns a human-readable summary of changes.
 
 ```typescript
-import { parse, getChangeSummary } from '@wireweave/core';
+import { parse, getChangeSummary } from '@wireweave/core'
 
-const oldDoc = parse('page { text "A" }');
-const newDoc = parse('page { text "B" }');
+const oldDoc = parse('page { text "A" }')
+const newDoc = parse('page { text "B" }')
 
-console.log(getChangeSummary(oldDoc, newDoc));
+console.log(getChangeSummary(oldDoc, newDoc))
 // "Modified 1 component(s)."
 ```
 
@@ -206,14 +206,14 @@ console.log(getChangeSummary(oldDoc, newDoc));
 Exports wireframe to JSON format.
 
 ```typescript
-import { parse, exportToJson } from '@wireweave/core';
+import { parse, exportToJson } from '@wireweave/core'
 
-const doc = parse('page { card { text "Hello" } }');
-const result = exportToJson(doc);
+const doc = parse('page { card { text "Hello" } }')
+const result = exportToJson(doc)
 
-console.log(result.version); // "1.0.0"
-console.log(result.pages); // [{ type: 'page', children: [...] }]
-console.log(result.metadata);
+console.log(result.version) // "1.0.0"
+console.log(result.pages) // [{ type: 'page', children: [...] }]
+console.log(result.metadata)
 // { exportedAt: '...', nodeCount: 3, componentTypes: ['card', 'page', 'text'] }
 ```
 
@@ -222,10 +222,10 @@ console.log(result.metadata);
 Exports wireframe to JSON string.
 
 ```typescript
-import { parse, exportToJsonString } from '@wireweave/core';
+import { parse, exportToJsonString } from '@wireweave/core'
 
-const doc = parse('page { text "Hello" }');
-const json = exportToJsonString(doc, { prettyPrint: true });
+const doc = parse('page { text "Hello" }')
+const json = exportToJsonString(doc, { prettyPrint: true })
 ```
 
 #### `exportToFigma(doc: WireframeDocument): FigmaExportResult`
@@ -233,13 +233,13 @@ const json = exportToJsonString(doc, { prettyPrint: true });
 Exports wireframe to Figma-compatible format.
 
 ```typescript
-import { parse, exportToFigma } from '@wireweave/core';
+import { parse, exportToFigma } from '@wireweave/core'
 
-const doc = parse('page { card { text "Hello" } }');
-const result = exportToFigma(doc);
+const doc = parse('page { card { text "Hello" } }')
+const result = exportToFigma(doc)
 
-console.log(result.document); // Figma-compatible node tree
-console.log(result.componentMappings);
+console.log(result.document) // Figma-compatible node tree
+console.log(result.componentMappings)
 // { page: 'CANVAS', card: 'FRAME', text: 'TEXT' }
 ```
 
@@ -250,13 +250,13 @@ console.log(result.componentMappings);
 Traverses the AST tree depth-first.
 
 ```typescript
-import { parse } from '@wireweave/core';
-import { walk } from '@wireweave/core/ast';
+import { parse } from '@wireweave/core'
+import { walk } from '@wireweave/core/ast'
 
-const doc = parse('page { card { text "A" text "B" } }');
+const doc = parse('page { card { text "A" text "B" } }')
 walk(doc.children[0], (node, parent, depth) => {
-  console.log(`${node.type} at depth ${depth}`);
-});
+  console.log(`${node.type} at depth ${depth}`)
+})
 ```
 
 #### `find(node: ASTNode, predicate: (n: ASTNode) => boolean): ASTNode | undefined`
@@ -264,9 +264,9 @@ walk(doc.children[0], (node, parent, depth) => {
 Finds the first node matching the predicate.
 
 ```typescript
-import { find } from '@wireweave/core/ast';
+import { find } from '@wireweave/core/ast'
 
-const button = find(doc.children[0], n => n.type === 'Button');
+const button = find(doc.children[0], (n) => n.type === 'Button')
 ```
 
 #### `findAll(node: ASTNode, predicate: (n: ASTNode) => boolean): ASTNode[]`
@@ -274,9 +274,9 @@ const button = find(doc.children[0], n => n.type === 'Button');
 Finds all nodes matching the predicate.
 
 ```typescript
-import { findAll } from '@wireweave/core/ast';
+import { findAll } from '@wireweave/core/ast'
 
-const buttons = findAll(doc.children[0], n => n.type === 'Button');
+const buttons = findAll(doc.children[0], (n) => n.type === 'Button')
 ```
 
 #### `findByType<T>(node: ASTNode, type: string): T[]`
@@ -284,10 +284,10 @@ const buttons = findAll(doc.children[0], n => n.type === 'Button');
 Finds all nodes of a specific type.
 
 ```typescript
-import { findByType } from '@wireweave/core/ast';
-import type { ButtonNode } from '@wireweave/core';
+import { findByType } from '@wireweave/core/ast'
+import type { ButtonNode } from '@wireweave/core'
 
-const buttons = findByType<ButtonNode>(doc.children[0], 'Button');
+const buttons = findByType<ButtonNode>(doc.children[0], 'Button')
 ```
 
 #### `countNodes(node: ASTNode): number`
@@ -308,8 +308,8 @@ Creates a deep copy of a node.
 
 ```typescript
 interface WireframeDocument {
-  type: 'Document';
-  children: PageNode[];
+  type: 'Document'
+  children: PageNode[]
 }
 ```
 
@@ -317,9 +317,9 @@ interface WireframeDocument {
 
 ```typescript
 interface PageNode {
-  type: 'Page';
-  title?: string;
-  children: ASTNode[];
+  type: 'Page'
+  title?: string
+  children: ASTNode[]
   // ... spacing attributes
 }
 ```
@@ -327,6 +327,7 @@ interface PageNode {
 ### Common Node Properties
 
 All nodes include:
+
 - `type: string` - Node type (e.g., 'Button', 'Card')
 - `location?: Location` - Source location info
 - Spacing: `p`, `px`, `py`, `pt`, `pr`, `pb`, `pl`, `m`, `mx`, `my`, `mt`, `mr`, `mb`, `ml`
@@ -337,42 +338,42 @@ All nodes include:
 ```typescript
 // Button
 interface ButtonNode {
-  type: 'Button';
-  content: string;
-  primary?: boolean;
-  secondary?: boolean;
-  outline?: boolean;
-  ghost?: boolean;
-  danger?: boolean;
-  disabled?: boolean;
+  type: 'Button'
+  content: string
+  primary?: boolean
+  secondary?: boolean
+  outline?: boolean
+  ghost?: boolean
+  danger?: boolean
+  disabled?: boolean
 }
 
 // Input
 interface InputNode {
-  type: 'Input';
-  label?: string;
-  placeholder?: string;
-  inputType?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'number';
-  required?: boolean;
-  disabled?: boolean;
+  type: 'Input'
+  label?: string
+  placeholder?: string
+  inputType?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'number'
+  required?: boolean
+  disabled?: boolean
 }
 
 // Card
 interface CardNode {
-  type: 'Card';
-  title?: string;
-  children: ASTNode[];
+  type: 'Card'
+  title?: string
+  children: ASTNode[]
 }
 
 // Col
 interface ColNode {
-  type: 'Col';
-  span?: number;
-  sm?: number;
-  md?: number;
-  lg?: number;
-  xl?: number;
-  children: ASTNode[];
+  type: 'Col'
+  span?: number
+  sm?: number
+  md?: number
+  lg?: number
+  xl?: number
+  children: ASTNode[]
 }
 ```
 
@@ -442,15 +443,15 @@ page {
 ## Error Handling
 
 ```typescript
-import { parse } from '@wireweave/core';
+import { parse } from '@wireweave/core'
 
 try {
-  const doc = parse('page { invalid }');
+  const doc = parse('page { invalid }')
 } catch (error) {
   if (error.name === 'ParseError') {
-    console.log(error.message);
+    console.log(error.message)
     // "Syntax error at line 1, column 8: ..."
-    console.log(error.location);
+    console.log(error.location)
     // { start: { line: 1, column: 8 }, end: { ... } }
   }
 }
@@ -462,12 +463,12 @@ The core library works in both Node.js and browser environments. For browser usa
 
 ```html
 <script type="module">
-  import { parse, render } from '@wireweave/core';
+  import { parse, render } from '@wireweave/core'
 
-  const doc = parse('page { text "Hello" }');
-  const { html, css } = render(doc);
+  const doc = parse('page { text "Hello" }')
+  const { html, css } = render(doc)
 
-  document.body.innerHTML = `<style>${css}</style>${html}`;
+  document.body.innerHTML = `<style>${css}</style>${html}`
 </script>
 ```
 

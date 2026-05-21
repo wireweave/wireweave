@@ -7,6 +7,6 @@
  * This is the single source of truth for what constitutes valid Wireweave code.
  */
 
-export * from './types';
-export * from './components';
-export * from './attributes';
+export * from './types'
+export * from './components'
+export * from './attributes'

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { parse, renderCanvas } from '../index';
+import type { Meta, StoryObj } from '@storybook/html'
+import { parse, renderCanvas } from '../index'
 
 /**
  * Canvas stories — bounded layout only.
@@ -14,9 +14,9 @@ import { parse, renderCanvas } from '../index';
  * infinite canvas viewer, run the dashboard package's Storybook.
  */
 function renderCanvasDSL(dsl: string): string {
-  const doc = parse(dsl);
-  const { html } = renderCanvas(doc);
-  return html;
+  const doc = parse(dsl)
+  const { html } = renderCanvas(doc)
+  return html
 }
 
 const meta: Meta = {
@@ -24,10 +24,10 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
   },
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 const sideBySideDsl = `
   page "Login" at(0, 0) viewport="1280x800" centered {
@@ -48,7 +48,7 @@ const sideBySideDsl = `
       }
     }
   }
-`;
+`
 
 const autoFlowDsl = `
   page "Step 1" viewport="1280x800" centered {
@@ -70,7 +70,7 @@ const autoFlowDsl = `
       button "Finish" primary w=full
     }
   }
-`;
+`
 
 const mixedViewportDsl = `
   page "Desktop" at(0, 0) viewport="1280x800" {
@@ -91,7 +91,7 @@ const mixedViewportDsl = `
       card "Users"   { text "1.2k" size=xl weight=bold }
     }
   }
-`;
+`
 
 const mosaicDsl = `
   page "Login" at(0, 0) viewport="800x600" centered {
@@ -132,7 +132,7 @@ const mosaicDsl = `
       button "Open chat" primary w=full
     }
   }
-`;
+`
 
 /**
  * Two pages pinned at explicit canvas coordinates — pure positioning,
@@ -142,7 +142,7 @@ const mosaicDsl = `
 export const ExplicitAt: Story = {
   name: 'Explicit at(x, y)',
   render: () => renderCanvasDSL(sideBySideDsl),
-};
+}
 
 /**
  * Three pages without coordinates — auto-flow horizontally with the
@@ -151,7 +151,7 @@ export const ExplicitAt: Story = {
 export const AutoFlow: Story = {
   name: 'Auto-flow (no at)',
   render: () => renderCanvasDSL(autoFlowDsl),
-};
+}
 
 /**
  * Desktop board (1280x800) and mobile board (375x812) coexist on one
@@ -161,7 +161,7 @@ export const AutoFlow: Story = {
 export const MixedViewports: Story = {
   name: 'Mixed viewport (desktop + mobile)',
   render: () => renderCanvasDSL(mixedViewportDsl),
-};
+}
 
 /**
  * Six wireframes laid out in a 3×2 mosaic via explicit at(x, y) — proves
@@ -171,4 +171,4 @@ export const MixedViewports: Story = {
 export const Mosaic: Story = {
   name: 'Mosaic 3×2',
   render: () => renderCanvasDSL(mosaicDsl),
-};
+}

@@ -5,31 +5,31 @@
  */
 
 // AST types, guards, and utilities
-export * from './ast';
+export * from './ast'
 
 // Parser functions
-export * from './parser';
+export * from './parser'
 
 // Renderer
-export * from './renderer';
+export * from './renderer'
 
 // Viewport
-export * from './viewport';
+export * from './viewport'
 
 // Icons (Lucide)
-export * from './icons/lucide-icons';
+export * from './icons/lucide-icons'
 
 // DSL Specification (components, attributes)
-export * from './spec';
+export * from './spec'
 
 // Validation
-export * from './validation';
+export * from './validation'
 
 // Diff (comparison between wireframes)
-export * from './diff';
+export * from './diff'
 
 // Export (format conversion)
-export * from './export';
+export * from './export'
 
 // Analyze (statistics and metrics)
-export * from './analyze';
+export * from './analyze'

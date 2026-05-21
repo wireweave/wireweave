@@ -10,24 +10,24 @@
 
 export interface RenderOptions {
   /** Theme variant */
-  theme?: 'light' | 'dark';
+  theme?: 'light' | 'dark'
   /** Scale factor for sizing */
-  scale?: number;
+  scale?: number
   /** Include CSS styles in output */
-  includeStyles?: boolean;
+  includeStyles?: boolean
   /** Minify output (no indentation/newlines) */
-  minify?: boolean;
+  minify?: boolean
   /** CSS class prefix for scoping */
-  classPrefix?: string;
+  classPrefix?: string
   /** Background color (e.g., '#ffffff', 'transparent') */
-  background?: string;
+  background?: string
 }
 
 export interface RenderResult {
   /** Rendered HTML content */
-  html: string;
+  html: string
   /** Generated CSS styles */
-  css: string;
+  css: string
 }
 
 /**
@@ -36,46 +36,46 @@ export interface RenderResult {
  * can size their wrapper without re-resolving viewport/device themselves.
  */
 export interface PageRenderResult extends RenderResult {
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 export interface CanvasOptions extends RenderOptions {
   /** Gap between auto-laid-out pages, in pixels. Default `64`. */
-  gap?: number;
+  gap?: number
 }
 
 export interface CanvasRenderResult extends RenderResult {
   /** Total canvas width — bounding box of all pages. */
-  width: number;
+  width: number
   /** Total canvas height — bounding box of all pages. */
-  height: number;
+  height: number
 }
 
 export interface SvgRenderOptions {
   /** Width of the SVG viewport */
-  width?: number;
+  width?: number
   /** Height of the SVG viewport */
-  height?: number;
+  height?: number
   /** Padding around content */
-  padding?: number;
+  padding?: number
   /** Scale factor */
-  scale?: number;
+  scale?: number
   /** Background color */
-  background?: string;
+  background?: string
   /** Font family */
-  fontFamily?: string;
+  fontFamily?: string
   /** Theme variant */
-  theme?: 'light' | 'dark';
+  theme?: 'light' | 'dark'
 }
 
 export interface SvgRenderResult {
   /** Rendered SVG content */
-  svg: string;
+  svg: string
   /** Actual width */
-  width: number;
+  width: number
   /** Actual height */
-  height: number;
+  height: number
 }
 
 // ===========================================
@@ -84,11 +84,11 @@ export interface SvgRenderResult {
 
 export interface RenderContext {
   /** Resolved render options */
-  options: Required<RenderOptions>;
+  options: Required<RenderOptions>
   /** Theme configuration */
-  theme: ThemeConfig;
+  theme: ThemeConfig
   /** Current nesting depth for indentation */
-  depth: number;
+  depth: number
 }
 
 // ===========================================
@@ -97,36 +97,36 @@ export interface RenderContext {
 
 export interface ThemeColors {
   /** Primary action color */
-  primary: string;
+  primary: string
   /** Secondary/muted action color */
-  secondary: string;
+  secondary: string
   /** Success state color */
-  success: string;
+  success: string
   /** Warning state color */
-  warning: string;
+  warning: string
   /** Danger/error state color */
-  danger: string;
+  danger: string
   /** Muted/disabled color */
-  muted: string;
+  muted: string
   /** Background color */
-  background: string;
+  background: string
   /** Foreground/text color */
-  foreground: string;
+  foreground: string
   /** Border color */
-  border: string;
+  border: string
 }
 
 export interface ThemeConfig {
   /** Color palette */
-  colors: ThemeColors;
+  colors: ThemeColors
   /** Spacing scale (number -> px value) */
-  spacing: Record<number, string>;
+  spacing: Record<number, string>
   /** Border radius */
-  radius: string;
+  radius: string
   /** Font family */
-  fontFamily: string;
+  fontFamily: string
   /** Shadow styles */
-  shadows: Record<string, string>;
+  shadows: Record<string, string>
 }
 
 // ===========================================
@@ -173,7 +173,7 @@ export const defaultTheme: ThemeConfig = {
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.2)',
     xl: '0 20px 25px -5px rgba(0, 0, 0, 0.25)',
   },
-};
+}
 
 /**
  * Dark theme configuration
@@ -189,11 +189,11 @@ export const darkTheme: ThemeConfig = {
     primary: '#FFFFFF',
     muted: '#888888',
   },
-};
+}
 
 /**
  * Get theme configuration by name
  */
 export function getTheme(name: 'light' | 'dark'): ThemeConfig {
-  return name === 'dark' ? darkTheme : defaultTheme;
+  return name === 'dark' ? darkTheme : defaultTheme
 }

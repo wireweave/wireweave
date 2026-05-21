@@ -2,9 +2,9 @@
  * Core comparison logic for diff engine
  */
 
-import type { AnyNode } from '../ast/types';
-import type { NodeChange, DiffOptions } from './types';
-import { getNodeIdentifier, compareAttributes } from './utils';
+import type { AnyNode } from '../ast/types'
+import type { NodeChange, DiffOptions } from './types'
+import { getNodeIdentifier, compareAttributes } from './utils'
 
 /**
  * Compare two nodes and their children
@@ -15,11 +15,11 @@ export function compareNodes(
   oldPath: string,
   newPath: string,
   options: DiffOptions,
-  depth: number
+  depth: number,
 ): NodeChange | null {
   // Check max depth
   if (options.maxDepth !== undefined && depth > options.maxDepth) {
-    return null;
+    return null
   }
 
   // Node was added
@@ -30,7 +30,7 @@ export function compareNodes(
       nodeType: newNode.type,
       label: getNodeIdentifier(newNode).split(':')[1] || undefined,
       newNode,
-    };
+    }
   }
 
   // Node was removed
@@ -41,12 +41,12 @@ export function compareNodes(
       nodeType: oldNode.type,
       label: getNodeIdentifier(oldNode).split(':')[1] || undefined,
       oldNode,
-    };
+    }
   }
 
   // Both null (shouldn't happen)
   if (oldNode === null || newNode === null) {
-    return null;
+    return null
   }
 
   // Different node types = removed + added
@@ -61,56 +61,56 @@ export function compareNodes(
       attributeChanges: [
         { name: 'type', oldValue: oldNode.type, newValue: newNode.type, type: 'changed' },
       ],
-    };
+    }
   }
 
   // Compare attributes
   const attributeChanges = options.ignoreAttributes
     ? []
-    : compareAttributes(oldNode, newNode, options);
+    : compareAttributes(oldNode, newNode, options)
 
   // Compare children
-  const childChanges: NodeChange[] = [];
+  const childChanges: NodeChange[] = []
 
   const oldChildren =
     'children' in oldNode && Array.isArray(oldNode.children)
-      ? (oldNode.children as AnyNode[]).filter(c => c && typeof c === 'object' && 'type' in c)
-      : [];
+      ? (oldNode.children as AnyNode[]).filter((c) => c && typeof c === 'object' && 'type' in c)
+      : []
   const newChildren =
     'children' in newNode && Array.isArray(newNode.children)
-      ? (newNode.children as AnyNode[]).filter(c => c && typeof c === 'object' && 'type' in c)
-      : [];
+      ? (newNode.children as AnyNode[]).filter((c) => c && typeof c === 'object' && 'type' in c)
+      : []
 
   // Match children by identifier for better diff
-  const oldChildMap = new Map<string, { node: AnyNode; index: number }[]>();
+  const oldChildMap = new Map<string, { node: AnyNode; index: number }[]>()
   oldChildren.forEach((child, index) => {
-    const id = getNodeIdentifier(child);
-    if (!oldChildMap.has(id)) oldChildMap.set(id, []);
-    oldChildMap.get(id)!.push({ node: child, index });
-  });
+    const id = getNodeIdentifier(child)
+    if (!oldChildMap.has(id)) oldChildMap.set(id, [])
+    oldChildMap.get(id)!.push({ node: child, index })
+  })
 
-  const newChildMap = new Map<string, { node: AnyNode; index: number }[]>();
+  const newChildMap = new Map<string, { node: AnyNode; index: number }[]>()
   newChildren.forEach((child, index) => {
-    const id = getNodeIdentifier(child);
-    if (!newChildMap.has(id)) newChildMap.set(id, []);
-    newChildMap.get(id)!.push({ node: child, index });
-  });
+    const id = getNodeIdentifier(child)
+    if (!newChildMap.has(id)) newChildMap.set(id, [])
+    newChildMap.get(id)!.push({ node: child, index })
+  })
 
-  const processedOldIndices = new Set<number>();
-  const processedNewIndices = new Set<number>();
+  const processedOldIndices = new Set<number>()
+  const processedNewIndices = new Set<number>()
 
   // Match by identifier
   for (const [id, newItems] of newChildMap) {
-    const oldItems = oldChildMap.get(id) || [];
+    const oldItems = oldChildMap.get(id) || []
 
     for (let i = 0; i < newItems.length; i++) {
-      const newItem = newItems[i];
-      const oldItem = oldItems[i];
+      const newItem = newItems[i]
+      const oldItem = oldItems[i]
 
       if (oldItem && !processedOldIndices.has(oldItem.index)) {
         // Found a match
-        processedOldIndices.add(oldItem.index);
-        processedNewIndices.add(newItem.index);
+        processedOldIndices.add(oldItem.index)
+        processedNewIndices.add(newItem.index)
 
         const childChange = compareNodes(
           oldItem.node,
@@ -118,26 +118,26 @@ export function compareNodes(
           `${oldPath}.children[${oldItem.index}]`,
           `${newPath}.children[${newItem.index}]`,
           options,
-          depth + 1
-        );
+          depth + 1,
+        )
 
         if (childChange && childChange.type !== 'unchanged') {
           // Check for moved
           if (!options.ignoreOrder && oldItem.index !== newItem.index) {
-            childChange.type = 'moved';
+            childChange.type = 'moved'
           }
-          childChanges.push(childChange);
+          childChanges.push(childChange)
         }
       } else {
         // New child
-        processedNewIndices.add(newItem.index);
+        processedNewIndices.add(newItem.index)
         childChanges.push({
           type: 'added',
           newPath: `${newPath}.children[${newItem.index}]`,
           nodeType: newItem.node.type,
           label: id.split(':')[1] || undefined,
           newNode: newItem.node,
-        });
+        })
       }
     }
   }
@@ -145,19 +145,19 @@ export function compareNodes(
   // Find removed children
   for (let i = 0; i < oldChildren.length; i++) {
     if (!processedOldIndices.has(i)) {
-      const oldChild = oldChildren[i];
+      const oldChild = oldChildren[i]
       childChanges.push({
         type: 'removed',
         oldPath: `${oldPath}.children[${i}]`,
         nodeType: oldChild.type,
         label: getNodeIdentifier(oldChild).split(':')[1] || undefined,
         oldNode: oldChild,
-      });
+      })
     }
   }
 
   // Determine if node changed
-  const hasChanges = attributeChanges.length > 0 || childChanges.length > 0;
+  const hasChanges = attributeChanges.length > 0 || childChanges.length > 0
 
   if (!hasChanges) {
     return {
@@ -165,7 +165,7 @@ export function compareNodes(
       oldPath,
       newPath,
       nodeType: oldNode.type,
-    };
+    }
   }
 
   return {
@@ -178,24 +178,24 @@ export function compareNodes(
     childChanges: childChanges.length > 0 ? childChanges : undefined,
     oldNode,
     newNode,
-  };
+  }
 }
 
 /**
  * Flatten changes into a list
  */
 export function flattenChanges(change: NodeChange): NodeChange[] {
-  const result: NodeChange[] = [];
+  const result: NodeChange[] = []
 
   if (change.type !== 'unchanged') {
-    result.push(change);
+    result.push(change)
   }
 
   if (change.childChanges) {
     for (const childChange of change.childChanges) {
-      result.push(...flattenChanges(childChange));
+      result.push(...flattenChanges(childChange))
     }
   }
 
-  return result;
+  return result
 }

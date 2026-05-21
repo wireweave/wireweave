@@ -4,21 +4,21 @@
  * Types for comparing two wireframe ASTs.
  */
 
-import type { AnyNode } from '../ast/types';
+import type { AnyNode } from '../ast/types'
 
 /**
  * Type of change
  */
-export type DiffChangeType = 'added' | 'removed' | 'changed' | 'moved' | 'unchanged';
+export type DiffChangeType = 'added' | 'removed' | 'changed' | 'moved' | 'unchanged'
 
 /**
  * Change to a specific attribute
  */
 export interface AttributeChange {
-  name: string;
-  oldValue: unknown;
-  newValue: unknown;
-  type: 'added' | 'removed' | 'changed';
+  name: string
+  oldValue: unknown
+  newValue: unknown
+  type: 'added' | 'removed' | 'changed'
 }
 
 /**
@@ -26,23 +26,23 @@ export interface AttributeChange {
  */
 export interface NodeChange {
   /** Type of change */
-  type: DiffChangeType;
+  type: DiffChangeType
   /** Path in the old tree */
-  oldPath?: string;
+  oldPath?: string
   /** Path in the new tree */
-  newPath?: string;
+  newPath?: string
   /** Node type */
-  nodeType: string;
+  nodeType: string
   /** Content/label of the node (for identification) */
-  label?: string;
+  label?: string
   /** Changed attributes (if type is 'changed') */
-  attributeChanges?: AttributeChange[];
+  attributeChanges?: AttributeChange[]
   /** Child changes (nested) */
-  childChanges?: NodeChange[];
+  childChanges?: NodeChange[]
   /** Old node (if removed or changed) */
-  oldNode?: AnyNode;
+  oldNode?: AnyNode
   /** New node (if added or changed) */
-  newNode?: AnyNode;
+  newNode?: AnyNode
 }
 
 /**
@@ -50,19 +50,19 @@ export interface NodeChange {
  */
 export interface DiffSummary {
   /** Total nodes in old tree */
-  oldNodeCount: number;
+  oldNodeCount: number
   /** Total nodes in new tree */
-  newNodeCount: number;
+  newNodeCount: number
   /** Number of added nodes */
-  addedCount: number;
+  addedCount: number
   /** Number of removed nodes */
-  removedCount: number;
+  removedCount: number
   /** Number of changed nodes */
-  changedCount: number;
+  changedCount: number
   /** Number of moved nodes */
-  movedCount: number;
+  movedCount: number
   /** Number of unchanged nodes */
-  unchangedCount: number;
+  unchangedCount: number
 }
 
 /**
@@ -70,13 +70,13 @@ export interface DiffSummary {
  */
 export interface DiffResult {
   /** Whether the trees are identical */
-  identical: boolean;
+  identical: boolean
   /** Summary statistics */
-  summary: DiffSummary;
+  summary: DiffSummary
   /** List of all changes */
-  changes: NodeChange[];
+  changes: NodeChange[]
   /** Human-readable description of changes */
-  description: string;
+  description: string
 }
 
 /**
@@ -84,11 +84,11 @@ export interface DiffResult {
  */
 export interface DiffOptions {
   /** Ignore attribute changes */
-  ignoreAttributes?: boolean;
+  ignoreAttributes?: boolean
   /** Specific attributes to ignore */
-  ignoreAttributeNames?: string[];
+  ignoreAttributeNames?: string[]
   /** Ignore node order changes */
-  ignoreOrder?: boolean;
+  ignoreOrder?: boolean
   /** Maximum depth to compare */
-  maxDepth?: number;
+  maxDepth?: number
 }

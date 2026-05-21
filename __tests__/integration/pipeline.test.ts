@@ -2,8 +2,8 @@
  * Integration tests for the full wireframe pipeline
  */
 
-import { describe, it, expect } from 'vitest';
-import { parse, render, renderToSvg } from '../../src';
+import { describe, it, expect } from 'vitest'
+import { parse, render, renderToSvg } from '../../src'
 
 describe('Pipeline Integration', () => {
   describe('Full Pipeline', () => {
@@ -59,26 +59,26 @@ describe('Pipeline Integration', () => {
             text "© 2025 MyApp" muted
           }
         }
-      `;
+      `
 
       // Parse
-      const doc = parse(source);
-      expect(doc.children).toHaveLength(1);
-      expect(doc.children[0].type).toBe('Page');
-      expect(doc.children[0].title).toBe('Dashboard');
+      const doc = parse(source)
+      expect(doc.children).toHaveLength(1)
+      expect(doc.children[0].type).toBe('Page')
+      expect(doc.children[0].title).toBe('Dashboard')
 
       // Render HTML
-      const { html, css } = render(doc);
-      expect(html).toContain('class="wf-page"');
-      expect(html).toContain('Dashboard');
-      expect(css).toContain('--wf-primary');
+      const { html, css } = render(doc)
+      expect(html).toContain('class="wf-page"')
+      expect(html).toContain('Dashboard')
+      expect(css).toContain('--wf-primary')
 
       // Render SVG
-      const { svg, width, height } = renderToSvg(doc);
-      expect(svg).toContain('<svg');
-      expect(width).toBeGreaterThan(0);
-      expect(height).toBeGreaterThan(0);
-    });
+      const { svg, width, height } = renderToSvg(doc)
+      expect(svg).toContain('<svg')
+      expect(width).toBeGreaterThan(0)
+      expect(height).toBeGreaterThan(0)
+    })
 
     it('should process login form wireframe', () => {
       const source = `
@@ -108,15 +108,15 @@ describe('Pipeline Integration', () => {
             }
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html } = render(doc);
+      const doc = parse(source)
+      const { html } = render(doc)
 
-      expect(html).toContain('type="email"');
-      expect(html).toContain('type="password"');
-      expect(html).toContain('wf-button-primary');
-    });
+      expect(html).toContain('type="email"')
+      expect(html).toContain('type="password"')
+      expect(html).toContain('wf-button-primary')
+    })
 
     it('should process e-commerce product page', () => {
       const source = `
@@ -155,16 +155,16 @@ describe('Pipeline Integration', () => {
             }
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html } = render(doc);
+      const doc = parse(source)
+      const { html } = render(doc)
 
-      expect(html).toContain('wf-badge');
-      expect(html).toContain('wf-col-6');
-      expect(html).toContain('wf-button-primary');
-      expect(html).toContain('wf-button-secondary');
-    });
+      expect(html).toContain('wf-badge')
+      expect(html).toContain('wf-col-6')
+      expect(html).toContain('wf-button-primary')
+      expect(html).toContain('wf-button-secondary')
+    })
 
     it('should process settings page with forms', () => {
       const source = `
@@ -201,41 +201,41 @@ describe('Pipeline Integration', () => {
             }
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html } = render(doc);
+      const doc = parse(source)
+      const { html } = render(doc)
 
-      expect(html).toContain('wf-card');
-      expect(html).toContain('wf-input');
-      expect(html).toContain('wf-switch');
-      expect(html).toContain('wf-slider');
-      expect(html).toContain('wf-alert');
-      expect(html).toContain('wf-button-danger');
-    });
-  });
+      expect(html).toContain('wf-card')
+      expect(html).toContain('wf-input')
+      expect(html).toContain('wf-switch')
+      expect(html).toContain('wf-slider')
+      expect(html).toContain('wf-alert')
+      expect(html).toContain('wf-button-danger')
+    })
+  })
 
   describe('Theme Integration', () => {
     it('should render with dark theme', () => {
-      const source = 'page { card { text "Dark Mode" } }';
-      const doc = parse(source);
-      const { css } = render(doc, { theme: 'dark' });
+      const source = 'page { card { text "Dark Mode" } }'
+      const doc = parse(source)
+      const { css } = render(doc, { theme: 'dark' })
 
       // Dark theme uses CSS variables
-      expect(css).toContain('--wf-bg');
-      expect(css).toContain('--wf-fg');
-    });
+      expect(css).toContain('--wf-bg')
+      expect(css).toContain('--wf-fg')
+    })
 
     it('should render with light theme', () => {
-      const source = 'page { card { text "Light Mode" } }';
-      const doc = parse(source);
-      const { css } = render(doc, { theme: 'light' });
+      const source = 'page { card { text "Light Mode" } }'
+      const doc = parse(source)
+      const { css } = render(doc, { theme: 'light' })
 
       // Light theme uses CSS variables
-      expect(css).toContain('--wf-bg');
-      expect(css).toContain('--wf-fg');
-    });
-  });
+      expect(css).toContain('--wf-bg')
+      expect(css).toContain('--wf-fg')
+    })
+  })
 
   // Note: Responsive breakpoints intentionally not implemented
   // Wireframes use fixed layouts with scale mode for preview
@@ -249,17 +249,17 @@ describe('Pipeline Integration', () => {
             }
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html, css } = render(doc);
+      const doc = parse(source)
+      const { html, css } = render(doc)
 
-      expect(html).toContain('wf-col-6');
+      expect(html).toContain('wf-col-6')
       // Responsive classes should not exist
-      expect(html).not.toContain('wf-col-sm-');
-      expect(css).not.toContain('@media (min-width: 576px)');
-      expect(css).not.toContain('@media (min-width: 768px)');
-    });
+      expect(html).not.toContain('wf-col-sm-')
+      expect(css).not.toContain('@media (min-width: 576px)')
+      expect(css).not.toContain('@media (min-width: 768px)')
+    })
 
     it('should handle flex layout', () => {
       const source = `
@@ -269,15 +269,15 @@ describe('Pipeline Integration', () => {
             button "Right"
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html } = render(doc);
+      const doc = parse(source)
+      const { html } = render(doc)
 
-      expect(html).toContain('wf-row');
-      expect(html).toContain('wf-button');
-    });
-  });
+      expect(html).toContain('wf-row')
+      expect(html).toContain('wf-button')
+    })
+  })
 
   describe('Component Nesting', () => {
     it('should handle deeply nested components', () => {
@@ -298,16 +298,16 @@ describe('Pipeline Integration', () => {
             }
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html } = render(doc);
+      const doc = parse(source)
+      const { html } = render(doc)
 
-      expect(html).toContain('wf-card');
-      expect(html).toContain('wf-accordion');
-      expect(html).toContain('wf-row');
-      expect(html).toContain('wf-col-6');
-    });
+      expect(html).toContain('wf-card')
+      expect(html).toContain('wf-accordion')
+      expect(html).toContain('wf-row')
+      expect(html).toContain('wf-col-6')
+    })
 
     it('should handle modal with form', () => {
       const source = `
@@ -321,16 +321,16 @@ describe('Pipeline Integration', () => {
             }
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { html } = render(doc);
+      const doc = parse(source)
+      const { html } = render(doc)
 
-      expect(html).toContain('wf-modal');
-      expect(html).toContain('wf-input');
-      expect(html).toContain('wf-button-primary');
-    });
-  });
+      expect(html).toContain('wf-modal')
+      expect(html).toContain('wf-input')
+      expect(html).toContain('wf-button-primary')
+    })
+  })
 
   describe('SVG Export', () => {
     it('should export complex page to SVG', () => {
@@ -349,31 +349,31 @@ describe('Pipeline Integration', () => {
             text "Footer"
           }
         }
-      `;
+      `
 
-      const doc = parse(source);
-      const { svg, width, height } = renderToSvg(doc);
+      const doc = parse(source)
+      const { svg, width, height } = renderToSvg(doc)
 
-      expect(svg).toContain('<svg');
-      expect(svg).toContain('</svg>');
-      expect(svg).toContain('Header');
-      expect(svg).toContain('Footer');
-      expect(width).toBeGreaterThan(0);
-      expect(height).toBeGreaterThan(0);
-    });
+      expect(svg).toContain('<svg')
+      expect(svg).toContain('</svg>')
+      expect(svg).toContain('Header')
+      expect(svg).toContain('Footer')
+      expect(width).toBeGreaterThan(0)
+      expect(height).toBeGreaterThan(0)
+    })
 
     it('should respect SVG options', () => {
-      const source = 'page { text "Test" }';
-      const doc = parse(source);
+      const source = 'page { text "Test" }'
+      const doc = parse(source)
 
       const { svg, width, height } = renderToSvg(doc, {
         width: 800,
         padding: 20,
-      });
+      })
 
-      expect(width).toBe(800);
-      expect(height).toBeGreaterThan(0);
-      expect(svg).toContain('width="800"');
-    });
-  });
-});
+      expect(width).toBe(800)
+      expect(height).toBeGreaterThan(0)
+      expect(svg).toContain('width="800"')
+    })
+  })
+})

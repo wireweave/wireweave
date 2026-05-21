@@ -2,7 +2,7 @@
  * Data component styles (Table, List)
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateDataStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Data Components */
@@ -83,5 +83,5 @@ export function generateDataStyles(_theme: ThemeConfig, prefix: string): string 
 
 .${prefix}-list-item:last-child {
   border-bottom: none;
-}`;
+}`
 }

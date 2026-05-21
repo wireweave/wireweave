@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Container',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const Card: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=4 {
         card "Basic Card" {
@@ -21,10 +22,11 @@ export const Card: Story = {
       }
     }
   `),
-};
+}
 
 export const Modal: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page w=600 h=400 {
       modal "Confirm Action" {
         text "Are you sure you want to proceed?"
@@ -35,10 +37,11 @@ export const Modal: Story = {
       }
     }
   `),
-};
+}
 
 export const Accordion: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 w=500 {
       col gap=0 {
         accordion "Section 1" {
@@ -53,10 +56,11 @@ export const Accordion: Story = {
       }
     }
   `),
-};
+}
 
 export const Drawer: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page w=600 h=400 {
       drawer "Settings" position=right {
         col gap=3 {
@@ -67,4 +71,4 @@ export const Drawer: Story = {
       }
     }
   `),
-};
+}

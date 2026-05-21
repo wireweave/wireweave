@@ -2,37 +2,34 @@
  * Tree structure metrics calculation
  */
 
-import type { WireframeDocument, AnyNode } from '../../types';
-import type { TreeMetrics } from '../types';
-import { getChildren } from '../utils';
+import type { WireframeDocument, AnyNode } from '../../ast/types'
+import type { TreeMetrics } from '../types'
+import { getChildren } from '../utils'
 
 /**
  * Calculate tree structure metrics
  */
-export function calculateTreeMetrics(
-  doc: WireframeDocument,
-  allNodes: AnyNode[]
-): TreeMetrics {
-  let maxDepth = 0;
-  let totalDepth = 0;
-  let leafNodes = 0;
-  let containerNodes = 0;
+export function calculateTreeMetrics(doc: WireframeDocument, allNodes: AnyNode[]): TreeMetrics {
+  let maxDepth = 0
+  let totalDepth = 0
+  let leafNodes = 0
+  let containerNodes = 0
 
   // Calculate depths
   for (const page of doc.children) {
-    calculateDepthRecursive(page as AnyNode, 1, (depth, hasChildren) => {
-      totalDepth += depth;
-      if (depth > maxDepth) maxDepth = depth;
+    calculateDepthRecursive(page, 1, (depth, hasChildren) => {
+      totalDepth += depth
+      if (depth > maxDepth) maxDepth = depth
       if (hasChildren) {
-        containerNodes++;
+        containerNodes++
       } else {
-        leafNodes++;
+        leafNodes++
       }
-    });
+    })
   }
 
-  const totalNodes = allNodes.length;
-  const avgDepth = totalNodes > 0 ? Math.round((totalDepth / totalNodes) * 10) / 10 : 0;
+  const totalNodes = allNodes.length
+  const avgDepth = totalNodes > 0 ? Math.round((totalDepth / totalNodes) * 10) / 10 : 0
 
   return {
     totalNodes,
@@ -40,7 +37,7 @@ export function calculateTreeMetrics(
     avgDepth,
     leafNodes,
     containerNodes,
-  };
+  }
 }
 
 /**
@@ -49,12 +46,12 @@ export function calculateTreeMetrics(
 function calculateDepthRecursive(
   node: AnyNode,
   currentDepth: number,
-  callback: (depth: number, hasChildren: boolean) => void
+  callback: (depth: number, hasChildren: boolean) => void,
 ): void {
-  const children = getChildren(node);
-  callback(currentDepth, children.length > 0);
+  const children = getChildren(node)
+  callback(currentDepth, children.length > 0)
 
   for (const child of children) {
-    calculateDepthRecursive(child, currentDepth + 1, callback);
+    calculateDepthRecursive(child, currentDepth + 1, callback)
   }
 }

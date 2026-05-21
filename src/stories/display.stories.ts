@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Display',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const Placeholder: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=4 {
         placeholder w=300 h=200
@@ -17,10 +18,11 @@ export const Placeholder: Story = {
       }
     }
   `),
-};
+}
 
 export const Avatar: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 align=center {
         avatar "AB"
@@ -29,10 +31,11 @@ export const Avatar: Story = {
       }
     }
   `),
-};
+}
 
 export const Badge: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 {
         badge "New"
@@ -41,10 +44,11 @@ export const Badge: Story = {
       }
     }
   `),
-};
+}
 
 export const Icon: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=2 {
         icon "home"
@@ -55,10 +59,11 @@ export const Icon: Story = {
       }
     }
   `),
-};
+}
 
 export const Image: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=4 {
         image src="https://placehold.co/200x150" alt="Sample" w=200 h=150
@@ -66,4 +71,4 @@ export const Image: Story = {
       }
     }
   `),
-};
+}

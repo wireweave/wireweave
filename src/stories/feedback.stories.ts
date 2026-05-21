@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderDSL } from './_helpers';
+import type { Meta, StoryObj } from '@storybook/html'
+import { renderDSL } from './_helpers'
 
 const meta: Meta = {
   title: 'Components/Feedback',
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj;
+type Story = StoryObj
 
 export const Alerts: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       alert "This is an info message." variant=info
       alert "Operation completed successfully." variant=success
@@ -17,18 +18,20 @@ export const Alerts: Story = {
       alert "An error has occurred." variant=danger dismissible
     }
   `),
-};
+}
 
 export const Toast: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       toast "File saved successfully."
     }
   `),
-};
+}
 
 export const Progress: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       col gap=4 {
         progress value=75
@@ -37,10 +40,11 @@ export const Progress: Story = {
       }
     }
   `),
-};
+}
 
 export const Spinner: Story = {
-  render: () => renderDSL(`
+  render: () =>
+    renderDSL(`
     page p=4 {
       row gap=4 align=center {
         spinner size=xs
@@ -51,4 +55,4 @@ export const Spinner: Story = {
       }
     }
   `),
-};
+}

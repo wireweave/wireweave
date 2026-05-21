@@ -2,7 +2,7 @@
  * Display component styles (Image, Placeholder, Avatar, Badge, Icon)
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateDisplayStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Display Components */
@@ -209,5 +209,5 @@ svg.${prefix}-icon-xl { width: 32px; height: 32px; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}`;
+}`
 }

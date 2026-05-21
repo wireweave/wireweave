@@ -5,7 +5,7 @@
  * that is clearly separate from the wireframe UI.
  */
 
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types'
 
 export function generateAnnotationStyles(_theme: ThemeConfig, prefix: string): string {
   return `/* Annotation Components */
@@ -110,5 +110,5 @@ export function generateAnnotationStyles(_theme: ThemeConfig, prefix: string): s
   margin: 0;
   font-size: 12px;
   color: #6b7280;
-}`;
+}`
 }

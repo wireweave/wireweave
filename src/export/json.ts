@@ -2,9 +2,9 @@
  * JSON export functionality
  */
 
-import type { WireframeDocument, AnyNode } from '../ast/types';
-import type { JsonNode, JsonExportResult, ExportOptions } from './types';
-import { getNodeContent, extractAttributes, countNodes, getComponentTypes } from './utils';
+import type { WireframeDocument, AnyNode } from '../ast/types'
+import type { JsonNode, JsonExportResult, ExportOptions } from './types'
+import { getNodeContent, extractAttributes, countNodes, getComponentTypes } from './utils'
 
 /**
  * Convert AST node to JSON node
@@ -14,12 +14,12 @@ function nodeToJson(node: AnyNode, options: ExportOptions): JsonNode {
     type: node.type.toLowerCase(),
     attributes: extractAttributes(node, options),
     children: [],
-  };
+  }
 
   // Add content if present
-  const content = getNodeContent(node);
+  const content = getNodeContent(node)
   if (content) {
-    jsonNode.content = content;
+    jsonNode.content = content
   }
 
   // Add location if requested
@@ -27,19 +27,19 @@ function nodeToJson(node: AnyNode, options: ExportOptions): JsonNode {
     jsonNode.location = {
       line: node.loc.start.line,
       column: node.loc.start.column,
-    };
+    }
   }
 
   // Process children
   if ('children' in node && Array.isArray(node.children)) {
     for (const child of node.children) {
       if (child && typeof child === 'object' && 'type' in child) {
-        jsonNode.children.push(nodeToJson(child as AnyNode, options));
+        jsonNode.children.push(nodeToJson(child as AnyNode, options))
       }
     }
   }
 
-  return jsonNode;
+  return jsonNode
 }
 
 /**
@@ -51,12 +51,12 @@ function nodeToJson(node: AnyNode, options: ExportOptions): JsonNode {
  */
 export function exportToJson(
   doc: WireframeDocument,
-  options: ExportOptions = {}
+  options: ExportOptions = {},
 ): JsonExportResult {
-  const pages: JsonNode[] = [];
+  const pages: JsonNode[] = []
 
   for (const page of doc.children || []) {
-    pages.push(nodeToJson(page as unknown as AnyNode, options));
+    pages.push(nodeToJson(page, options))
   }
 
   return {
@@ -69,7 +69,7 @@ export function exportToJson(
       nodeCount: countNodes(doc),
       componentTypes: getComponentTypes(doc),
     },
-  };
+  }
 }
 
 /**
@@ -79,14 +79,9 @@ export function exportToJson(
  * @param options - Export options
  * @returns JSON string
  */
-export function exportToJsonString(
-  doc: WireframeDocument,
-  options: ExportOptions = {}
-): string {
-  const result = exportToJson(doc, options);
-  return options.prettyPrint
-    ? JSON.stringify(result, null, 2)
-    : JSON.stringify(result);
+export function exportToJsonString(doc: WireframeDocument, options: ExportOptions = {}): string {
+  const result = exportToJson(doc, options)
+  return options.prettyPrint ? JSON.stringify(result, null, 2) : JSON.stringify(result)
 }
 
 /**
@@ -96,5 +91,5 @@ export function exportToJsonString(
  * @returns Simplified page array
  */
 export function importFromJson(json: JsonExportResult): JsonNode[] {
-  return json.pages;
+  return json.pages
 }
