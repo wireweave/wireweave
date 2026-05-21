@@ -2,21 +2,21 @@
  * Content analysis
  */
 
-import type { AnyNode } from '../../types';
-import type { ContentAnalysis } from '../types';
+import type { AnyNode } from '../../ast/types'
+import type { ContentAnalysis } from '../types'
 
 /**
  * Analyze content
  */
 export function analyzeContent(
   _nodes: AnyNode[],
-  typeCounts: Map<string, number>
+  typeCounts: Map<string, number>,
 ): ContentAnalysis {
-  const textElements = typeCounts.get('Text') || 0;
-  const titleElements = typeCounts.get('Title') || 0;
-  const linkElements = typeCounts.get('Link') || 0;
-  const imageElements = typeCounts.get('Image') || 0;
-  const placeholderCount = typeCounts.get('Placeholder') || 0;
+  const textElements = typeCounts.get('Text') || 0
+  const titleElements = typeCounts.get('Title') || 0
+  const linkElements = typeCounts.get('Link') || 0
+  const imageElements = typeCounts.get('Image') || 0
+  const placeholderCount = typeCounts.get('Placeholder') || 0
 
   return {
     textElements,
@@ -25,7 +25,7 @@ export function analyzeContent(
     imageElements,
     hasPlaceholders: placeholderCount > 0,
     placeholderCount,
-  };
+  }
 }
 
 /**
@@ -39,5 +39,5 @@ export function createEmptyContentAnalysis(): ContentAnalysis {
     imageElements: 0,
     hasPlaceholders: false,
     placeholderCount: 0,
-  };
+  }
 }
