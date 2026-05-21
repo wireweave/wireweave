@@ -55,17 +55,17 @@ import type {
   CommonProps,
   ValueWithUnit,
   SpacingValue,
-} from '../../ast/types';
+} from '../../ast/types'
 // hasChildren guard available from ast/guards if needed
-import { BaseRenderer } from './base';
-import type { RenderOptions } from '../types';
-import { resolveViewport } from '../../viewport';
+import { BaseRenderer } from './base'
+import type { RenderOptions } from '../types'
+import { resolveViewport } from '../../viewport'
 
 // Re-export component utilities
-export * from './components';
+export * from './components'
 
 // Import separated renderer functions
-import type { RenderContext, GridRenderContext } from './renderers';
+import type { RenderContext, GridRenderContext } from './renderers'
 import {
   renderHeader as renderHeaderFn,
   renderMain as renderMainFn,
@@ -112,7 +112,7 @@ import {
   renderMarker as renderMarkerFn,
   renderAnnotations as renderAnnotationsFn,
   renderAnnotationItem as renderAnnotationItemFn,
-} from './renderers';
+} from './renderers'
 
 // Spacing token table: number -> CSS value
 // Token values (0-20) map to px values
@@ -129,7 +129,7 @@ const SPACING_TOKENS: Record<number, string> = {
   12: '48px',
   16: '64px',
   20: '80px',
-};
+}
 
 /**
  * Resolve a spacing value to CSS string
@@ -137,27 +137,27 @@ const SPACING_TOKENS: Record<number, string> = {
  * - ValueWithUnit: direct CSS value (e.g., { value: 16, unit: 'px' } → '16px')
  */
 function resolveSpacingValue(value: SpacingValue | undefined): string | undefined {
-  if (value === undefined) return undefined;
+  if (value === undefined) return undefined
 
   // ValueWithUnit object: direct CSS value
   if (typeof value === 'object' && 'value' in value && 'unit' in value) {
-    return `${value.value}${value.unit}`;
+    return `${value.value}${value.unit}`
   }
 
   // Number: spacing token
   if (typeof value === 'number') {
     // Look up token value, fallback to direct px if not in token table
-    return SPACING_TOKENS[value] ?? `${value}px`;
+    return SPACING_TOKENS[value] ?? `${value}px`
   }
 
-  return undefined;
+  return undefined
 }
 
 /**
  * Type guard to check if a value is a ValueWithUnit object
  */
 function isValueWithUnit(value: unknown): value is ValueWithUnit {
-  return typeof value === 'object' && value !== null && 'value' in value && 'unit' in value;
+  return typeof value === 'object' && value !== null && 'value' in value && 'unit' in value
 }
 
 /**
@@ -166,19 +166,19 @@ function isValueWithUnit(value: unknown): value is ValueWithUnit {
  * - ValueWithUnit: direct CSS value with unit
  */
 function resolveSizeValueToCss(value: number | ValueWithUnit | undefined): string | undefined {
-  if (value === undefined) return undefined;
+  if (value === undefined) return undefined
 
   // ValueWithUnit object: direct CSS value
   if (isValueWithUnit(value)) {
-    return `${value.value}${value.unit}`;
+    return `${value.value}${value.unit}`
   }
 
   // Number: direct px value (for width/height)
   if (typeof value === 'number') {
-    return `${value}px`;
+    return `${value}px`
   }
 
-  return undefined;
+  return undefined
 }
 
 /**
@@ -190,11 +190,11 @@ export class HtmlRenderer extends BaseRenderer {
   /**
    * Node type to renderer method mapping
    */
-  private readonly nodeRenderers: Record<string, (node: AnyNode) => string>;
+  private readonly nodeRenderers: Record<string, (node: AnyNode) => string>
 
   constructor(options: RenderOptions = {}) {
-    super(options);
-    this.nodeRenderers = this.createNodeRenderers();
+    super(options)
+    this.nodeRenderers = this.createNodeRenderers()
   }
 
   /**
@@ -210,7 +210,7 @@ export class HtmlRenderer extends BaseRenderer {
       getCommonClasses: this.getCommonClasses.bind(this),
       renderChildren: this.renderChildren.bind(this),
       renderNode: this.renderNode.bind(this),
-    };
+    }
   }
 
   /**
@@ -220,7 +220,7 @@ export class HtmlRenderer extends BaseRenderer {
     return {
       ...this.getRenderContext(),
       buildColStyles: this.buildColStyles.bind(this),
-    };
+    }
   }
 
   /**
@@ -287,7 +287,7 @@ export class HtmlRenderer extends BaseRenderer {
       Marker: (node) => this.renderMarker(node as MarkerNode),
       Annotations: (node) => this.renderAnnotations(node as AnnotationsNode),
       AnnotationItem: (node) => this.renderAnnotationItem(node as AnnotationItemNode),
-    };
+    }
   }
 
   /**
@@ -295,82 +295,90 @@ export class HtmlRenderer extends BaseRenderer {
    */
   protected renderPage(node: PageNode): string {
     // Resolve viewport size - use explicit w/h if provided, otherwise use viewport/device
-    let viewport = resolveViewport(node.viewport, node.device);
+    let viewport = resolveViewport(node.viewport, node.device)
 
     // Override with explicit width/height if provided (for playground-style sizing)
     // Support both short form (w/h) and long form (width/height)
-    const nodeAny = node as PageNode & { width?: number; height?: number };
-    const explicitW = node.w ?? nodeAny.width;
-    const explicitH = node.h ?? nodeAny.height;
+    const nodeAny = node as PageNode & { width?: number; height?: number }
+    const explicitW = node.w ?? nodeAny.width
+    const explicitH = node.h ?? nodeAny.height
 
     if (explicitW !== undefined || explicitH !== undefined) {
-      const explicitWidth = typeof explicitW === 'number' ? explicitW :
-                           (typeof explicitW === 'string' && /^\d+$/.test(explicitW) ? parseInt(explicitW) : viewport.width);
-      const explicitHeight = typeof explicitH === 'number' ? explicitH :
-                            (typeof explicitH === 'string' && /^\d+$/.test(explicitH) ? parseInt(explicitH) : viewport.height);
+      const explicitWidth =
+        typeof explicitW === 'number'
+          ? explicitW
+          : typeof explicitW === 'string' && /^\d+$/.test(explicitW)
+            ? parseInt(explicitW)
+            : viewport.width
+      const explicitHeight =
+        typeof explicitH === 'number'
+          ? explicitH
+          : typeof explicitH === 'string' && /^\d+$/.test(explicitH)
+            ? parseInt(explicitH)
+            : viewport.height
       viewport = {
         width: explicitWidth,
         height: explicitHeight,
         label: `${explicitWidth}x${explicitHeight}`,
         category: explicitWidth <= 430 ? 'mobile' : explicitWidth <= 1024 ? 'tablet' : 'desktop',
-      };
+      }
     }
 
     const classes = this.buildClassString([
       `${this.prefix}-page`,
       node.centered ? `${this.prefix}-page-centered` : undefined,
       ...this.getCommonClasses(node),
-    ]);
+    ])
 
     // Separate UI children from annotation children
     // Annotations render outside the viewport container to avoid overflow: hidden clipping
-    const uiChildren = node.children.filter(child => child.type !== 'Annotations');
-    const annotationChildren = node.children.filter(child => child.type === 'Annotations');
+    const uiChildren = node.children.filter((child) => child.type !== 'Annotations')
+    const annotationChildren = node.children.filter((child) => child.type === 'Annotations')
 
-    const uiContent = this.renderChildren(uiChildren);
-    const title = node.title ? `<title>${this.escapeHtml(node.title)}</title>\n` : '';
+    const uiContent = this.renderChildren(uiChildren)
+    const title = node.title ? `<title>${this.escapeHtml(node.title)}</title>\n` : ''
 
     // Build common styles (padding, margin, etc.) and combine with viewport dimensions
     // Add position: relative to serve as containing block for absolute positioned children
     // Page's x/y are canvas-level metadata (from `at(x, y)`) — placement is the
     // canvas wrapper's responsibility, never the page element's own style.
-    const { x: _canvasX, y: _canvasY, ...nodeWithoutCanvasPos } = node;
-    void _canvasX;
-    void _canvasY;
-    const commonStyles = this.buildCommonStyles(nodeWithoutCanvasPos);
-    let viewportStyle = `position: relative; width: ${viewport.width}px; height: ${viewport.height}px; overflow: hidden`;
+    const { x: _canvasX, y: _canvasY, ...nodeWithoutCanvasPos } = node
+    void _canvasX
+    void _canvasY
+    const commonStyles = this.buildCommonStyles(nodeWithoutCanvasPos)
+    let viewportStyle = `position: relative; width: ${viewport.width}px; height: ${viewport.height}px; overflow: hidden`
 
     // Apply background option as inline style (not to theme.colors.background)
     // This allows transparent/custom backgrounds without affecting component colors
     if (this.context.options.background) {
-      viewportStyle += `; background: ${this.context.options.background}`;
+      viewportStyle += `; background: ${this.context.options.background}`
     }
 
-    const combinedStyle = commonStyles ? `${viewportStyle}; ${commonStyles}` : viewportStyle;
+    const combinedStyle = commonStyles ? `${viewportStyle}; ${commonStyles}` : viewportStyle
 
     // Add data attributes for viewport info
-    const dataAttrs = `data-viewport-width="${viewport.width}" data-viewport-height="${viewport.height}" data-viewport-label="${viewport.label}"`;
+    const dataAttrs = `data-viewport-width="${viewport.width}" data-viewport-height="${viewport.height}" data-viewport-label="${viewport.label}"`
 
-    const pageDiv = `<div class="${classes}" style="${combinedStyle}" ${dataAttrs}>\n${title}${uiContent}\n</div>`;
+    const pageDiv = `<div class="${classes}" style="${combinedStyle}" ${dataAttrs}>\n${title}${uiContent}\n</div>`
 
     // If there are annotations, wrap page + annotations in a wrapper div
     if (annotationChildren.length > 0) {
-      const annotationsContent = this.renderChildren(annotationChildren);
-      return `<div class="${this.prefix}-page-wrapper" style="width: ${viewport.width}px">\n${pageDiv}\n${annotationsContent}\n</div>`;
+      const annotationsContent = this.renderChildren(annotationChildren)
+      return `<div class="${this.prefix}-page-wrapper" style="width: ${viewport.width}px">\n${pageDiv}\n${annotationsContent}\n</div>`
     }
 
-    return pageDiv;
+    return pageDiv
   }
 
   /**
    * Render any AST node
    */
   protected renderNode(node: AnyNode): string {
-    const renderer = this.nodeRenderers[node.type];
+    const renderer = this.nodeRenderers[node.type]
     if (renderer) {
-      return renderer(node);
+      return renderer(node)
     }
-    return `<!-- Unknown node type: ${node.type} -->`;
+    return `<!-- Unknown node type: ${node.type} -->`
   }
 
   /**
@@ -378,10 +386,8 @@ export class HtmlRenderer extends BaseRenderer {
    */
   protected renderChildren(children: AnyNode[]): string {
     return this.withDepth(() => {
-      return children
-        .map((child) => this.indent(this.renderNode(child)))
-        .join('\n');
-    });
+      return children.map((child) => this.indent(this.renderNode(child))).join('\n')
+    })
   }
 
   /**
@@ -391,43 +397,45 @@ export class HtmlRenderer extends BaseRenderer {
    * All numeric values are handled by buildCommonStyles as inline px values.
    * CSS classes are only used for keyword values (full, auto, screen, fit, etc.)
    */
-  private getCommonClasses(props: Omit<Partial<CommonProps>, 'align'> & { align?: string }): string[] {
-    const classes: string[] = [];
-    const p = this.prefix;
+  private getCommonClasses(
+    props: Omit<Partial<CommonProps>, 'align'> & { align?: string },
+  ): string[] {
+    const classes: string[] = []
+    const p = this.prefix
 
     // Spacing - only 'auto' uses class, all numbers use inline px styles
-    if (props.mx === 'auto') classes.push(`${p}-mx-auto`);
+    if (props.mx === 'auto') classes.push(`${p}-mx-auto`)
 
     // Size - only keyword values use classes
-    if (props.w === 'full') classes.push(`${p}-w-full`);
-    if (props.w === 'auto') classes.push(`${p}-w-auto`);
-    if (props.w === 'fit') classes.push(`${p}-w-fit`);
-    if (props.h === 'full') classes.push(`${p}-h-full`);
-    if (props.h === 'auto') classes.push(`${p}-h-auto`);
-    if (props.h === 'screen') classes.push(`${p}-h-screen`);
+    if (props.w === 'full') classes.push(`${p}-w-full`)
+    if (props.w === 'auto') classes.push(`${p}-w-auto`)
+    if (props.w === 'fit') classes.push(`${p}-w-fit`)
+    if (props.h === 'full') classes.push(`${p}-h-full`)
+    if (props.h === 'auto') classes.push(`${p}-h-auto`)
+    if (props.h === 'screen') classes.push(`${p}-h-screen`)
 
     // Flex
-    if (props.flex === true) classes.push(`${p}-flex`);
-    if (typeof props.flex === 'number') classes.push(`${p}-flex-${props.flex}`);
-    if (props.direction === 'row') classes.push(`${p}-flex-row`);
-    if (props.direction === 'column') classes.push(`${p}-flex-col`);
-    if (props.direction === 'row-reverse') classes.push(`${p}-flex-row-reverse`);
-    if (props.direction === 'column-reverse') classes.push(`${p}-flex-col-reverse`);
-    if (props.justify) classes.push(`${p}-justify-${props.justify}`);
-    if (props.align) classes.push(`${p}-align-${props.align}`);
-    if (props.wrap === true) classes.push(`${p}-flex-wrap`);
-    if (props.wrap === 'nowrap') classes.push(`${p}-flex-nowrap`);
+    if (props.flex === true) classes.push(`${p}-flex`)
+    if (typeof props.flex === 'number') classes.push(`${p}-flex-${props.flex}`)
+    if (props.direction === 'row') classes.push(`${p}-flex-row`)
+    if (props.direction === 'column') classes.push(`${p}-flex-col`)
+    if (props.direction === 'row-reverse') classes.push(`${p}-flex-row-reverse`)
+    if (props.direction === 'column-reverse') classes.push(`${p}-flex-col-reverse`)
+    if (props.justify) classes.push(`${p}-justify-${props.justify}`)
+    if (props.align) classes.push(`${p}-align-${props.align}`)
+    if (props.wrap === true) classes.push(`${p}-flex-wrap`)
+    if (props.wrap === 'nowrap') classes.push(`${p}-flex-nowrap`)
     // gap is handled by inline styles for numeric values
 
     // Background
-    if (props.bg === 'muted') classes.push(`${p}-bg-muted`);
-    if (props.bg === 'primary') classes.push(`${p}-bg-primary`);
-    if (props.bg === 'secondary') classes.push(`${p}-bg-secondary`);
+    if (props.bg === 'muted') classes.push(`${p}-bg-muted`)
+    if (props.bg === 'primary') classes.push(`${p}-bg-primary`)
+    if (props.bg === 'secondary') classes.push(`${p}-bg-secondary`)
 
     // Border
-    if ((props as Record<string, unknown>).border === true) classes.push(`${p}-border`);
+    if ((props as Record<string, unknown>).border === true) classes.push(`${p}-border`)
 
-    return classes;
+    return classes
   }
 
   // ===========================================
@@ -435,23 +443,23 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderHeader(node: HeaderNode): string {
-    return renderHeaderFn(node, this.getRenderContext());
+    return renderHeaderFn(node, this.getRenderContext())
   }
 
   private renderMain(node: MainNode): string {
-    return renderMainFn(node, this.getRenderContext());
+    return renderMainFn(node, this.getRenderContext())
   }
 
   private renderFooter(node: FooterNode): string {
-    return renderFooterFn(node, this.getRenderContext());
+    return renderFooterFn(node, this.getRenderContext())
   }
 
   private renderSidebar(node: SidebarNode): string {
-    return renderSidebarFn(node, this.getRenderContext());
+    return renderSidebarFn(node, this.getRenderContext())
   }
 
   private renderSection(node: SectionNode): string {
-    return renderSectionFn(node, this.getRenderContext());
+    return renderSectionFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -459,19 +467,19 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderRow(node: RowNode): string {
-    return renderRowFn(node, this.getRenderContext());
+    return renderRowFn(node, this.getRenderContext())
   }
 
   private renderCol(node: ColNode): string {
-    return renderColFn(node, this.getGridRenderContext());
+    return renderColFn(node, this.getGridRenderContext())
   }
 
   private renderStack(node: StackNode): string {
-    return renderStackFn(node, this.getRenderContext());
+    return renderStackFn(node, this.getRenderContext())
   }
 
   private renderRelative(node: RelativeNode): string {
-    return renderRelativeFn(node, this.getRenderContext());
+    return renderRelativeFn(node, this.getRenderContext())
   }
 
   /**
@@ -493,16 +501,18 @@ export class HtmlRenderer extends BaseRenderer {
    *
    * Uses Omit to exclude 'align' since TextNode/TitleNode have incompatible align types
    */
-  private buildCommonStyles(props: Omit<Partial<CommonProps>, 'align'> & { align?: string }): string {
-    const styles: string[] = [];
+  private buildCommonStyles(
+    props: Omit<Partial<CommonProps>, 'align'> & { align?: string },
+  ): string {
+    const styles: string[] = []
 
-    this.buildPositionStyles(props, styles);
-    this.buildSizeStyles(props, styles);
-    this.buildPaddingStyles(props, styles);
-    this.buildMarginStyles(props, styles);
-    this.buildGapStyles(props, styles);
+    this.buildPositionStyles(props, styles)
+    this.buildSizeStyles(props, styles)
+    this.buildPaddingStyles(props, styles)
+    this.buildMarginStyles(props, styles)
+    this.buildGapStyles(props, styles)
 
-    return styles.join('; ');
+    return styles.join('; ')
   }
 
   /**
@@ -510,16 +520,16 @@ export class HtmlRenderer extends BaseRenderer {
    */
   private buildPositionStyles(props: Omit<Partial<CommonProps>, 'align'>, styles: string[]): void {
     if (props.x !== undefined || props.y !== undefined) {
-      styles.push('position: absolute');
+      styles.push('position: absolute')
 
       if (props.x !== undefined) {
-        const xValue = resolveSizeValueToCss(props.x as number | ValueWithUnit);
-        if (xValue) styles.push(`left: ${xValue}`);
+        const xValue = resolveSizeValueToCss(props.x)
+        if (xValue) styles.push(`left: ${xValue}`)
       }
 
       if (props.y !== undefined) {
-        const yValue = resolveSizeValueToCss(props.y as number | ValueWithUnit);
-        if (yValue) styles.push(`top: ${yValue}`);
+        const yValue = resolveSizeValueToCss(props.y)
+        if (yValue) styles.push(`top: ${yValue}`)
       }
     }
   }
@@ -528,33 +538,33 @@ export class HtmlRenderer extends BaseRenderer {
    * Build size styles (width, height, min/max)
    */
   private buildSizeStyles(props: Omit<Partial<CommonProps>, 'align'>, styles: string[]): void {
-    const wValue = resolveSizeValueToCss(props.w as number | ValueWithUnit | undefined);
+    const wValue = resolveSizeValueToCss(props.w as number | ValueWithUnit | undefined)
     if (wValue) {
-      styles.push(`width: ${wValue}`);
+      styles.push(`width: ${wValue}`)
     }
 
-    const hValue = resolveSizeValueToCss(props.h as number | ValueWithUnit | undefined);
+    const hValue = resolveSizeValueToCss(props.h as number | ValueWithUnit | undefined)
     if (hValue) {
-      styles.push(`height: ${hValue}`);
-      styles.push(`min-height: ${hValue}`);
+      styles.push(`height: ${hValue}`)
+      styles.push(`min-height: ${hValue}`)
     }
 
-    const minWValue = resolveSizeValueToCss(props.minW);
+    const minWValue = resolveSizeValueToCss(props.minW)
     if (minWValue) {
-      styles.push(`min-width: ${minWValue}`);
+      styles.push(`min-width: ${minWValue}`)
     }
-    const maxWValue = resolveSizeValueToCss(props.maxW);
+    const maxWValue = resolveSizeValueToCss(props.maxW)
     if (maxWValue) {
-      styles.push(`max-width: ${maxWValue}`);
+      styles.push(`max-width: ${maxWValue}`)
     }
 
-    const minHValue = resolveSizeValueToCss(props.minH);
+    const minHValue = resolveSizeValueToCss(props.minH)
     if (minHValue) {
-      styles.push(`min-height: ${minHValue}`);
+      styles.push(`min-height: ${minHValue}`)
     }
-    const maxHValue = resolveSizeValueToCss(props.maxH);
+    const maxHValue = resolveSizeValueToCss(props.maxH)
     if (maxHValue) {
-      styles.push(`max-height: ${maxHValue}`);
+      styles.push(`max-height: ${maxHValue}`)
     }
   }
 
@@ -562,35 +572,35 @@ export class HtmlRenderer extends BaseRenderer {
    * Build padding styles (p, px, py, pt, pr, pb, pl)
    */
   private buildPaddingStyles(props: Omit<Partial<CommonProps>, 'align'>, styles: string[]): void {
-    const pValue = resolveSpacingValue(props.p);
+    const pValue = resolveSpacingValue(props.p)
     if (pValue) {
-      styles.push(`padding: ${pValue}`);
+      styles.push(`padding: ${pValue}`)
     }
-    const pxValue = resolveSpacingValue(props.px);
+    const pxValue = resolveSpacingValue(props.px)
     if (pxValue) {
-      styles.push(`padding-left: ${pxValue}`);
-      styles.push(`padding-right: ${pxValue}`);
+      styles.push(`padding-left: ${pxValue}`)
+      styles.push(`padding-right: ${pxValue}`)
     }
-    const pyValue = resolveSpacingValue(props.py);
+    const pyValue = resolveSpacingValue(props.py)
     if (pyValue) {
-      styles.push(`padding-top: ${pyValue}`);
-      styles.push(`padding-bottom: ${pyValue}`);
+      styles.push(`padding-top: ${pyValue}`)
+      styles.push(`padding-bottom: ${pyValue}`)
     }
-    const ptValue = resolveSpacingValue(props.pt);
+    const ptValue = resolveSpacingValue(props.pt)
     if (ptValue) {
-      styles.push(`padding-top: ${ptValue}`);
+      styles.push(`padding-top: ${ptValue}`)
     }
-    const prValue = resolveSpacingValue(props.pr);
+    const prValue = resolveSpacingValue(props.pr)
     if (prValue) {
-      styles.push(`padding-right: ${prValue}`);
+      styles.push(`padding-right: ${prValue}`)
     }
-    const pbValue = resolveSpacingValue(props.pb);
+    const pbValue = resolveSpacingValue(props.pb)
     if (pbValue) {
-      styles.push(`padding-bottom: ${pbValue}`);
+      styles.push(`padding-bottom: ${pbValue}`)
     }
-    const plValue = resolveSpacingValue(props.pl);
+    const plValue = resolveSpacingValue(props.pl)
     if (plValue) {
-      styles.push(`padding-left: ${plValue}`);
+      styles.push(`padding-left: ${plValue}`)
     }
   }
 
@@ -598,35 +608,35 @@ export class HtmlRenderer extends BaseRenderer {
    * Build margin styles (m, mx, my, mt, mr, mb, ml)
    */
   private buildMarginStyles(props: Omit<Partial<CommonProps>, 'align'>, styles: string[]): void {
-    const mValue = resolveSpacingValue(props.m);
+    const mValue = resolveSpacingValue(props.m)
     if (mValue) {
-      styles.push(`margin: ${mValue}`);
+      styles.push(`margin: ${mValue}`)
     }
-    const mxValue = props.mx !== 'auto' ? resolveSpacingValue(props.mx as SpacingValue | undefined) : undefined;
+    const mxValue = props.mx !== 'auto' ? resolveSpacingValue(props.mx) : undefined
     if (mxValue) {
-      styles.push(`margin-left: ${mxValue}`);
-      styles.push(`margin-right: ${mxValue}`);
+      styles.push(`margin-left: ${mxValue}`)
+      styles.push(`margin-right: ${mxValue}`)
     }
-    const myValue = resolveSpacingValue(props.my);
+    const myValue = resolveSpacingValue(props.my)
     if (myValue) {
-      styles.push(`margin-top: ${myValue}`);
-      styles.push(`margin-bottom: ${myValue}`);
+      styles.push(`margin-top: ${myValue}`)
+      styles.push(`margin-bottom: ${myValue}`)
     }
-    const mtValue = resolveSpacingValue(props.mt);
+    const mtValue = resolveSpacingValue(props.mt)
     if (mtValue) {
-      styles.push(`margin-top: ${mtValue}`);
+      styles.push(`margin-top: ${mtValue}`)
     }
-    const mrValue = resolveSpacingValue(props.mr);
+    const mrValue = resolveSpacingValue(props.mr)
     if (mrValue) {
-      styles.push(`margin-right: ${mrValue}`);
+      styles.push(`margin-right: ${mrValue}`)
     }
-    const mbValue = resolveSpacingValue(props.mb);
+    const mbValue = resolveSpacingValue(props.mb)
     if (mbValue) {
-      styles.push(`margin-bottom: ${mbValue}`);
+      styles.push(`margin-bottom: ${mbValue}`)
     }
-    const mlValue = resolveSpacingValue(props.ml);
+    const mlValue = resolveSpacingValue(props.ml)
     if (mlValue) {
-      styles.push(`margin-left: ${mlValue}`);
+      styles.push(`margin-left: ${mlValue}`)
     }
   }
 
@@ -634,9 +644,9 @@ export class HtmlRenderer extends BaseRenderer {
    * Build gap styles
    */
   private buildGapStyles(props: Omit<Partial<CommonProps>, 'align'>, styles: string[]): void {
-    const gapValue = resolveSpacingValue(props.gap);
+    const gapValue = resolveSpacingValue(props.gap)
     if (gapValue) {
-      styles.push(`gap: ${gapValue}`);
+      styles.push(`gap: ${gapValue}`)
     }
   }
 
@@ -644,26 +654,26 @@ export class HtmlRenderer extends BaseRenderer {
    * Build inline styles for Col node (extends common styles with order)
    */
   private buildColStyles(node: ColNode): string {
-    const styles: string[] = [];
+    const styles: string[] = []
 
     // Get common styles first
-    const commonStyles = this.buildCommonStyles(node);
+    const commonStyles = this.buildCommonStyles(node)
     if (commonStyles) {
-      styles.push(commonStyles);
+      styles.push(commonStyles)
     }
 
     // If explicit width is set but no flex, add flex: none to respect the width
     // This prevents the default flex: 1 from overriding the specified width
     if (node.w !== undefined && node.flex === undefined) {
-      styles.push('flex: none');
+      styles.push('flex: none')
     }
 
     // Order (Col-specific)
     if (node.order !== undefined) {
-      styles.push(`order: ${node.order}`);
+      styles.push(`order: ${node.order}`)
     }
 
-    return styles.join('; ');
+    return styles.join('; ')
   }
 
   // ===========================================
@@ -671,19 +681,19 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderCard(node: CardNode): string {
-    return renderCardFn(node, this.getRenderContext());
+    return renderCardFn(node, this.getRenderContext())
   }
 
   private renderModal(node: ModalNode): string {
-    return renderModalFn(node, this.getRenderContext());
+    return renderModalFn(node, this.getRenderContext())
   }
 
   private renderDrawer(node: DrawerNode): string {
-    return renderDrawerFn(node, this.getRenderContext());
+    return renderDrawerFn(node, this.getRenderContext())
   }
 
   private renderAccordion(node: AccordionNode): string {
-    return renderAccordionFn(node, this.getRenderContext());
+    return renderAccordionFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -691,15 +701,15 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderText(node: TextNode): string {
-    return renderTextFn(node, this.getRenderContext());
+    return renderTextFn(node, this.getRenderContext())
   }
 
   private renderTitle(node: TitleNode): string {
-    return renderTitleFn(node, this.getRenderContext());
+    return renderTitleFn(node, this.getRenderContext())
   }
 
   private renderLink(node: LinkNode): string {
-    return renderLinkFn(node, this.getRenderContext());
+    return renderLinkFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -707,31 +717,31 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderInput(node: InputNode): string {
-    return renderInputFn(node, this.getRenderContext());
+    return renderInputFn(node, this.getRenderContext())
   }
 
   private renderTextarea(node: TextareaNode): string {
-    return renderTextareaFn(node, this.getRenderContext());
+    return renderTextareaFn(node, this.getRenderContext())
   }
 
   private renderSelect(node: SelectNode): string {
-    return renderSelectFn(node, this.getRenderContext());
+    return renderSelectFn(node, this.getRenderContext())
   }
 
   private renderCheckbox(node: CheckboxNode): string {
-    return renderCheckboxFn(node, this.getRenderContext());
+    return renderCheckboxFn(node, this.getRenderContext())
   }
 
   private renderRadio(node: RadioNode): string {
-    return renderRadioFn(node, this.getRenderContext());
+    return renderRadioFn(node, this.getRenderContext())
   }
 
   private renderSwitch(node: SwitchNode): string {
-    return renderSwitchFn(node, this.getRenderContext());
+    return renderSwitchFn(node, this.getRenderContext())
   }
 
   private renderSlider(node: SliderNode): string {
-    return renderSliderFn(node, this.getRenderContext());
+    return renderSliderFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -739,7 +749,7 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderButton(node: ButtonNode): string {
-    return renderButtonFn(node, this.getRenderContext());
+    return renderButtonFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -747,23 +757,23 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderImage(node: ImageNode): string {
-    return renderImageFn(node, this.getRenderContext());
+    return renderImageFn(node, this.getRenderContext())
   }
 
   private renderPlaceholder(node: PlaceholderNode): string {
-    return renderPlaceholderFn(node, this.getRenderContext());
+    return renderPlaceholderFn(node, this.getRenderContext())
   }
 
   private renderAvatar(node: AvatarNode): string {
-    return renderAvatarFn(node, this.getRenderContext());
+    return renderAvatarFn(node, this.getRenderContext())
   }
 
   private renderBadge(node: BadgeNode): string {
-    return renderBadgeFn(node, this.getRenderContext());
+    return renderBadgeFn(node, this.getRenderContext())
   }
 
   private renderIcon(node: IconNode): string {
-    return renderIconFn(node, this.getRenderContext());
+    return renderIconFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -771,11 +781,11 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderTable(node: TableNode): string {
-    return renderTableFn(node, this.getRenderContext());
+    return renderTableFn(node, this.getRenderContext())
   }
 
   private renderList(node: ListNode): string {
-    return renderListFn(node, this.getRenderContext());
+    return renderListFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -783,19 +793,19 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderAlert(node: AlertNode): string {
-    return renderAlertFn(node, this.getRenderContext());
+    return renderAlertFn(node, this.getRenderContext())
   }
 
   private renderToast(node: ToastNode): string {
-    return renderToastFn(node, this.getRenderContext());
+    return renderToastFn(node, this.getRenderContext())
   }
 
   private renderProgress(node: ProgressNode): string {
-    return renderProgressFn(node, this.getRenderContext());
+    return renderProgressFn(node, this.getRenderContext())
   }
 
   private renderSpinner(node: SpinnerNode): string {
-    return renderSpinnerFn(node, this.getRenderContext());
+    return renderSpinnerFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -803,15 +813,15 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderTooltip(node: TooltipNode): string {
-    return renderTooltipFn(node, this.getRenderContext());
+    return renderTooltipFn(node, this.getRenderContext())
   }
 
   private renderPopover(node: PopoverNode): string {
-    return renderPopoverFn(node, this.getRenderContext());
+    return renderPopoverFn(node, this.getRenderContext())
   }
 
   private renderDropdown(node: DropdownNode): string {
-    return renderDropdownFn(node, this.getRenderContext());
+    return renderDropdownFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -819,15 +829,15 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderNav(node: NavNode): string {
-    return renderNavFn(node, this.getRenderContext());
+    return renderNavFn(node, this.getRenderContext())
   }
 
   private renderTabs(node: TabsNode): string {
-    return renderTabsFn(node, this.getRenderContext());
+    return renderTabsFn(node, this.getRenderContext())
   }
 
   private renderBreadcrumb(node: BreadcrumbNode): string {
-    return renderBreadcrumbFn(node, this.getRenderContext());
+    return renderBreadcrumbFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -835,7 +845,7 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderDivider(node: DividerComponentNode): string {
-    return renderDividerFn(node, this.getRenderContext());
+    return renderDividerFn(node, this.getRenderContext())
   }
 
   // ===========================================
@@ -843,15 +853,15 @@ export class HtmlRenderer extends BaseRenderer {
   // ===========================================
 
   private renderMarker(node: MarkerNode): string {
-    return renderMarkerFn(node, this.getRenderContext());
+    return renderMarkerFn(node, this.getRenderContext())
   }
 
   private renderAnnotations(node: AnnotationsNode): string {
-    return renderAnnotationsFn(node, this.getRenderContext());
+    return renderAnnotationsFn(node, this.getRenderContext())
   }
 
   private renderAnnotationItem(node: AnnotationItemNode): string {
-    return renderAnnotationItemFn(node, this.getRenderContext());
+    return renderAnnotationItemFn(node, this.getRenderContext())
   }
 }
 
@@ -859,5 +869,5 @@ export class HtmlRenderer extends BaseRenderer {
  * Create a new HTML renderer instance
  */
 export function createHtmlRenderer(options?: RenderOptions): HtmlRenderer {
-  return new HtmlRenderer(options);
+  return new HtmlRenderer(options)
 }
