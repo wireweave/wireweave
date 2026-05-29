@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.0.1-beta.0](https://github.com/wireweave/core/compare/v3.0.0...v3.0.1-beta.0) (2026-05-29)
+
+### Refactoring
+
+- **analyze:** update import path for AnyNode type ([fd617b1](https://github.com/wireweave/core/commit/fd617b1574b86f3b383ccf2b27a32a4a3824d0c0))
+- **ast:** update AST type definitions ([99a0af8](https://github.com/wireweave/core/commit/99a0af8758a78bb969b5536c819e7d75aa356120))
+- **export:** update figma export module ([d4768c8](https://github.com/wireweave/core/commit/d4768c81ed463e4ba8daa83a8a99f4e5990697d5))
+- **renderer:** update HTML renderer exports ([59140be](https://github.com/wireweave/core/commit/59140be2add439ba784bc36f9fc16c63d6b7d5ef))
+- **types:** remove redundant type re-export module ([7c017a4](https://github.com/wireweave/core/commit/7c017a44671b2b34f35587dc3ed9bf23245efeb9))
+
+### Documentation
+
+- add Peggy grammar authoring rules ([33e9113](https://github.com/wireweave/core/commit/33e9113e4cb3f713a64634735c1ee7d86e5580c6))
+- **changelog:** update changelog ([71c8591](https://github.com/wireweave/core/commit/71c8591b9e69ceb3842cef99fa35306ab1d8a673))
+- **core:** add AST and breaking change rules ([1537f30](https://github.com/wireweave/core/commit/1537f30257d6ae1db5054848e3db63ea0cd0879f))
+- **rules:** add core architecture documentation ([ae7a558](https://github.com/wireweave/core/commit/ae7a558334edad4bb5a2c0dc9b82d9d5ad5d1d05))
+
 ## [3.0.0](https://github.com/wireweave/core/compare/v3.0.0-beta.0...v3.0.0) (2026-05-08)
 
 ## [3.0.0-beta.0](https://github.com/wireweave/core/compare/v2.8.0...v3.0.0-beta.0) (2026-05-08)
