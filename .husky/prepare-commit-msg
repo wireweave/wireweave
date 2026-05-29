@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 COMMIT_MSG_FILE=$1
 COMMIT_SOURCE=$2
 
@@ -8,7 +5,7 @@ case "$COMMIT_SOURCE" in
   merge|squash|template|commit) exit 0 ;;
 esac
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "HEAD")
 case "$BRANCH" in
   main|master|develop|HEAD) exit 0 ;;
 esac
