@@ -1,0 +1,83 @@
+{
+  "name": "@wireweave/sdk",
+  "version": "0.1.0-beta.0",
+  "description": "Wireweave SDK - typed HTTP client, auth, and local tools for the Wireweave API. Sole owner of api-server contract for mcp-server, cli, and skill packages.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@wireweave/core": "workspace:*",
+    "@wireweave/language-data": "workspace:*",
+    "@wireweave/ux-rules": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "publint": "publint",
+    "release": "release-it",
+    "release:beta": "release-it --preRelease=beta"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.0.8",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^10.3.0",
+    "husky": "^9.1.7",
+    "knip": "^6.13.1",
+    "lint-staged": "^17.0.4",
+    "prettier": "^3.8.3",
+    "publint": "^0.3.21",
+    "release-it": "^19.2.3",
+    "@release-it/conventional-changelog": "^10.0.4",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.59.3",
+    "vitest": "^3.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wireweave/sdk.git"
+  },
+  "homepage": "https://docs.wireweave.org",
+  "bugs": {
+    "url": "https://github.com/wireweave/sdk/issues"
+  },
+  "keywords": [
+    "wireweave",
+    "sdk",
+    "client",
+    "wireframe",
+    "dsl",
+    "ai",
+    "claude",
+    "llm",
+    "ui-design"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

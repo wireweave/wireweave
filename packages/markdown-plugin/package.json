@@ -1,0 +1,105 @@
+{
+  "name": "@wireweave/markdown-plugin",
+  "version": "1.2.11",
+  "description": "Markdown plugins for wireweave",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./markdown-it": {
+      "types": "./dist/markdown-it.d.ts",
+      "import": "./dist/markdown-it.js",
+      "require": "./dist/markdown-it.cjs"
+    },
+    "./marked": {
+      "types": "./dist/marked.d.ts",
+      "import": "./dist/marked.js",
+      "require": "./dist/marked.cjs"
+    },
+    "./remarkable": {
+      "types": "./dist/remarkable.d.ts",
+      "import": "./dist/remarkable.js",
+      "require": "./dist/remarkable.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist",
+    "release": "release-it",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "publint": "publint"
+  },
+  "peerDependencies": {
+    "markdown-it": ">=12.0.0",
+    "marked": ">=4.0.0",
+    "remarkable": ">=2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it": {
+      "optional": true
+    },
+    "marked": {
+      "optional": true
+    },
+    "remarkable": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@wireweave/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^10.0.1",
+    "@release-it/conventional-changelog": "^10.0.4",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22",
+    "@types/remarkable": "^2.0.8",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "knip": "^6.14.2",
+    "lint-staged": "^17.0.5",
+    "markdown-it": "^14.1.0",
+    "marked": "^15.0.6",
+    "prettier": "^3.8.3",
+    "publint": "^0.3.21",
+    "release-it": "^19.2.3",
+    "remarkable": "^2.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.60.0",
+    "vitest": "^3.1.1"
+  },
+  "keywords": [
+    "wireframe",
+    "markdown",
+    "plugin",
+    "markdown-it",
+    "marked",
+    "remarkable"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wireweave/markdown-plugin.git"
+  }
+}

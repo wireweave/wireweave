@@ -1,0 +1,71 @@
+{
+  "name": "@wireweave/ux-rules",
+  "version": "1.4.0-beta.0",
+  "description": "UX validation rules for wireweave",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist",
+    "release": "release-it",
+    "release:beta": "release-it --preRelease=beta",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "publint": "publint"
+  },
+  "dependencies": {
+    "@wireweave/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^10.0.1",
+    "@release-it/conventional-changelog": "^10.0.4",
+    "@types/node": "^22",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "knip": "^6.14.2",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
+    "publint": "^0.3.21",
+    "release-it": "^19.2.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.60.0",
+    "vitest": "^3.1.1"
+  },
+  "keywords": [
+    "wireframe",
+    "ux",
+    "validation",
+    "rules"
+  ],
+  "author": "Seungwoo Lee",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wireweave/ux-rules.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wireweave/ux-rules/issues"
+  },
+  "homepage": "https://github.com/wireweave/ux-rules#readme"
+}

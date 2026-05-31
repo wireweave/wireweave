@@ -1,0 +1,103 @@
+{
+  "name": "@wireweave/language-data",
+  "version": "1.5.2",
+  "description": "Shared language definitions for Wireweave DSL editors",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./monaco": {
+      "types": "./dist/monaco/index.d.ts",
+      "import": "./dist/monaco/index.js",
+      "require": "./dist/monaco/index.cjs"
+    },
+    "./codemirror": {
+      "types": "./dist/codemirror/index.d.ts",
+      "import": "./dist/codemirror/index.js",
+      "require": "./dist/codemirror/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist",
+    "release": "release-it",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "publint": "publint"
+  },
+  "peerDependencies": {
+    "@codemirror/autocomplete": "^6.0.0",
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/lint": "^6.0.0",
+    "@codemirror/view": "^6.0.0",
+    "monaco-editor": ">=0.50.0 <1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@codemirror/autocomplete": {
+      "optional": true
+    },
+    "@codemirror/language": {
+      "optional": true
+    },
+    "@codemirror/lint": {
+      "optional": true
+    },
+    "@codemirror/view": {
+      "optional": true
+    },
+    "monaco-editor": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@codemirror/autocomplete": "^6.20.2",
+    "@codemirror/language": "^6.12.3",
+    "@codemirror/lint": "^6.9.6",
+    "@codemirror/view": "^6.43.0",
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^10.0.1",
+    "@release-it/conventional-changelog": "^10.0.4",
+    "@types/node": "^22.19.19",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "knip": "^6.14.2",
+    "lint-staged": "^17.0.5",
+    "monaco-editor": "^0.55.1",
+    "prettier": "^3.8.3",
+    "publint": "^0.3.21",
+    "release-it": "^19.2.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.60.0",
+    "vitest": "^3.1.1"
+  },
+  "keywords": [
+    "wireframe",
+    "dsl",
+    "language",
+    "intellisense",
+    "editor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wireweave/language-data.git"
+  }
+}

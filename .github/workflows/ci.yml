@@ -1,0 +1,113 @@
+name: CI
+
+# CI validates pull requests only; the Publish and Sync workflows own pushes.
+# This split is the whole trigger model, not a per-branch exception:
+#
+# - Every change reaches main through a develop -> main pull request, and the
+#   pull_request run already validates the merge result. A push trigger adds
+#   nothing the PR run does not already cover.
+# - A push trigger also duplicates work whenever a release PR is open: a push
+#   to develop fires both a push run and the PR's synchronize run for the same
+#   commit, and the two land in different concurrency groups (push keys on
+#   refs/heads/develop, pull_request on refs/pull/N/merge) so neither cancels
+#   the other.
+# - On main a push run additionally races the Publish workflow's version commit
+#   on the same ref; the loser is cancelled, and because Publish does not depend
+#   on CI that cancelled run reads as a misleading "deployment failed" signal
+#   with no bearing on whether the release actually succeeded.
+#
+# The develop beta snapshot still publishes on every develop push via
+# publish.yml, independently of this workflow.
+on:
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Release-hygiene gate. Blocks a pull request that edits publishable
+  # package source without a changeset, so merged feature work can never
+  # publish nothing for lack of a version bump. Pull-request only — there is
+  # no base to diff a direct develop push against, and develop publishes a
+  # snapshot beta on every push regardless of changesets.
+  changeset:
+    name: changeset present
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Verify a changeset accompanies publishable source changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/check-changeset.mjs
+
+  quality:
+    name: typecheck + lint + test + build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm --filter "./packages/**" build
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Test
+        run: pnpm test
+
+      # Publish-readiness smoke. Every published package is packed here so a
+      # missing `files` entry, broken `exports` map, or unbuilt `dist/`
+      # surfaces in CI rather than at release time. Keep this list in lockstep
+      # with .github/workflows/publish.yml — if a package is added here it must
+      # also be added to the publish job, and vice versa.
+      #
+      # vscode-extension and docs are excluded: vscode publishes via vsce/ovsx
+      # and docs deploys to Vercel — neither is a changesets npm pack target.
+      - name: Pack (publish-readiness smoke)
+        run: |
+          mkdir -p .pack-out
+          for pkg in \
+            packages/core \
+            packages/language-data \
+            packages/markdown-plugin; do
+            (cd "$pkg" && pnpm pack --pack-destination "${GITHUB_WORKSPACE}/.pack-out")
+          done
+          ls -la .pack-out

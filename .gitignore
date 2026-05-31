@@ -1,0 +1,65 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build artifacts
+dist/
+build/
+out/
+*.tsbuildinfo
+.turbo/
+
+# framework-generated output (examples + docs) — never version-controlled
+.svelte-kit/
+.next/
+.nuxt/
+.output/
+.angular/
+.astro/
+.vercel/
+.netlify/
+.vitepress/dist/
+.vitepress/cache/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.shared.json
+.idea/
+
+# env / secrets — NEVER COMMIT
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# coverage / test artifacts
+coverage/
+.nyc_output/
+
+# misc
+.cache/
+.eslintcache
+.parcel-cache/
+.tmp/
+
+# MCP tool artifacts (Playwright snapshots, etc.)
+.playwright-mcp/
+
+# npm pack smoke-test output
+.pack-out/
+
+# Local SDK PoC sandbox (kept out of the main package tree)
+.poc-sdk/

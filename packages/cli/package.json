@@ -1,0 +1,76 @@
+{
+  "name": "@wireweave/cli",
+  "version": "0.1.0-beta.0",
+  "description": "Wireweave CLI — auth, render, and AI agent for the Wireweave wireframe DSL",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "wireweave": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "publint": "publint"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
+  "dependencies": {
+    "@wireweave/sdk": "workspace:*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "knip": "^6.14.1",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
+    "publint": "^0.3.21",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.59.3",
+    "vitest": "^2.1.9"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wireweave/cli.git"
+  },
+  "homepage": "https://docs.wireweave.org/cli",
+  "bugs": {
+    "url": "https://github.com/wireweave/cli/issues"
+  },
+  "keywords": [
+    "wireweave",
+    "cli",
+    "wireframe",
+    "dsl",
+    "ai",
+    "agent"
+  ],
+  "license": "MIT"
+}

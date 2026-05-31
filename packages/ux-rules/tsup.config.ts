@@ -1,0 +1,13 @@
+import { defineConfig } from 'tsup'
+
+export default defineConfig({
+  entry: {
+    index: 'src/index.ts',
+  },
+  format: ['cjs', 'esm'],
+  dts: true,
+  clean: true,
+  sourcemap: false,
+  target: 'es2022',
+  external: ['@wireweave/core'],
+})

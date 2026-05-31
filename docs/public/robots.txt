@@ -1,0 +1,34 @@
+# Wireweave Docs - https://docs.wireweave.org
+# SEO optimized robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://docs.wireweave.org/sitemap.xml
+
+# AI Training Crawlers - Explicitly allowed
+# Wireweave is designed for AI assistants, so we welcome AI training
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /

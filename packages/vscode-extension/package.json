@@ -1,0 +1,188 @@
+{
+  "name": "wireweave-vscode",
+  "private": true,
+  "displayName": "Wireweave",
+  "description": "Text-based wireframe DSL - preview and edit wireframes as code",
+  "version": "2.0.0-beta.0",
+  "preview": true,
+  "publisher": "wireweave",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wireweave/vscode-extension"
+  },
+  "homepage": "https://wireweave.org",
+  "bugs": {
+    "url": "https://github.com/wireweave/vscode-extension/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Visualization"
+  ],
+  "keywords": [
+    "wireframe",
+    "mockup",
+    "ui",
+    "prototype",
+    "design"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": [
+      "./styles/wireframe-preview.css"
+    ],
+    "languages": [
+      {
+        "id": "wireframe",
+        "aliases": [
+          "Wireframe",
+          "wireframe"
+        ],
+        "extensions": [
+          ".wf",
+          ".wireframe"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wireframe",
+        "scopeName": "source.wireframe",
+        "path": "./syntaxes/wireframe.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "wireframe.preview",
+        "title": "Wireweave: Open Preview",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "wireframe.previewToSide",
+        "title": "Wireweave: Open Preview to Side",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "wireframe.exportHtml",
+        "title": "Wireweave: Export as HTML"
+      },
+      {
+        "command": "wireweave.aiGenerate",
+        "title": "Wireweave: AI Generate"
+      },
+      {
+        "command": "wireweave.aiImprove",
+        "title": "Wireweave: AI Improve"
+      },
+      {
+        "command": "wireweave.login",
+        "title": "Wireweave: Login"
+      },
+      {
+        "command": "wireweave.showQuota",
+        "title": "Wireweave: Show Quota"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "wireframe.previewToSide",
+          "when": "resourceLangId == wireframe",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "wireframe.preview",
+          "when": "resourceLangId == wireframe"
+        },
+        {
+          "command": "wireframe.previewToSide",
+          "when": "resourceLangId == wireframe"
+        },
+        {
+          "command": "wireframe.exportHtml",
+          "when": "resourceLangId == wireframe"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "wireframe.previewToSide",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "resourceLangId == wireframe"
+      },
+      {
+        "command": "wireweave.aiGenerate",
+        "key": "ctrl+k ctrl+w",
+        "mac": "cmd+k cmd+w"
+      }
+    ],
+    "configuration": {
+      "title": "Wireframe Lang",
+      "properties": {
+        "wireframe.theme": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "light",
+            "dark"
+          ],
+          "description": "Theme for the preview"
+        },
+        "wireframe.autoPreview": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically open preview when opening a wireframe file"
+        },
+        "wireframe.previewWidth": {
+          "type": "number",
+          "default": 1200,
+          "description": "Base width for the wireframe preview (in pixels). Preview will scale down uniformly to fit."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "package": "vsce package --no-dependencies",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@wireweave/core": "workspace:*",
+    "@wireweave/language-data": "workspace:*"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^10.0.1",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^25.0.9",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.7.1",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.60.0"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "@wireweave/mcp-server",
+  "version": "1.8.0",
+  "description": "MCP server for Wireweave DSL - Thin client for API Server",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "wireweave-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "start:http": "node dist/index.js --http",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "publint": "publint"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@wireweave/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@eslint/js": "^10.0.1",
+    "@release-it/conventional-changelog": "^10.0.4",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.3.0",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "knip": "^6.13.1",
+    "lint-staged": "^17.0.4",
+    "prettier": "^3.8.3",
+    "publint": "^0.3.21",
+    "release-it": "^19.2.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.59.3",
+    "vitest": "^2.1.8"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wireweave/mcp-server.git"
+  },
+  "homepage": "https://docs.wireweave.org",
+  "bugs": {
+    "url": "https://github.com/wireweave/mcp-server/issues"
+  },
+  "keywords": [
+    "wireweave",
+    "mcp",
+    "model-context-protocol",
+    "wireframe",
+    "dsl",
+    "ai",
+    "claude",
+    "llm",
+    "tools",
+    "ui-design",
+    "prototyping"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,77 @@
+# Changelog
+
+## [1.2.11](https://github.com/wireweave/markdown-plugin/compare/v1.2.11-beta.0...v1.2.11) (2026-05-08)
+
+## [1.2.11-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.10...v1.2.11-beta.0) (2026-05-08)
+
+## [1.2.10](https://github.com/wireweave/markdown-plugin/compare/v1.2.10-beta.0...v1.2.10) (2026-03-17)
+
+## [1.2.10-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.9...v1.2.10-beta.0) (2026-03-17)
+
+## [1.2.9](https://github.com/wireweave/markdown-plugin/compare/v1.2.8...v1.2.9) (2026-03-15)
+
+## [1.2.8](https://github.com/wireweave/markdown-plugin/compare/v1.2.8-beta.2...v1.2.8) (2026-03-09)
+
+## [1.2.8-beta.2](https://github.com/wireweave/markdown-plugin/compare/v1.2.8-beta.1...v1.2.8-beta.2) (2026-03-09)
+
+## [1.2.8-beta.1](https://github.com/wireweave/markdown-plugin/compare/v1.2.8-beta.0...v1.2.8-beta.1) (2026-03-08)
+
+## [1.2.8-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.7...v1.2.8-beta.0) (2026-03-07)
+
+## [1.2.7](https://github.com/wireweave/markdown-plugin/compare/v1.2.7-beta.0...v1.2.7) (2026-03-07)
+
+## [1.2.7-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.6...v1.2.7-beta.0) (2026-03-07)
+
+## [1.2.6](https://github.com/wireweave/markdown-plugin/compare/v1.2.6-beta.0...v1.2.6) (2026-03-04)
+
+## [1.2.6-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.5-beta.1...v1.2.6-beta.0) (2026-03-04)
+
+## [1.2.5-beta.1](https://github.com/wireweave/markdown-plugin/compare/v1.2.5...v1.2.5-beta.1) (2026-03-04)
+
+## [1.2.5](https://github.com/wireweave/markdown-plugin/compare/v1.2.5-beta.0...v1.2.5) (2026-02-25)
+
+## [1.2.5-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.4...v1.2.5-beta.0) (2026-02-25)
+
+## [1.2.4](https://github.com/wireweave/markdown-plugin/compare/v1.2.4-beta.0...v1.2.4) (2026-02-23)
+
+## [1.2.4-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.3...v1.2.4-beta.0) (2026-02-23)
+
+## [1.2.3](https://github.com/wireweave/markdown-plugin/compare/v1.2.3-beta.0...v1.2.3) (2026-01-24)
+
+## [1.2.3-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.2...v1.2.3-beta.0) (2026-01-24)
+
+### Documentation
+
+- update logo to use CDN URL ([06a4868](https://github.com/wireweave/markdown-plugin/commit/06a48680fb90fe387c92680cb7044b3b7f5cc81f))
+
+## [1.2.2](https://github.com/wireweave/markdown-plugin/compare/v1.2.2-beta.0...v1.2.2) (2026-01-20)
+
+## [1.2.2-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.2.1...v1.2.2-beta.0) (2026-01-17)
+
+## [1.2.1](https://github.com/wireweave/markdown-plugin/compare/v1.2.1-beta.1...v1.2.1) (2026-01-17)
+
+## [1.2.1-beta.1](https://github.com/wireweave/markdown-plugin/compare/v1.2.1-beta.0...v1.2.1-beta.1) (2026-01-17)
+
+### Documentation
+
+- update README with missing options ([16ea022](https://github.com/wireweave/markdown-plugin/commit/16ea022e14625559e5a1f3e75d5a08fc6598685f))
+
+## [1.2.1-beta.0](https://github.com/wireweave/markdown-plugin/compare/v1.1.0-beta.3...v1.2.1-beta.0) (2026-01-10)
+
+## [1.1.0](https://github.com/wireweave/markdown-plugin/compare/v1.1.0-beta.0...v1.1.0) (2026-01-10)
+
+### Bug Fixes
+
+- include README.md in npm package ([8378900](https://github.com/wireweave/markdown-plugin/commit/8378900bc5cd47989a512ce7bf3f361927855e14))
+- remove src from npm package files ([b5fac8e](https://github.com/wireweave/markdown-plugin/commit/b5fac8ea1da248e95f123747810e59678d6afdaa))
+
+## 1.1.0-beta.0 (2026-01-10)
+
+### Features
+
+- add release-it workflow for beta publishing ([b5bd745](https://github.com/wireweave/markdown-plugin/commit/b5bd74574971e06d7381bcc6beab6685e683a038))
+
+### Bug Fixes
+
+- add @types/node for Buffer type support ([80c5eb2](https://github.com/wireweave/markdown-plugin/commit/80c5eb2a42f3646bd6ad733a29aa1cd6ebf62d41))
+- make tsconfig.json standalone (remove extends) ([859340d](https://github.com/wireweave/markdown-plugin/commit/859340d98a69143a5572dfb2d01063cca2a3845d))

@@ -1,0 +1,9 @@
+dist
+node_modules
+.next
+coverage
+pnpm-lock.yaml
+*.generated.*
+**/generated-parser.js
+.vitepress/dist
+.vitepress/cache

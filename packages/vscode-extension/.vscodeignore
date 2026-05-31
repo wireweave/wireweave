@@ -1,0 +1,26 @@
+# Source files
+src/**
+*.ts
+tsconfig.json
+tsup.config.ts
+
+# Development
+.vscode/**
+.github/**
+node_modules/**
+pnpm-lock.yaml
+
+# Build artifacts
+*.map
+dist/*.map
+
+# Documentation
+CLAUDE.md
+
+# Git
+.git/**
+.gitignore
+
+# Misc
+*.vsix
+.DS_Store

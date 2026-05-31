@@ -1,0 +1,76 @@
+/**
+ * Wireframe Preview Styles for VSCode Markdown Preview
+ *
+ * These styles are injected into the markdown preview to style
+ * wireframe code block outputs.
+ */
+
+/* Container for wireframe preview */
+.wireframe-preview-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--vscode-editor-background, #ffffff);
+  border: 1px solid var(--vscode-panel-border, #e0e0e0);
+  border-radius: 4px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* The wireframe SVG image */
+.wireframe-preview-image {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+/* Error message container */
+.wireframe-preview-error {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--vscode-inputValidation-errorBackground, #ffebee);
+  border: 1px solid var(--vscode-inputValidation-errorBorder, #d32f2f);
+  border-radius: 4px;
+  color: var(--vscode-inputValidation-errorForeground, #d32f2f);
+  font-size: 0.9em;
+}
+
+.wireframe-preview-error strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Source code display on error */
+.wireframe-preview-source {
+  margin: 0.5rem 0 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--vscode-textCodeBlock-background, #f5f5f5);
+  border: 1px solid var(--vscode-panel-border, #e0e0e0);
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+
+.wireframe-preview-source code {
+  background: transparent;
+  padding: 0;
+  font-family: var(--vscode-editor-font-family, 'Consolas', 'Monaco', monospace);
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+  .wireframe-preview-container {
+    background: var(--vscode-editor-background, #1e1e1e);
+    border-color: var(--vscode-panel-border, #3c3c3c);
+  }
+
+  .wireframe-preview-error {
+    background: var(--vscode-inputValidation-errorBackground, #5a1d1d);
+    color: var(--vscode-inputValidation-errorForeground, #f48771);
+  }
+
+  .wireframe-preview-source {
+    background: var(--vscode-textCodeBlock-background, #2d2d2d);
+    border-color: var(--vscode-panel-border, #3c3c3c);
+  }
+}
