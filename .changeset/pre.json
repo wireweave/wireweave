@@ -13,5 +13,7 @@
     "@wireweave/ux-rules": "1.4.0",
     "wireweave-vscode": "2.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "verify-ci-fix"
+  ]
 }
