@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.1-beta.0
+
+### Patch Changes
+
+- Updated dependencies [[`db348e9`](https://github.com/wireweave/wireweave/commit/db348e91f972c58fce2b3b60b711ea2e764f4c58)]:
+  - @wireweave/sdk@0.1.0-beta.1
+
 ## [Unreleased]
 
 ### Refactoring

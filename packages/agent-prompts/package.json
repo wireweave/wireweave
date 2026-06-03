@@ -1,6 +1,6 @@
 {
   "name": "@wireweave/agent-prompts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Canonical grammar prompts for LLM agents generating Wireweave DSL (multi-page aware)",
   "type": "module",
   "sideEffects": false,
@@ -78,10 +78,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wireweave/agent-prompts.git"
+    "url": "git+https://github.com/wireweave/wireweave.git",
+    "directory": "packages/agent-prompts"
   },
   "bugs": {
-    "url": "https://github.com/wireweave/agent-prompts/issues"
+    "url": "https://github.com/wireweave/wireweave/issues"
   },
-  "homepage": "https://github.com/wireweave/agent-prompts#readme"
+  "homepage": "https://docs.wireweave.org"
 }
