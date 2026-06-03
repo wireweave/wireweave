@@ -58,11 +58,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wireweave/cli.git"
+    "url": "git+https://github.com/wireweave/wireweave.git",
+    "directory": "packages/cli"
   },
   "homepage": "https://docs.wireweave.org/cli",
   "bugs": {
-    "url": "https://github.com/wireweave/cli/issues"
+    "url": "https://github.com/wireweave/wireweave/issues"
   },
   "keywords": [
     "wireweave",

@@ -62,10 +62,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wireweave/ux-rules.git"
+    "url": "git+https://github.com/wireweave/wireweave.git",
+    "directory": "packages/ux-rules"
   },
   "bugs": {
-    "url": "https://github.com/wireweave/ux-rules/issues"
+    "url": "https://github.com/wireweave/wireweave/issues"
   },
-  "homepage": "https://github.com/wireweave/ux-rules#readme"
+  "homepage": "https://docs.wireweave.org"
 }

@@ -78,10 +78,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wireweave/agent-prompts.git"
+    "url": "git+https://github.com/wireweave/wireweave.git",
+    "directory": "packages/agent-prompts"
   },
   "bugs": {
-    "url": "https://github.com/wireweave/agent-prompts/issues"
+    "url": "https://github.com/wireweave/wireweave/issues"
   },
-  "homepage": "https://github.com/wireweave/agent-prompts#readme"
+  "homepage": "https://docs.wireweave.org"
 }

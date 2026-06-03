@@ -56,11 +56,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wireweave/sdk.git"
+    "url": "git+https://github.com/wireweave/wireweave.git",
+    "directory": "packages/sdk"
   },
   "homepage": "https://docs.wireweave.org",
   "bugs": {
-    "url": "https://github.com/wireweave/sdk/issues"
+    "url": "https://github.com/wireweave/wireweave/issues"
   },
   "keywords": [
     "wireweave",
