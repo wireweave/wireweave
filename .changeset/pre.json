@@ -13,5 +13,7 @@
     "@wireweave/ux-rules": "1.4.0",
     "wireweave-vscode": "2.0.0-beta.0"
   },
-  "changesets": []
+  "changesets": [
+    "sdk-cli-stable"
+  ]
 }
