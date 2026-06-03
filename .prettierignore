@@ -7,3 +7,8 @@ pnpm-lock.yaml
 **/generated-parser.js
 .vitepress/dist
 .vitepress/cache
+
+# changesets-generated artifacts — the changeset CLI owns their format and
+# commits them in CI with hooks disabled, so they are not prettier-normalised.
+.changeset/pre.json
+**/CHANGELOG.md
