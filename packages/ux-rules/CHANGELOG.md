@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.4.0
+
 ## [1.4.0-beta.0](https://github.com/wireweave/ux-rules/compare/v1.3.0-beta.0...v1.4.0-beta.0) (2026-05-29)
 
 ## [1.3.0-beta.0](https://github.com/wireweave/ux-rules/compare/v1.3.0-beta.0...v1.4.0-beta.0) (2026-05-27)

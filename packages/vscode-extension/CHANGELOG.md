@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.0.0
+
 All notable changes to the Wireweave VS Code extension will be documented in this file.
 
 ## [2.0.0-beta.0] - 2026-04-29

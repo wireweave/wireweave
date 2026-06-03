@@ -3,7 +3,7 @@
   "private": true,
   "displayName": "Wireweave",
   "description": "Text-based wireframe DSL - preview and edit wireframes as code",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0",
   "preview": true,
   "publisher": "wireweave",
   "license": "MIT",
