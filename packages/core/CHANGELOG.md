@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.0.0-beta.12
+
+### Major Changes
+
+- [`7124690`](https://github.com/wireweave/wireweave/commit/7124690f6d0d2e109f5019b796ebe8000c36611c) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Publish the Wireweave 4.0 AppBundle contract: deterministic module admission,
+  linking, compilation, runtime interaction, source maps and standalone HTML
+  artifacts. The 4.0 language/runtime contract is consumed by Studio through the
+  published beta package rather than a source checkout or copied dist.
+
 ## 3.1.0-beta.11
 
 ### Patch Changes
