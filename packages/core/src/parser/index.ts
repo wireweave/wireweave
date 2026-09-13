@@ -5,6 +5,24 @@
  */
 
 import type { WireframeDocument, SourceLocation } from '../ast/types'
+import { parseV4, tryParseV4 } from './v4'
+import type { ParsedDocument, V4ParseOptions, V4ParseResult } from './v4-types'
+export { getV4SourceSpan, parseV4, tryParseV4 } from './v4'
+export { V4ParseError } from './v4-types'
+export type {
+  ParsedDocument,
+  V4ParseOptions,
+  V4ParseResult,
+  V4Diagnostic,
+  V4SourceSpan,
+  CanonicalModule,
+  CanonicalNode,
+  CanonicalPrimitive,
+  CanonicalDefinition,
+  CanonicalUse,
+  CanonicalParameter,
+  CanonicalSymbol,
+} from './v4-types'
 // @ts-expect-error - generated parser has no type declarations
 import { parse as rawPeggyParse } from './generated-parser.js'
 
@@ -81,7 +99,13 @@ export interface ParseErrorInfo {
  * @returns Parsed AST document
  * @throws {ParseError} When source contains syntax errors
  */
-export function parse(source: string, options?: ParseOptions): WireframeDocument {
+export function parse(source: string, options: V4ParseOptions): ParsedDocument
+export function parse(source: string, options?: ParseOptions): WireframeDocument
+export function parse(
+  source: string,
+  options?: ParseOptions | V4ParseOptions,
+): WireframeDocument | ParsedDocument {
+  if (options !== undefined && 'languageVersion' in options) return parseV4(source, options)
   try {
     return peggyParse(source, options) as WireframeDocument
   } catch (error: unknown) {
@@ -96,7 +120,13 @@ export function parse(source: string, options?: ParseOptions): WireframeDocument
  * @param options - Parse options
  * @returns Parse result with AST or errors
  */
-export function tryParse(source: string, options?: ParseOptions): ParseResult {
+export function tryParse(source: string, options: V4ParseOptions): V4ParseResult
+export function tryParse(source: string, options?: ParseOptions): ParseResult
+export function tryParse(
+  source: string,
+  options?: ParseOptions | V4ParseOptions,
+): ParseResult | V4ParseResult {
+  if (options !== undefined && 'languageVersion' in options) return tryParseV4(source, options)
   try {
     const document = parse(source, options)
     return { success: true, document, errors: [] }

@@ -1,72 +1,52 @@
 # Wireweave
 
-> AI와 함께 와이어프레임을 작성하기 위한 DSL.
+Wireweave is a concise language for UI wireframes and observable behavior. The public Core parses, validates, links and renders reusable screens, state and interactions. It produces neutral HTML/SVG and machine-readable source and requirement mappings.
 
-Wireweave는 와이어프레임을 코드로 작성하는 텍스트 기반 DSL입니다. `.wf` 파일(멀티페이지 캔버스 지원)에 화면을 기술하면 파싱·렌더링·검증·내보내기를 수행할 수 있고, LLM이 이 DSL을 생성·수정하도록 돕는 도구를 제공합니다.
+The language 4.0.0 contract starts at [LANGUAGE](docs/spec/LANGUAGE.md), with [RUNTIME](docs/spec/RUNTIME.md) and [TOOLING](docs/spec/TOOLING.md). [Grammar](docs/spec/language.ebnf), [JSON Schema](docs/spec/schema.json) and [examples](docs/spec/examples.json) are canonical release inputs. Installed package conformance is tied to the toolchain manifest, not inferred from a documentation version.
 
-- npm scope: [`@wireweave`](https://www.npmjs.com/org/wireweave)
-- 도메인: [wireweave.org](https://wireweave.org) (문서: [docs.wireweave.org](https://docs.wireweave.org))
+Core and deterministic tools run locally without an account or API key. The private agent harness owns scenario planning, context assembly, generation and repair policy. An external product-definition system is a separate integration; Wireweave is its dogfood binding. Hosted collaboration, account and billing contracts belong to their service/product owners.
 
-이 저장소는 Wireweave의 **공개 표면**(언어 + 도구 + 클라이언트)을 담은 pnpm 모노레포입니다. 10개 패키지 + 문서 사이트로 구성됩니다. 호스티드 AI 에이전트, API 서버, 제품(대시보드·관리자)은 별도의 비공개 저장소에서 관리됩니다.
+## Packages
 
-## 패키지
+| Package                                       | Responsibility                                                      |
+| --------------------------------------------- | ------------------------------------------------------------------- |
+| [core](packages/core)                         | Deterministic language, linking, runtime, rendering and source maps |
+| [language-data](packages/language-data)       | Versioned component and attribute catalogs for language consumers   |
+| [ux-rules](packages/ux-rules)                 | Independent observable UX checks, exclusions and findings           |
+| [agent-prompts](packages/agent-prompts)       | Public language context derived from the canonical catalog          |
+| [markdown-plugin](packages/markdown-plugin)   | Static and isolated app fence rendering through Core                |
+| [sdk](packages/sdk)                           | Explicit local/remote dispatch and host I/O admission               |
+| [cli](packages/cli)                           | Terminal adapter using shared tool contracts                        |
+| [mcp-server](packages/mcp-server)             | MCP adapter with local deterministic defaults                       |
+| [vscode-extension](packages/vscode-extension) | Language service, preview, export and authorized candidate edits    |
+| [docs](docs)                                  | Canonical public documentation and local search                     |
 
-| 패키지                                                   | 역할                                                                                            | 배포                   |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- |
-| [`@wireweave/core`](packages/core)                       | DSL 파서/렌더러 (Peggy grammar). parse · render(HTML·SVG) · analyze · diff · export(figma·json) | npm                    |
-| [`@wireweave/language-data`](packages/language-data)     | 컴포넌트 어휘/속성 데이터 (에디터 자동완성·검증용). Monaco·CodeMirror 서브패스 제공             | npm                    |
-| [`@wireweave/ux-rules`](packages/ux-rules)               | UX 검증 규칙 + 0~100 점수 (`validateUX`)                                                        | npm                    |
-| [`@wireweave/agent-prompts`](packages/agent-prompts)     | LLM이 DSL을 생성하도록 돕는 문법 가이드 프롬프트 (`buildGrammarPrompt`)                         | npm                    |
-| [`@wireweave/markdown-plugin`](packages/markdown-plugin) | 마크다운 코드블록(`.wf`) 렌더링 (markdown-it · marked · remarkable)                             | npm                    |
-| [`wireweave-vscode`](packages/vscode-extension)          | VS Code / Cursor 확장 (구문 강조 · 자동완성 · 프리뷰)                                           | Marketplace + Open VSX |
-| [`@wireweave/sdk`](packages/sdk)                         | 플랫폼 클라이언트. `dispatch()`로 로컬 도구(무료·무키)와 원격(API 서버, 키) 라우팅 + auth       | npm                    |
-| [`@wireweave/cli`](packages/cli)                         | SDK 위의 터미널 CLI (`wireweave` 바이너리)                                                      | npm                    |
-| [`@wireweave/mcp-server`](packages/mcp-server)           | MCP 서버 (SDK 래핑, `WIREWEAVE_API_KEY` 필요)                                                   | npm                    |
-| [`@wireweave/docs`](docs)                                | VitePress 문서 사이트                                                                           | Vercel (비발행)        |
+## Workspace commands
 
-### 무료/유료 경계
+Use Node >=22.13.0 and pnpm >=11.0.0, with the repository's pinned `packageManager` and lockfile. Internal dependencies use `workspace:*`.
 
-기본 도구 — `parse` · `validate` · `render` · `analyze` · `diff` · `export` · `validate_ux` — 는 **로컬에서 무료로, API 키 없이** 동작합니다. 호스티드 AI 에이전트 생성은 별도 유료 기능으로 API 키가 필요합니다.
+| Command                                 | Purpose                                                                                 |
+| --------------------------------------- | --------------------------------------------------------------------------------------- |
+| `pnpm install`                          | Install locked workspace dependencies                                                   |
+| `pnpm build`                            | Build packages in dependency order; grammar/catalog generation precedes their consumers |
+| `pnpm typecheck`                        | Check all workspace TypeScript/Vue types                                                |
+| `pnpm lint`                             | Check repository and package ESLint rules                                               |
+| `pnpm format:check` / `pnpm format`     | Check / apply repository Prettier formatting                                            |
+| `pnpm test`                             | Run package tests and registered generated-source checks                                |
+| `pnpm dist:check`                       | Verify source/dist content fingerprints                                                 |
+| `pnpm tarball:check`                    | Pack and check actual published entry containment, resolvability and content            |
+| `pnpm sideeffects:check`                | Observe every entry that declares import-side-effect freedom                            |
+| `pnpm --filter @wireweave/core build`   | Build Core and its generated artifacts                                                  |
+| `pnpm --filter @wireweave/docs dev`     | Run the documentation site on port 3304                                                 |
+| `pnpm --filter @wireweave/docs build`   | Check syntax dependencies and build the public site                                     |
+| `pnpm --filter @wireweave/docs preview` | Inspect the built site                                                                  |
 
-- `@wireweave/cli`, `@wireweave/sdk` 로컬 도구: 키 불필요
-- `@wireweave/mcp-server`: `WIREWEAVE_API_KEY` 필수
+The complete check scope and evidence requirements are in [TOOLING §7](docs/spec/TOOLING.md#7-build-compatibility-and-evidence). Schema validation, parser conformance and browser execution are separate proofs.
 
-## 빠른 시작
+## Publication
 
-요구 사항: Node.js ≥ 22.13, pnpm ≥ 11.
+Changesets versions public npm packages independently. `develop` publishes beta versions; `main` publishes stable versions. Publication uses pnpm and npm OIDC trusted publishing with provenance. Docs deployment and VS Code/Open VSX publication use their separate pipelines and remain excluded from npm Changesets publication.
 
-```bash
-pnpm install
+`pnpm changeset` records release intent; `pnpm version-packages` updates package versions and changelogs. Packed manifests must resolve their actual dist files. Workspace source resolution does not establish published-package validity. Source/dist fingerprints, tarball checks and independent import observations are mandatory publication evidence.
 
-pnpm build        # 전 패키지 빌드 (pnpm -r --filter "./packages/**")
-pnpm typecheck    # 전 패키지 tsc --noEmit
-pnpm lint         # 전 패키지 ESLint
-pnpm test         # 전 패키지 테스트
-pnpm format       # Prettier
-```
-
-개별 패키지에서 작업하려면 해당 디렉터리에서 스크립트를 실행합니다.
-
-```bash
-pnpm --filter @wireweave/core build
-pnpm --filter @wireweave/docs dev
-```
-
-## 발행
-
-[Changesets](https://github.com/changesets/changesets) **independent 모드**로 각 패키지를 독립 버전 관리하며, npm **OIDC trusted publishing**으로 게시합니다.
-
-- `develop` 브랜치 → 베타 태그(`X.Y.Z-beta.N`)
-- `main` 브랜치 → 정식(`latest`) 릴리스
-- `@wireweave/docs`(Vercel)와 `wireweave-vscode`(vsce / ovsx)는 changesets npm 발행 대상에서 제외되며 별도 파이프라인으로 배포됩니다.
-
-```bash
-pnpm changeset            # 변경 의도 기록
-pnpm version-packages     # 버전 bump + CHANGELOG
-```
-
-## 기여 / 라이선스
-
-- 기여 가이드 및 문서: [docs.wireweave.org](https://docs.wireweave.org)
-- 이슈 / 토론: [github.com/wireweave/wireweave](https://github.com/wireweave/wireweave)
-- 라이선스: [MIT](LICENSE)
+Contributions use Conventional Commits and repository checks. Commit, push and publication require the task owner's explicit authorization. [License: MIT](package.json). [Public repository](https://github.com/wireweave/wireweave) · [Documentation](https://docs.wireweave.org).

@@ -94,6 +94,44 @@ page "Three" id=three uses=shell { use badge(label="Third") }`
   return { manifest, modules }
 }
 
+function parsedInputs(sources: Readonly<Record<string, string>>): {
+  manifest: AppManifest
+  modules: AppModuleInput[]
+} {
+  const modules = Object.entries(sources).map(([id, text]): AppModuleInput => {
+    const document = parse(text)
+    return {
+      id,
+      source: source(`${id}.wf`, document),
+      layouts: document.children.flatMap((node) =>
+        node.type === 'Layout' ? [{ id: node.name, node, source: source(`${id}.wf`, node) }] : [],
+      ),
+      components: document.children.flatMap((node) =>
+        node.type === 'Component'
+          ? [{ id: node.name, node, source: source(`${id}.wf`, node) }]
+          : [],
+      ),
+      screens: document.children.flatMap((node) =>
+        node.type === 'Page'
+          ? [{ id: node.id ?? 'home', node, source: source(`${id}.wf`, node) }]
+          : [],
+      ),
+    }
+  })
+  return {
+    manifest: {
+      id: 'reuse-app',
+      sourceId: 'app.json',
+      modules: modules.map((module) => ({
+        id: module.id,
+        namespace: module.id,
+        location: module.source.location,
+      })),
+    },
+    modules,
+  }
+}
+
 describe('Core application compiler', () => {
   it('emits one deterministic document for 3+ screens with shared layout and components', () => {
     const { manifest, modules } = inputs()
@@ -144,5 +182,64 @@ describe('Core application compiler', () => {
       html: null,
     })
     expect(broken.diagnostics.map((diagnostic) => diagnostic.code)).toContain('missing-module')
+  })
+
+  it.each([
+    'component recursive { use recursive() }\npage "Home" id=home { use recursive() }',
+    `component first { section { use second() } }
+component second { use first() }
+page "Home" id=home { use first() }`,
+    'component unused { use unused() }\npage "Home" id=home { text "Valid screen" }',
+  ])('returns a cycle diagnostic and no HTML for recursive source %#', (text) => {
+    const { manifest, modules } = parsedInputs({ app: text })
+    const result = linkAndCompileApp(manifest, modules)
+
+    expect(result).toMatchObject({
+      ok: false,
+      document: null,
+      html: null,
+      diagnostics: [{ code: 'cyclic-reference', source: { sourceId: 'app.wf' } }],
+    })
+    expect(result.diagnostics).toHaveLength(1)
+  })
+
+  it('expands shared definition references in their declaring namespace', () => {
+    const { manifest, modules } = parsedInputs({
+      shared: `component badge { text "Shared badge" }
+component frame { use badge()\nslot body }`,
+      app: `component badge {
+  use frame() from="shared" { fill body { text "Caller content" } }
+}
+page "One" id=one { use badge() }
+page "Two" id=two { use badge() }`,
+    })
+    const before = structuredClone(modules)
+    const result = linkAndCompileApp(manifest, modules)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) throw new Error('expected acyclic shared components to compile')
+    expect(linkAndCompileApp(manifest, [...modules].reverse())).toEqual(result)
+    expect(count(result.html, 'Shared badge')).toBe(2)
+    expect(count(result.html, 'Caller content')).toBe(2)
+    expect(count(result.html, 'data-wf-instance="')).toBe(6)
+    expect(modules).toEqual(before)
+  })
+
+  it('keeps caller-authored fill references in the caller namespace', () => {
+    const { manifest, modules } = parsedInputs({
+      shared: `component leaf { text "Shared leaf" }
+component frame { slot body }`,
+      app: `component leaf { text "Caller leaf" }
+page "Home" id=home {
+  use frame() from="shared" { fill body { use leaf() } }
+}`,
+    })
+    const result = linkAndCompileApp(manifest, modules)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) throw new Error('expected caller-owned fill to compile')
+    expect(result.html).toContain('Caller leaf')
+    expect(result.html).not.toContain('Shared leaf')
+    expect(count(result.html, 'data-wf-instance="')).toBe(2)
   })
 })

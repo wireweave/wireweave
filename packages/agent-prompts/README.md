@@ -1,43 +1,27 @@
 # @wireweave/agent-prompts
 
-Canonical grammar-guide prompts that teach an LLM to generate Wireweave DSL.
+Versioned grammar prompts derived from the Wireweave language contract.
 
-## What it does
+The [public tool contract](../../docs/spec/TOOLING.md#5-mcp-and-agent-plugins) defines this package's APIs, behavior, configuration and compatibility. The [language contract](../../docs/spec/LANGUAGE.md) defines the DSL. [Package metadata](package.json) owns package versions, exports, dependencies and scripts.
 
-Exports the Wireweave DSL grammar guide as ready-to-inject prompt strings. Each function returns a single Markdown-flavoured string that you drop verbatim into an LLM system message so the model emits valid `.wf` wireframes — including the multi-page canvas model (multiple top-level `page` declarations, `at(x, y)` positioning, `viewport="WxH"`).
+## Installation
 
-It is the single source of truth for the grammar guide; downstream consumers (`agent-harness`, `api-server`, future plugins) import it so they stay in sync with `@wireweave/core`. The package has no runtime dependencies.
-
-## Install
+Use Node.js >=22.13.0. Replace `<pinned-version>` with the release selected for your toolchain.
 
 ```bash
-pnpm add @wireweave/agent-prompts
+pnpm add --save-exact '@wireweave/agent-prompts@<pinned-version>'
 ```
 
-## Usage
+## Development
 
-```ts
-import { buildGrammarPrompt, buildCompactGrammarPrompt } from '@wireweave/agent-prompts'
+Run from the monorepo root after the [workspace setup](../../README.md).
 
-// Full guide (~180 lines) — generation phase.
-const system = buildGrammarPrompt()
-
-// Compact guide (~60 lines) — analyze / plan phases, fewer tokens.
-const compact = buildCompactGrammarPrompt()
+```bash
+pnpm --filter @wireweave/agent-prompts run build
+pnpm --filter @wireweave/agent-prompts run typecheck
+pnpm --filter @wireweave/agent-prompts run lint
+pnpm --filter @wireweave/agent-prompts run test
+pnpm --filter @wireweave/agent-prompts run format:check
 ```
 
-## API
-
-### `buildGrammarPrompt(): string`
-
-The full grammar guide for the generation phase. Covers syntax structure, the multi-page canvas model, the renderer surface (`render` / `renderCanvas` / `renderPage`), the layout / content / form / nav / data / feedback / overlay / utility component contracts, and how to map common UI concepts to DSL components.
-
-### `buildCompactGrammarPrompt(): string`
-
-A condensed grammar guide for the analyze / plan phases, where the full guide is more than needed.
-
-Part of the [Wireweave monorepo](https://github.com/wireweave/wireweave).
-
-## License
-
-MIT
+License: MIT.

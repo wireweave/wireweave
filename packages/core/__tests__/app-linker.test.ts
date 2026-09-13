@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   createAppNodeId,
   linkApp,
+  parse,
   type AppComponentInput,
   type AppLayoutInput,
   type AppManifest,
@@ -102,6 +103,27 @@ function reference(
     id,
     ...(namespace === undefined ? {} : { namespace }),
     source: source('references.wf', line, line * 10),
+  }
+}
+
+function parsedModule(id: string, sourceText: string): AppModuleInput {
+  const document = parse(sourceText)
+  const span = (node: { loc?: SourceLocation }): AppSourceSpan => ({
+    sourceId: `${id}.wf`,
+    location: node.loc ?? location(1, 0),
+  })
+  return {
+    id,
+    source: span(document),
+    layouts: document.children.flatMap((node) =>
+      node.type === 'Layout' ? [{ id: node.name, node, source: span(node) }] : [],
+    ),
+    components: document.children.flatMap((node) =>
+      node.type === 'Component' ? [{ id: node.name, node, source: span(node) }] : [],
+    ),
+    screens: document.children.flatMap((node) =>
+      node.type === 'Page' ? [{ id: node.id ?? 'home', node, source: span(node) }] : [],
+    ),
   }
 }
 
@@ -239,5 +261,118 @@ describe('Core app module linker', () => {
       'Missing component reference "app:early"',
       'Missing layout reference "app:late"',
     ])
+  })
+
+  it.each([
+    {
+      name: 'a direct invocation cycle used by a screen',
+      sourceText: `component recursive {
+  use recursive()
+}
+page "Home" id=home { use recursive() }`,
+      members: 'app:component:recursive',
+    },
+    {
+      name: 'an indirect cycle nested below ordinary children',
+      sourceText: `component first {
+  section { card { use second() } }
+}
+component second { use first() }
+page "Home" id=home { use first() }`,
+      members: 'app:component:first, app:component:second',
+    },
+    {
+      name: 'a recursive invocation inside a named fill',
+      sourceText: `component recursive {
+  use frame() { fill body { section { use recursive() } } }
+}
+component frame { slot body }
+page "Home" id=home { use recursive() }`,
+      members: 'app:component:recursive',
+    },
+    {
+      name: 'a cycle in definitions no screen uses',
+      sourceText: `component first {
+  use second()
+}
+component second { use first() }
+page "Home" id=home { text "Independent screen" }`,
+      members: 'app:component:first, app:component:second',
+    },
+  ])('rejects $name before expansion', ({ sourceText, members }) => {
+    const module = parsedModule('cycle', sourceText)
+    const before = structuredClone(module)
+    const appManifest = manifest([{ id: 'cycle', namespace: 'app' }])
+
+    const first = linkApp(appManifest, [module])
+    const second = linkApp(appManifest, [module])
+
+    expect(second).toEqual(first)
+    expect(first).toMatchObject({
+      ok: false,
+      document: null,
+      diagnostics: [
+        {
+          code: 'cyclic-reference',
+          message: `Cyclic layout/component reference among ${members}`,
+          source: { sourceId: 'cycle.wf', location: { start: { line: 2 } } },
+        },
+      ],
+    })
+    expect(first.diagnostics).toHaveLength(1)
+    expect(module).toEqual(before)
+  })
+
+  it('reports cross-module invocation cycles identically for either module input order', () => {
+    const left = parsedModule(
+      'left',
+      `component first { use second() from="right" }
+page "Home" id=home { use first() }`,
+    )
+    const right = parsedModule('right', 'component second { use first() from="left" }')
+    const appManifest = manifest([
+      { id: 'left', namespace: 'left' },
+      { id: 'right', namespace: 'right' },
+    ])
+
+    const first = linkApp(appManifest, [left, right])
+    expect(linkApp(appManifest, [right, left])).toEqual(first)
+    expect(first).toMatchObject({
+      ok: false,
+      document: null,
+      diagnostics: [
+        {
+          code: 'cyclic-reference',
+          message:
+            'Cyclic layout/component reference among left:component:first, right:component:second',
+          source: { sourceId: 'left.wf', location: { start: { line: 1 } } },
+        },
+      ],
+    })
+  })
+
+  it('diagnoses a 6,000-definition cycle without exhausting the JavaScript call stack', () => {
+    const count = 6_000
+    const components = Array.from({ length: count }, (_, index) => {
+      const definition = component(`c${index}`, index + 1)
+      definition.node.children.push({
+        type: 'ComponentUse',
+        name: `c${(index + 1) % count}`,
+        inputs: {},
+        fills: [],
+      })
+      return definition
+    })
+    const result = linkApp(manifest([{ id: 'deep', namespace: 'app' }]), [
+      moduleInput('deep', { components }),
+    ])
+
+    expect(result.ok).toBe(false)
+    expect(result.document).toBeNull()
+    expect(result.diagnostics).toHaveLength(1)
+    expect(result.diagnostics[0]).toMatchObject({
+      code: 'cyclic-reference',
+      source: { sourceId: 'module.wf', location: { start: { line: 1 } } },
+    })
   })
 })

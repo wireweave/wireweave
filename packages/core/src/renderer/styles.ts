@@ -182,8 +182,8 @@ function generateGridClasses(_theme: ThemeConfig, prefix: string): string {
     css += `.${prefix}-col-${i} { flex: ${i} 0 0%; min-width: 0; }\n`
   }
 
-  // Note: Responsive breakpoints intentionally not implemented
-  // Wireframes use fixed layouts with scale mode for preview
+  // Breakpoint selection happens once during compilation against the fixed
+  // viewport profile; the generated wireframe CSS has no runtime media query.
 
   return css
 }

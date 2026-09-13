@@ -27,7 +27,7 @@ pnpm-debug.log*
 
 # Vercel
 .vercel/
-CLAUDE.md
+CLAUDE.local.md
 
 # Foreign lock files (pnpm is the package manager — pnpm-lock.yaml is committed)
 package-lock.json

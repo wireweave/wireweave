@@ -6,6 +6,8 @@ import type {
   SlotNode,
 } from '../ast'
 import { collectParameterReferences, parameterReferenceName } from '../ast'
+import { linkAppV4 } from './v4'
+import type { AppBundle, AppResult, LinkedApp } from './v4'
 import type {
   AppComponentInstanceId,
   AppComponentInput,
@@ -31,7 +33,6 @@ import type {
 
 type DefinitionInput = AppLayoutInput | AppComponentInput
 type NodeInput = DefinitionInput | AppScreenInput
-type ResolvedDefinition = ResolvedAppLayout | ResolvedAppComponent
 
 interface PendingNode {
   kind: AppNodeKind
@@ -167,7 +168,7 @@ function resolveReferences(
 }
 
 function findCyclicReferences(
-  definitions: readonly ResolvedDefinition[],
+  definitions: readonly Pick<ResolvedNodeParts, 'nodeId' | 'references'>[],
   diagnostics: AppLinkDiagnostic[],
 ): void {
   const byId = new Map(definitions.map((definition) => [definition.nodeId, definition]))
@@ -177,58 +178,76 @@ function findCyclicReferences(
   const onStack = new Set<AppNodeId>()
   let nextIndex = 0
 
-  const visit = (nodeId: AppNodeId): void => {
+  const enter = (nodeId: AppNodeId) => {
     const index = nextIndex++
     indexById.set(nodeId, index)
     lowById.set(nodeId, index)
     stack.push(nodeId)
     onStack.add(nodeId)
+    return { nodeId, index, nextReference: 0 }
+  }
 
-    const definition = byId.get(nodeId)
-    for (const reference of definition?.references ?? []) {
-      if (!byId.has(reference.targetId)) continue
-      if (!indexById.has(reference.targetId)) {
-        visit(reference.targetId)
+  const visit = (start: AppNodeId): void => {
+    // Tarjan's traversal uses explicit frames so a long authored cycle cannot
+    // overflow the JavaScript stack while being diagnosed.
+    const frames = [enter(start)]
+    while (frames.length > 0) {
+      const frame = frames[frames.length - 1]
+      if (frame === undefined) break
+      const { nodeId, index } = frame
+      const references = byId.get(nodeId)?.references ?? []
+      if (frame.nextReference < references.length) {
+        const reference = references[frame.nextReference++]
+        if (reference === undefined || !byId.has(reference.targetId)) continue
+        if (!indexById.has(reference.targetId)) {
+          frames.push(enter(reference.targetId))
+        } else if (onStack.has(reference.targetId)) {
+          lowById.set(
+            nodeId,
+            Math.min(lowById.get(nodeId) ?? index, indexById.get(reference.targetId) ?? index),
+          )
+        }
+        continue
+      }
+
+      frames.pop()
+      const parent = frames[frames.length - 1]
+      if (parent !== undefined) {
         lowById.set(
-          nodeId,
-          Math.min(lowById.get(nodeId) ?? index, lowById.get(reference.targetId) ?? index),
-        )
-      } else if (onStack.has(reference.targetId)) {
-        lowById.set(
-          nodeId,
-          Math.min(lowById.get(nodeId) ?? index, indexById.get(reference.targetId) ?? index),
+          parent.nodeId,
+          Math.min(lowById.get(parent.nodeId) ?? parent.index, lowById.get(nodeId) ?? index),
         )
       }
+
+      if (lowById.get(nodeId) !== index) continue
+
+      const members: AppNodeId[] = []
+      let member: AppNodeId | undefined
+      do {
+        member = stack.pop()
+        if (member === undefined) break
+        onStack.delete(member)
+        members.push(member)
+      } while (member !== nodeId)
+
+      const memberSet = new Set(members)
+      const cyclicEdges = members.flatMap((id) => {
+        const owner = byId.get(id)
+        return (owner?.references ?? []).filter((reference) => memberSet.has(reference.targetId))
+      })
+      const selfCycle = members.length === 1 && cyclicEdges.some((edge) => edge.targetId === nodeId)
+      if (members.length < 2 && !selfCycle) continue
+
+      const source = cyclicEdges.map((edge) => edge.source).sort(compareSource)[0]
+      if (source === undefined) continue
+
+      const names = [...members].sort().join(', ')
+      diagnostics.push({
+        code: 'cyclic-reference',
+        message: `Cyclic layout/component reference among ${names}`,
+        source,
+      })
     }
-
-    if (lowById.get(nodeId) !== indexById.get(nodeId)) return
-
-    const members: AppNodeId[] = []
-    let member: AppNodeId | undefined
-    do {
-      member = stack.pop()
-      if (member === undefined) break
-      onStack.delete(member)
-      members.push(member)
-    } while (member !== nodeId)
-
-    const memberSet = new Set(members)
-    const cyclicEdges = members.flatMap((id) => {
-      const owner = byId.get(id)
-      return (owner?.references ?? []).filter((reference) => memberSet.has(reference.targetId))
-    })
-    const selfCycle = members.length === 1 && cyclicEdges.some((edge) => edge.targetId === nodeId)
-    if (members.length < 2 && !selfCycle) return
-
-    const source = cyclicEdges.map((edge) => edge.source).sort(compareSource)[0]
-    if (source === undefined) return
-
-    const names = [...members].sort().join(', ')
-    diagnostics.push({
-      code: 'cyclic-reference',
-      message: `Cyclic layout/component reference among ${names}`,
-      source,
-    })
   }
 
   for (const definition of [...definitions].sort((left, right) =>
@@ -344,7 +363,10 @@ function substituteTemplate(
 }
 
 interface ExpansionContext {
+  /** Root screen/layout owning the rendered instance identity. */
   owner: PendingNode
+  /** Lexical declaration whose references are being expanded. */
+  declaration: PendingNode
   definitions: ReadonlyMap<string, PendingNode>
   invalidDefinitions: ReadonlySet<AppNodeId>
   diagnostics: AppLinkDiagnostic[]
@@ -355,11 +377,11 @@ function expandComponentUse(
   path: readonly number[],
   context: ExpansionContext,
 ): ComponentUseNode {
-  const namespace = use.namespace ?? context.owner.namespace
+  const namespace = use.namespace ?? context.declaration.namespace
   const target = context.definitions.get(definitionKey(namespace, 'component', use.name))
   if (target === undefined || target.kind !== 'component') return use
   const definition = target.input.node as ComponentDefinitionNode
-  const source = useSource(context.owner, use)
+  const source = useSource(context.declaration, use)
   let valid = !context.invalidDefinitions.has(target.nodeId)
   const declaredParameters = definition.parameters ?? []
   const parameters = new Map(declaredParameters.map((item) => [item.name, item.valueType]))
@@ -429,22 +451,30 @@ function expandComponentUse(
   const expandNodes = (
     nodes: readonly AnyNode[],
     basePath: readonly number[],
+    expansion: ExpansionContext,
     inputs?: Readonly<Record<string, ComponentInputValue>>,
   ): AnyNode[] =>
     nodes.flatMap((node, index) => {
       const nodePath = [...basePath, index]
       if (node.type === 'Slot' && node.name !== undefined) {
         const fill = fills.get(node.name)
-        return fill === undefined ? [] : expandNodes(fill.children, [...nodePath, 0])
+        // Fills belong to the caller; component body references belong to the
+        // definition. Both must resolve exactly as the preflight graph did.
+        return fill === undefined ? [] : expandNodes(fill.children, [...nodePath, 0], context)
       }
       const substituted = (
         inputs === undefined ? node : substituteTemplate(node, inputs)
       ) as AnyNode
       if (substituted.type === 'ComponentUse') {
-        return [expandComponentUse(substituted, nodePath, context)]
+        return [expandComponentUse(substituted, nodePath, expansion)]
       }
       if ('children' in substituted && Array.isArray(substituted.children)) {
-        substituted.children = expandNodes(substituted.children as AnyNode[], nodePath, inputs)
+        substituted.children = expandNodes(
+          substituted.children as AnyNode[],
+          nodePath,
+          expansion,
+          inputs,
+        )
       }
       return [substituted]
     })
@@ -453,7 +483,12 @@ function expandComponentUse(
     ...use,
     targetId: target.nodeId,
     instanceId: createAppComponentInstanceId(context.owner.nodeId, target.nodeId, path),
-    children: expandNodes(definition.children, path, use.inputs),
+    children: expandNodes(
+      definition.children,
+      path,
+      { ...context, declaration: target },
+      use.inputs,
+    ),
   }
 }
 
@@ -476,7 +511,17 @@ function expandNode(node: AnyNode, path: readonly number[], context: ExpansionCo
  * @example
  * `const result = linkApp(manifest, modules)`
  */
-export function linkApp(manifest: AppManifest, modules: readonly AppModuleInput[]): AppLinkResult {
+export function linkApp(bundle: AppBundle): AppResult<LinkedApp>
+export function linkApp(manifest: AppManifest, modules: readonly AppModuleInput[]): AppLinkResult
+export function linkApp(
+  input: AppManifest | AppBundle,
+  modules?: readonly AppModuleInput[],
+): AppLinkResult | AppResult<LinkedApp> {
+  if (modules === undefined) return linkAppV4(input as AppBundle)
+  return linkLegacyApp(input as AppManifest, modules)
+}
+
+function linkLegacyApp(manifest: AppManifest, modules: readonly AppModuleInput[]): AppLinkResult {
   const diagnostics: AppLinkDiagnostic[] = []
   const moduleGroups = new Map<string, AppModuleInput[]>()
   for (const module of modules) {
@@ -603,43 +648,47 @@ export function linkApp(manifest: AppManifest, modules: readonly AppModuleInput[
     source: pending.input.source,
     references: resolveReferences(pending, definitions, diagnostics),
   })
-  const invalidDefinitions = validateComponentDefinitions(definitions, diagnostics)
+  // Resolve the complete authored graph, including unused definitions and
+  // nested uses/fills, before copying any component body into an instance.
+  const referencedNodes = pendingModules.flatMap((module) =>
+    module.nodes.map((pending) => ({ pending, parts: toParts(pending) })),
+  )
+  findCyclicReferences(
+    referencedNodes.filter(({ pending }) => pending.kind !== 'screen').map(({ parts }) => parts),
+    diagnostics,
+  )
+  diagnostics.sort(compareDiagnostic)
+  if (diagnostics.length > 0) return { ok: false, document: null, diagnostics }
 
-  for (const pendingModule of pendingModules) {
-    for (const pending of pendingModule.nodes) {
-      const parts = toParts(pending)
-      const expansion: ExpansionContext = {
-        owner: pending,
-        definitions,
-        invalidDefinitions,
-        diagnostics,
-      }
-      if (pending.kind === 'layout') {
-        resolvedById.set(pending.nodeId, {
-          ...parts,
-          kind: 'layout',
-          node: expandNode(pending.input.node, [], expansion) as AppLayoutInput['node'],
-        })
-      } else if (pending.kind === 'component') {
-        resolvedById.set(pending.nodeId, {
-          ...parts,
-          kind: 'component',
-          node: pending.input.node as AppComponentInput['node'],
-        })
-      } else {
-        resolvedById.set(pending.nodeId, {
-          ...parts,
-          kind: 'screen',
-          node: expandNode(pending.input.node, [], expansion) as AppScreenInput['node'],
-        })
-      }
+  const invalidDefinitions = validateComponentDefinitions(definitions, diagnostics)
+  for (const { pending, parts } of referencedNodes) {
+    const expansion: ExpansionContext = {
+      owner: pending,
+      declaration: pending,
+      definitions,
+      invalidDefinitions,
+      diagnostics,
+    }
+    if (pending.kind === 'layout') {
+      resolvedById.set(pending.nodeId, {
+        ...parts,
+        kind: 'layout',
+        node: expandNode(pending.input.node, [], expansion) as AppLayoutInput['node'],
+      })
+    } else if (pending.kind === 'component') {
+      resolvedById.set(pending.nodeId, {
+        ...parts,
+        kind: 'component',
+        node: pending.input.node as AppComponentInput['node'],
+      })
+    } else {
+      resolvedById.set(pending.nodeId, {
+        ...parts,
+        kind: 'screen',
+        node: expandNode(pending.input.node, [], expansion) as AppScreenInput['node'],
+      })
     }
   }
-
-  const resolvedDefinitions = [...resolvedById.values()].filter(
-    (node): node is ResolvedDefinition => node.kind !== 'screen',
-  )
-  findCyclicReferences(resolvedDefinitions, diagnostics)
 
   diagnostics.sort(compareDiagnostic)
   if (diagnostics.length > 0) return { ok: false, document: null, diagnostics }

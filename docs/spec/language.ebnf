@@ -1,0 +1,102 @@
+(* Wireweave language 4.0.0. Contract: core/grammar.
+   Notation: = definition; , concatenation; | choice; [ ] optional;
+   { } repetition; ( ) grouping; ? ? lexical predicate. Quoted text is literal.
+   Whitespace and comments may occur between tokens. Longest complete lexical
+   token wins. Equal lengths choose string, unit-value, number, boolean/null,
+   then bare-word in that order. Keywords require a token boundary. Semantic constraints and
+   canonical AST mapping are defined by LANGUAGE.md and schema.json. *)
+
+document = [ version ], ( app | module | { definition } ) ;
+version = "language", string, [ ";" ] ;
+app = "app", identifier, { attribute }, "{", { module }, "}" ;
+module = "module", identifier, "namespace", "=", identifier, "{",
+         { import | export | definition }, "}" ;
+import = "import", identifier, "from", "=", string,
+         "digest", "=", string, "symbols", "=", array, [ ";" ] ;
+export = "export", ( "page" | "layout" | "component" ), identifier, ";" ;
+definition = page | layout | component ;
+page = "page", [ string ], { attribute }, block ;
+layout = "layout", identifier, { attribute }, block ;
+component = "component", identifier, [ parameters ], { attribute }, block ;
+parameters = "(", [ parameter, { ",", parameter }, [ "," ] ], ")" ;
+parameter = identifier, ":", value-type, [ "=", value ] ;
+value-type = "string" | "number" | "boolean" | "record" | "list" ;
+block = "{", { node }, "}" ;
+node = container | leaf | select | table | list | nav | dropdown | tabs
+     | breadcrumb | marker | annotations | use | slot | repeat ;
+container = container-keyword, [ string ], { attribute }, block ;
+container-keyword = "header" | "main" | "footer" | "sidebar" | "section"
+                  | "row" | "col" | "stack" | "relative" | "card" | "modal"
+                  | "drawer" | "accordion" | "popover" | "form" ;
+leaf = leaf-keyword, [ string ], { attribute }, [ leaf-block ] ;
+leaf-keyword = "text" | "title" | "link" | "button" | "input" | "textarea"
+             | "checkbox" | "radio" | "switch" | "slider" | "image"
+             | "placeholder" | "avatar" | "badge" | "icon" | "divider"
+             | "alert" | "toast" | "progress" | "spinner" | "tooltip" ;
+(* Only placeholder and tooltip accept leaf-block. Other leaf bodies error. *)
+leaf-block = block ;
+select = "select", [ string ], [ array ], { attribute },
+         [ "{", { option }, "}" ] ;
+option = "option", string, { attribute } ;
+table = "table", ( array, { attribute }
+                   | { attribute }, "{", [ columns ], { table-row }, "}" ) ;
+columns = "columns", array ;
+table-row = "row", array ;
+list = "list", [ array ], { attribute }, [ list-block ] ;
+list-block = "{", { list-item }, "}" ;
+list-item = "item", string, { attribute }, [ list-block ] ;
+nav = "nav", [ array ], { attribute }, [ "{", { nav-item | group | divider }, "}" ] ;
+nav-item = "item", string, { attribute } ;
+group = "group", string, { attribute }, "{", { nav-item | divider }, "}" ;
+divider = "divider", { attribute } ;
+dropdown = "dropdown", [ array ], { attribute },
+           [ "{", { nav-item | divider }, "}" ] ;
+tabs = "tabs", [ array ], { attribute }, [ "{", { tab }, "}" ] ;
+tab = "tab", string, { attribute }, block ;
+breadcrumb = "breadcrumb", array, { attribute } ;
+marker = "marker", unsigned-integer, { attribute } ;
+annotations = "annotations", { attribute }, "{", { annotation-item }, "}" ;
+annotation-item = "item", unsigned-integer, string, { attribute }, [ block ] ;
+use = "use", identifier, [ arguments ], [ "from", "=", string ],
+      [ "id", "=", identifier ], [ "{", { fill }, "}" ] ;
+arguments = "(", [ argument, { ",", argument }, [ "," ] ], ")" ;
+argument = identifier, "=", value ;
+fill = "fill", identifier, block ;
+slot = "slot", [ slot-name ], [ ";" ] ;
+slot-name = ? identifier other than an element keyword, followed by line end, semicolon or closing brace ? ;
+repeat = "repeat", unsigned-integer, [ "id", "=", identifier ], block ;
+
+attribute = attribute-key, "=", value | boolean-attribute
+          | "at", "(", number, ",", number, ")" ;
+attribute-key = identifier ;
+boolean-attribute = "flex" | "border" | "rounded" | "muted" | "bold"
+                  | "primary" | "secondary" | "outline" | "ghost" | "danger"
+                  | "required" | "disabled" | "readonly" | "checked" | "loading"
+                  | "external" | "expanded" | "centered" | "vertical" | "scroll"
+                  | "dismissible" | "indeterminate" | "pill" | "striped"
+                  | "bordered" | "hover" | "ordered" | "none" | "wrap" | "active" ;
+value = string | unit-value | number | boolean | "null" | bare-word | array | object ;
+array = "[", [ value, { [ "," ], value }, [ "," ] ], "]" ;
+object = "{", [ property, { [ "," ], property }, [ "," ] ], "}" ;
+property = ( identifier | string ), "=", value | boolean-attribute ;
+boolean = "true" | "false" ;
+unit-value = number, ( "px" | "%" | "em" | "rem" | "vh" | "vw" ) ;
+number = [ "-" ], unsigned-integer, [ ".", digit, { digit } ],
+         [ ( "e" | "E" ), [ "+" | "-" ], digit, { digit } ] ;
+unsigned-integer = digit, { digit } ;
+identifier = ( letter | "_" ), { letter | digit | "_" | "-" } ;
+bare-word = identifier | digit, { digit }, letter, { letter | digit | "-" } ;
+string = double-string | single-string ;
+double-string = '"', { double-character | escape }, '"' ;
+single-string = "'", { single-character | escape }, "'" ;
+double-character = ? Unicode scalar other than quote, backslash, CR or LF ? ;
+single-character = ? Unicode scalar other than apostrophe, backslash, CR or LF ? ;
+backslash = ? Unicode U+005C ? ;
+escape = backslash, ( '"' | "'" | backslash | "/" | "b" | "f" | "n" | "r" | "t"
+                       | "u", hex, hex, hex, hex ) ;
+letter = ? ASCII A-Z or a-z ? ;
+digit = ? ASCII 0-9 ? ;
+hex = ? ASCII 0-9, A-F or a-f ? ;
+whitespace = ? Space, tab, CR or LF ? ;
+comment = "//", { ? any character except CR/LF ? }
+        | "/*", { ? any character sequence not containing */ ? }, "*/" ;

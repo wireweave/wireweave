@@ -1,140 +1,31 @@
 # @wireweave/core
 
-The parser and renderer for the Wireweave wireframe DSL.
+Wireweave is a concise UI wireframe language with deterministic parsing, reusable modules, canonical printing and neutral HTML/SVG rendering. Core compiles authored screens, state and interactions; people and programs can use it without an agent harness, account or hosted service.
 
-## What it does
+## Contract
 
-`@wireweave/core` turns Wireweave's text-based DSL into an AST and back into visual output. It provides:
+The language contract is [LANGUAGE](../../docs/spec/LANGUAGE.md), with formal syntax in [language.ebnf](../../docs/spec/language.ebnf), canonical data in [schema.json](../../docs/spec/schema.json), and positive/negative [examples](../../docs/spec/examples.json). [RUNTIME](../../docs/spec/RUNTIME.md) defines fixed viewports, native controls, route/history, fixture simulation, structured implementation obligations and standalone HTML. [TOOLING](../../docs/spec/TOOLING.md) defines library APIs, CLI/MCP/editor/markdown adapters and release validation.
 
-- **Parser** — a Peggy-generated parser that converts `.wf` / `.wireframe` source into a typed AST, with strict and error-recovering modes.
-- **Renderers** — render the AST to HTML+CSS, a standalone HTML document, or SVG. Multi-page documents are auto-composed onto a bounded canvas; single-page documents render in legacy single-board mode.
-- **Multi-page canvas** — `.wf` supports multiple pages positioned on a canvas (`page "..." at(x, y)`) with per-page `viewport` / `device` presets.
-- **AST utilities** — type guards and traversal helpers (`walkDocument`, `find`, `findByType`, …).
-- **Validation** — check AST nodes against the DSL specification.
-- **Diff** — structurally compare two documents.
-- **Export** — convert the AST to JSON or a Figma-compatible structure.
-- **Analyze** — compute statistics plus accessibility, complexity, layout, and content metrics.
+The language and schema versions are explicit artifact inputs. Product claims are tied to the installed release's conformance manifest. A schema-valid example and a running browser artifact are different evidence.
 
-## Install
+## Author a screen
 
-```bash
-npm i @wireweave/core
-```
-
-## Usage
-
-```typescript
-import { parse, render, renderToHtml, renderToSvg } from '@wireweave/core'
-
-const source = `
-  page "Home" {
-    card p=4 {
-      title "Welcome"
-      text "Hello, Wireweave!"
-      button "Get Started" primary
-    }
+```wireframe
+page "Contact" id=contact viewport="1440x900" {
+  main {
+    title "Contact" level=1
+    text "Choose how to contact the team."
+    link "Email" href="mailto:team@example.com"
   }
-`
-
-// Parse DSL into an AST
-const doc = parse(source)
-
-// Render to HTML fragment + CSS
-const { html, css } = render(doc)
-
-// Render to a standalone HTML document
-const fullHtml = renderToHtml(doc)
-
-// Render to SVG (multi-page docs auto-compose onto a canvas)
-const { svg, width, height } = renderToSvg(doc)
+}
 ```
 
-### Multi-page canvas
+A multi-screen app declares an entry and modules. Internal links use screen IDs, state has app/shell/screen/component scope, shared structure uses layout/component/slot, and externally implemented effects remain typed obligations. Core preserves the same meaning across canvas, executable HTML and machine-readable handoff.
 
-```typescript
-const doc = parse(`
-  page "Login" at(0, 0) viewport=mobile {
-    button "Sign in" primary
-  }
-  page "Home" at(420, 0) viewport=mobile {
-    text "Welcome back"
-  }
-`)
+## Install and validate
 
-const { svg } = renderToSvg(doc) // viewBox sized to the canvas bounding box
-```
+Install the Core version pinned by the consuming project's toolchain profile with `npm install @wireweave/core@<version>`. ESM/CJS and typed subpaths are described in the tool contract. Core itself performs no account, filesystem or network operations.
 
-### Analyze, diff, and export
+Library code is checked with typecheck, lint, generated parser/catalog checks, unit tests and browser conformance. Contract data is checked against Draft 2020-12 JSON Schema and semantic fixtures. The public tool surface includes parse/print, link/compile, fragment/canvas/SVG, validation, transition extraction, analysis, diff, export and traversal; their inputs, failures and execution scope have one definition in TOOLING.
 
-```typescript
-import { parse, analyze, diff, exportToJson, exportToFigma } from '@wireweave/core'
-
-const a = parse(sourceA)
-const b = parse(sourceB)
-
-const stats = analyze(a) // totals, accessibility score, complexity, layout, content
-const changes = diff(a, b) // added / removed / changed / moved nodes
-const json = exportToJson(a) // serializable AST
-const figma = exportToFigma(a) // Figma-compatible node tree
-```
-
-### Print back to canonical DSL
-
-```typescript
-import { parse, printWireframe, formatWireframeCode } from '@wireweave/core'
-
-const doc = parse(source)
-const canonical = printWireframe(doc) // deterministic canonical `.wf` text
-const formatted = formatWireframeCode(source) // parse + reprint in one step
-```
-
-The printer emits a single canonical form (fixed indentation, attribute
-ordering, quoting, blank-line policy) with round-trip guarantees:
-`parse(printWireframe(doc))` is structurally equivalent to `doc`, printing is
-idempotent, and already-canonical text reprints byte-identical. Comments are
-not preserved (the parser drops them before the AST).
-
-### Walk the AST
-
-```typescript
-import { parse, walkDocument, findByType, isButtonNode } from '@wireweave/core'
-
-const doc = parse(source)
-
-walkDocument(doc, (node) => {
-  if (isButtonNode(node)) {
-    console.log(node.content)
-  }
-})
-
-const buttons = findByType(doc.children[0], 'Button')
-```
-
-## Main API
-
-| Export                                                          | Description                                                                 |
-| --------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `parse(source, options?)`                                       | Parse DSL into a `WireframeDocument`; throws `ParseError` on syntax errors. |
-| `tryParse` / `isValid` / `getErrors`                            | Error-recovering parse, boolean check, and error list.                      |
-| `printWireframe` / `formatWireframeCode`                        | Canonical `.wf` printer — AST → deterministic DSL text (round-trip safe).   |
-| `render(doc, options?)`                                         | Render to `{ html, css }`. Auto canvas mode for multi-page docs.            |
-| `renderToHtml(doc, options?)`                                   | Render to a complete standalone HTML document string.                       |
-| `renderToSvg(doc, options?)`                                    | Render to `{ svg, width, height }` using `foreignObject` (HTML+CSS in SVG). |
-| `renderPage` / `renderCanvas` / `layoutCanvas`                  | Explicit single-page / multi-page composition primitives.                   |
-| `validate` / `isValidAst` / `getValidationErrors`               | Validate AST nodes against the DSL spec.                                    |
-| `analyze(doc, options?)`                                        | Statistics plus accessibility, complexity, layout, and content metrics.     |
-| `diff(oldDoc, newDoc, options?)`                                | Structural diff; also `areIdentical`, `getChangeSummary`.                   |
-| `exportToJson` / `importFromJson` / `exportToFigma`             | Format conversion to/from JSON and to Figma.                                |
-| `walkDocument` / `walk` / `find` / `findAll` / `findByType`     | AST traversal helpers.                                                      |
-| `resolveViewport` / `DEVICE_PRESETS` / `wrapInPreviewContainer` | Viewport sizing, device presets, preview scaling.                           |
-| AST types + `is*` guards                                        | `WireframeDocument`, `AnyNode`, node types, and type guards.                |
-
-Subpath entries are available for `@wireweave/core/parser` and `@wireweave/core/renderer`.
-
-The build runs `build:grammar` (Peggy) before the TypeScript build to regenerate the parser from `src/grammar/wireframe.peggy`.
-
-Part of the [Wireweave monorepo](https://github.com/wireweave/wireweave).
-
-## License
-
-MIT
+MIT license. Part of the Wireweave public monorepo.

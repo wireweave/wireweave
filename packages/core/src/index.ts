@@ -43,5 +43,61 @@ export * from './extract'
 // Typed state/event normalization shared by graph extraction and site runtime
 export * from './interaction'
 
-// Application manifest, module linker, and resolved app document
-export * from './app'
+// Application manifest, module linker, and resolved app document. The legacy
+// `renderSite(WireframeDocument)` stays the root entry point; canonical 4.0
+// AppBundle rendering is exposed as `renderAppSite` here and as `renderSite`
+// from the dedicated `@wireweave/core/app` subpath. Keeping the names separate
+// prevents two different render contracts from being merged by a wildcard.
+export {
+  compileApp,
+  createAppBundle,
+  createAppComponentInstanceId,
+  createAppNodeId,
+  createRuntime,
+  advanceClock,
+  reduceEvent,
+  resetRuntime,
+  linkAndCompileApp,
+  linkApp,
+  renderSite as renderAppSite,
+} from './app'
+export type {
+  AppArtifact,
+  AppBundle,
+  AppCompileResult,
+  AppComponentInput,
+  AppComponentInstanceId,
+  AppDefinitionKind,
+  AppDocument,
+  AppLayoutInput,
+  AppLinkDiagnostic,
+  AppLinkDiagnosticCode,
+  AppLinkResult,
+  AppManifest,
+  AppManifestModule,
+  AppModuleInput,
+  AppNodeId,
+  AppNodeKind,
+  AppReferenceInput,
+  AppScreenInput,
+  AppSourceMapEntry,
+  AppSourceSpan,
+  AppResult,
+  CompileAppOptions,
+  CreateAppBundleOptions,
+  Diagnostic,
+  InstanceStep,
+  LinkedApp,
+  LinkedIdentity,
+  ResolvedAppComponent,
+  ResolvedAppLayout,
+  ResolvedAppModule,
+  ResolvedAppReference,
+  ResolvedAppScreen,
+  RuntimeBrowserEffect,
+  RuntimeInput,
+  RuntimeSnapshot,
+  RuntimeTrace,
+  ScreenReference,
+  SourceMapEntry,
+} from './app'

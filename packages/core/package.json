@@ -31,6 +31,18 @@
       "development": "./src/spec/index.ts",
       "import": "./dist/spec.js",
       "require": "./dist/spec.cjs"
+    },
+    "./app": {
+      "types": "./dist/app.d.ts",
+      "development": "./src/app/index.ts",
+      "import": "./dist/app.js",
+      "require": "./dist/app.cjs"
+    },
+    "./interaction": {
+      "types": "./dist/interaction.d.ts",
+      "development": "./src/interaction/index.ts",
+      "import": "./dist/interaction.js",
+      "require": "./dist/interaction.cjs"
     }
   },
   "publishConfig": {
@@ -76,6 +88,26 @@
         "require": {
           "types": "./dist/spec.d.cts",
           "default": "./dist/spec.cjs"
+        }
+      },
+      "./app": {
+        "import": {
+          "types": "./dist/app.d.ts",
+          "default": "./dist/app.js"
+        },
+        "require": {
+          "types": "./dist/app.d.cts",
+          "default": "./dist/app.cjs"
+        }
+      },
+      "./interaction": {
+        "import": {
+          "types": "./dist/interaction.d.ts",
+          "default": "./dist/interaction.js"
+        },
+        "require": {
+          "types": "./dist/interaction.d.cts",
+          "default": "./dist/interaction.cjs"
         }
       }
     }

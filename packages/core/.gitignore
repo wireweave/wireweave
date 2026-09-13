@@ -30,4 +30,4 @@ Thumbs.db
 *.log
 npm-debug.log*
 pnpm-debug.log*
-CLAUDE.md
+CLAUDE.local.md

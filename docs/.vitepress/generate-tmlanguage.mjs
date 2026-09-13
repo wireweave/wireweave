@@ -27,6 +27,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { format } from 'prettier'
 
 import { COMPONENT_SPECS, GRAMMAR_CHILD_KEYWORDS } from '@wireweave/core/spec'
 import { ATTRIBUTES, VALUE_KEYWORDS } from '@wireweave/language-data'
@@ -195,8 +196,11 @@ function buildGrammar() {
   }
 }
 
-function main() {
-  const generated = `${JSON.stringify(buildGrammar(), null, 2)}\n`
+async function main() {
+  const generated = await format(JSON.stringify(buildGrammar()), {
+    parser: 'json',
+    printWidth: 100,
+  })
 
   if (process.argv.includes('--check')) {
     if (readFileSync(OUTPUT_PATH, 'utf8') !== generated) {
@@ -211,4 +215,7 @@ function main() {
   writeFileSync(OUTPUT_PATH, generated)
 }
 
-main()
+main().catch((error) => {
+  console.error(error)
+  process.exitCode = 1
+})
