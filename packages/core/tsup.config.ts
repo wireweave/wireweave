@@ -1,4 +1,7 @@
+import { basename } from 'node:path'
 import { defineConfig } from 'tsup'
+
+const GENERATED_CHUNK = /^chunk-[A-Z0-9]+\.(?:js|mjs|cjs)$/
 
 export default defineConfig({
   entry: {
@@ -20,5 +23,26 @@ export default defineConfig({
   splitting: true,
   sourcemap: false,
   clean: true,
-  treeshake: false,
+  // Carry Core's sideEffects=false contract across generated split chunks.
+  // Keep external dependencies and other initialization imports observable.
+  treeshake: {
+    preset: 'safest',
+    moduleSideEffects: (id) => !(id.startsWith('./') && GENERATED_CHUNK.test(id.slice(2))),
+  },
+  esbuildPlugins: [
+    {
+      name: 'discard-empty-generated-chunks',
+      setup(build) {
+        build.onEnd((result) => {
+          if (!result.outputFiles) return
+          // Type-only barrels can produce zero-byte split chunks. Their bare
+          // imports are removed by the pure-chunk policy above; do not pass
+          // empty internal artifacts to Rollup or publish them as modules.
+          result.outputFiles = result.outputFiles.filter(
+            (file) => file.contents.byteLength !== 0 || !GENERATED_CHUNK.test(basename(file.path)),
+          )
+        })
+      },
+    },
+  ],
 })

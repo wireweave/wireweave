@@ -122,17 +122,15 @@ function componentUses(node: AnyNode): ComponentUseNode[] {
 }
 
 function referencesOf(pending: PendingNode): readonly AppReferenceInput[] {
-  const inferred = componentUses(pending.input.node).map(
-    (use): AppReferenceInput => ({
-      kind: 'component',
-      id: use.name,
-      ...(use.namespace === undefined ? {} : { namespace: use.namespace }),
-      source: {
-        sourceId: pending.input.source.sourceId,
-        location: use.loc ?? pending.input.source.location,
-      },
-    }),
-  )
+  const inferred = componentUses(pending.input.node).map((use): AppReferenceInput => ({
+    kind: 'component',
+    id: use.name,
+    ...(use.namespace === undefined ? {} : { namespace: use.namespace }),
+    source: {
+      sourceId: pending.input.source.sourceId,
+      location: use.loc ?? pending.input.source.location,
+    },
+  }))
   return [...(pending.input.references ?? []), ...inferred]
 }
 

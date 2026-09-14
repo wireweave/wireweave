@@ -18,19 +18,27 @@ export function buildRequest(
   let path = endpoint.path
   const body: Record<string, unknown> = { ...args }
 
-  if (endpoint.pathParams && args) {
+  if (endpoint.pathParams) {
     for (const param of endpoint.pathParams) {
-      const value = args[param]
-      if (value !== undefined) {
-        path = path.replace(`:${param}`, stringifyParam(value))
-        delete body[param]
+      const value = args?.[param]
+      if (
+        (typeof value !== 'string' && typeof value !== 'number') ||
+        value === '' ||
+        value === '.' ||
+        value === '..' ||
+        (typeof value === 'number' && !Number.isFinite(value))
+      ) {
+        throw new Error(`Invalid or missing path parameter: ${param}`)
       }
+      path = path.replace(`:${param}`, encodeURIComponent(String(value)))
+      delete body[param]
     }
   }
 
   let url = `${config.apiUrl}${path}`
   const options: RequestInit = {
     method: endpoint.method,
+    redirect: 'error',
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': config.apiKey,
@@ -86,14 +94,19 @@ export async function callApi(
   endpoint: ToolEndpoint,
   args?: Record<string, unknown>,
   fetchFn: typeof fetch = fetch,
+  signal?: AbortSignal,
 ): Promise<unknown> {
+  signal?.throwIfAborted()
   if (!config.apiKey) {
     throw new Error('WIREWEAVE_API_KEY environment variable is required')
   }
 
   const { url, options } = buildRequest(config, endpoint, args)
+  const timeout = AbortSignal.timeout(30_000)
+  options.signal = signal ? AbortSignal.any([signal, timeout]) : timeout
 
   const response = await fetchFn(url, options)
+  options.signal.throwIfAborted()
   const creditInfo = extractCreditInfo(response.headers)
 
   if (!response.ok) {
@@ -102,6 +115,7 @@ export async function callApi(
   }
 
   const result = (await response.json()) as unknown
+  options.signal.throwIfAborted()
 
   if (
     typeof result === 'object' &&

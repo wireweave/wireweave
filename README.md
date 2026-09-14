@@ -45,8 +45,10 @@ The complete check scope and evidence requirements are in [TOOLING §7](docs/spe
 
 ## Publication
 
-Changesets versions public npm packages independently. `develop` publishes beta versions; `main` publishes stable versions. Publication uses pnpm and npm OIDC trusted publishing with provenance. Docs deployment and VS Code/Open VSX publication use their separate pipelines and remain excluded from npm Changesets publication.
+Changesets versions public npm packages independently. The [Publish packages workflow](.github/workflows/publish.yml) is the publication entry point, using pnpm and npm OIDC trusted publishing with provenance. Its [release policy](scripts/release-registry.mjs) enforces the permitted Core major and npm channel for each branch. Docs deployment and VS Code/Open VSX publication use their separate pipelines and remain excluded from npm Changesets publication.
 
 `pnpm changeset` records release intent; `pnpm version-packages` updates package versions and changelogs. Packed manifests must resolve their actual dist files. Workspace source resolution does not establish published-package validity. Source/dist fingerprints, tarball checks and independent import observations are mandatory publication evidence.
+
+Run `pnpm release:verify` locally; it does not publish. Authorized pushes to `main` or `develop` run the publication workflow. To retry a release after its version commit was pushed, dispatch the workflow on the branch's current head; rerunning an older triggering commit fails the remote-head check. The workflow preserves its publication intent before publishing and verifies package contents, npm channels and the installed MCP runtime. Missing release tags are recovered only from verified registry evidence, without overwriting existing tags.
 
 Contributions use Conventional Commits and repository checks. Commit, push and publication require the task owner's explicit authorization. [License: MIT](package.json). [Public repository](https://github.com/wireweave/wireweave) · [Documentation](https://docs.wireweave.org).

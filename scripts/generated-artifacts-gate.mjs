@@ -32,7 +32,8 @@
 // (packages/core/scripts/check-generated-parser.mjs) which re-runs Peggy and
 // compares bytes, and reports a missing artifact explicitly — it must run
 // BEFORE Build, since Build overwrites it. Everything under node_modules/ and
-// dist/ is third-party or ignored build output that no one commits.
+// dist/ is third-party or ignored build output that no one commits. The root
+// .local/ directory owns disposable local artifacts, including release worktrees.
 //
 // Paths are relative to the repository root; callers run from there.
 
@@ -41,7 +42,14 @@ import { execFileSync } from 'node:child_process'
 // Pathspecs, passed verbatim to git. `*` matches `/` in a pathspec, so the
 // convention glob is depth-independent and the exclusions cover every nesting
 // level of node_modules/ and dist/ without naming a single package.
-const SCOPE = ['*.generated.*', ':!*node_modules/*', ':!*/dist/*', ':!dist/*']
+const DISPOSABLE_ROOT = '.local/'
+const SCOPE = [
+  '*.generated.*',
+  ':!*node_modules/*',
+  ':!*/dist/*',
+  ':!dist/*',
+  `:(top,exclude)${DISPOSABLE_ROOT}**`,
+]
 
 /**
  * @param {string[]} args
@@ -49,7 +57,17 @@ const SCOPE = ['*.generated.*', ':!*node_modules/*', ':!*/dist/*', ':!dist/*']
  */
 function git(args) {
   const stdout = execFileSync('git', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 })
-  return stdout.split('\n').filter((line) => line.length > 0)
+  return stdout.split('\n').filter((line) => {
+    if (line.length === 0) return false
+    // Ignored nested repositories can be returned as directory entries even
+    // outside the pathspec. Enforce this one disposable root on enumerated
+    // paths too; other ignored artifacts/directories must still fail closed.
+    // Git may C-quote paths containing unusual characters.
+    return (
+      args[0] !== 'ls-files' ||
+      (!line.startsWith(DISPOSABLE_ROOT) && !line.startsWith(`"${DISPOSABLE_ROOT}`))
+    )
+  })
 }
 
 /**

@@ -57,8 +57,7 @@ export interface AppBundle {
   readonly modules: readonly CanonicalModule[]
 }
 export type InstanceStep =
-  | { kind: 'use'; id: string }
-  | { kind: 'repeat'; id: string; index: number }
+  { kind: 'use'; id: string } | { kind: 'repeat'; id: string; index: number }
 export interface LinkedIdentity {
   namespace: string
   definitionKind: 'page' | 'layout' | 'component'
@@ -1807,20 +1806,18 @@ export function linkAppV4(bundle: AppBundle): AppResult<LinkedApp> {
   linker.expandAll()
   linker.semantics()
   if (linker.diagnostics.length > 0) return failed(linker.diagnostics)
-  const sourceMap = linker.expanded.map(
-    (entry): SourceMapEntry => ({
-      renderedId: entry.renderedId,
-      identity: entry.identity,
-      moduleId: entry.owner.module.id,
-      source: entry.source,
-      invocationSources: entry.invocationSources,
-      requirementRefs: stringArray(entry.node.attributes.requirementRefs),
-      obligationRefs: stringArray(entry.node.attributes.obligationRefs),
-      operationIds: asObjects(entry.node.attributes.on).flatMap((handler) =>
-        asObjects(handler.operations).map((operation) => textValue(operation.id)),
-      ),
-    }),
-  )
+  const sourceMap = linker.expanded.map((entry): SourceMapEntry => ({
+    renderedId: entry.renderedId,
+    identity: entry.identity,
+    moduleId: entry.owner.module.id,
+    source: entry.source,
+    invocationSources: entry.invocationSources,
+    requirementRefs: stringArray(entry.node.attributes.requirementRefs),
+    obligationRefs: stringArray(entry.node.attributes.obligationRefs),
+    operationIds: asObjects(entry.node.attributes.on).flatMap((handler) =>
+      asObjects(handler.operations).map((operation) => textValue(operation.id)),
+    ),
+  }))
   const linked: LinkedApp = freeze({
     [linkedBrand]: true as const,
     kind: 'LinkedApp' as const,

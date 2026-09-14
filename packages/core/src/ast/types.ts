@@ -771,13 +771,7 @@ export interface AvatarNode extends BaseNode, CommonProps, InteractiveProps {
 }
 
 export type BadgeVariant =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'info'
+  'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'
 
 export type BadgeSizeToken = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type BadgeSize = BadgeSizeToken | number | ValueWithUnit
@@ -845,12 +839,7 @@ export interface AlertNode extends BaseNode, CommonProps {
 }
 
 export type ToastPosition =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right'
+  'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
 
 export interface ToastNode extends BaseNode, CommonProps {
   type: 'Toast'
@@ -1090,13 +1079,7 @@ export type ContainerComponentNode = CardNode | ModalNode | DrawerNode | Accordi
 export type TextContentNode = TextNode | TitleNode | LinkNode
 
 export type InputComponentNode =
-  | InputNode
-  | TextareaNode
-  | SelectNode
-  | CheckboxNode
-  | RadioNode
-  | SwitchNode
-  | SliderNode
+  InputNode | TextareaNode | SelectNode | CheckboxNode | RadioNode | SwitchNode | SliderNode
 
 export type DisplayNode = ImageNode | PlaceholderNode | AvatarNode | BadgeNode | IconNode
 

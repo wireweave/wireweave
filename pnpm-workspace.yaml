@@ -5,3 +5,11 @@ allowBuilds:
   '@vscode/vsce-sign': true
   esbuild: true
   keytar: true
+
+# Patched compatible transitive dependencies for upstream-pinned development tools.
+overrides:
+  'esbuild@>=0.27.3 <0.28.1': '^0.28.2'
+  'vite@>=7.0.0 <7.3.5': '^7.3.6'
+  'monaco-editor>dompurify': '^3.4.15'
+  '@packlint/validate>zod': '^3.25.76'
+  'vitepress>vite': '^6.4.3'

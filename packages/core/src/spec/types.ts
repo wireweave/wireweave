@@ -6,13 +6,7 @@
  * Attribute value type
  */
 export type AttributeValueType =
-  | 'boolean'
-  | 'number'
-  | 'string'
-  | 'string[]'
-  | 'object'
-  | 'object[]'
-  | 'enum'
+  'boolean' | 'number' | 'string' | 'string[]' | 'object' | 'object[]' | 'enum'
 
 /**
  * Attribute definition
