@@ -42,6 +42,7 @@
     "packaging-types-conditions",
     "side-effects-declarations",
     "ux-rules-content-authoring",
+    "v4-semantic-exporters",
     "workspace-source-resolution"
   ]
 }

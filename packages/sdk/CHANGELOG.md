@@ -1,5 +1,21 @@
 # @wireweave/sdk
 
+## 0.2.0-beta.14
+
+### Minor Changes
+
+- [`d8a0098`](https://github.com/wireweave/wireweave/commit/d8a0098746bf66dfde9a2e1ae6c2aac90c9b25be) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Add deterministic Wireweave 4 SVG and Figma projections from trusted LinkedApp
+  models. Preserve semantic identities, source maps and operation loss reports,
+  keep legacy exporter signatures compatible, and expose the new local SVG path
+  through the SDK catalog, CLI and MCP server without network access.
+
+### Patch Changes
+
+- Updated dependencies [[`d8a0098`](https://github.com/wireweave/wireweave/commit/d8a0098746bf66dfde9a2e1ae6c2aac90c9b25be)]:
+  - @wireweave/core@4.0.0-beta.14
+  - @wireweave/language-data@1.6.0-beta.9
+  - @wireweave/ux-rules@1.5.0-beta.14
+
 ## 0.1.1-beta.13
 
 ### Patch Changes

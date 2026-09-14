@@ -1,6 +1,6 @@
 {
   "name": "@wireweave/mcp-server",
-  "version": "1.8.2-beta.13",
+  "version": "1.9.0-beta.14",
   "description": "MCP server for Wireweave DSL - Thin client for API Server",
   "type": "module",
   "main": "dist/index.js",
