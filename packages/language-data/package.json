@@ -1,6 +1,6 @@
 {
   "name": "@wireweave/language-data",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Shared language definitions for Wireweave DSL editors",
   "type": "module",
   "main": "dist/index.js",
