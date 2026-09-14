@@ -5,6 +5,10 @@ import { localToolNames, toolEndpoints, tools } from './generated/tools.js'
 import type { LocalToolResult } from './types.js'
 
 const SOURCE = 'page "Home" {\n  text "Hello contract"\n}\n'
+const V4_SOURCE = `language "4.0.0"
+app catalog entry={namespace="main",id="home"} profile={id="neutral-app",width=800,height=600,language="en",entryPolicy="explicit",unknownRoute="error-view",clockStartMs=0,limits="standard-1",assets=[],unicodeVersion="15.1.0"} states=[] registry={schemaVersion="1.0.0",entries=[],digest="sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"} fixtures=[] {
+module main namespace=main { page "Home" id=home { main { title "Catalog" id=title level=1 } } }
+}`
 const config = { apiUrl: 'https://api.test.invalid', apiKey: 'contract-test-key' }
 
 interface LocalFixture {
@@ -80,6 +84,21 @@ const localFixtures: LocalFixture[] = [
       format: 'json',
       pages: [{ type: 'page', children: [{ type: 'text', content: 'Hello contract' }] }],
       metadata: { sourceFormat: 'wireweave', nodeCount: 2 },
+    },
+  },
+  {
+    name: 'wireweave_export_svg',
+    args: {
+      source: V4_SOURCE,
+      languageVersion: '4.0.0',
+      profile: { id: 'wireweave-static-svg-v1', screens: 'all' },
+    },
+    expected: {
+      success: true,
+      kind: 'V4SvgArtifact',
+      mediaType: 'image/svg+xml',
+      svg: expect.stringContaining('data-wireweave-export="wireweave-static-svg-v1"'),
+      manifest: { exporter: 'wireweave-static-svg-v1', sourceMap: expect.any(Array) },
     },
   },
   {
@@ -331,11 +350,11 @@ function response(body: unknown, status = 200): Response {
 }
 
 describe('public dispatch contract coverage', () => {
-  it('has explicit independent fixtures for all 32 tools, 9 local and 23 remote', () => {
-    expect(localFixtures).toHaveLength(9)
+  it('has explicit independent fixtures for all 33 tools, 10 local and 23 remote', () => {
+    expect(localFixtures).toHaveLength(10)
     expect(remoteFixtures).toHaveLength(23)
     const names = [...localFixtures, ...remoteFixtures].map(({ name }) => name)
-    expect(new Set(names).size).toBe(32)
+    expect(new Set(names).size).toBe(33)
     expect([...names].sort()).toEqual(tools.map(({ name }) => name).sort())
     expect(localFixtures.map(({ name }) => name).sort()).toEqual([...localToolNames].sort())
   })

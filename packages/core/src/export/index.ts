@@ -12,3 +12,5 @@ export { exportToJson, exportToJsonString, importFromJson } from './json'
 
 // Figma export functions
 export { exportToFigma, exportToFigmaString, resetFigmaIdCounter } from './figma'
+export { exportLinkedAppToFigma } from './v4-figma'
+export { exportLinkedAppToSvg } from './v4-svg'

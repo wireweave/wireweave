@@ -78,8 +78,8 @@ describe('dispatch routing', () => {
     expect(fetchSpy).not.toHaveBeenCalled()
   })
 
-  it('SDK exposes 9 local tools matching the published catalog', () => {
-    expect(LOCAL_DISPATCH_TOOL_NAMES.size).toBe(9)
+  it('SDK exposes 10 local tools matching the published catalog', () => {
+    expect(LOCAL_DISPATCH_TOOL_NAMES.size).toBe(10)
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_parse')).toBe(true)
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_validate')).toBe(true)
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_render_html_code')).toBe(true)
@@ -88,6 +88,7 @@ describe('dispatch routing', () => {
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_analyze')).toBe(true)
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_list_components')).toBe(true)
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_export_json')).toBe(true)
+    expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_export_svg')).toBe(true)
     expect(LOCAL_DISPATCH_TOOL_NAMES.has('wireweave_export_figma')).toBe(true)
   })
 })

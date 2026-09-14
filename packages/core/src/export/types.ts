@@ -4,6 +4,15 @@
  * Types for exporting wireframes to various formats.
  */
 
+import type {
+  AppResult,
+  Diagnostic,
+  LinkedApp,
+  LinkedIdentity,
+  ScreenReference,
+  SourceMapEntry,
+} from '../app/v4'
+
 /**
  * Simplified JSON node structure
  */
@@ -172,6 +181,8 @@ export interface FigmaNode {
   strokeWeight?: number
   /** Corner radius */
   cornerRadius?: number
+  /** v4 semantic provenance. Omitted by the legacy exporter. */
+  wireweaveMetadata?: FigmaWireweaveMetadata
 }
 
 /**
@@ -199,3 +210,103 @@ export interface ExportOptions {
   /** Include empty attributes */
   includeEmptyAttributes?: boolean
 }
+
+/** A static export profile is part of the exported artifact identity. */
+export interface V4SvgProfile {
+  readonly id: 'wireweave-static-svg-v1'
+  readonly board?: ScreenReference
+  readonly screens?: 'selected' | 'all'
+  readonly width?: number
+  readonly height?: number
+  readonly gap?: number
+  readonly background?: string
+}
+
+/** Figma mapping profiles describe a local mapping document, never a server write. */
+export interface FigmaMappingProfile {
+  readonly id: 'wireweave-figma-mapping-v1'
+  readonly board?: ScreenReference
+  readonly screens?: 'selected' | 'all'
+  readonly target: 'figma-plugin-json-v1'
+}
+
+export interface V4ExportDiagnostic {
+  readonly severity: 'warning' | 'info'
+  readonly code: string
+  readonly message: string
+  readonly renderedId?: string
+  readonly details?: Record<string, unknown>
+}
+
+export interface ExportLoss {
+  readonly code: string
+  readonly kind: 'interaction' | 'asset' | 'layout' | 'semantic'
+  readonly message: string
+  readonly renderedId: string
+  readonly operationId?: string
+  readonly source?: SourceMapEntry
+  readonly details?: Record<string, unknown>
+}
+
+export interface V4SvgManifest {
+  readonly schemaVersion: '1.0.0'
+  readonly exporter: 'wireweave-static-svg-v1'
+  readonly appId: string
+  readonly linkedDigest: string
+  readonly profileDigest: string
+  readonly boardRoutes: readonly ScreenReference[]
+  readonly sourceMap: readonly SourceMapEntry[]
+  readonly lossReport: readonly ExportLoss[]
+}
+
+export interface V4SvgArtifact {
+  readonly kind: 'V4SvgArtifact'
+  readonly mediaType: 'image/svg+xml'
+  readonly svg: string
+  readonly width: number
+  readonly height: number
+  readonly digest: string
+  readonly manifest: V4SvgManifest
+  readonly diagnostics: readonly V4ExportDiagnostic[]
+}
+
+export interface FigmaWireweaveMetadata {
+  readonly identity: LinkedIdentity
+  readonly moduleId: string
+  readonly source: SourceMapEntry['source']
+  readonly invocationSources: SourceMapEntry['invocationSources']
+  readonly requirementRefs: readonly string[]
+  readonly obligationRefs: readonly string[]
+  readonly operationIds: readonly string[]
+}
+
+export interface FigmaSemanticMapping {
+  readonly renderedId: string
+  readonly figmaId: string
+  readonly identity: LinkedIdentity
+  readonly source: SourceMapEntry
+}
+
+export interface FigmaMappingArtifact {
+  readonly kind: 'FigmaMappingArtifact'
+  readonly version: '4.0.0'
+  readonly format: 'figma'
+  readonly target: FigmaMappingProfile['target']
+  readonly appId: string
+  readonly linkedDigest: string
+  readonly profileDigest: string
+  readonly document: FigmaNode
+  readonly mappings: readonly FigmaSemanticMapping[]
+  readonly sourceMap: readonly SourceMapEntry[]
+  readonly lossReport: readonly ExportLoss[]
+  readonly diagnostics: readonly V4ExportDiagnostic[]
+}
+
+export type V4SvgExportResult = AppResult<V4SvgArtifact>
+export type FigmaMappingExportResult = AppResult<FigmaMappingArtifact>
+
+/** Public input marker used by the v4 overloads. */
+export type V4LinkedExportInput = LinkedApp
+
+/** Keep the diagnostic type visible to adapter authors without duplicating it. */
+export type CoreExportDiagnostic = Diagnostic

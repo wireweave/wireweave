@@ -38,6 +38,10 @@ function urlOf(input: string | URL | Request | undefined): string {
 }
 
 const SOURCE = 'page "Home" {\n  text "Hi"\n}\n'
+const V4_SOURCE = `language "4.0.0"
+app catalog entry={namespace="main",id="home"} profile={id="neutral-app",width=800,height=600,language="en",entryPolicy="explicit",unknownRoute="error-view",clockStartMs=0,limits="standard-1",assets=[],unicodeVersion="15.1.0"} states=[] registry={schemaVersion="1.0.0",entries=[],digest="sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"} fixtures=[] {
+module main namespace=main { page "Home" id=home { main { title "Catalog" id=title level=1 } } }
+}`
 
 const LOCAL_FIXTURE_ARGS: Record<string, Record<string, unknown>> = {
   wireweave_parse: { source: SOURCE },
@@ -51,6 +55,11 @@ const LOCAL_FIXTURE_ARGS: Record<string, Record<string, unknown>> = {
   },
   wireweave_list_components: {},
   wireweave_export_json: { source: SOURCE },
+  wireweave_export_svg: {
+    source: V4_SOURCE,
+    languageVersion: '4.0.0',
+    profile: { id: 'wireweave-static-svg-v1', screens: 'all' },
+  },
   wireweave_export_figma: { source: SOURCE },
 }
 
@@ -69,6 +78,12 @@ const LOCAL_EXPECTED_RESULTS: Record<string, Record<string, unknown>> = {
     components: expect.arrayContaining([expect.objectContaining({ name: 'page' })]),
   },
   wireweave_export_json: { success: true, format: 'json', pages: [{ type: 'page' }] },
+  wireweave_export_svg: {
+    success: true,
+    kind: 'V4SvgArtifact',
+    mediaType: 'image/svg+xml',
+    manifest: { exporter: 'wireweave-static-svg-v1' },
+  },
   wireweave_export_figma: {
     success: true,
     format: 'figma',
@@ -143,7 +158,7 @@ describe('proxy-discipline — single rule: ALL outbound goes through SDK dispat
 
 describe('proxy-discipline — CallTool isolation (per tool)', () => {
   it('has explicit successful inputs for every public tool with no empty fallback', () => {
-    expect(Object.keys(LOCAL_FIXTURE_ARGS)).toHaveLength(9)
+    expect(Object.keys(LOCAL_FIXTURE_ARGS)).toHaveLength(10)
     expect(Object.keys(REMOTE_FIXTURE_ARGS)).toHaveLength(23)
     expect(Object.keys(LOCAL_EXPECTED_RESULTS).sort()).toEqual(
       Object.keys(LOCAL_FIXTURE_ARGS).sort(),

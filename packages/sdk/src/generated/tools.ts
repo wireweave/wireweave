@@ -330,14 +330,154 @@ export const tools: AnnotatedTool[] = [
     },
   },
   {
+    name: 'wireweave_export_svg',
+    description:
+      'Export a linked Wireweave 4 application to deterministic static SVG with source manifest and loss report',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        source: {
+          type: 'string',
+          description: 'Complete Wireweave 4 application source',
+        },
+        sourceId: {
+          type: 'string',
+          description: 'Stable source identifier used by diagnostics',
+          default: 'input.wf',
+        },
+        languageVersion: {
+          type: 'string',
+          enum: ['4.0.0'],
+        },
+        moduleSources: {
+          type: 'object',
+          description: 'Optional exact module bytes keyed by module id',
+          additionalProperties: {
+            type: 'string',
+          },
+        },
+        profile: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              enum: ['wireweave-static-svg-v1'],
+            },
+            screens: {
+              type: 'string',
+              enum: ['selected', 'all'],
+            },
+            board: {
+              type: 'object',
+              properties: {
+                namespace: {
+                  type: 'string',
+                },
+                id: {
+                  type: 'string',
+                },
+                variant: {
+                  type: 'string',
+                },
+              },
+              required: ['namespace', 'id'],
+              additionalProperties: false,
+            },
+            width: {
+              type: 'number',
+              exclusiveMinimum: 0,
+              maximum: 16384,
+            },
+            height: {
+              type: 'number',
+              exclusiveMinimum: 0,
+              maximum: 16384,
+            },
+            gap: {
+              type: 'number',
+              minimum: 0,
+              maximum: 16384,
+            },
+            background: {
+              type: 'string',
+              minLength: 1,
+              maxLength: 128,
+            },
+          },
+          required: ['id'],
+          additionalProperties: false,
+        },
+      },
+      required: ['source', 'languageVersion', 'profile'],
+    },
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  {
     name: 'wireweave_export_figma',
-    description: 'Export Wireweave DSL to Figma-compatible format',
+    description:
+      'Export Wireweave DSL to a local Figma mapping document; Wireweave 4 mode preserves linked identities and reports semantic loss',
     inputSchema: {
       type: 'object',
       properties: {
         source: {
           type: 'string',
           description: 'The Wireweave DSL source code to export',
+        },
+        sourceId: {
+          type: 'string',
+          description: 'Stable source identifier used by Wireweave 4 diagnostics',
+          default: 'input.wf',
+        },
+        languageVersion: {
+          type: 'string',
+          enum: ['4.0.0'],
+        },
+        moduleSources: {
+          type: 'object',
+          description: 'Optional exact module bytes keyed by module id',
+          additionalProperties: {
+            type: 'string',
+          },
+        },
+        profile: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              enum: ['wireweave-figma-mapping-v1'],
+            },
+            target: {
+              type: 'string',
+              enum: ['figma-plugin-json-v1'],
+            },
+            screens: {
+              type: 'string',
+              enum: ['selected', 'all'],
+            },
+            board: {
+              type: 'object',
+              properties: {
+                namespace: {
+                  type: 'string',
+                },
+                id: {
+                  type: 'string',
+                },
+                variant: {
+                  type: 'string',
+                },
+              },
+              required: ['namespace', 'id'],
+              additionalProperties: false,
+            },
+          },
+          required: ['id', 'target'],
+          additionalProperties: false,
         },
       },
       required: ['source'],
@@ -929,6 +1069,10 @@ export const toolEndpoints: Record<string, ToolEndpoint> = {
     method: 'POST',
     path: '/tools/export/json',
   },
+  wireweave_export_svg: {
+    method: 'POST',
+    path: '/tools/export/svg',
+  },
   wireweave_export_figma: {
     method: 'POST',
     path: '/tools/export/figma',
@@ -1028,6 +1172,7 @@ export const localToolNames: ReadonlySet<string> = new Set([
   'wireweave_validate_ux',
   'wireweave_diff',
   'wireweave_export_json',
+  'wireweave_export_svg',
   'wireweave_export_figma',
   'wireweave_analyze',
 ])

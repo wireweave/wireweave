@@ -5,6 +5,9 @@
  */
 
 import type { WireframeDocument } from '../ast/types'
+import type { LinkedApp } from '../app/v4'
+import { exportLinkedAppToSvg } from '../export/v4-svg'
+import type { V4SvgExportResult, V4SvgProfile } from '../export/types'
 import { documentPages } from '../ast/utils'
 import { expandVariants } from '../ast/expand-variants'
 import { createHtmlRenderer } from './html'
@@ -191,20 +194,28 @@ ${html}
  */
 export function renderToSvg(
   document: WireframeDocument,
-  options: SvgRenderOptions = {},
-): SvgRenderResult {
-  document = expandVariants(document)
+  options?: SvgRenderOptions,
+): SvgRenderResult
+export function renderToSvg(document: LinkedApp, options: V4SvgProfile): V4SvgExportResult
+export function renderToSvg(
+  document: WireframeDocument | LinkedApp,
+  options: SvgRenderOptions | V4SvgProfile = {},
+): SvgRenderResult | V4SvgExportResult {
+  if ('kind' in document && document.kind === 'LinkedApp')
+    return exportLinkedAppToSvg(document, options as V4SvgProfile)
+  document = expandVariants(document as WireframeDocument)
+  const legacyOptions = options as SvgRenderOptions
   const isMultiPage = documentPages(document).length > 1
-  let width = options.width ?? 800
-  let height = options.height ?? 600
+  let width = legacyOptions.width ?? 800
+  let height = legacyOptions.height ?? 600
   let html: string
   let css: string
 
   if (isMultiPage) {
     const canvas = renderCanvas(document, {
-      theme: options.theme ?? 'light',
+      theme: legacyOptions.theme ?? 'light',
     })
-    if (options.width === undefined && options.height === undefined) {
+    if (legacyOptions.width === undefined && legacyOptions.height === undefined) {
       width = canvas.width
       height = canvas.height
     }
@@ -212,17 +223,17 @@ export function renderToSvg(
     css = canvas.css
   } else {
     const firstPage = documentPages(document)[0]
-    if (firstPage && options.width === undefined && options.height === undefined) {
+    if (firstPage && legacyOptions.width === undefined && legacyOptions.height === undefined) {
       const dims = resolvePageDimensions(firstPage)
       width = dims.width
       height = dims.height
     }
-    const result = render(document, { theme: options.theme ?? 'light' })
+    const result = render(document, { theme: legacyOptions.theme ?? 'light' })
     html = result.html
     css = result.css
   }
 
-  const background = options.background ?? '#ffffff'
+  const background = legacyOptions.background ?? '#ffffff'
 
   // Build SVG with foreignObject containing HTML+CSS
   // Use same wrapper styles as renderToHtml for consistency

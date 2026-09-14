@@ -11,6 +11,7 @@ import { diffCommand } from './commands/diff.js'
 import { validateUxCommand, type UxSeverity } from './commands/validate-ux.js'
 import { exportJsonCommand } from './commands/export-json.js'
 import { exportFigmaCommand } from './commands/export-figma.js'
+import { exportSvgCommand } from './commands/export-svg.js'
 
 const program = new Command()
 
@@ -235,17 +236,53 @@ program
   )
 
 program
+  .command('export-svg')
+  .argument('<file>', 'Path to a Wireweave 4 application source file')
+  .option('-o, --output <path>', 'Write raw SVG to a file instead of stdout')
+  .option('--all-screens', 'Place every linked screen on the exported canvas')
+  .option('--width <pixels>', 'Board width', (value) => Number(value))
+  .option('--height <pixels>', 'Board height', (value) => Number(value))
+  .option('--gap <pixels>', 'Gap between boards', (value) => Number(value))
+  .option('--background <color>', 'Static board background')
+  .description('Export a Wireweave 4 application to deterministic static SVG (local — no network)')
+  .action(
+    async (
+      file: string,
+      opts: {
+        output?: string
+        allScreens?: boolean
+        width?: number
+        height?: number
+        gap?: number
+        background?: string
+      },
+    ) => {
+      const code = await exportSvgCommand({ file, ...opts })
+      process.exit(code)
+    },
+  )
+
+program
   .command('export-figma')
   .argument('<file>', 'Path to a .wf or .wireframe file')
   .option('-o, --output <path>', 'Write Figma JSON to a file instead of stdout')
+  .option('--language-version <version>', 'Use the linked Wireweave 4 semantic exporter')
+  .option('--all-screens', 'Include every linked screen in Wireweave 4 mode')
   .description('Export a wireframe to Figma-compatible JSON (local — no network)')
-  .action(async (file: string, opts: { output?: string }) => {
-    const code = await exportFigmaCommand({
-      file,
-      output: opts.output,
-    })
-    process.exit(code)
-  })
+  .action(
+    async (
+      file: string,
+      opts: { output?: string; languageVersion?: string; allScreens?: boolean },
+    ) => {
+      const code = await exportFigmaCommand({
+        file,
+        output: opts.output,
+        languageVersion: opts.languageVersion,
+        allScreens: opts.allScreens,
+      })
+      process.exit(code)
+    },
+  )
 
 program.parseAsync(process.argv).catch((err: unknown) => {
   const message = err instanceof Error ? err.message : String(err)

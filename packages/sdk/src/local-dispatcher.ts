@@ -1,18 +1,25 @@
 import {
   analyze,
+  createAppBundle,
   diff,
   exportToFigma,
   exportToJson,
+  getV4SourceSpan,
+  linkApp,
   parse,
   render,
   renderToHtml,
+  renderToSvg,
   validate,
   walkDocument,
   type AnalysisOptions,
   type DiffOptions,
   type ExportOptions,
+  type FigmaMappingProfile,
+  type LinkedApp,
   type ParseError,
   type SourceLocation,
+  type V4SvgProfile,
   type WireframeDocument,
 } from '@wireweave/core'
 import { validateUX, type UXRuleCategory, type UXValidationOptions } from '@wireweave/ux-rules'
@@ -45,6 +52,8 @@ export function localDispatch(toolName: string, args: Record<string, unknown>): 
       return listComponentsTool(args)
     case 'wireweave_export_json':
       return exportJsonTool(args)
+    case 'wireweave_export_svg':
+      return exportSvgTool(args)
     case 'wireweave_export_figma':
       return exportFigmaTool(args)
     default:
@@ -267,10 +276,101 @@ function exportJsonTool(args: Record<string, unknown>): LocalToolResult {
   }
 }
 
+type LinkedSourceResult =
+  { ok: true; value: LinkedApp } | { ok: false; diagnostics: readonly unknown[] }
+
+function linkedAppFromSource(source: string, args: Record<string, unknown>): LinkedSourceResult {
+  const sourceId = typeof args.sourceId === 'string' ? args.sourceId : 'input.wf'
+  const document = parse(source, { languageVersion: '4.0.0', sourceId })
+  if (document.app.entry === undefined)
+    return {
+      ok: false,
+      diagnostics: [
+        {
+          severity: 'error',
+          code: 'WW_SCHEMA',
+          phase: 'schema',
+          sourceId,
+          start: 0,
+          end: 0,
+          path: '/app/entry',
+          messageKey: 'app.entry-required',
+          details: {},
+          related: [],
+        },
+      ],
+    }
+  const provided =
+    args.moduleSources !== null && typeof args.moduleSources === 'object'
+      ? (args.moduleSources as Record<string, unknown>)
+      : {}
+  const moduleSources = Object.fromEntries(
+    document.modules.map((module) => {
+      const explicit = provided[module.id]
+      const span = getV4SourceSpan(module)
+      return [
+        module.id,
+        typeof explicit === 'string'
+          ? explicit
+          : span === undefined
+            ? source
+            : source.slice(span.start, span.end),
+      ]
+    }),
+  )
+  const bundled = createAppBundle([document], {
+    id: document.app.id,
+    entry: document.app.entry,
+    profile: document.app.profile,
+    states: document.states,
+    registry: document.registry,
+    fixtures: document.fixtures,
+    moduleSources,
+  })
+  if (!bundled.ok) return { ok: false, diagnostics: bundled.diagnostics }
+  const linked = linkApp(bundled.value)
+  return linked.ok
+    ? { ok: true, value: linked.value }
+    : { ok: false, diagnostics: linked.diagnostics }
+}
+
+function exportSvgTool(args: Record<string, unknown>): LocalToolResult {
+  const source = requireString(args, 'source')
+  if (source === null) return errorResult('source is required')
+  if (args.languageVersion !== '4.0.0')
+    return errorResult('languageVersion must be 4.0.0 for semantic SVG export')
+  if (args.profile === null || typeof args.profile !== 'object')
+    return errorResult('profile is required')
+  try {
+    const linked = linkedAppFromSource(source, args)
+    if (!linked.ok) return successResult({ success: false, diagnostics: linked.diagnostics })
+    const result = renderToSvg(linked.value, args.profile as V4SvgProfile)
+    return result.ok
+      ? successResult({ success: true, ...result.value })
+      : successResult({ success: false, diagnostics: result.diagnostics })
+  } catch (err) {
+    return successResult({
+      success: false,
+      error: errorMessage(err, 'SVG export error'),
+      location: getParseErrorLocation(err),
+    })
+  }
+}
+
 function exportFigmaTool(args: Record<string, unknown>): LocalToolResult {
   const source = requireString(args, 'source')
   if (source === null) return errorResult('source is required')
   try {
+    if (args.languageVersion === '4.0.0') {
+      if (args.profile === null || typeof args.profile !== 'object')
+        return errorResult('profile is required for semantic Figma export')
+      const linked = linkedAppFromSource(source, args)
+      if (!linked.ok) return successResult({ success: false, diagnostics: linked.diagnostics })
+      const result = exportToFigma(linked.value, args.profile as FigmaMappingProfile)
+      return result.ok
+        ? successResult({ success: true, ...result.value })
+        : successResult({ success: false, diagnostics: result.diagnostics })
+    }
     const ast = parse(source)
     const result = exportToFigma(ast)
     return successResult({ success: true, ...(result as unknown as Record<string, unknown>) })

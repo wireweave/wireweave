@@ -4,6 +4,8 @@ import { callTool, parseJsonResult, type BuildDispatchOptionsParams } from '../d
 export interface ExportFigmaCommandOptions {
   file: string
   output?: string
+  languageVersion?: string
+  allScreens?: boolean
   stdout?: NodeJS.WritableStream
   stderr?: NodeJS.WritableStream
   fsLike?: Pick<typeof fs, 'readFile' | 'writeFile'>
@@ -34,10 +36,26 @@ export async function exportFigmaCommand(opts: ExportFigmaCommandOptions): Promi
     return 1
   }
 
-  const result = await callTool('wireweave_export_figma', { source }, opts.dispatchParams)
+  if (opts.languageVersion !== undefined && opts.languageVersion !== '4.0.0') {
+    writeLine(stderr, `export-figma failed: unsupported language version ${opts.languageVersion}`)
+    return 4
+  }
+  const args =
+    opts.languageVersion === '4.0.0'
+      ? {
+          source,
+          languageVersion: '4.0.0',
+          profile: {
+            id: 'wireweave-figma-mapping-v1',
+            target: 'figma-plugin-json-v1',
+            screens: opts.allScreens === true ? 'all' : 'selected',
+          },
+        }
+      : { source }
+  const result = await callTool('wireweave_export_figma', args, opts.dispatchParams)
   if (result.isError) {
     writeLine(stderr, `export-figma failed: ${extractFirstText(result.content)}`)
-    return 1
+    return opts.languageVersion === '4.0.0' ? 2 : 1
   }
 
   const payload = parseJsonResult<ExportFigmaToolResult>(result)

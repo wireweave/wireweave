@@ -6,6 +6,7 @@
  */
 
 import type { WireframeDocument, AnyNode, SpacingValue, ValueWithUnit } from '../ast/types'
+import type { LinkedApp } from '../app/v4'
 import { documentPages } from '../ast/utils'
 import type {
   FigmaNode,
@@ -22,8 +23,11 @@ import type {
   FigmaColor,
   FigmaSolidFill,
   FigmaStroke,
+  FigmaMappingExportResult,
+  FigmaMappingProfile,
 } from './types'
 import { getNodeContent, extractAttributes, getComponentTypes } from './utils'
+import { exportLinkedAppToFigma } from './v4-figma'
 
 // ===========================================
 // Constants
@@ -474,7 +478,18 @@ function nodeToFigma(node: AnyNode): FigmaNode {
  * @param doc - The parsed wireframe document
  * @returns Figma export result
  */
-export function exportToFigma(doc: WireframeDocument): FigmaExportResult {
+export function exportToFigma(doc: WireframeDocument): FigmaExportResult
+export function exportToFigma(
+  doc: LinkedApp,
+  profile: FigmaMappingProfile,
+): FigmaMappingExportResult
+export function exportToFigma(
+  doc: WireframeDocument | LinkedApp,
+  profile?: FigmaMappingProfile,
+): FigmaExportResult | FigmaMappingExportResult {
+  if ('kind' in doc && doc.kind === 'LinkedApp')
+    return exportLinkedAppToFigma(doc, profile as FigmaMappingProfile)
+  const legacyDocument = doc as WireframeDocument
   resetFigmaIdCounter()
 
   const documentNode: FigmaNode = {
@@ -485,13 +500,13 @@ export function exportToFigma(doc: WireframeDocument): FigmaExportResult {
     children: [],
   }
 
-  for (const page of documentPages(doc)) {
+  for (const page of documentPages(legacyDocument)) {
     ;(documentNode.children as FigmaNode[]).push(nodeToFigma(page))
   }
 
   // Build component mappings
   const componentMappings: Record<string, string> = {}
-  const types = getComponentTypes(doc)
+  const types = getComponentTypes(legacyDocument)
   for (const type of types) {
     componentMappings[type] = mapToFigmaType(type)
   }

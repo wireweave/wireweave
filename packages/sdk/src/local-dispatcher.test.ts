@@ -10,6 +10,12 @@ import {
 const VALID_SOURCE = 'page Home {\n  text "Hello"\n}\n'
 const VALID_SOURCE_2 = 'page Home {\n  text "World"\n}\n'
 const INVALID_SOURCE = 'page { not valid syntax @@@'
+const VALID_V4_SOURCE = `language "4.0.0"
+app catalog entry={namespace="main",id="home"} profile={id="neutral-app",width=800,height=600,language="en",entryPolicy="explicit",unknownRoute="error-view",clockStartMs=0,limits="standard-1",assets=[],unicodeVersion="15.1.0"} states=[] registry={schemaVersion="1.0.0",entries=[],digest="sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"} fixtures=[] {
+module main namespace=main {
+  page "Home" id=home { main { title "Catalog" id=title level=1 } }
+}
+}`
 
 function parsePayload(text: string): Record<string, unknown> {
   return JSON.parse(text) as Record<string, unknown>
@@ -294,6 +300,46 @@ describe('localDispatch: export tools dispatch locally', () => {
       expect(payload.success).toBe(true)
     },
   )
+
+  it('exports a linked v4 application as deterministic SVG', () => {
+    const result = localDispatch('wireweave_export_svg', {
+      source: VALID_V4_SOURCE,
+      languageVersion: '4.0.0',
+      profile: { id: 'wireweave-static-svg-v1', screens: 'all' },
+    })
+    expect(result.isError).toBeUndefined()
+    const payload = parsePayload(result.content[0].text) as {
+      success: boolean
+      kind: string
+      svg: string
+      manifest: { sourceMap: unknown[] }
+    }
+    expect(payload.success).toBe(true)
+    expect(payload.kind).toBe('V4SvgArtifact')
+    expect(payload.svg).toContain('data-wireweave-export="wireweave-static-svg-v1"')
+    expect(payload.manifest.sourceMap.length).toBeGreaterThan(0)
+  })
+
+  it('exports a linked v4 application as a semantic Figma mapping', () => {
+    const result = localDispatch('wireweave_export_figma', {
+      source: VALID_V4_SOURCE,
+      languageVersion: '4.0.0',
+      profile: {
+        id: 'wireweave-figma-mapping-v1',
+        target: 'figma-plugin-json-v1',
+        screens: 'all',
+      },
+    })
+    expect(result.isError).toBeUndefined()
+    const payload = parsePayload(result.content[0].text) as {
+      success: boolean
+      kind: string
+      mappings: unknown[]
+    }
+    expect(payload.success).toBe(true)
+    expect(payload.kind).toBe('FigmaMappingArtifact')
+    expect(payload.mappings.length).toBeGreaterThan(0)
+  })
 })
 
 describe('localDispatch: tools removed from public set return Unknown local tool', () => {

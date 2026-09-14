@@ -19,6 +19,7 @@ const routes = [
   ['wireweave_ux_rules', 'GET', '/tools/ux-rules', ''],
   ['wireweave_diff', 'POST', '/tools/diff', 'oldSource,newSource'],
   ['wireweave_export_json', 'POST', '/tools/export/json', 'source'],
+  ['wireweave_export_svg', 'POST', '/tools/export/svg', 'source,languageVersion,profile'],
   ['wireweave_export_figma', 'POST', '/tools/export/figma', 'source'],
   ['wireweave_analyze', 'POST', '/tools/analyze', 'source'],
   ['wireweave_cloud_list_projects', 'GET', '/cloud/projects', ''],
@@ -75,14 +76,14 @@ const publicInteractions = new Set([
 ])
 
 describe('public catalog contract', () => {
-  it('retains exactly the 32 public tools and exports the same objects', () => {
+  it('retains exactly the 33 public tools and exports the same objects', () => {
     expect(tools.map(({ name }) => name)).toEqual(routes.map(([name]) => name))
     expect(Object.keys(toolEndpoints)).toEqual(routes.map(([name]) => name))
     expect(publicTools).toBe(tools)
     expect(publicLocalNames).toBe(localToolNames)
   })
 
-  it('keeps the nine no-network dispatch tools explicit', () => {
+  it('keeps the ten no-network dispatch tools explicit', () => {
     expect([...localToolNames]).toEqual([
       'wireweave_parse',
       'wireweave_validate',
@@ -91,6 +92,7 @@ describe('public catalog contract', () => {
       'wireweave_validate_ux',
       'wireweave_diff',
       'wireweave_export_json',
+      'wireweave_export_svg',
       'wireweave_export_figma',
       'wireweave_analyze',
     ])
