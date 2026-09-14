@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0-beta.8
+
+### Patch Changes
+
+- [`326dd9f`](https://github.com/wireweave/wireweave/commit/326dd9fd84ef886b69487ba9c6655067e43fe03b) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Protect HTTP MCP requests with bearer authentication, exact Host/Origin validation, bounded session admission and expiration, and isolated error handling. Publish a shared, fully annotated tool catalog with runtime argument validation, cancellation and bounded remote requests. Verify installed package initialization and local execution before release, update vulnerable dependencies, and document credentials and hosted-service privacy.
+
+- Updated dependencies [[`326dd9f`](https://github.com/wireweave/wireweave/commit/326dd9fd84ef886b69487ba9c6655067e43fe03b), [`326dd9f`](https://github.com/wireweave/wireweave/commit/326dd9fd84ef886b69487ba9c6655067e43fe03b)]:
+  - @wireweave/core@4.0.0-beta.13
+
 ## 1.5.3
 
 ### Patch Changes
