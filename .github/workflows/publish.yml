@@ -103,7 +103,7 @@ jobs:
           node scripts/release-registry.mjs preflight --verification .local/release-evidence/verification.json --branch "$GITHUB_REF_NAME" --commit "$RELEASE_SHA" --report .local/release-evidence/publication-intent.json
 
       - name: Preserve immutable intent before publication
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: publication-intent-${{ github.run_id }}-${{ github.run_attempt }}
           path: .local/release-evidence/publication-intent.json
@@ -163,7 +163,7 @@ jobs:
 
       - name: Upload release verification evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-verification-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: .local/release-evidence/*.json
