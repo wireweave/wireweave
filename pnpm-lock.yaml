@@ -136,9 +136,6 @@ importers:
       '@types/node':
         specifier: ^22.20.2
         version: 22.20.2
-      '@wireweave/core':
-        specifier: workspace:*
-        version: link:../core
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)

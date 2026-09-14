@@ -2,10 +2,11 @@
  * The prompt is prose, but the element names in it are still a copy of the DSL
  * element set — and an LLM cannot generate an element the prompt never mentions.
  *
- * This test pins the prompt to `@wireweave/core/spec` (extracted from the
- * grammar): add an element to the grammar and this fails until the prompt
- * documents it. The prose itself stays hand-written; only its coverage is
- * enforced.
+ * This repository-level contract reads Core's spec source directly: add an
+ * element to the grammar and this fails until the prompt documents it. A
+ * relative test import deliberately avoids making the published prompts
+ * artifact depend on Core solely for a monorepo validation concern. The prose
+ * itself stays hand-written; only its coverage is enforced.
  *
  * "Documents it" is the load-bearing word. Asking only whether the name occurs
  * somewhere in the prompt is a gate that cannot fail for any element whose name
@@ -18,7 +19,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { COMPONENT_SPECS } from '@wireweave/core/spec'
+import { COMPONENT_SPECS } from '../../core/src/spec/index.js'
 import { buildCompactGrammarPrompt, buildGrammarPrompt } from '../src/index.js'
 
 /**
