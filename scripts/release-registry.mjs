@@ -565,47 +565,87 @@ export function validateIntent(intent) {
 
 export async function verifyRegistry(
   intent,
-  { inspect = inspectRegistryArtifact, sleep = delay, onRetry = () => {} } = {},
+  {
+    inspect = inspectRegistryArtifact,
+    sleep = delay,
+    onRetry = () => {},
+    now = () => globalThis.performance.now(),
+    timeoutMs = 20 * 60 * 1000,
+    pollIntervalMs = 15000,
+  } = {},
 ) {
   validateIntent(intent)
-  const artifacts = []
-  for (const expected of intent.artifacts) {
-    const result = await retryTransient(
-      async () => {
-        // The outer loop owns this retry budget; do not multiply nested retries.
-        const observed = await inspect(expected, {
-          read: (url, options) => fetchRegistry(url, { ...options, attempts: 1 }),
-        })
-        if (!observed.artifact)
-          throw Object.assign(
-            new Error(`Registry version not visible: ${expected.name}@${expected.version}`),
-            { status: 404 },
-          )
-        assertSameArtifact(expected, observed.artifact)
-        return observed
-      },
-      { allow404: true, sleep, onRetry },
+  assert.ok(Number.isInteger(timeoutMs) && timeoutMs > 0 && timeoutMs <= 1200000)
+  assert.ok(Number.isInteger(pollIntervalMs) && pollIntervalMs > 0 && pollIntervalMs <= 60000)
+  const deadline = now() + timeoutMs
+  const verified = new Map()
+  const pending = () => intent.artifacts.filter((a) => !verified.has(a.name))
+  const expired = () =>
+    Object.assign(
+      new Error(
+        `Registry availability deadline exceeded: ${pending()
+          .map((a) => `${a.name}@${a.version}`)
+          .join(', ')}; resume verification with the original publication intent, do not republish`,
+      ),
+      { code: 'REGISTRY_AVAILABILITY_TIMEOUT' },
     )
-    // A successful but wrong response is not a transient transport failure.
-    assert.equal(
-      result.tags[expected.channel],
-      expected.version,
-      `${expected.name}: ${expected.channel} channel differs`,
-    )
-    artifacts.push({
-      name: expected.name,
-      version: expected.version,
-      integrity: result.artifact.integrity,
-      contentSha256: result.artifact.contentSha256,
-      channel: expected.channel,
+  // npm publish-time scanning can delay installation for 15+ minutes. One
+  // deadline covers the whole release; confirmed packages are not downloaded again.
+  // A round bound also guarantees termination with a stalled/injected clock.
+  const maxRounds = Math.ceil(timeoutMs / pollIntervalMs) + 1
+  for (let round = 1; verified.size < intent.artifacts.length; round++) {
+    if (round > maxRounds || now() >= deadline) throw expired()
+    for (const expected of pending()) {
+      let result
+      try {
+        result = await retryTransient(
+          async () => {
+            if (now() >= deadline) throw expired()
+            // Transport retries stay short and never multiply fetch retries.
+            return inspect(expected, {
+              read: (url, options) => fetchRegistry(url, { ...options, attempts: 1 }),
+            })
+          },
+          { sleep, onRetry },
+        )
+      } catch (error) {
+        if (error.status === 404) continue // Metadata may precede tarball availability.
+        throw error
+      }
+      if (!result.artifact) continue
+      // Invalid content, authentication and channels never enter the availability wait.
+      assertSameArtifact(expected, result.artifact)
+      assert.equal(
+        result.tags[expected.channel],
+        expected.version,
+        `${expected.name}: ${expected.channel} channel differs`,
+      )
+      verified.set(expected.name, {
+        name: expected.name,
+        version: expected.version,
+        integrity: result.artifact.integrity,
+        contentSha256: result.artifact.contentSha256,
+        channel: expected.channel,
+      })
+    }
+    if (now() >= deadline) throw expired()
+    if (verified.size === intent.artifacts.length) break
+    if (round === maxRounds) throw expired()
+    const remainingMs = deadline - now()
+    onRetry({
+      phase: 'publication-availability',
+      round,
+      remainingMs,
+      pending: pending().map((a) => `${a.name}@${a.version}`),
     })
+    await sleep(Math.min(pollIntervalMs, remainingMs))
   }
   return {
     schemaVersion: 1,
     ok: true,
     commit: intent.commit,
     intentSha256: hash(JSON.stringify(intent)),
-    artifacts,
+    artifacts: intent.artifacts.map((a) => verified.get(a.name)),
   }
 }
 
