@@ -322,8 +322,10 @@ export async function fetchRegistry(
     attempts = 4,
     fetch = globalThis.fetch,
     onRetry = () => {},
+    timeoutMs = 15000,
   } = {},
 ) {
+  assert.ok(Number.isInteger(timeoutMs) && timeoutMs > 0 && timeoutMs <= 15000)
   const target = new globalThis.URL(url)
   assert.ok(
     target.origin === REGISTRY.slice(0, -1) && !target.username && !target.password,
@@ -333,7 +335,7 @@ export async function fetchRegistry(
     async () => {
       const response = await fetch(target.href, {
         redirect: 'error',
-        signal: globalThis.AbortSignal.timeout(15000),
+        signal: globalThis.AbortSignal.timeout(timeoutMs),
         headers: {
           accept: json ? 'application/json' : 'application/octet-stream',
           'cache-control': 'no-cache',
@@ -408,7 +410,7 @@ export function validateArtifacts(artifacts) {
 
 export async function inspectRegistryArtifact(
   expected,
-  { read = fetchRegistry, allow404 = false } = {},
+  { read = fetchRegistry, allow404 = false, channel } = {},
 ) {
   let doc
   try {
@@ -439,6 +441,8 @@ export async function inspectRegistryArtifact(
   const version = doc.versions[expected.version]
   assert.equal(version.name, expected.name, 'Registry name mismatch')
   assert.equal(version.version, expected.version, 'Registry version mismatch')
+  if (channel !== undefined)
+    assert.equal(tags[channel], expected.version, `${expected.name}: ${channel} channel differs`)
   assert.match(version.dist?.integrity ?? '', SRI, 'Missing registry SHA-512 integrity')
   const bytes = await read(version.dist.tarball, { json: false, allow404 })
   assert.equal(digest(bytes), version.dist.integrity, 'Registry tarball integrity mismatch')
@@ -589,6 +593,11 @@ export async function verifyRegistry(
       ),
       { code: 'REGISTRY_AVAILABILITY_TIMEOUT' },
     )
+  const remaining = () => {
+    const ms = Math.ceil(deadline - now())
+    if (ms <= 0) throw expired()
+    return ms
+  }
   // npm publish-time scanning can delay installation for 15+ minutes. One
   // deadline covers the whole release; confirmed packages are not downloaded again.
   // A round bound also guarantees termination with a stalled/injected clock.
@@ -600,13 +609,19 @@ export async function verifyRegistry(
       try {
         result = await retryTransient(
           async () => {
-            if (now() >= deadline) throw expired()
+            remaining()
             // Transport retries stay short and never multiply fetch retries.
             return inspect(expected, {
-              read: (url, options) => fetchRegistry(url, { ...options, attempts: 1 }),
+              channel: expected.channel,
+              read: (url, options) =>
+                fetchRegistry(url, {
+                  ...options,
+                  attempts: 1,
+                  timeoutMs: Math.min(15000, remaining()),
+                }),
             })
           },
-          { sleep, onRetry },
+          { sleep: (ms) => sleep(Math.min(ms, remaining())), onRetry },
         )
       } catch (error) {
         if (error.status === 404) continue // Metadata may precede tarball availability.

@@ -606,7 +606,7 @@ test('network retry cannot start another inspection after the shared deadline', 
   await assert.rejects(
     verifyRegistry(intent, {
       ...clock,
-      timeoutMs: 1000,
+      timeoutMs: 250,
       inspect: async () => {
         calls++
         throw Object.assign(new Error('unavailable'), { status: 503 })
@@ -615,6 +615,60 @@ test('network retry cannot start another inspection after the shared deadline', 
     { code: 'REGISTRY_AVAILABILITY_TIMEOUT' },
   )
   assert.equal(calls, 1)
+  assert.deepEqual(clock.waits, [250])
+})
+
+test('wrong channel is rejected before an unavailable tarball can mask it', async () => {
+  const intent = await prepareIntent(fixture())
+  const expected = intent.artifacts[0]
+  let calls = 0
+  await assert.rejects(
+    inspectRegistryArtifact(expected, {
+      channel: 'latest',
+      read: async () => {
+        if (++calls > 1) throw Object.assign(new Error('tarball pending'), { status: 404 })
+        return {
+          name: expected.name,
+          'dist-tags': { latest: '3.0.0' },
+          versions: {
+            '3.0.0': { name: expected.name, version: '3.0.0' },
+            [expected.version]: { name: expected.name, version: expected.version },
+          },
+        }
+      },
+    }),
+    /latest channel differs/,
+  )
+  assert.equal(calls, 1)
+})
+
+test('remaining availability time bounds every fetch and prevents another request', async () => {
+  const intent = await prepareIntent(fixture())
+  const clock = clockFixture()
+  let requests = 0
+  await assert.rejects(
+    verifyRegistry(intent, {
+      ...clock,
+      timeoutMs: 500,
+      inspect: async (artifact, { channel, read }) => {
+        assert.equal(channel, artifact.channel)
+        await clock.sleep(499)
+        await read('https://registry.npmjs.org/fixture', {
+          fetch: async (_, options) => {
+            requests++
+            await new Promise((resolve) => globalThis.setTimeout(resolve, 10))
+            assert.equal(options.signal.aborted, true)
+            await clock.sleep(1)
+            options.signal.throwIfAborted()
+          },
+        })
+        throw new Error('unreachable')
+      },
+    }),
+    { code: 'REGISTRY_AVAILABILITY_TIMEOUT' },
+  )
+  assert.equal(requests, 1)
+  assert.equal(clock.now(), 500)
 })
 
 function gitFixture({ local = '', remote = '', rejectPush = false } = {}) {
