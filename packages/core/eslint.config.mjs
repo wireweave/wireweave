@@ -23,9 +23,12 @@ export default tseslint.config(
             'tsup.config.ts',
             'vitest.config.ts',
             'scripts/generate-icons.cjs',
+            'scripts/*.mjs',
             '.storybook/main.ts',
             '.storybook/preview.ts',
           ],
+          // Five root/storybook configs plus the four standalone Node scripts.
+          maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 10,
         },
         tsconfigRootDir: import.meta.dirname,
       },
@@ -58,6 +61,13 @@ export default tseslint.config(
     },
   },
   {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      globals: { console: 'readonly', process: 'readonly' },
+    },
+    rules: { 'no-console': 'off' },
+  },
+  {
     files: ['scripts/**/*.cjs'],
     languageOptions: {
       globals: {
@@ -70,9 +80,6 @@ export default tseslint.config(
     },
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
       'no-console': 'off',
     },
   },

@@ -18,11 +18,12 @@ export interface HandlerContext {
   fetchFn?: typeof fetch
 }
 
-function dispatchOptions(ctx: HandlerContext): DispatchOptions {
+function dispatchOptions(ctx: HandlerContext, signal?: AbortSignal): DispatchOptions {
   return {
     apiConfig: ctx.apiConfig,
     endpoints: ctx.endpoints,
     fetchFn: ctx.fetchFn,
+    ...(signal ? { signal } : {}),
   }
 }
 
@@ -34,8 +35,9 @@ export async function handleCallTool(
   name: string,
   args: Record<string, unknown> | undefined,
   ctx: HandlerContext,
+  signal?: AbortSignal,
 ): Promise<CallToolResult> {
-  return dispatch(name, args ?? {}, dispatchOptions(ctx))
+  return dispatch(name, args ?? {}, dispatchOptions(ctx, signal))
 }
 
 export function handleListPrompts(): ListPromptsResult {
@@ -85,6 +87,7 @@ export function handleListResources(): ListResourcesResult {
 export async function handleReadResource(
   uri: string,
   ctx: HandlerContext,
+  signal?: AbortSignal,
 ): Promise<ReadResourceResult> {
   const resource = resources.find((r) => r.uri === uri)
   if (!resource) {
@@ -96,7 +99,7 @@ export async function handleReadResource(
     throw new Error(`No tool mapping for resource: ${uri}`)
   }
 
-  const result = await dispatch(toolName, {}, dispatchOptions(ctx))
+  const result = await dispatch(toolName, {}, dispatchOptions(ctx, signal))
 
   if (result.isError) {
     const message = result.content[0]?.text ?? 'Unknown error'

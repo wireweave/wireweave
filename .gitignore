@@ -8,6 +8,8 @@ build/
 out/
 *.tsbuildinfo
 .turbo/
+.build-fingerprint.json
+.local/
 
 # framework-generated output (examples + docs) — never version-controlled
 .svelte-kit/

@@ -46,14 +46,7 @@ export interface JsonExportResult {
  * Figma node types that we can map to
  */
 export type FigmaNodeType =
-  | 'DOCUMENT'
-  | 'CANVAS'
-  | 'FRAME'
-  | 'GROUP'
-  | 'TEXT'
-  | 'RECTANGLE'
-  | 'INSTANCE'
-  | 'COMPONENT'
+  'DOCUMENT' | 'CANVAS' | 'FRAME' | 'GROUP' | 'TEXT' | 'RECTANGLE' | 'INSTANCE' | 'COMPONENT'
 
 /**
  * Figma Auto Layout mode

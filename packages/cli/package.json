@@ -23,38 +23,38 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "knip": "knip",
-    "publint": "publint"
+    "publint": "publint --strict",
+    "postbuild": "node ../../scripts/dist-freshness-gate.mjs --write ."
   },
   "publishConfig": {
-    "access": "public",
-    "tag": "beta"
+    "access": "public"
   },
   "dependencies": {
     "@wireweave/sdk": "workspace:*",
     "commander": "^12.1.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^22.0.0",
-    "eslint": "^10.4.0",
-    "globals": "^17.6.0",
+    "@types/node": "^22.20.2",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
     "husky": "^9.1.7",
-    "knip": "^6.14.1",
-    "lint-staged": "^17.0.5",
-    "prettier": "^3.8.3",
-    "publint": "^0.3.21",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.59.3",
-    "vitest": "^2.1.9"
+    "knip": "^6.35.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.9.6",
+    "publint": "^0.3.24",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^4.1.11"
   },
   "files": [
     "dist"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=22.13.0"
   },
   "repository": {
     "type": "git",

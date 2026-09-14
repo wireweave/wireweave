@@ -25,4 +25,6 @@ export type { DispatchOptions } from './dispatcher.js'
 
 export { dispatch } from './dispatcher.js'
 
-export { toolEndpoints, tools } from './generated/tools.js'
+export type { AnnotatedTool, RequiredToolAnnotations } from './generated/tools.js'
+
+export { localToolNames, toolEndpoints, tools } from './generated/tools.js'

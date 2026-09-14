@@ -66,7 +66,7 @@ pnpm changeset   # 변경 기록 추가
 ## 무료 / 유료 경계
 
 - 기본 로컬 도구 (parse / validate / render / analyze / diff / export / validate_ux): 로컬 실행, 무료, 무키.
-- cli · sdk 로컬 dispatch = 무키. mcp-server = API 키 필수.
+- CLI·SDK·MCP의 로컬 dispatch는 API 키가 필요 없다. HTTP 인증과 원격 도구 자격증명은 `packages/mcp-server/README.md`의 계약을 따른다.
 - 호스티드 에이전트 / cloud = 유료 (키).
 
 ## 이 repo 밖 (전부 개별 repo)

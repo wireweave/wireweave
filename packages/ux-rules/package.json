@@ -8,9 +8,14 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [
@@ -21,36 +26,33 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "clean": "rm -rf dist",
-    "release": "release-it",
-    "release:beta": "release-it --preRelease=beta",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "knip": "knip",
-    "publint": "publint"
+    "publint": "publint --strict",
+    "postbuild": "node ../../scripts/dist-freshness-gate.mjs --write ."
   },
   "dependencies": {
     "@wireweave/core": "workspace:*"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.2",
-    "@commitlint/config-conventional": "^21.0.2",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
-    "@release-it/conventional-changelog": "^10.0.4",
-    "@types/node": "^22",
-    "eslint": "^10.4.0",
+    "@types/node": "^22.20.2",
+    "eslint": "^10.10.0",
     "husky": "^9.1.7",
-    "knip": "^6.14.2",
-    "lint-staged": "^17.0.5",
-    "prettier": "^3.8.3",
-    "publint": "^0.3.21",
-    "release-it": "^19.2.3",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.60.0",
-    "vitest": "^3.1.1"
+    "knip": "^6.35.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.9.6",
+    "publint": "^0.3.24",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^4.1.11"
   },
   "keywords": [
     "wireframe",
@@ -68,5 +70,9 @@
   "bugs": {
     "url": "https://github.com/wireweave/wireweave/issues"
   },
-  "homepage": "https://docs.wireweave.org"
+  "homepage": "https://docs.wireweave.org",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "sideEffects": false
 }

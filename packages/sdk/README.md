@@ -9,7 +9,7 @@ The platform client for Wireweave — a typed HTTP client, token-based auth, and
 - **Local tools** run in-process via `@wireweave/core`, `@wireweave/ux-rules`, and `@wireweave/language-data`. No network call, no API key required.
 - **Remote tools** are proxied to the Wireweave API server (`api-server`) over HTTP. These require an API key (cloud project/wireframe storage, account & billing, hosted reference content such as the grammar and LLM guide).
 
-The list of local tools and the endpoint map for remote tools are generated from the api-server contract (`src/generated/`), so consumers never hand-maintain routing.
+Tool schemas, behavioral annotations and routing are generated offline from this package's public `src/tool-catalog.json`. Both SDK and MCP consume the same catalog. Dispatch validates arguments before local execution or network access.
 
 Local dispatch tools:
 
@@ -21,7 +21,7 @@ Local dispatch tools:
 npm install @wireweave/sdk
 ```
 
-Requires Node.js 20+.
+Requires Node.js >=22.13.0.
 
 ## Usage
 
@@ -33,20 +33,24 @@ const apiConfig: ApiConfig = {
   apiKey: process.env.WIREWEAVE_API_KEY ?? '', // empty is fine for local tools
 }
 
+const source = 'page "Home" { text "Hello" }'
+
 // Local tool — runs in-process, no network, no key needed.
 const parsed = await dispatch(
   'wireweave_parse',
-  { source: 'Page "Home"' },
+  { source },
   { apiConfig, endpoints: toolEndpoints },
 )
 
 // Remote tool — proxied to api-server, requires a valid apiKey.
 const saved = await dispatch(
   'wireweave_cloud_save_wireframe',
-  { name: 'Home', source },
+  { name: 'Home', code: source },
   { apiConfig, endpoints: toolEndpoints },
 )
 ```
+
+Pass `DispatchOptions.signal` to cancel pending work. Remote calls send the API key as `x-api-key` only to the configured API URL, reject redirects and time out after 30 seconds. Cloud saving/updating transmits supplied source and metadata; local failures never fall back to remote calls. See the [credential and data-flow guide](https://github.com/wireweave/wireweave/tree/main/packages/mcp-server#http-and-credentials) and [Privacy Policy](https://www.wireweave.org/privacy).
 
 Run a local tool directly, bypassing dispatch:
 
@@ -78,11 +82,11 @@ await clearToken()
 | `localDispatch(name, args)`                                                | Runs a local tool in-process (parse, validate, render, diff, analyze, export, etc.).                                                                                                                    |
 | `isLocalDispatchTool(name)`                                                | `true` if the tool is dispatched locally.                                                                                                                                                               |
 | `LOCAL_DISPATCH_TOOL_NAMES`                                                | `ReadonlySet<string>` of local tool names.                                                                                                                                                              |
-| `callApi(config, endpoint, args, fetchFn?)`                                | Low-level HTTP call to an api-server endpoint.                                                                                                                                                          |
+| `callApi(config, endpoint, args, fetchFn?, signal?)`                       | Low-level HTTP call with bounded lifetime and cancellation.                                                                                                                                             |
 | `buildRequest(config, endpoint, args?)`                                    | Builds the URL and `RequestInit` for an endpoint (path params, query, body).                                                                                                                            |
 | `extractCreditInfo(headers)` / `parseErrorMessage(status, body)`           | Credit-header parsing and HTTP-status-to-message mapping.                                                                                                                                               |
 | `loadToken` / `saveToken` / `clearToken` / `verifyToken` / `getConfigPath` | Token persistence and verification.                                                                                                                                                                     |
-| `tools` / `toolEndpoints`                                                  | Generated tool definitions and the remote endpoint map (api-server contract).                                                                                                                           |
+| `tools` / `toolEndpoints` / `localToolNames`                               | Generated, fully annotated definitions and dispatch mappings from the public catalog.                                                                                                                   |
 | Types                                                                      | `ApiConfig`, `ApiResult`, `ApiErrorBody`, `HttpMethod`, `ToolEndpoint`, `CreditInfo`, `LocalToolResult`, `LocalToolContentBlock`, `DispatchOptions`, `AuthOptions`, `StoredConfig`, `VerifyTokenResult` |
 
 Part of the [Wireweave monorepo](https://github.com/wireweave/wireweave).

@@ -17,9 +17,7 @@ import { parse, renderCanvas } from '@wireweave/core'
 export function renderFence(code: string, options: WireframeOptions): string {
   try {
     const ast = parse(code)
-    const html = renderCanvas(ast, {
-      /* bounded layout default */
-    })
+    const html = renderCanvas(ast, {/* bounded layout default */})
     const className = options.className ?? 'wireweave-canvas'
     return `<div class="${className}">${html}</div>`
   } catch (err) {

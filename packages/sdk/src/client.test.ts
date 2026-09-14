@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import { createServer, type Server } from 'node:http'
 
 import { buildRequest, callApi, extractCreditInfo, parseErrorMessage } from './client.js'
 import { createMockFetch, sampleApiConfig, sampleEndpoints } from './__fixtures__/index.js'
@@ -76,6 +77,55 @@ describe('buildRequest', () => {
     })
     expect(url).toContain('filter=')
     expect(decodeURIComponent(url.split('filter=')[1])).toBe('{"kind":"active"}')
+  })
+
+  it.each([
+    ['a/b?admin=true#secret', 'a%2Fb%3Fadmin%3Dtrue%23secret'],
+    ['../other-project', '..%2Fother-project'],
+    ['%2e%2e', '%252e%252e'],
+    ['a\\b', 'a%5Cb'],
+    ['hello world', 'hello%20world'],
+    ['한글', '%ED%95%9C%EA%B8%80'],
+  ])('encodes path parameter %s as one segment without changing origin or query', (id, encoded) => {
+    const args = { id }
+    const { url, options } = buildRequest(
+      sampleApiConfig,
+      sampleEndpoints.wireweave_cloud_get_project,
+      args,
+    )
+    expect(url).toBe(`https://api.wireweave.test/cloud/projects/${encoded}`)
+    const parsed = new URL(url)
+    expect(parsed.origin).toBe('https://api.wireweave.test')
+    expect(parsed.pathname.split('/')).toHaveLength(4)
+    expect(parsed.search).toBe('')
+    expect(parsed.hash).toBe('')
+    expect(options.body).toBeUndefined()
+    expect(args).toEqual({ id })
+  })
+
+  it.each([undefined, null, '', '.', '..', true, {}, [], NaN, Infinity, -Infinity])(
+    'rejects invalid or missing path parameter %j',
+    (id) => {
+      expect(() =>
+        buildRequest(sampleApiConfig, sampleEndpoints.wireweave_cloud_get_project, { id }),
+      ).toThrow('Invalid or missing path parameter: id')
+    },
+  )
+
+  it('encodes multiple path parameters and excludes each from the request body', () => {
+    const args = { wireframeId: 'wireframe/1', version: 0, name: 'Restore' }
+    const { url, options } = buildRequest(
+      sampleApiConfig,
+      {
+        method: 'POST',
+        path: '/cloud/wireframes/:wireframeId/versions/:version/restore',
+        pathParams: ['wireframeId', 'version'],
+      },
+      args,
+    )
+    expect(url).toBe('https://api.wireweave.test/cloud/wireframes/wireframe%2F1/versions/0/restore')
+    expect(options.body).toBe(JSON.stringify({ name: 'Restore' }))
+    expect(args).toEqual({ wireframeId: 'wireframe/1', version: 0, name: 'Restore' })
   })
 })
 
@@ -198,4 +248,183 @@ describe('callApi', () => {
       callApi(sampleApiConfig, sampleEndpoints.wireweave_validate_dsl, {}, fetchFn),
     ).rejects.toThrow('Service temporarily unavailable')
   })
+
+  it('rejects a missing path parameter before fetching', async () => {
+    const fetchFn = vi.fn<typeof fetch>()
+    await expect(
+      callApi(sampleApiConfig, sampleEndpoints.wireweave_cloud_get_project, {}, fetchFn),
+    ).rejects.toThrow('Invalid or missing path parameter: id')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('rejects an already aborted request before fetching', async () => {
+    const fetchFn = vi.fn<typeof fetch>()
+    const signal = AbortSignal.abort(new Error('caller cancelled'))
+    await expect(
+      callApi(sampleApiConfig, sampleEndpoints.wireweave_cloud_list_projects, {}, fetchFn, signal),
+    ).rejects.toThrow('caller cancelled')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('combines caller cancellation with the request deadline and discards a late response', async () => {
+    const controller = new AbortController()
+    let finish!: (response: Response) => void
+    const fetchFn = vi.fn<typeof fetch>().mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          finish = resolve
+        }),
+    )
+    const pending = callApi(
+      sampleApiConfig,
+      sampleEndpoints.wireweave_cloud_list_projects,
+      {},
+      fetchFn,
+      controller.signal,
+    )
+    const rejected = expect(pending).rejects.toThrow('caller cancelled')
+    const requestSignal = fetchFn.mock.calls[0]?.[1]?.signal
+    expect(requestSignal).toBeInstanceOf(AbortSignal)
+    expect(requestSignal?.aborted).toBe(false)
+    controller.abort(new Error('caller cancelled'))
+    expect(requestSignal?.aborted).toBe(true)
+    expect(requestSignal?.reason).toBe(controller.signal.reason)
+    finish(new Response(JSON.stringify({ projects: ['must not be returned'] })))
+    await rejected
+    expect(fetchFn).toHaveBeenCalledTimes(1)
+  })
+
+  it('discards success if cancellation happens while reading the response body', async () => {
+    const controller = new AbortController()
+    let finishBody!: (value: unknown) => void
+    let markReading!: () => void
+    const reading = new Promise<void>((resolve) => {
+      markReading = resolve
+    })
+    const response = new Response('{}')
+    vi.spyOn(response, 'json').mockImplementation(() => {
+      markReading()
+      return new Promise((resolve) => {
+        finishBody = resolve
+      })
+    })
+    const fetchFn = vi.fn<typeof fetch>().mockResolvedValue(response)
+    const pending = callApi(
+      sampleApiConfig,
+      sampleEndpoints.wireweave_cloud_list_projects,
+      {},
+      fetchFn,
+      controller.signal,
+    )
+    const rejected = expect(pending).rejects.toThrow('cancelled during body')
+    await reading
+    controller.abort(new Error('cancelled during body'))
+    finishBody({ projects: ['must not be returned'] })
+    await rejected
+    expect(fetchFn).toHaveBeenCalledTimes(1)
+  })
+
+  it.each([false, true])(
+    'enforces the 30-second timeout with caller signal=%s',
+    async (withCallerSignal) => {
+      const deadline = new AbortController()
+      const caller = new AbortController()
+      const timeoutSpy = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(deadline.signal)
+      try {
+        const fetchFn = vi.fn<typeof fetch>().mockImplementation(
+          (_input, init) =>
+            new Promise((_resolve, reject) => {
+              init?.signal?.addEventListener(
+                'abort',
+                () => {
+                  const reason: unknown = init.signal?.reason
+                  reject(reason instanceof Error ? reason : new Error('Request aborted'))
+                },
+                { once: true },
+              )
+            }),
+        )
+        const pending = callApi(
+          sampleApiConfig,
+          sampleEndpoints.wireweave_cloud_list_projects,
+          {},
+          fetchFn,
+          withCallerSignal ? caller.signal : undefined,
+        )
+        const rejected = expect(pending).rejects.toThrow('request deadline exceeded')
+        expect(timeoutSpy).toHaveBeenCalledWith(30_000)
+        deadline.abort(new DOMException('request deadline exceeded', 'TimeoutError'))
+        await rejected
+        expect(fetchFn.mock.calls[0]?.[1]?.signal?.aborted).toBe(true)
+        expect(caller.signal.aborted).toBe(false)
+        expect(fetchFn).toHaveBeenCalledTimes(1)
+      } finally {
+        timeoutSpy.mockRestore()
+      }
+    },
+  )
+})
+
+async function listen(server: Server): Promise<string> {
+  return new Promise((resolve, reject) => {
+    server.once('error', reject)
+    server.listen(0, '127.0.0.1', () => {
+      const address = server.address()
+      if (!address || typeof address === 'string') {
+        reject(new Error('Expected an ephemeral TCP listener'))
+        return
+      }
+      resolve(`http://127.0.0.1:${address.port}`)
+    })
+  })
+}
+
+async function close(server: Server): Promise<void> {
+  if (!server.listening) return
+  server.closeAllConnections()
+  await new Promise<void>((resolve, reject) =>
+    server.close((error) => (error ? reject(error) : resolve())),
+  )
+}
+
+describe('callApi redirect isolation with real loopback HTTP', () => {
+  it.each([301, 302, 303, 307, 308])(
+    'rejects HTTP %i without forwarding credentials or the request to another origin',
+    async (status) => {
+      const sourceRequests: unknown[] = []
+      const targetRequests: unknown[] = []
+      const target = createServer((request, response) => {
+        targetRequests.push({ path: request.url, apiKey: request.headers['x-api-key'] })
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.end('{}')
+      })
+      let targetUrl = ''
+      const source = createServer((request, response) => {
+        sourceRequests.push({
+          method: request.method,
+          path: request.url,
+          apiKey: request.headers['x-api-key'],
+        })
+        response.writeHead(status, { Location: `${targetUrl}/capture` })
+        response.end()
+      })
+      try {
+        targetUrl = await listen(target)
+        const apiUrl = await listen(source)
+        await expect(
+          callApi(
+            { apiUrl, apiKey: 'loopback-fixture-key' },
+            { method: 'POST', path: '/wireframes' },
+            { name: 'Fixture', code: 'page "Home" {}' },
+          ),
+        ).rejects.toThrow()
+        expect(sourceRequests).toEqual([
+          { method: 'POST', path: '/wireframes', apiKey: 'loopback-fixture-key' },
+        ])
+        expect(targetRequests).toEqual([])
+      } finally {
+        await Promise.all([close(source), close(target)])
+      }
+    },
+  )
 })

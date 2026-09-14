@@ -4,7 +4,7 @@
  * Auto-generated from lucide package.
  * Do not edit manually.
  *
- * Total icons: 1666
+ * Total icons: 1667
  *
  * @license ISC License
  *
@@ -183,6 +183,46 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'alarm-clock': [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '13',
+        r: '8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 9v4l2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5 3 2 6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm22 6-3-3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6.38 18.7 4 21',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17.64 18.67 20 21',
+      },
+    ],
+  ],
   'alarm-clock-check': [
     [
       'circle',
@@ -344,46 +384,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 13h6',
-      },
-    ],
-  ],
-  'alarm-clock': [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '13',
-        r: '8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 9v4l2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 3 2 6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm22 6-3-3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6.38 18.7 4 21',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17.64 18.67 20 21',
       },
     ],
   ],
@@ -1452,36 +1452,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'app-window-mac': [
-    [
-      'rect',
-      {
-        width: '20',
-        height: '16',
-        x: '2',
-        y: '4',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 8h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 8h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 8h.01',
-      },
-    ],
-  ],
   'app-window': [
     [
       'rect',
@@ -1512,6 +1482,36 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'app-window-mac': [
+    [
+      'rect',
+      {
+        width: '20',
+        height: '16',
+        x: '2',
+        y: '4',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 8h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 8h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 8h.01',
+      },
+    ],
+  ],
   apple: [
     [
       'path',
@@ -1523,6 +1523,30 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21',
+      },
+    ],
+  ],
+  archive: [
+    [
+      'rect',
+      {
+        width: '20',
+        height: '5',
+        x: '2',
+        y: '3',
+        rx: '1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 12h4',
       },
     ],
   ],
@@ -1592,30 +1616,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  archive: [
-    [
-      'rect',
-      {
-        width: '20',
-        height: '5',
-        x: '2',
-        y: '3',
-        rx: '1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 12h4',
-      },
-    ],
-  ],
   armchair: [
     [
       'path',
@@ -1642,6 +1642,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'arrow-big-down': [
+    [
+      'path',
+      {
+        d: 'M15 11a1 1 0 0 0 1 1h2.939a1 1 0 0 1 .75 1.811l-6.835 6.836a1.207 1.207 0 0 1-1.707 0L4.31 13.81a1 1 0 0 1 .75-1.811H8a1 1 0 0 0 1-1V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1z',
+      },
+    ],
+  ],
   'arrow-big-down-dash': [
     [
       'path',
@@ -1656,11 +1664,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-big-down': [
+  'arrow-big-left': [
     [
       'path',
       {
-        d: 'M15 11a1 1 0 0 0 1 1h2.939a1 1 0 0 1 .75 1.811l-6.835 6.836a1.207 1.207 0 0 1-1.707 0L4.31 13.81a1 1 0 0 1 .75-1.811H8a1 1 0 0 0 1-1V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1z',
+        d: 'M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z',
       },
     ],
   ],
@@ -1678,11 +1686,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-big-left': [
+  'arrow-big-right': [
     [
       'path',
       {
-        d: 'M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z',
+        d: 'M11 9a1 1 0 0 0 1-1V5.061a1 1 0 0 1 1.811-.75l6.836 6.836a1.207 1.207 0 0 1 0 1.707l-6.836 6.835a1 1 0 0 1-1.811-.75V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z',
       },
     ],
   ],
@@ -1700,11 +1708,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-big-right': [
+  'arrow-big-up': [
     [
       'path',
       {
-        d: 'M11 9a1 1 0 0 0 1-1V5.061a1 1 0 0 1 1.811-.75l6.836 6.836a1.207 1.207 0 0 1 0 1.707l-6.836 6.835a1 1 0 0 1-1.811-.75V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z',
+        d: 'M9 13a1 1 0 0 0-1-1H5.061a1 1 0 0 1-.75-1.811l6.836-6.835a1.207 1.207 0 0 1 1.707 0l6.835 6.835a1 1 0 0 1-.75 1.811H16a1 1 0 0 0-1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z',
       },
     ],
   ],
@@ -1722,11 +1730,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-big-up': [
+  'arrow-down': [
     [
       'path',
       {
-        d: 'M9 13a1 1 0 0 0-1-1H5.061a1 1 0 0 1-.75-1.811l6.836-6.835a1.207 1.207 0 0 1 1.707 0l6.835 6.835a1 1 0 0 1-.75 1.811H16a1 1 0 0 0-1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z',
+        d: 'M12 5v14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm19 12-7 7-7-7',
       },
     ],
   ],
@@ -2046,17 +2060,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-down': [
+  'arrow-left': [
     [
       'path',
       {
-        d: 'M12 5v14',
+        d: 'm12 19-7-7 7-7',
       },
     ],
     [
       'path',
       {
-        d: 'm19 12-7 7-7-7',
+        d: 'M19 12H5',
       },
     ],
   ],
@@ -2126,17 +2140,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-left': [
+  'arrow-right': [
     [
       'path',
       {
-        d: 'm12 19-7-7 7-7',
+        d: 'M5 12h14',
       },
     ],
     [
       'path',
       {
-        d: 'M19 12H5',
+        d: 'm12 5 7 7-7 7',
       },
     ],
   ],
@@ -2206,17 +2220,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-right': [
+  'arrow-up': [
     [
       'path',
       {
-        d: 'M5 12h14',
+        d: 'm5 12 7-7 7 7',
       },
     ],
     [
       'path',
       {
-        d: 'm12 5 7 7-7 7',
+        d: 'M12 19V5',
       },
     ],
   ],
@@ -2536,20 +2550,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'arrow-up': [
-    [
-      'path',
-      {
-        d: 'm5 12 7-7 7 7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 19V5',
-      },
-    ],
-  ],
   'arrows-up-from-line': [
     [
       'path',
@@ -2797,6 +2797,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2',
+      },
+    ],
+  ],
+  badge: [
+    [
+      'path',
+      {
+        d: 'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z',
       },
     ],
   ],
@@ -3194,14 +3202,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  badge: [
-    [
-      'path',
-      {
-        d: 'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z',
-      },
-    ],
-  ],
   'baggage-claim': [
     [
       'path',
@@ -3340,6 +3340,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  banknote: [
+    [
+      'rect',
+      {
+        width: '20',
+        height: '12',
+        x: '2',
+        y: '6',
+        rx: '2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 12h.01M18 12h.01',
+      },
+    ],
+  ],
   'banknote-arrow-down': [
     [
       'path',
@@ -3460,32 +3486,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  banknote: [
-    [
-      'rect',
-      {
-        width: '20',
-        height: '12',
-        x: '2',
-        y: '6',
-        rx: '2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 12h.01M18 12h.01',
-      },
-    ],
-  ],
   barcode: [
     [
       'path',
@@ -3599,6 +3599,24 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5',
+      },
+    ],
+  ],
+  battery: [
+    [
+      'path',
+      {
+        d: 'M 22 14 L 22 10',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '2',
+        y: '6',
+        width: '16',
+        height: '12',
+        rx: '2',
       },
     ],
   ],
@@ -3782,24 +3800,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  battery: [
-    [
-      'path',
-      {
-        d: 'M 22 14 L 22 10',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '2',
-        y: '6',
-        width: '16',
-        height: '12',
-        rx: '2',
-      },
-    ],
-  ],
   beaker: [
     [
       'path',
@@ -3817,6 +3817,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M6 14h12',
+      },
+    ],
+  ],
+  bean: [
+    [
+      'path',
+      {
+        d: 'M10.165 6.598C9.954 7.478 9.64 8.36 9 9c-.64.64-1.521.954-2.402 1.165A6 6 0 0 0 8 22c7.732 0 14-6.268 14-14a6 6 0 0 0-11.835-1.402Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5.341 10.62a4 4 0 1 0 5.279-5.28',
       },
     ],
   ],
@@ -3849,17 +3863,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  bean: [
+  bed: [
     [
       'path',
       {
-        d: 'M10.165 6.598C9.954 7.478 9.64 8.36 9 9c-.64.64-1.521.954-2.402 1.165A6 6 0 0 0 8 22c7.732 0 14-6.268 14-14a6 6 0 0 0-11.835-1.402Z',
+        d: 'M2 4v16',
       },
     ],
     [
       'path',
       {
-        d: 'M5.341 10.62a4 4 0 1 0 5.279-5.28',
+        d: 'M2 8h18a2 2 0 0 1 2 2v10',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 17h20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 8v9',
       },
     ],
   ],
@@ -3909,32 +3935,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  bed: [
-    [
-      'path',
-      {
-        d: 'M2 4v16',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 8h18a2 2 0 0 1 2 2v10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 17h20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 8v9',
-      },
-    ],
-  ],
   beef: [
     [
       'path',
@@ -3954,6 +3954,38 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12.5',
         cy: '8.5',
         r: '2.5',
+      },
+    ],
+  ],
+  beer: [
+    [
+      'path',
+      {
+        d: 'M17 11h1a3 3 0 0 1 0 6h-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 12v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 12v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 7.5c-1 0-1.44.5-3 .5s-2-.5-3-.5-1.72.5-2.5.5a2.5 2.5 0 0 1 0-5c.78 0 1.57.5 2.5.5S9.44 2 11 2s2 1.5 3 1.5 1.72-.5 2.5-.5a2.5 2.5 0 0 1 0 5c-.78 0-1.5-.5-2.5-.5Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8',
       },
     ],
   ],
@@ -4007,35 +4039,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  beer: [
+  bell: [
     [
       'path',
       {
-        d: 'M17 11h1a3 3 0 0 1 0 6h-1',
+        d: 'M10.268 21a2 2 0 0 0 3.464 0',
       },
     ],
     [
       'path',
       {
-        d: 'M9 12v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13 12v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 7.5c-1 0-1.44.5-3 .5s-2-.5-3-.5-1.72.5-2.5.5a2.5 2.5 0 0 1 0-5c.78 0 1.57.5 2.5.5S9.44 2 11 2s2 1.5 3 1.5 1.72-.5 2.5-.5a2.5 2.5 0 0 1 0 5c-.78 0-1.5-.5-2.5-.5Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8',
+        d: 'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326',
       },
     ],
   ],
@@ -4202,20 +4216,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M4 2C2.8 3.7 2 5.7 2 8',
-      },
-    ],
-  ],
-  bell: [
-    [
-      'path',
-      {
-        d: 'M10.268 21a2 2 0 0 0 3.464 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326',
       },
     ],
   ],
@@ -4699,6 +4699,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  bluetooth: [
+    [
+      'path',
+      {
+        d: 'm7 7 10 10-5 5V2l5 5L7 17',
+      },
+    ],
+  ],
   'bluetooth-connected': [
     [
       'path',
@@ -4765,14 +4773,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  bluetooth: [
-    [
-      'path',
-      {
-        d: 'm7 7 10 10-5 5V2l5 5L7 17',
-      },
-    ],
-  ],
   bold: [
     [
       'path',
@@ -4824,6 +4824,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z',
+      },
+    ],
+  ],
+  book: [
+    [
+      'path',
+      {
+        d: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20',
       },
     ],
   ],
@@ -5173,6 +5181,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'book-open': [
+    [
+      'path',
+      {
+        d: 'M12 7v14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z',
+      },
+    ],
+  ],
   'book-open-check': [
     [
       'path',
@@ -5228,20 +5250,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M6 8h2',
-      },
-    ],
-  ],
-  'book-open': [
-    [
-      'path',
-      {
-        d: 'M12 7v14',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z',
       },
     ],
   ],
@@ -5339,6 +5347,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'book-up': [
+    [
+      'path',
+      {
+        d: 'M12 13V7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 10 3-3 3 3',
+      },
+    ],
+  ],
   'book-up-2': [
     [
       'path',
@@ -5368,26 +5396,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 5 3-3 3 3',
-      },
-    ],
-  ],
-  'book-up': [
-    [
-      'path',
-      {
-        d: 'M12 13V7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 10 3-3 3 3',
       },
     ],
   ],
@@ -5433,11 +5441,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  book: [
+  bookmark: [
     [
       'path',
       {
-        d: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20',
+        d: 'm19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z',
       },
     ],
   ],
@@ -5518,14 +5526,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  bookmark: [
-    [
-      'path',
-      {
-        d: 'm19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z',
-      },
-    ],
-  ],
   'boom-box': [
     [
       'path',
@@ -5575,6 +5575,48 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '16',
         cy: '15',
         r: '2',
+      },
+    ],
+  ],
+  bot: [
+    [
+      'path',
+      {
+        d: 'M12 8V4H8',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '16',
+        height: '12',
+        x: '4',
+        y: '8',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 14h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 14h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 13v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 13v2',
       },
     ],
   ],
@@ -5657,48 +5699,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9.67 4H12v2.33',
-      },
-    ],
-  ],
-  bot: [
-    [
-      'path',
-      {
-        d: 'M12 8V4H8',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '16',
-        height: '12',
-        x: '4',
-        y: '8',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 14h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 14h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15 13v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 13v2',
       },
     ],
   ],
@@ -5867,6 +5867,56 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3',
+      },
+    ],
+  ],
+  brain: [
+    [
+      'path',
+      {
+        d: 'M12 18V5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17.997 5.125a4 4 0 0 1 2.526 5.77',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 18a4 4 0 0 0 2-7.464',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 18a4 4 0 0 1-2-7.464',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6.003 5.125a4 4 0 0 0-2.526 5.77',
       },
     ],
   ],
@@ -6052,53 +6102,57 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  brain: [
+  'brick-wall': [
     [
-      'path',
+      'rect',
       {
-        d: 'M12 18V5',
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
       },
     ],
     [
       'path',
       {
-        d: 'M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4',
+        d: 'M12 9v6',
       },
     ],
     [
       'path',
       {
-        d: 'M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5',
+        d: 'M16 15v6',
       },
     ],
     [
       'path',
       {
-        d: 'M17.997 5.125a4 4 0 0 1 2.526 5.77',
+        d: 'M16 3v6',
       },
     ],
     [
       'path',
       {
-        d: 'M18 18a4 4 0 0 0 2-7.464',
+        d: 'M3 15h18',
       },
     ],
     [
       'path',
       {
-        d: 'M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517',
+        d: 'M3 9h18',
       },
     ],
     [
       'path',
       {
-        d: 'M6 18a4 4 0 0 1-2-7.464',
+        d: 'M8 15v6',
       },
     ],
     [
       'path',
       {
-        d: 'M6.003 5.125a4 4 0 0 0-2.526 5.77',
+        d: 'M8 3v6',
       },
     ],
   ],
@@ -6196,57 +6250,21 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'brick-wall': [
+  briefcase: [
+    [
+      'path',
+      {
+        d: 'M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16',
+      },
+    ],
     [
       'rect',
       {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
+        width: '20',
+        height: '14',
+        x: '2',
+        y: '6',
         rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 9v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 15v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 3v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 15h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 9h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 15v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 3v6',
       },
     ],
   ],
@@ -6370,24 +6388,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  briefcase: [
-    [
-      'path',
-      {
-        d: 'M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '20',
-        height: '14',
-        x: '2',
-        y: '6',
-        rx: '2',
-      },
-    ],
-  ],
   'bring-to-front': [
     [
       'rect',
@@ -6409,6 +6409,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M14 20a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2',
+      },
+    ],
+  ],
+  brush: [
+    [
+      'path',
+      {
+        d: 'm11 10 3 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031',
       },
     ],
   ],
@@ -6435,26 +6455,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm8 22 1-4',
-      },
-    ],
-  ],
-  brush: [
-    [
-      'path',
-      {
-        d: 'm11 10 3 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031',
       },
     ],
   ],
@@ -6487,6 +6487,74 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '7.5',
         cy: '4.5',
         r: '2.5',
+      },
+    ],
+  ],
+  bug: [
+    [
+      'path',
+      {
+        d: 'M12 20v-9',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14.12 3.88 16 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 21a4 4 0 0 0-3.81-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 5a4 4 0 0 1-3.55 3.97',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 13h-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 21a4 4 0 0 1 3.81-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 5a4 4 0 0 0 3.55 3.97',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 13H2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm8 2 1.88 1.88',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 7.13V6a3 3 0 1 1 6 0v1.13',
       },
     ],
   ],
@@ -6608,106 +6676,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  bug: [
-    [
-      'path',
-      {
-        d: 'M12 20v-9',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14.12 3.88 16 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 21a4 4 0 0 0-3.81-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 5a4 4 0 0 1-3.55 3.97',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M22 13h-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 21a4 4 0 0 1 3.81-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 5a4 4 0 0 0 3.55 3.97',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 13H2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm8 2 1.88 1.88',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 7.13V6a3 3 0 1 1 6 0v1.13',
-      },
-    ],
-  ],
-  'building-2': [
-    [
-      'path',
-      {
-        d: 'M10 12h4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 8h4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 21v-3a2 2 0 0 0-4 0v3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16',
-      },
-    ],
-  ],
   building: [
     [
       'path',
@@ -6780,6 +6748,86 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'building-2': [
+    [
+      'path',
+      {
+        d: 'M10 12h4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 8h4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 21v-3a2 2 0 0 0-4 0v3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16',
+      },
+    ],
+  ],
+  bus: [
+    [
+      'path',
+      {
+        d: 'M8 6v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 6v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 12h19.6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '7',
+        cy: '18',
+        r: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 18h5',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '16',
+        cy: '18',
+        r: '2',
+      },
+    ],
+  ],
   'bus-front': [
     [
       'path',
@@ -6840,51 +6888,47 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  bus: [
+  cable: [
     [
       'path',
       {
-        d: 'M8 6v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15 6v6',
+        d: 'M17 19a1 1 0 0 1-1-1v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2a1 1 0 0 1-1 1z',
       },
     ],
     [
       'path',
       {
-        d: 'M2 12h19.6',
+        d: 'M17 21v-2',
       },
     ],
     [
       'path',
       {
-        d: 'M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '7',
-        cy: '18',
-        r: '2',
+        d: 'M19 14V6.5a1 1 0 0 0-7 0v11a1 1 0 0 1-7 0V10',
       },
     ],
     [
       'path',
       {
-        d: 'M9 18h5',
+        d: 'M21 21v-2',
       },
     ],
     [
-      'circle',
+      'path',
       {
-        cx: '16',
-        cy: '18',
-        r: '2',
+        d: 'M3 5V3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4 10a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a2 2 0 0 1-2 2z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 5V3',
       },
     ],
   ],
@@ -6942,78 +6986,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  cable: [
-    [
-      'path',
-      {
-        d: 'M17 19a1 1 0 0 1-1-1v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2a1 1 0 0 1-1 1z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17 21v-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 14V6.5a1 1 0 0 0-7 0v11a1 1 0 0 1-7 0V10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 21v-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 5V3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4 10a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a2 2 0 0 1-2 2z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 5V3',
-      },
-    ],
-  ],
-  'cake-slice': [
-    [
-      'path',
-      {
-        d: 'M16 13H3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 17H3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm7.2 7.9-3.388 2.5A2 2 0 0 0 3 12.01V20a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.654c0-2-2.44-6.026-6.44-8.026a1 1 0 0 0-1.082.057L10.4 5.6',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '9',
-        cy: '7',
-        r: '2',
-      },
-    ],
-  ],
   cake: [
     [
       'path',
@@ -7067,6 +7039,34 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M17 4h.01',
+      },
+    ],
+  ],
+  'cake-slice': [
+    [
+      'path',
+      {
+        d: 'M16 13H3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 17H3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm7.2 7.9-3.388 2.5A2 2 0 0 0 3 12.01V20a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.654c0-2-2.44-6.026-6.44-8.026a1 1 0 0 0-1.082.057L10.4 5.6',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '9',
+        cy: '7',
+        r: '2',
       },
     ],
   ],
@@ -7139,6 +7139,36 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 18h.01',
+      },
+    ],
+  ],
+  calendar: [
+    [
+      'path',
+      {
+        d: 'M8 2v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 2v4',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '4',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 10h18',
       },
     ],
   ],
@@ -7254,38 +7284,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'calendar-check-2': [
-    [
-      'path',
-      {
-        d: 'M8 2v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 2v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 10h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16 20 2 2 4-4',
-      },
-    ],
-  ],
   'calendar-check': [
     [
       'path',
@@ -7319,6 +7317,38 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 16 2 2 4-4',
+      },
+    ],
+  ],
+  'calendar-check-2': [
+    [
+      'path',
+      {
+        d: 'M8 2v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 2v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 10h18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16 20 2 2 4-4',
       },
     ],
   ],
@@ -7574,6 +7604,38 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'calendar-minus': [
+    [
+      'path',
+      {
+        d: 'M16 19h6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 2v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 15V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 10h18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 2v4',
+      },
+    ],
+  ],
   'calendar-minus-2': [
     [
       'path',
@@ -7607,38 +7669,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M10 16h4',
-      },
-    ],
-  ],
-  'calendar-minus': [
-    [
-      'path',
-      {
-        d: 'M16 19h6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 2v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 15V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 10h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 2v4',
       },
     ],
   ],
@@ -7677,6 +7707,44 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm2 2 20 20',
+      },
+    ],
+  ],
+  'calendar-plus': [
+    [
+      'path',
+      {
+        d: 'M16 19h6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 2v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 16v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 10h18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 2v4',
       },
     ],
   ],
@@ -7719,44 +7787,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M12 14v4',
-      },
-    ],
-  ],
-  'calendar-plus': [
-    [
-      'path',
-      {
-        d: 'M16 19h6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 2v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 16v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 10h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 2v4',
       },
     ],
   ],
@@ -7904,44 +7934,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'calendar-x-2': [
-    [
-      'path',
-      {
-        d: 'M8 2v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 2v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 10h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17 22 5-5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17 17 5 5',
-      },
-    ],
-  ],
   'calendar-x': [
     [
       'path',
@@ -7984,7 +7976,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  calendar: [
+  'calendar-x-2': [
     [
       'path',
       {
@@ -7998,19 +7990,27 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
     [
-      'rect',
+      'path',
       {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '4',
-        rx: '2',
+        d: 'M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8',
       },
     ],
     [
       'path',
       {
         d: 'M3 10h18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17 22 5-5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17 17 5 5',
       },
     ],
   ],
@@ -8056,6 +8056,22 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  camera: [
+    [
+      'path',
+      {
+        d: 'M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '13',
+        r: '3',
+      },
+    ],
+  ],
   'camera-off': [
     [
       'path',
@@ -8082,19 +8098,35 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  camera: [
+  candy: [
     [
       'path',
       {
-        d: 'M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z',
+        d: 'M10 7v10.9',
       },
     ],
     [
-      'circle',
+      'path',
       {
-        cx: '12',
-        cy: '13',
-        r: '3',
+        d: 'M14 6.1V17',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 7V3a1 1 0 0 1 1.707-.707 2.5 2.5 0 0 0 2.152.717 1 1 0 0 1 1.131 1.131 2.5 2.5 0 0 0 .717 2.152A1 1 0 0 1 21 8h-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16.536 7.465a5 5 0 0 0-7.072 0l-2 2a5 5 0 0 0 0 7.07 5 5 0 0 0 7.072 0l2-2a5 5 0 0 0 0-7.07',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 17v4a1 1 0 0 1-1.707.707 2.5 2.5 0 0 0-2.152-.717 1 1 0 0 1-1.131-1.131 2.5 2.5 0 0 0-.717-2.152A1 1 0 0 1 3 16h4',
       },
     ],
   ],
@@ -8174,35 +8206,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  candy: [
+  cannabis: [
     [
       'path',
       {
-        d: 'M10 7v10.9',
+        d: 'M12 22v-4',
       },
     ],
     [
       'path',
       {
-        d: 'M14 6.1V17',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 7V3a1 1 0 0 1 1.707-.707 2.5 2.5 0 0 0 2.152.717 1 1 0 0 1 1.131 1.131 2.5 2.5 0 0 0 .717 2.152A1 1 0 0 1 21 8h-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16.536 7.465a5 5 0 0 0-7.072 0l-2 2a5 5 0 0 0 0 7.07 5 5 0 0 0 7.072 0l2-2a5 5 0 0 0 0-7.07',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 17v4a1 1 0 0 1-1.707.707 2.5 2.5 0 0 0-2.152-.717 1 1 0 0 1-1.131-1.131 2.5 2.5 0 0 0-.717-2.152A1 1 0 0 1 3 16h4',
+        d: 'M7 12c-1.5 0-4.5 1.5-5 3 3.5 1.5 6 1 6 1-1.5 1.5-2 3.5-2 5 2.5 0 4.5-1.5 6-3 1.5 1.5 3.5 3 6 3 0-1.5-.5-3.5-2-5 0 0 2.5.5 6-1-.5-1.5-3.5-3-5-3 1.5-1 4-4 4-6-2.5 0-5.5 1.5-7 3 0-2.5-.5-5-2-7-1.5 2-2 4.5-2 7-1.5-1.5-4.5-3-7-3 0 2 2.5 5 4 6',
       },
     ],
   ],
@@ -8244,17 +8258,22 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  cannabis: [
+  captions: [
     [
-      'path',
+      'rect',
       {
-        d: 'M12 22v-4',
+        width: '18',
+        height: '14',
+        x: '3',
+        y: '5',
+        rx: '2',
+        ry: '2',
       },
     ],
     [
       'path',
       {
-        d: 'M7 12c-1.5 0-4.5 1.5-5 3 3.5 1.5 6 1 6 1-1.5 1.5-2 3.5-2 5 2.5 0 4.5-1.5 6-3 1.5 1.5 3.5 3 6 3 0-1.5-.5-3.5-2-5 0 0 2.5.5 6-1-.5-1.5-3.5-3-5-3 1.5-1 4-4 4-6-2.5 0-5.5 1.5-7 3 0-2.5-.5-5-2-7-1.5 2-2 4.5-2 7-1.5-1.5-4.5-3-7-3 0 2 2.5 5 4 6',
+        d: 'M7 15h4M15 15h2M7 11h2M13 11h4',
       },
     ],
   ],
@@ -8296,22 +8315,33 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  captions: [
+  car: [
     [
-      'rect',
+      'path',
       {
-        width: '18',
-        height: '14',
-        x: '3',
-        y: '5',
-        rx: '2',
-        ry: '2',
+        d: 'M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '7',
+        cy: '17',
+        r: '2',
       },
     ],
     [
       'path',
       {
-        d: 'M7 15h4M15 15h2M7 11h2M13 11h4',
+        d: 'M9 17h6',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '17',
+        cy: '17',
+        r: '2',
       },
     ],
   ],
@@ -8402,36 +8432,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M19 18v2',
-      },
-    ],
-  ],
-  car: [
-    [
-      'path',
-      {
-        d: 'M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '7',
-        cy: '17',
-        r: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 17h6',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '17',
-        cy: '17',
-        r: '2',
       },
     ],
   ],
@@ -8782,6 +8782,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'chart-bar': [
+    [
+      'path',
+      {
+        d: 'M3 3v16a2 2 0 0 0 2 2h16',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 16h8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 11h12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 6h3',
+      },
+    ],
+  ],
   'chart-bar-big': [
     [
       'path',
@@ -8902,32 +8928,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'chart-bar': [
-    [
-      'path',
-      {
-        d: 'M3 3v16a2 2 0 0 0 2 2h16',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 16h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 11h12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 6h3',
-      },
-    ],
-  ],
   'chart-candlestick': [
     [
       'path',
@@ -8977,6 +8977,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3 3v16a2 2 0 0 0 2 2h16',
+      },
+    ],
+  ],
+  'chart-column': [
+    [
+      'path',
+      {
+        d: 'M3 3v16a2 2 0 0 0 2 2h16',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 17V9',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 17V5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 17v-3',
       },
     ],
   ],
@@ -9100,32 +9126,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'chart-column': [
-    [
-      'path',
-      {
-        d: 'M3 3v16a2 2 0 0 0 2 2h16',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 17V9',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13 17V5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 17v-3',
-      },
-    ],
-  ],
   'chart-gantt': [
     [
       'path',
@@ -9216,6 +9216,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'chart-no-axes-column': [
+    [
+      'path',
+      {
+        d: 'M5 21v-6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 21V3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 21V9',
+      },
+    ],
+  ],
   'chart-no-axes-column-decreasing': [
     [
       'path',
@@ -9253,26 +9273,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M19 21V3',
-      },
-    ],
-  ],
-  'chart-no-axes-column': [
-    [
-      'path',
-      {
-        d: 'M5 21v-6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 21V3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 21V9',
       },
     ],
   ],
@@ -9415,6 +9415,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  check: [
+    [
+      'path',
+      {
+        d: 'M20 6 9 17l-5-5',
+      },
+    ],
+  ],
   'check-check': [
     [
       'path',
@@ -9446,14 +9454,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 15L4 10',
-      },
-    ],
-  ],
-  check: [
-    [
-      'path',
-      {
-        d: 'M20 6 9 17l-5-5',
       },
     ],
   ],
@@ -9775,6 +9775,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'chevrons-down': [
+    [
+      'path',
+      {
+        d: 'm7 6 5 5 5-5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm7 13 5 5 5-5',
+      },
+    ],
+  ],
   'chevrons-down-up': [
     [
       'path',
@@ -9789,17 +9803,31 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'chevrons-down': [
+  'chevrons-left': [
     [
       'path',
       {
-        d: 'm7 6 5 5 5-5',
+        d: 'm11 17-5-5 5-5',
       },
     ],
     [
       'path',
       {
-        d: 'm7 13 5 5 5-5',
+        d: 'm18 17-5-5 5-5',
+      },
+    ],
+  ],
+  'chevrons-left-right': [
+    [
+      'path',
+      {
+        d: 'm9 7-5 5 5 5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm15 7 5 5-5 5',
       },
     ],
   ],
@@ -9835,31 +9863,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'chevrons-left-right': [
+  'chevrons-right': [
     [
       'path',
       {
-        d: 'm9 7-5 5 5 5',
+        d: 'm6 17 5-5-5-5',
       },
     ],
     [
       'path',
       {
-        d: 'm15 7 5 5-5 5',
-      },
-    ],
-  ],
-  'chevrons-left': [
-    [
-      'path',
-      {
-        d: 'm11 17-5-5 5-5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm18 17-5-5 5-5',
+        d: 'm13 17 5-5-5-5',
       },
     ],
   ],
@@ -9877,17 +9891,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'chevrons-right': [
+  'chevrons-up': [
     [
       'path',
       {
-        d: 'm6 17 5-5-5-5',
+        d: 'm17 11-5-5-5 5',
       },
     ],
     [
       'path',
       {
-        d: 'm13 17 5-5-5-5',
+        d: 'm17 18-5-5-5 5',
       },
     ],
   ],
@@ -9902,20 +9916,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm7 9 5-5 5 5',
-      },
-    ],
-  ],
-  'chevrons-up': [
-    [
-      'path',
-      {
-        d: 'm17 11-5-5-5 5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17 18-5-5-5 5',
       },
     ],
   ],
@@ -9987,6 +9987,38 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  cigarette: [
+    [
+      'path',
+      {
+        d: 'M17 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 8c0-2.5-2-2.5-2-5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 16a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 8c0-2.5-2-2.5-2-5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 12v4',
+      },
+    ],
+  ],
   'cigarette-off': [
     [
       'path',
@@ -10025,35 +10057,13 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  cigarette: [
+  circle: [
     [
-      'path',
+      'circle',
       {
-        d: 'M17 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 8c0-2.5-2-2.5-2-5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 16a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M22 8c0-2.5-2-2.5-2-5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 12v4',
+        cx: '12',
+        cy: '12',
+        r: '10',
       },
     ],
   ],
@@ -10253,20 +10263,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'circle-check-big': [
-    [
-      'path',
-      {
-        d: 'M21.801 10A10 10 0 1 1 17 3.335',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 11 3 3L22 4',
-      },
-    ],
-  ],
   'circle-check': [
     [
       'circle',
@@ -10280,6 +10276,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 12 2 2 4-4',
+      },
+    ],
+  ],
+  'circle-check-big': [
+    [
+      'path',
+      {
+        d: 'M21.801 10A10 10 0 1 1 17 3.335',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 11 3 3L22 4',
       },
     ],
   ],
@@ -10456,6 +10466,24 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'circle-dot': [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '1',
+      },
+    ],
+  ],
   'circle-dot-dashed': [
     [
       'path',
@@ -10503,24 +10531,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3.71 6.4a9.95 9.95 0 0 1 2.7-2.69',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '1',
-      },
-    ],
-  ],
-  'circle-dot': [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
       },
     ],
     [
@@ -10750,6 +10760,22 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'circle-parking': [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 17V7h4a3 3 0 0 1 0 6H9',
+      },
+    ],
+  ],
   'circle-parking-off': [
     [
       'path',
@@ -10785,22 +10811,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 17V9',
-      },
-    ],
-  ],
-  'circle-parking': [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 17V7h4a3 3 0 0 1 0 6H9',
       },
     ],
   ],
@@ -11020,22 +11030,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'circle-slash-2': [
-    [
-      'path',
-      {
-        d: 'M22 2 2 22',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-  ],
   'circle-slash': [
     [
       'circle',
@@ -11052,6 +11046,22 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '15',
         y1: '15',
         y2: '9',
+      },
+    ],
+  ],
+  'circle-slash-2': [
+    [
+      'path',
+      {
+        d: 'M22 2 2 22',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
       },
     ],
   ],
@@ -11101,30 +11111,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'circle-user-round': [
-    [
-      'path',
-      {
-        d: 'M18 20a6 6 0 0 0-12 0',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '10',
-        r: '4',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-  ],
   'circle-user': [
     [
       'circle',
@@ -11149,6 +11135,30 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'circle-user-round': [
+    [
+      'path',
+      {
+        d: 'M18 20a6 6 0 0 0-12 0',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '10',
+        r: '4',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
+      },
+    ],
+  ],
   'circle-x': [
     [
       'circle',
@@ -11168,16 +11178,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 9 6 6',
-      },
-    ],
-  ],
-  circle: [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
       },
     ],
   ],
@@ -11270,6 +11270,25 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z',
+      },
+    ],
+  ],
+  clipboard: [
+    [
+      'rect',
+      {
+        width: '8',
+        height: '4',
+        x: '8',
+        y: '2',
+        rx: '1',
+        ry: '1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2',
       },
     ],
   ],
@@ -11477,6 +11496,36 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'clipboard-pen': [
+    [
+      'rect',
+      {
+        width: '8',
+        height: '4',
+        x: '8',
+        y: '2',
+        rx: '1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5.5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4 13.5V6a2 2 0 0 1 2-2h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13.378 15.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
+      },
+    ],
+  ],
   'clipboard-pen-line': [
     [
       'rect',
@@ -11510,36 +11559,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
-      },
-    ],
-  ],
-  'clipboard-pen': [
-    [
-      'rect',
-      {
-        width: '8',
-        height: '4',
-        x: '8',
-        y: '2',
-        rx: '1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5.5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4 13.5V6a2 2 0 0 1 2-2h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13.378 15.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
       },
     ],
   ],
@@ -11642,22 +11661,19 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  clipboard: [
-    [
-      'rect',
-      {
-        width: '8',
-        height: '4',
-        x: '8',
-        y: '2',
-        rx: '1',
-        ry: '1',
-      },
-    ],
+  clock: [
     [
       'path',
       {
-        d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2',
+        d: 'M12 6v6l4 2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
       },
     ],
   ],
@@ -12015,22 +12031,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  clock: [
-    [
-      'path',
-      {
-        d: 'M12 6v6l4 2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-  ],
   'closed-caption': [
     [
       'path',
@@ -12052,6 +12052,14 @@ export const lucideIcons: Record<string, IconData> = {
         width: '20',
         height: '14',
         rx: '2',
+      },
+    ],
+  ],
+  cloud: [
+    [
+      'path',
+      {
+        d: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z',
       },
     ],
   ],
@@ -12307,6 +12315,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'cloud-moon': [
+    [
+      'path',
+      {
+        d: 'M13 16a3 3 0 0 1 0 6H7a5 5 0 1 1 4.9-6z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18.376 14.512a6 6 0 0 0 3.461-4.127c.148-.625-.659-.97-1.248-.714a4 4 0 0 1-5.259-5.26c.255-.589-.09-1.395-.716-1.248a6 6 0 0 0-4.594 5.36',
+      },
+    ],
+  ],
   'cloud-moon-rain': [
     [
       'path',
@@ -12333,20 +12355,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'cloud-moon': [
-    [
-      'path',
-      {
-        d: 'M13 16a3 3 0 0 1 0 6H7a5 5 0 1 1 4.9-6z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18.376 14.512a6 6 0 0 0 3.461-4.127c.148-.625-.659-.97-1.248-.714a4 4 0 0 1-5.259-5.26c.255-.589-.09-1.395-.716-1.248a6 6 0 0 0-4.594 5.36',
-      },
-    ],
-  ],
   'cloud-off': [
     [
       'path',
@@ -12364,32 +12372,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M21.532 16.5A4.5 4.5 0 0 0 17.5 10h-1.79A7.008 7.008 0 0 0 10 5.07',
-      },
-    ],
-  ],
-  'cloud-rain-wind': [
-    [
-      'path',
-      {
-        d: 'M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9.2 22 3-7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 13-3 7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17 13-3 7',
       },
     ],
   ],
@@ -12416,6 +12398,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M12 16v6',
+      },
+    ],
+  ],
+  'cloud-rain-wind': [
+    [
+      'path',
+      {
+        d: 'M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9.2 22 3-7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 13-3 7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17 13-3 7',
       },
     ],
   ],
@@ -12460,6 +12468,44 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M16 19h.01',
+      },
+    ],
+  ],
+  'cloud-sun': [
+    [
+      'path',
+      {
+        d: 'M12 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm4.93 4.93 1.41 1.41',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 12h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm19.07 4.93-1.41 1.41',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15.947 12.65a4 4 0 0 0-5.925-4.128',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z',
       },
     ],
   ],
@@ -12510,44 +12556,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M7 19v2',
-      },
-    ],
-  ],
-  'cloud-sun': [
-    [
-      'path',
-      {
-        d: 'M12 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm4.93 4.93 1.41 1.41',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 12h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm19.07 4.93-1.41 1.41',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15.947 12.65a4 4 0 0 0-5.925-4.128',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z',
       },
     ],
   ],
@@ -12603,14 +12611,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  cloud: [
-    [
-      'path',
-      {
-        d: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z',
-      },
-    ],
-  ],
   cloudy: [
     [
       'path',
@@ -12659,6 +12659,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  code: [
+    [
+      'path',
+      {
+        d: 'm16 18 6-6-6-6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm8 6-6 6 6 6',
+      },
+    ],
+  ],
   'code-xml': [
     [
       'path',
@@ -12676,20 +12690,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm14.5 4-5 16',
-      },
-    ],
-  ],
-  code: [
-    [
-      'path',
-      {
-        d: 'm16 18 6-6-6-6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm8 6-6 6 6 6',
       },
     ],
   ],
@@ -12934,6 +12934,30 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'columns-3': [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 3v18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 3v18',
+      },
+    ],
+  ],
   'columns-3-cog': [
     [
       'path',
@@ -13007,30 +13031,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '18',
         cy: '18',
         r: '3',
-      },
-    ],
-  ],
-  'columns-3': [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 3v18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15 3v18',
       },
     ],
   ],
@@ -13291,44 +13291,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'contact-round': [
-    [
-      'path',
-      {
-        d: 'M16 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17.915 22a6 6 0 0 0-12 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 2v2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '4',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '3',
-        y: '4',
-        width: '18',
-        height: '18',
-        rx: '2',
-      },
-    ],
-  ],
   contact: [
     [
       'path',
@@ -13354,6 +13316,44 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12',
         cy: '11',
         r: '3',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '3',
+        y: '4',
+        width: '18',
+        height: '18',
+        rx: '2',
+      },
+    ],
+  ],
+  'contact-round': [
+    [
+      'path',
+      {
+        d: 'M16 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17.915 22a6 6 0 0 0-12 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 2v2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '4',
       },
     ],
     [
@@ -13476,6 +13476,25 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8',
+      },
+    ],
+  ],
+  copy: [
+    [
+      'rect',
+      {
+        width: '14',
+        height: '14',
+        x: '8',
+        y: '8',
+        rx: '2',
+        ry: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2',
       },
     ],
   ],
@@ -13616,25 +13635,6 @@ export const lucideIcons: Record<string, IconData> = {
         y2: '12',
       },
     ],
-    [
-      'rect',
-      {
-        width: '14',
-        height: '14',
-        x: '8',
-        y: '8',
-        rx: '2',
-        ry: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2',
-      },
-    ],
-  ],
-  copy: [
     [
       'rect',
       {
@@ -14201,6 +14201,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  database: [
+    [
+      'ellipse',
+      {
+        cx: '12',
+        cy: '5',
+        rx: '9',
+        ry: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 5V19A9 3 0 0 0 21 19V5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 12A9 3 0 0 0 21 12',
+      },
+    ],
+  ],
   'database-backup': [
     [
       'ellipse',
@@ -14274,29 +14297,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3 12A9 3 0 0 0 14.59 14.87',
-      },
-    ],
-  ],
-  database: [
-    [
-      'ellipse',
-      {
-        cx: '12',
-        cy: '5',
-        rx: '9',
-        ry: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 5V19A9 3 0 0 0 21 19V5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 12A9 3 0 0 0 21 12',
       },
     ],
   ],
@@ -14448,6 +14448,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  diamond: [
+    [
+      'path',
+      {
+        d: 'M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z',
+      },
+    ],
+  ],
   'diamond-minus': [
     [
       'path',
@@ -14505,14 +14513,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 12h8',
-      },
-    ],
-  ],
-  diamond: [
-    [
-      'path',
-      {
-        d: 'M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z',
       },
     ],
   ],
@@ -14783,6 +14783,24 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  disc: [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '2',
+      },
+    ],
+  ],
   'disc-2': [
     [
       'circle',
@@ -14863,24 +14881,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  disc: [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '2',
-      },
-    ],
-  ],
   divide: [
     [
       'circle',
@@ -14905,68 +14905,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12',
         cy: '18',
         r: '1',
-      },
-    ],
-  ],
-  'dna-off': [
-    [
-      'path',
-      {
-        d: 'M15 2c-1.35 1.5-2.092 3-2.5 4.5L14 8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17 6-2.891-2.891',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 15c3.333-3 6.667-3 10-3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm2 2 20 20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm20 9 .891.891',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M22 9c-1.5 1.35-3 2.092-4.5 2.5l-1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3.109 14.109 4 15',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm6.5 12.5 1 1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm7 18 2.891 2.891',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 22c1.35-1.5 2.092-3 2.5-4.5L10 16',
       },
     ],
   ],
@@ -15035,6 +14973,68 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 22c1.798-1.998 2.518-3.995 2.807-5.993',
+      },
+    ],
+  ],
+  'dna-off': [
+    [
+      'path',
+      {
+        d: 'M15 2c-1.35 1.5-2.092 3-2.5 4.5L14 8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17 6-2.891-2.891',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 15c3.333-3 6.667-3 10-3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm2 2 20 20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm20 9 .891.891',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 9c-1.5 1.35-3 2.092-4.5 2.5l-1-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3.109 14.109 4 15',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm6.5 12.5 1 1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm7 18 2.891 2.891',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 22c1.35-1.5 2.092-3 2.5-4.5L10 16',
       },
     ],
   ],
@@ -15127,6 +15127,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'door-closed': [
+    [
+      'path',
+      {
+        d: 'M10 12h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 20h20',
+      },
+    ],
+  ],
   'door-closed-locked': [
     [
       'path',
@@ -15160,26 +15180,6 @@ export const lucideIcons: Record<string, IconData> = {
         width: '8',
         height: '5',
         rx: '1',
-      },
-    ],
-  ],
-  'door-closed': [
-    [
-      'path',
-      {
-        d: 'M10 12h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 20h20',
       },
     ],
   ],
@@ -15455,6 +15455,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  droplet: [
+    [
+      'path',
+      {
+        d: 'M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z',
+      },
+    ],
+  ],
   'droplet-off': [
     [
       'path',
@@ -15472,14 +15480,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8.795 8.797A11 11 0 0 1 8 9.5C6 11.1 5 13 5 15a7 7 0 0 0 13.222 3.208',
-      },
-    ],
-  ],
-  droplet: [
-    [
-      'path',
-      {
-        d: 'M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z',
       },
     ],
   ],
@@ -15590,6 +15590,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  ear: [
+    [
+      'path',
+      {
+        d: 'M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4',
+      },
+    ],
+  ],
   'ear-off': [
     [
       'path',
@@ -15625,17 +15639,31 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  ear: [
+  earth: [
     [
       'path',
       {
-        d: 'M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0',
+        d: 'M21.54 15H17a2 2 0 0 0-2 2v4.54',
       },
     ],
     [
       'path',
       {
-        d: 'M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4',
+        d: 'M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
       },
     ],
   ],
@@ -15681,34 +15709,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  earth: [
-    [
-      'path',
-      {
-        d: 'M21.54 15H17a2 2 0 0 0-2 2v4.54',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-  ],
   eclipse: [
     [
       'circle',
@@ -15722,6 +15722,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M12 2a7 7 0 1 0 10 10',
+      },
+    ],
+  ],
+  egg: [
+    [
+      'path',
+      {
+        d: 'M12 2C8 2 4 8 4 14a8 8 0 0 0 16 0c0-6-4-12-8-12',
       },
     ],
   ],
@@ -15761,11 +15769,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  egg: [
+  ellipsis: [
     [
-      'path',
+      'circle',
       {
-        d: 'M12 2C8 2 4 8 4 14a8 8 0 0 0 16 0c0-6-4-12-8-12',
+        cx: '12',
+        cy: '12',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '19',
+        cy: '12',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '5',
+        cy: '12',
+        r: '1',
       },
     ],
   ],
@@ -15795,29 +15821,23 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  ellipsis: [
+  equal: [
     [
-      'circle',
+      'line',
       {
-        cx: '12',
-        cy: '12',
-        r: '1',
+        x1: '5',
+        x2: '19',
+        y1: '9',
+        y2: '9',
       },
     ],
     [
-      'circle',
+      'line',
       {
-        cx: '19',
-        cy: '12',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '5',
-        cy: '12',
-        r: '1',
+        x1: '5',
+        x2: '19',
+        y1: '15',
+        y2: '15',
       },
     ],
   ],
@@ -15861,26 +15881,6 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '5',
         y1: '5',
         y2: '19',
-      },
-    ],
-  ],
-  equal: [
-    [
-      'line',
-      {
-        x1: '5',
-        x2: '19',
-        y1: '9',
-        y2: '9',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '5',
-        x2: '19',
-        y1: '15',
-        y2: '15',
       },
     ],
   ],
@@ -16052,6 +16052,22 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  eye: [
+    [
+      'path',
+      {
+        d: 'M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '3',
+      },
+    ],
+  ],
   'eye-closed': [
     [
       'path',
@@ -16107,22 +16123,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm2 2 20 20',
-      },
-    ],
-  ],
-  eye: [
-    [
-      'path',
-      {
-        d: 'M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '3',
       },
     ],
   ],
@@ -16342,6 +16342,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  file: [
+    [
+      'path',
+      {
+        d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+  ],
   'file-archive': [
     [
       'path',
@@ -16468,32 +16482,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-braces-corner': [
-    [
-      'path',
-      {
-        d: 'M14 22h4a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 14a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1 1 1 0 0 1 1 1v2a1 1 0 0 0 1 1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 22a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1',
-      },
-    ],
-  ],
   'file-braces': [
     [
       'path',
@@ -16520,11 +16508,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-chart-column-increasing': [
+  'file-braces-corner': [
     [
       'path',
       {
-        d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
+        d: 'M14 22h4a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6',
       },
     ],
     [
@@ -16536,19 +16524,13 @@ export const lucideIcons: Record<string, IconData> = {
     [
       'path',
       {
-        d: 'M8 18v-2',
+        d: 'M5 14a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1 1 1 0 0 1 1 1v2a1 1 0 0 0 1 1',
       },
     ],
     [
       'path',
       {
-        d: 'M12 18v-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 18v-6',
+        d: 'M9 22a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1',
       },
     ],
   ],
@@ -16581,6 +16563,38 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M16 18v-3',
+      },
+    ],
+  ],
+  'file-chart-column-increasing': [
+    [
+      'path',
+      {
+        d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 18v-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 18v-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 18v-6',
       },
     ],
   ],
@@ -16630,26 +16644,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-check-corner': [
-    [
-      'path',
-      {
-        d: 'M10.5 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm14 20 2 2 4-4',
-      },
-    ],
-  ],
   'file-check': [
     [
       'path',
@@ -16667,6 +16661,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 15 2 2 4-4',
+      },
+    ],
+  ],
+  'file-check-corner': [
+    [
+      'path',
+      {
+        d: 'M10.5 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm14 20 2 2 4-4',
       },
     ],
   ],
@@ -16698,32 +16712,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-code-corner': [
-    [
-      'path',
-      {
-        d: 'M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm5 16-3 3 3 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 22 3-3-3-3',
-      },
-    ],
-  ],
   'file-code': [
     [
       'path',
@@ -16747,6 +16735,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm14 12.5 2 2.5-2 2.5',
+      },
+    ],
+  ],
+  'file-code-corner': [
+    [
+      'path',
+      {
+        d: 'M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm5 16-3 3 3 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 22 3-3-3-3',
       },
     ],
   ],
@@ -17086,26 +17100,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-minus-corner': [
-    [
-      'path',
-      {
-        d: 'M20 14V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 18h6',
-      },
-    ],
-  ],
   'file-minus': [
     [
       'path',
@@ -17123,6 +17117,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 15h6',
+      },
+    ],
+  ],
+  'file-minus-corner': [
+    [
+      'path',
+      {
+        d: 'M20 14V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 18h6',
       },
     ],
   ],
@@ -17180,26 +17194,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-pen-line': [
-    [
-      'path',
-      {
-        d: 'm18.226 5.226-2.52-2.52A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-.351',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 18h1',
-      },
-    ],
-  ],
   'file-pen': [
     [
       'path',
@@ -17220,6 +17214,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'file-pen-line': [
+    [
+      'path',
+      {
+        d: 'm18.226 5.226-2.52-2.52A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-.351',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 18h1',
+      },
+    ],
+  ],
   'file-play': [
     [
       'path',
@@ -17237,32 +17251,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M15.033 13.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56v-4.704a.645.645 0 0 1 .967-.56z',
-      },
-    ],
-  ],
-  'file-plus-corner': [
-    [
-      'path',
-      {
-        d: 'M11.35 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5.35',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 19h6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17 16v6',
       },
     ],
   ],
@@ -17289,6 +17277,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M12 18v-6',
+      },
+    ],
+  ],
+  'file-plus-corner': [
+    [
+      'path',
+      {
+        d: 'M11.35 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5.35',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 19h6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 16v6',
       },
     ],
   ],
@@ -17350,34 +17364,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-search-corner': [
-    [
-      'path',
-      {
-        d: 'M11.1 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.589 3.588A2.4 2.4 0 0 1 20 8v3.25',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm21 22-2.88-2.88',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '16',
-        cy: '17',
-        r: '3',
-      },
-    ],
-  ],
   'file-search': [
     [
       'path',
@@ -17403,6 +17389,34 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M13.3 16.3 15 18',
+      },
+    ],
+  ],
+  'file-search-corner': [
+    [
+      'path',
+      {
+        d: 'M11.1 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.589 3.588A2.4 2.4 0 0 1 20 8v3.25',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm21 22-2.88-2.88',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '16',
+        cy: '17',
+        r: '3',
       },
     ],
   ],
@@ -17612,38 +17626,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-type-corner': [
-    [
-      'path',
-      {
-        d: 'M12 22h6a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 16v-1.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5V16',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 22h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 14v8',
-      },
-    ],
-  ],
   'file-type': [
     [
       'path',
@@ -17673,6 +17655,38 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5',
+      },
+    ],
+  ],
+  'file-type-corner': [
+    [
+      'path',
+      {
+        d: 'M12 22h6a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 16v-1.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5V16',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 22h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 14v8',
       },
     ],
   ],
@@ -17786,32 +17800,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'file-x-corner': [
-    [
-      'path',
-      {
-        d: 'M11 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 2v5a1 1 0 0 0 1 1h5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm15 17 5 5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm20 17-5 5',
-      },
-    ],
-  ],
   'file-x': [
     [
       'path',
@@ -17838,17 +17826,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  file: [
+  'file-x-corner': [
     [
       'path',
       {
-        d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
+        d: 'M11 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5',
       },
     ],
     [
       'path',
       {
         d: 'M14 2v5a1 1 0 0 0 1 1h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm15 17 5 5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm20 17-5 5',
       },
     ],
   ],
@@ -18020,34 +18020,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'fish-off': [
-    [
-      'path',
-      {
-        d: 'M18 12.47v.03m0-.5v.47m-.475 5.056A6.744 6.744 0 0 1 15 18c-3.56 0-7.56-2.53-8.5-6 .348-1.28 1.114-2.433 2.121-3.38m3.444-2.088A8.802 8.802 0 0 1 15 6c3.56 0 6.06 2.54 7 6-.309 1.14-.786 2.177-1.413 3.058',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33m7.48-4.372A9.77 9.77 0 0 1 16 6.07m0 11.86a9.77 9.77 0 0 1-1.728-3.618',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98M8.53 3h5.27a2 2 0 0 1 1.98 1.67l.23 1.4M2 2l20 20',
-      },
-    ],
-  ],
-  'fish-symbol': [
-    [
-      'path',
-      {
-        d: 'M2 16s9-15 20-4C11 23 2 8 2 8',
-      },
-    ],
-  ],
   fish: [
     [
       'path',
@@ -18086,6 +18058,34 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'fish-off': [
+    [
+      'path',
+      {
+        d: 'M18 12.47v.03m0-.5v.47m-.475 5.056A6.744 6.744 0 0 1 15 18c-3.56 0-7.56-2.53-8.5-6 .348-1.28 1.114-2.433 2.121-3.38m3.444-2.088A8.802 8.802 0 0 1 15 6c3.56 0 6.06 2.54 7 6-.309 1.14-.786 2.177-1.413 3.058',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33m7.48-4.372A9.77 9.77 0 0 1 16 6.07m0 11.86a9.77 9.77 0 0 1-1.728-3.618',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98M8.53 3h5.27a2 2 0 0 1 1.98 1.67l.23 1.4M2 2l20 20',
+      },
+    ],
+  ],
+  'fish-symbol': [
+    [
+      'path',
+      {
+        d: 'M2 16s9-15 20-4C11 23 2 8 2 8',
+      },
+    ],
+  ],
   'fishing-hook': [
     [
       'path',
@@ -18105,6 +18105,14 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '19',
         cy: '10',
         r: '2',
+      },
+    ],
+  ],
+  flag: [
+    [
+      'path',
+      {
+        d: 'M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528',
       },
     ],
   ],
@@ -18150,11 +18158,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  flag: [
+  flame: [
     [
       'path',
       {
-        d: 'M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528',
+        d: 'M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4',
       },
     ],
   ],
@@ -18178,11 +18186,23 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  flame: [
+  flashlight: [
     [
       'path',
       {
-        d: 'M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4',
+        d: 'M12 13v1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 2a1 1 0 0 1 1 1v4a3 3 0 0 1-.6 1.8l-.6.8A4 4 0 0 0 16 12v8a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-8a4 4 0 0 0-.8-2.4l-.6-.8A3 3 0 0 1 6 7V3a1 1 0 0 1 1-1z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 6h12',
       },
     ],
   ],
@@ -18218,23 +18238,23 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  flashlight: [
+  'flask-conical': [
     [
       'path',
       {
-        d: 'M12 13v1',
+        d: 'M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2',
       },
     ],
     [
       'path',
       {
-        d: 'M17 2a1 1 0 0 1 1 1v4a3 3 0 0 1-.6 1.8l-.6.8A4 4 0 0 0 16 12v8a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-8a4 4 0 0 0-.8-2.4l-.6-.8A3 3 0 0 1 6 7V3a1 1 0 0 1 1-1z',
+        d: 'M6.453 15h11.094',
       },
     ],
     [
       'path',
       {
-        d: 'M6 6h12',
+        d: 'M8.5 2h7',
       },
     ],
   ],
@@ -18276,26 +18296,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'flask-conical': [
-    [
-      'path',
-      {
-        d: 'M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6.453 15h11.094',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8.5 2h7',
-      },
-    ],
-  ],
   'flask-round': [
     [
       'path',
@@ -18313,44 +18313,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8.5 2h7',
-      },
-    ],
-  ],
-  'flip-horizontal-2': [
-    [
-      'path',
-      {
-        d: 'm3 7 5 5-5 5V7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm21 7-5 5 5 5V7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 20v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 14v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 8v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2v2',
       },
     ],
   ],
@@ -18392,41 +18354,41 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'flip-vertical-2': [
+  'flip-horizontal-2': [
     [
       'path',
       {
-        d: 'm17 3-5 5-5-5h10',
+        d: 'm3 7 5 5-5 5V7',
       },
     ],
     [
       'path',
       {
-        d: 'm17 21-5-5-5 5h10',
+        d: 'm21 7-5 5 5 5V7',
       },
     ],
     [
       'path',
       {
-        d: 'M4 12H2',
+        d: 'M12 20v2',
       },
     ],
     [
       'path',
       {
-        d: 'M10 12H8',
+        d: 'M12 14v2',
       },
     ],
     [
       'path',
       {
-        d: 'M16 12h-2',
+        d: 'M12 8v2',
       },
     ],
     [
       'path',
       {
-        d: 'M22 12h-2',
+        d: 'M12 2v2',
       },
     ],
   ],
@@ -18468,37 +18430,41 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'flower-2': [
+  'flip-vertical-2': [
     [
       'path',
       {
-        d: 'M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '8',
-        r: '2',
+        d: 'm17 3-5 5-5-5h10',
       },
     ],
     [
       'path',
       {
-        d: 'M12 10v12',
+        d: 'm17 21-5-5-5 5h10',
       },
     ],
     [
       'path',
       {
-        d: 'M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z',
+        d: 'M4 12H2',
       },
     ],
     [
       'path',
       {
-        d: 'M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z',
+        d: 'M10 12H8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 12h-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 12h-2',
       },
     ],
   ],
@@ -18563,6 +18529,40 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M14.12 14.12 16 16',
+      },
+    ],
+  ],
+  'flower-2': [
+    [
+      'path',
+      {
+        d: 'M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '8',
+        r: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 10v12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z',
       },
     ],
   ],
@@ -18697,6 +18697,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm15 5-3 3-3-3',
+      },
+    ],
+  ],
+  folder: [
+    [
+      'path',
+      {
+        d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
       },
     ],
   ],
@@ -18898,6 +18906,34 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'folder-git': [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '13',
+        r: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 13h3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 13h3',
+      },
+    ],
+  ],
   'folder-git-2': [
     [
       'path',
@@ -18925,34 +18961,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '20',
         cy: '19',
         r: '2',
-      },
-    ],
-  ],
-  'folder-git': [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '13',
-        r: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 13h3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 13h3',
       },
     ],
   ],
@@ -19082,6 +19090,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'folder-open': [
+    [
+      'path',
+      {
+        d: 'm6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2',
+      },
+    ],
+  ],
   'folder-open-dot': [
     [
       'path',
@@ -19095,14 +19111,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '14',
         cy: '15',
         r: '1',
-      },
-    ],
-  ],
-  'folder-open': [
-    [
-      'path',
-      {
-        d: 'm6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2',
       },
     ],
   ],
@@ -19182,28 +19190,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'folder-search-2': [
-    [
-      'circle',
-      {
-        cx: '11.5',
-        cy: '12.5',
-        r: '2.5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13.3 14.3 15 16',
-      },
-    ],
-  ],
   'folder-search': [
     [
       'path',
@@ -19223,6 +19209,28 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '17',
         cy: '17',
         r: '3',
+      },
+    ],
+  ],
+  'folder-search-2': [
+    [
+      'circle',
+      {
+        cx: '11.5',
+        cy: '12.5',
+        r: '2.5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13.3 14.3 15 16',
       },
     ],
   ],
@@ -19335,14 +19343,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm14.5 10.5-5 5',
-      },
-    ],
-  ],
-  folder: [
-    [
-      'path',
-      {
-        d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z',
       },
     ],
   ],
@@ -19606,6 +19606,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  funnel: [
+    [
+      'path',
+      {
+        d: 'M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z',
+      },
+    ],
+  ],
   'funnel-plus': [
     [
       'path',
@@ -19646,11 +19654,27 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  funnel: [
+  'gallery-horizontal': [
     [
       'path',
       {
-        d: 'M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z',
+        d: 'M2 3v18',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '12',
+        height: '18',
+        x: '6',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 3v18',
       },
     ],
   ],
@@ -19675,30 +19699,6 @@ export const lucideIcons: Record<string, IconData> = {
         x: '10',
         y: '3',
         rx: '2',
-      },
-    ],
-  ],
-  'gallery-horizontal': [
-    [
-      'path',
-      {
-        d: 'M2 3v18',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '12',
-        height: '18',
-        x: '6',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M22 3v18',
       },
     ],
   ],
@@ -19738,6 +19738,30 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'gallery-vertical': [
+    [
+      'path',
+      {
+        d: 'M3 2h18',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '18',
+        height: '12',
+        x: '3',
+        y: '6',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 22h18',
+      },
+    ],
+  ],
   'gallery-vertical-end': [
     [
       'path',
@@ -19762,27 +19786,51 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'gallery-vertical': [
+  gamepad: [
     [
-      'path',
+      'line',
       {
-        d: 'M3 2h18',
+        x1: '6',
+        x2: '10',
+        y1: '12',
+        y2: '12',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '8',
+        x2: '8',
+        y1: '10',
+        y2: '14',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '15',
+        x2: '15.01',
+        y1: '13',
+        y2: '13',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '18',
+        x2: '18.01',
+        y1: '11',
+        y2: '11',
       },
     ],
     [
       'rect',
       {
-        width: '18',
+        width: '20',
         height: '12',
-        x: '3',
+        x: '2',
         y: '6',
         rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 22h18',
       },
     ],
   ],
@@ -19853,54 +19901,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2.172a2 2 0 0 1-.586 1.414l-1.56 1.56a1.207 1.207 0 0 1-1.708 0l-1.56-1.56A2 2 0 0 1 9 5.172z',
-      },
-    ],
-  ],
-  gamepad: [
-    [
-      'line',
-      {
-        x1: '6',
-        x2: '10',
-        y1: '12',
-        y2: '12',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '8',
-        x2: '8',
-        y1: '10',
-        y2: '14',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '15',
-        x2: '15.01',
-        y1: '13',
-        y2: '13',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '18',
-        x2: '18.01',
-        y1: '11',
-        y2: '11',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '20',
-        height: '12',
-        x: '2',
-        y: '6',
-        rx: '2',
       },
     ],
   ],
@@ -20046,6 +20046,39 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'git-branch': [
+    [
+      'line',
+      {
+        x1: '6',
+        x2: '6',
+        y1: '3',
+        y2: '15',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '18',
+        cy: '6',
+        r: '3',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '6',
+        cy: '18',
+        r: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 9a9 9 0 0 1-9 9',
+      },
+    ],
+  ],
   'git-branch-minus': [
     [
       'path',
@@ -20114,39 +20147,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'git-branch': [
-    [
-      'line',
-      {
-        x1: '6',
-        x2: '6',
-        y1: '3',
-        y2: '15',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '18',
-        cy: '6',
-        r: '3',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '18',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 9a9 9 0 0 1-9 9',
-      },
-    ],
-  ],
   'git-commit-horizontal': [
     [
       'circle',
@@ -20197,6 +20197,36 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'git-compare': [
+    [
+      'circle',
+      {
+        cx: '18',
+        cy: '18',
+        r: '3',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '6',
+        cy: '6',
+        r: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 6h3a2 2 0 0 1 2 2v7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M11 18H8a2 2 0 0 1-2-2V9',
+      },
+    ],
+  ],
   'git-compare-arrows': [
     [
       'circle',
@@ -20236,36 +20266,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 15 3 3-3 3',
-      },
-    ],
-  ],
-  'git-compare': [
-    [
-      'circle',
-      {
-        cx: '18',
-        cy: '18',
-        r: '3',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '6',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13 6h3a2 2 0 0 1 2 2v7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M11 18H8a2 2 0 0 1-2-2V9',
       },
     ],
   ],
@@ -20375,6 +20375,39 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'git-pull-request': [
+    [
+      'circle',
+      {
+        cx: '18',
+        cy: '18',
+        r: '3',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '6',
+        cy: '6',
+        r: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 6h3a2 2 0 0 1 2 2v7',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '6',
+        x2: '6',
+        y1: '9',
+        y2: '21',
+      },
+    ],
+  ],
   'git-pull-request-arrow': [
     [
       'circle',
@@ -20453,6 +20486,40 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'git-pull-request-create': [
+    [
+      'circle',
+      {
+        cx: '6',
+        cy: '6',
+        r: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 9v12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 6h3a2 2 0 0 1 2 2v3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 15v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 18h-6',
+      },
+    ],
+  ],
   'git-pull-request-create-arrow': [
     [
       'circle',
@@ -20493,40 +20560,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'git-pull-request-create': [
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '6',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 9v12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13 6h3a2 2 0 0 1 2 2v3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 15v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 18h-6',
-      },
-    ],
-  ],
   'git-pull-request-draft': [
     [
       'circle',
@@ -20554,39 +20587,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M18 11v-1',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '6',
-        x2: '6',
-        y1: '9',
-        y2: '21',
-      },
-    ],
-  ],
-  'git-pull-request': [
-    [
-      'circle',
-      {
-        cx: '18',
-        cy: '18',
-        r: '3',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '6',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M13 6h3a2 2 0 0 1 2 2v7',
       },
     ],
     [
@@ -20671,6 +20671,28 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  globe: [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 12h20',
+      },
+    ],
+  ],
   'globe-lock': [
     [
       'path',
@@ -20698,28 +20720,6 @@ export const lucideIcons: Record<string, IconData> = {
         x: '14',
         y: '6',
         rx: '1',
-      },
-    ],
-  ],
-  globe: [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 12h20',
       },
     ],
   ],
@@ -20871,6 +20871,30 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'grid-2x2': [
+    [
+      'path',
+      {
+        d: 'M12 3v18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 12h18',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '3',
+        y: '3',
+        width: '18',
+        height: '18',
+        rx: '2',
+      },
+    ],
+  ],
   'grid-2x2-check': [
     [
       'path',
@@ -20922,30 +20946,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm16 21 5-5',
-      },
-    ],
-  ],
-  'grid-2x2': [
-    [
-      'path',
-      {
-        d: 'M12 3v18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 12h18',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '3',
-        y: '3',
-        width: '18',
-        height: '18',
-        rx: '2',
       },
     ],
   ],
@@ -21012,6 +21012,80 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M15 3v18',
+      },
+    ],
+  ],
+  grip: [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '5',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '19',
+        cy: '5',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '5',
+        cy: '5',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '19',
+        cy: '12',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '5',
+        cy: '12',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '19',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '19',
+        cy: '19',
+        r: '1',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '5',
+        cy: '19',
+        r: '1',
       },
     ],
   ],
@@ -21110,80 +21184,6 @@ export const lucideIcons: Record<string, IconData> = {
       'circle',
       {
         cx: '15',
-        cy: '19',
-        r: '1',
-      },
-    ],
-  ],
-  grip: [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '5',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '19',
-        cy: '5',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '5',
-        cy: '5',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '19',
-        cy: '12',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '5',
-        cy: '12',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '19',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '19',
-        cy: '19',
-        r: '1',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '5',
         cy: '19',
         r: '1',
       },
@@ -21330,6 +21330,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5',
+      },
+    ],
+  ],
+  hand: [
+    [
+      'path',
+      {
+        d: 'M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15',
       },
     ],
   ],
@@ -21537,32 +21563,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  hand: [
-    [
-      'path',
-      {
-        d: 'M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15',
-      },
-    ],
-  ],
   handbag: [
     [
       'path',
@@ -21606,6 +21606,41 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3 4h8',
+      },
+    ],
+  ],
+  'hard-drive': [
+    [
+      'line',
+      {
+        x1: '22',
+        x2: '2',
+        y1: '12',
+        y2: '12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '6',
+        x2: '6.01',
+        y1: '16',
+        y2: '16',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '10',
+        x2: '10.01',
+        y1: '16',
+        y2: '16',
       },
     ],
   ],
@@ -21678,41 +21713,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M10 18h.01',
-      },
-    ],
-  ],
-  'hard-drive': [
-    [
-      'line',
-      {
-        x1: '22',
-        x2: '2',
-        y1: '12',
-        y2: '12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '6',
-        x2: '6.01',
-        y1: '16',
-        y2: '16',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '10',
-        x2: '10.01',
-        y1: '16',
-        y2: '16',
       },
     ],
   ],
@@ -21920,6 +21920,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  heading: [
+    [
+      'path',
+      {
+        d: 'M6 12h12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 20V4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 20V4',
+      },
+    ],
+  ],
   'heading-1': [
     [
       'path',
@@ -22102,26 +22122,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  heading: [
-    [
-      'path',
-      {
-        d: 'M6 12h12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 20V4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 20V4',
-      },
-    ],
-  ],
   'headphone-off': [
     [
       'path',
@@ -22173,6 +22173,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M21 16v2a4 4 0 0 1-4 4h-5',
+      },
+    ],
+  ],
+  heart: [
+    [
+      'path',
+      {
+        d: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
       },
     ],
   ],
@@ -22263,14 +22271,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27',
-      },
-    ],
-  ],
-  heart: [
-    [
-      'path',
-      {
-        d: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
       },
     ],
   ],
@@ -22428,6 +22428,56 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  hop: [
+    [
+      'path',
+      {
+        d: 'M10.82 16.12c1.69.6 3.91.79 5.18.85.55.03 1-.42.97-.97-.06-1.27-.26-3.5-.85-5.18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M11.5 6.5c1.64 0 5-.38 6.71-1.07.52-.2.55-.82.12-1.17A10 10 0 0 0 4.26 18.33c.35.43.96.4 1.17-.12.69-1.71 1.07-5.07 1.07-6.71 1.34.45 3.1.9 4.88.62a.88.88 0 0 0 .73-.74c.3-2.14-.15-3.5-.61-4.88',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15.62 16.95c.2.85.62 2.76.5 4.28a.77.77 0 0 1-.9.7 16.64 16.64 0 0 1-4.08-1.36',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16.13 21.05c1.65.63 3.68.84 4.87.91a.9.9 0 0 0 .96-.96 17.68 17.68 0 0 0-.9-4.87',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16.94 15.62c.86.2 2.77.62 4.29.5a.77.77 0 0 0 .7-.9 16.64 16.64 0 0 0-1.36-4.08',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17.99 5.52a20.82 20.82 0 0 1 3.15 4.5.8.8 0 0 1-.68 1.13c-2.33.2-5.3-.32-8.27-1.57',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4.93 4.93 3 3a.7.7 0 0 1 0-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9.58 12.18c1.24 2.98 1.77 5.95 1.57 8.28a.8.8 0 0 1-1.13.68 20.82 20.82 0 0 1-4.5-3.15',
+      },
+    ],
+  ],
   'hop-off': [
     [
       'path',
@@ -22481,56 +22531,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm2 2 20 20',
-      },
-    ],
-  ],
-  hop: [
-    [
-      'path',
-      {
-        d: 'M10.82 16.12c1.69.6 3.91.79 5.18.85.55.03 1-.42.97-.97-.06-1.27-.26-3.5-.85-5.18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M11.5 6.5c1.64 0 5-.38 6.71-1.07.52-.2.55-.82.12-1.17A10 10 0 0 0 4.26 18.33c.35.43.96.4 1.17-.12.69-1.71 1.07-5.07 1.07-6.71 1.34.45 3.1.9 4.88.62a.88.88 0 0 0 .73-.74c.3-2.14-.15-3.5-.61-4.88',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15.62 16.95c.2.85.62 2.76.5 4.28a.77.77 0 0 1-.9.7 16.64 16.64 0 0 1-4.08-1.36',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16.13 21.05c1.65.63 3.68.84 4.87.91a.9.9 0 0 0 .96-.96 17.68 17.68 0 0 0-.9-4.87',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16.94 15.62c.86.2 2.77.62 4.29.5a.77.77 0 0 0 .7-.9 16.64 16.64 0 0 0-1.36-4.08',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17.99 5.52a20.82 20.82 0 0 1 3.15 4.5.8.8 0 0 1-.68 1.13c-2.33.2-5.3-.32-8.27-1.57',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4.93 4.93 3 3a.7.7 0 0 1 0-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9.58 12.18c1.24 2.98 1.77 5.95 1.57 8.28a.8.8 0 0 1-1.13.68 20.82 20.82 0 0 1-4.5-3.15',
       },
     ],
   ],
@@ -22658,6 +22658,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  house: [
+    [
+      'path',
+      {
+        d: 'M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
+      },
+    ],
+  ],
   'house-heart': [
     [
       'path',
@@ -22750,20 +22764,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  house: [
-    [
-      'path',
-      {
-        d: 'M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
-      },
-    ],
-  ],
   'ice-cream-bowl': [
     [
       'path',
@@ -22804,40 +22804,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'id-card-lanyard': [
-    [
-      'path',
-      {
-        d: 'M13.5 8h-3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm15 2-1 2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16.899 22A5 5 0 0 0 7.1 22',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 2 3 6',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '15',
-        r: '3',
-      },
-    ],
-  ],
   'id-card': [
     [
       'path',
@@ -22873,6 +22839,67 @@ export const lucideIcons: Record<string, IconData> = {
         width: '20',
         height: '14',
         rx: '2',
+      },
+    ],
+  ],
+  'id-card-lanyard': [
+    [
+      'path',
+      {
+        d: 'M13.5 8h-3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm15 2-1 2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16.899 22A5 5 0 0 0 7.1 22',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 2 3 6',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '15',
+        r: '3',
+      },
+    ],
+  ],
+  image: [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+        ry: '2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '9',
+        cy: '9',
+        r: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21',
       },
     ],
   ],
@@ -23123,33 +23150,6 @@ export const lucideIcons: Record<string, IconData> = {
         width: '10',
         height: '10',
         rx: '1',
-      },
-    ],
-  ],
-  image: [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-        ry: '2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '9',
-        cy: '9',
-        r: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21',
       },
     ],
   ],
@@ -23497,6 +23497,28 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  key: [
+    [
+      'path',
+      {
+        d: 'm15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm21 2-9.6 9.6',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '7.5',
+        cy: '15.5',
+        r: '5.5',
+      },
+    ],
+  ],
   'key-round': [
     [
       'path',
@@ -23534,25 +23556,63 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  key: [
+  keyboard: [
     [
       'path',
       {
-        d: 'm15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4',
+        d: 'M10 8h.01',
       },
     ],
     [
       'path',
       {
-        d: 'm21 2-9.6 9.6',
+        d: 'M12 12h.01',
       },
     ],
     [
-      'circle',
+      'path',
       {
-        cx: '7.5',
-        cy: '15.5',
-        r: '5.5',
+        d: 'M14 8h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 12h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 8h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 8h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 16h10',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 12h.01',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '20',
+        height: '16',
+        x: '2',
+        y: '4',
+        rx: '2',
       },
     ],
   ],
@@ -23678,63 +23738,23 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  keyboard: [
+  lamp: [
     [
       'path',
       {
-        d: 'M10 8h.01',
+        d: 'M12 12v6',
       },
     ],
     [
       'path',
       {
-        d: 'M12 12h.01',
+        d: 'M4.077 10.615A1 1 0 0 0 5 12h14a1 1 0 0 0 .923-1.385l-3.077-7.384A2 2 0 0 0 15 2H9a2 2 0 0 0-1.846 1.23Z',
       },
     ],
     [
       'path',
       {
-        d: 'M14 8h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 12h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 8h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 8h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 16h10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 12h.01',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '20',
-        height: '16',
-        x: '2',
-        y: '4',
-        rx: '2',
+        d: 'M8 20a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z',
       },
     ],
   ],
@@ -23844,26 +23864,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  lamp: [
-    [
-      'path',
-      {
-        d: 'M12 12v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4.077 10.615A1 1 0 0 0 5 12h14a1 1 0 0 0 .923-1.385l-3.077-7.384A2 2 0 0 0 15 2H9a2 2 0 0 0-1.846 1.23Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 20a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z',
-      },
-    ],
-  ],
   'land-plot': [
     [
       'path',
@@ -23966,27 +23966,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'laptop-minimal-check': [
+  laptop: [
     [
       'path',
       {
-        d: 'M2 20h20',
+        d: 'M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z',
       },
     ],
     [
       'path',
       {
-        d: 'm9 10 2 2 4-4',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '3',
-        y: '4',
-        width: '18',
-        height: '12',
-        rx: '2',
+        d: 'M20.054 15.987H3.946',
       },
     ],
   ],
@@ -24012,17 +24002,49 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  laptop: [
+  'laptop-minimal-check': [
     [
       'path',
       {
-        d: 'M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z',
+        d: 'M2 20h20',
       },
     ],
     [
       'path',
       {
-        d: 'M20.054 15.987H3.946',
+        d: 'm9 10 2 2 4-4',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '3',
+        y: '4',
+        width: '18',
+        height: '12',
+        rx: '2',
+      },
+    ],
+  ],
+  lasso: [
+    [
+      'path',
+      {
+        d: 'M3.704 14.467A10 8 0 0 1 2 10a10 8 0 0 1 20 0 10 8 0 0 1-10 8 10 8 0 0 1-5.181-1.158',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 22a5 5 0 0 1-2-3.994',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '5',
+        cy: '16',
+        r: '2',
       },
     ],
   ],
@@ -24058,28 +24080,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  lasso: [
-    [
-      'path',
-      {
-        d: 'M3.704 14.467A10 8 0 0 1 2 10a10 8 0 0 1 20 0 10 8 0 0 1-10 8 10 8 0 0 1-5.181-1.158',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 22a5 5 0 0 1-2-3.994',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '5',
-        cy: '16',
-        r: '2',
-      },
-    ],
-  ],
   laugh: [
     [
       'circle',
@@ -24111,6 +24111,26 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '15.01',
         y1: '9',
         y2: '9',
+      },
+    ],
+  ],
+  layers: [
+    [
+      'path',
+      {
+        d: 'M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17',
       },
     ],
   ],
@@ -24157,26 +24177,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l2.116-.962',
-      },
-    ],
-  ],
-  layers: [
-    [
-      'path',
-      {
-        d: 'M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17',
       },
     ],
   ],
@@ -24458,30 +24458,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'library-big': [
-    [
-      'rect',
-      {
-        width: '8',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 3v18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z',
-      },
-    ],
-  ],
   library: [
     [
       'path',
@@ -24505,6 +24481,30 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M4 4v16',
+      },
+    ],
+  ],
+  'library-big': [
+    [
+      'rect',
+      {
+        width: '8',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 3v18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z',
       },
     ],
   ],
@@ -24582,6 +24582,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  lightbulb: [
+    [
+      'path',
+      {
+        d: 'M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 18h6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 22h4',
+      },
+    ],
+  ],
   'lightbulb-off': [
     [
       'path',
@@ -24614,31 +24634,48 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  lightbulb: [
-    [
-      'path',
-      {
-        d: 'M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 18h6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 22h4',
-      },
-    ],
-  ],
   'line-squiggle': [
     [
       'path',
       {
         d: 'M7 3.5c5-2 7 2.5 3 4C1.5 10 2 15 5 16c5 2 9-10 14-7s.5 13.5-4 12c-5-2.5.5-11 6-2',
+      },
+    ],
+  ],
+  link: [
+    [
+      'path',
+      {
+        d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71',
+      },
+    ],
+  ],
+  'link-2': [
+    [
+      'path',
+      {
+        d: 'M9 17H7A5 5 0 0 1 7 7h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 7h2a5 5 0 1 1 0 10h-2',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '8',
+        x2: '16',
+        y1: '12',
+        y2: '12',
       },
     ],
   ],
@@ -24674,43 +24711,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'link-2': [
-    [
-      'path',
-      {
-        d: 'M9 17H7A5 5 0 0 1 7 7h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15 7h2a5 5 0 1 1 0 10h-2',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '8',
-        x2: '16',
-        y1: '12',
-        y2: '12',
-      },
-    ],
-  ],
-  link: [
-    [
-      'path',
-      {
-        d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71',
-      },
-    ],
-  ],
   linkedin: [
     [
       'path',
@@ -24733,6 +24733,44 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '4',
         cy: '4',
         r: '2',
+      },
+    ],
+  ],
+  list: [
+    [
+      'path',
+      {
+        d: 'M3 5h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 12h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 19h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 5h13',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 12h13',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 19h13',
       },
     ],
   ],
@@ -24922,6 +24960,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'list-filter': [
+    [
+      'path',
+      {
+        d: 'M2 5h20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 12h12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 19h6',
+      },
+    ],
+  ],
   'list-filter-plus': [
     [
       'path',
@@ -24951,26 +25009,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M19 8V2',
-      },
-    ],
-  ],
-  'list-filter': [
-    [
-      'path',
-      {
-        d: 'M2 5h20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 12h12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 19h6',
       },
     ],
   ],
@@ -25346,80 +25384,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  list: [
-    [
-      'path',
-      {
-        d: 'M3 5h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 12h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 19h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 5h13',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 12h13',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 19h13',
-      },
-    ],
-  ],
-  'loader-circle': [
-    [
-      'path',
-      {
-        d: 'M21 12a9 9 0 1 1-6.219-8.56',
-      },
-    ],
-  ],
-  'loader-pinwheel': [
-    [
-      'path',
-      {
-        d: 'M22 12a1 1 0 0 1-10 0 1 1 0 0 0-10 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 20.7a1 1 0 1 1 5-8.7 1 1 0 1 0 5-8.6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 3.3a1 1 0 1 1 5 8.6 1 1 0 1 0 5 8.6',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-  ],
   loader: [
     [
       'path',
@@ -25467,6 +25431,88 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm4.9 4.9 2.9 2.9',
+      },
+    ],
+  ],
+  'loader-circle': [
+    [
+      'path',
+      {
+        d: 'M21 12a9 9 0 1 1-6.219-8.56',
+      },
+    ],
+  ],
+  'loader-pinwheel': [
+    [
+      'path',
+      {
+        d: 'M22 12a1 1 0 0 1-10 0 1 1 0 0 0-10 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 20.7a1 1 0 1 1 5-8.7 1 1 0 1 0 5-8.6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 3.3a1 1 0 1 1 5 8.6 1 1 0 1 0 5 8.6',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '10',
+      },
+    ],
+  ],
+  locate: [
+    [
+      'line',
+      {
+        x1: '2',
+        x2: '5',
+        y1: '12',
+        y2: '12',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '19',
+        x2: '22',
+        y1: '12',
+        y2: '12',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '12',
+        x2: '12',
+        y1: '2',
+        y2: '5',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '12',
+        x2: '12',
+        y1: '19',
+        y2: '22',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '7',
       },
     ],
   ],
@@ -25568,75 +25614,22 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  locate: [
-    [
-      'line',
-      {
-        x1: '2',
-        x2: '5',
-        y1: '12',
-        y2: '12',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '19',
-        x2: '22',
-        y1: '12',
-        y2: '12',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '12',
-        x2: '12',
-        y1: '2',
-        y2: '5',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '12',
-        x2: '12',
-        y1: '19',
-        y2: '22',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '7',
-      },
-    ],
-  ],
-  'lock-keyhole-open': [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '16',
-        r: '1',
-      },
-    ],
+  lock: [
     [
       'rect',
       {
         width: '18',
-        height: '12',
+        height: '11',
         x: '3',
-        y: '10',
+        y: '11',
         rx: '2',
+        ry: '2',
       },
     ],
     [
       'path',
       {
-        d: 'M7 10V7a5 5 0 0 1 9.33-2.5',
+        d: 'M7 11V7a5 5 0 0 1 10 0v4',
       },
     ],
   ],
@@ -25666,6 +25659,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'lock-keyhole-open': [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '16',
+        r: '1',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '18',
+        height: '12',
+        x: '3',
+        y: '10',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 10V7a5 5 0 0 1 9.33-2.5',
+      },
+    ],
+  ],
   'lock-open': [
     [
       'rect',
@@ -25682,25 +25701,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M7 11V7a5 5 0 0 1 9.9-1',
-      },
-    ],
-  ],
-  lock: [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '11',
-        x: '3',
-        y: '11',
-        rx: '2',
-        ry: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 11V7a5 5 0 0 1 10 0v4',
       },
     ],
   ],
@@ -25875,6 +25875,24 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm5 8 4 4',
+      },
+    ],
+  ],
+  mail: [
+    [
+      'path',
+      {
+        d: 'm22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '2',
+        y: '4',
+        width: '20',
+        height: '16',
+        rx: '2',
       },
     ],
   ],
@@ -26070,24 +26088,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  mail: [
-    [
-      'path',
-      {
-        d: 'm22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '2',
-        y: '4',
-        width: '20',
-        height: '16',
-        rx: '2',
-      },
-    ],
-  ],
   mailbox: [
     [
       'path',
@@ -26141,6 +26141,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  map: [
+    [
+      'path',
+      {
+        d: 'M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 5.764v15',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 3.236v15',
+      },
+    ],
+  ],
   'map-minus': [
     [
       'path',
@@ -26167,7 +26187,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'map-pin-check-inside': [
+  'map-pin': [
     [
       'path',
       {
@@ -26175,9 +26195,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
     [
-      'path',
+      'circle',
       {
-        d: 'm9 10 2 2 4-4',
+        cx: '12',
+        cy: '10',
+        r: '3',
       },
     ],
   ],
@@ -26200,6 +26222,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm16 18 2 2 4-4',
+      },
+    ],
+  ],
+  'map-pin-check-inside': [
+    [
+      'path',
+      {
+        d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 10 2 2 4-4',
       },
     ],
   ],
@@ -26231,20 +26267,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'map-pin-minus-inside': [
-    [
-      'path',
-      {
-        d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 10h6',
-      },
-    ],
-  ],
   'map-pin-minus': [
     [
       'path',
@@ -26264,6 +26286,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M16 18h6',
+      },
+    ],
+  ],
+  'map-pin-minus-inside': [
+    [
+      'path',
+      {
+        d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 10h6',
       },
     ],
   ],
@@ -26321,26 +26357,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'map-pin-plus-inside': [
-    [
-      'path',
-      {
-        d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 7v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 10h6',
-      },
-    ],
-  ],
   'map-pin-plus': [
     [
       'path',
@@ -26369,7 +26385,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'map-pin-x-inside': [
+  'map-pin-plus-inside': [
     [
       'path',
       {
@@ -26379,13 +26395,13 @@ export const lucideIcons: Record<string, IconData> = {
     [
       'path',
       {
-        d: 'm14.5 7.5-5 5',
+        d: 'M12 7v6',
       },
     ],
     [
       'path',
       {
-        d: 'm9.5 7.5 5 5',
+        d: 'M9 10h6',
       },
     ],
   ],
@@ -26417,7 +26433,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'map-pin': [
+  'map-pin-x-inside': [
     [
       'path',
       {
@@ -26425,11 +26441,15 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
     [
-      'circle',
+      'path',
       {
-        cx: '12',
-        cy: '10',
-        r: '3',
+        d: 'm14.5 7.5-5 5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9.5 7.5 5 5',
       },
     ],
   ],
@@ -26487,23 +26507,25 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  map: [
+  mars: [
     [
       'path',
       {
-        d: 'M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z',
+        d: 'M16 3h5v5',
       },
     ],
     [
       'path',
       {
-        d: 'M15 5.764v15',
+        d: 'm21 3-6.75 6.75',
       },
     ],
     [
-      'path',
+      'circle',
       {
-        d: 'M9 3.236v15',
+        cx: '10',
+        cy: '14',
+        r: '6',
       },
     ],
   ],
@@ -26535,28 +26557,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  mars: [
-    [
-      'path',
-      {
-        d: 'M16 3h5v5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm21 3-6.75 6.75',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '10',
-        cy: '14',
-        r: '6',
-      },
-    ],
-  ],
   martini: [
     [
       'path',
@@ -26574,32 +26574,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm19 3-7 8-7-8Z',
-      },
-    ],
-  ],
-  'maximize-2': [
-    [
-      'path',
-      {
-        d: 'M15 3h6v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm21 3-7 7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm3 21 7-7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 21H3v-6',
       },
     ],
   ],
@@ -26626,6 +26600,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M16 21h3a2 2 0 0 0 2-2v-3',
+      },
+    ],
+  ],
+  'maximize-2': [
+    [
+      'path',
+      {
+        d: 'M15 3h6v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm21 3-7 7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm3 21 7-7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 21H3v-6',
       },
     ],
   ],
@@ -26669,6 +26669,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  megaphone: [
+    [
+      'path',
+      {
+        d: 'M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 6v8',
+      },
+    ],
+  ],
   'megaphone-off': [
     [
       'path',
@@ -26698,26 +26718,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 8v6',
-      },
-    ],
-  ],
-  megaphone: [
-    [
-      'path',
-      {
-        d: 'M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 6v8',
       },
     ],
   ],
@@ -26867,6 +26867,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm20 22-5-5',
+      },
+    ],
+  ],
+  'message-circle': [
+    [
+      'path',
+      {
+        d: 'M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719',
       },
     ],
   ],
@@ -27100,11 +27108,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'message-circle': [
+  'message-square': [
     [
       'path',
       {
-        d: 'M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719',
+        d: 'M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z',
       },
     ],
   ],
@@ -27480,14 +27488,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'message-square': [
-    [
-      'path',
-      {
-        d: 'M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z',
-      },
-    ],
-  ],
   'messages-square': [
     [
       'path',
@@ -27499,6 +27499,30 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1',
+      },
+    ],
+  ],
+  mic: [
+    [
+      'path',
+      {
+        d: 'M12 19v3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 10v2a7 7 0 0 1-14 0v-2',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '9',
+        y: '2',
+        width: '6',
+        height: '13',
+        rx: '3',
       },
     ],
   ],
@@ -27559,30 +27583,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '16',
         cy: '7',
         r: '5',
-      },
-    ],
-  ],
-  mic: [
-    [
-      'path',
-      {
-        d: 'M12 19v3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 10v2a7 7 0 0 1-14 0v-2',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '9',
-        y: '2',
-        width: '6',
-        height: '13',
-        rx: '3',
       },
     ],
   ],
@@ -27750,6 +27750,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  milk: [
+    [
+      'path',
+      {
+        d: 'M8 2h8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0',
+      },
+    ],
+  ],
   'milk-off': [
     [
       'path',
@@ -27779,23 +27799,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  milk: [
+  minimize: [
     [
       'path',
       {
-        d: 'M8 2h8',
+        d: 'M8 3v3a2 2 0 0 1-2 2H3',
       },
     ],
     [
       'path',
       {
-        d: 'M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2',
+        d: 'M21 8h-3a2 2 0 0 1-2-2V3',
       },
     ],
     [
       'path',
       {
-        d: 'M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0',
+        d: 'M3 16h3a2 2 0 0 1 2 2v3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 21v-3a2 2 0 0 1 2-2h3',
       },
     ],
   ],
@@ -27825,37 +27851,41 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  minimize: [
-    [
-      'path',
-      {
-        d: 'M8 3v3a2 2 0 0 1-2 2H3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 8h-3a2 2 0 0 1-2-2V3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 16h3a2 2 0 0 1 2 2v3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 21v-3a2 2 0 0 1 2-2h3',
-      },
-    ],
-  ],
   minus: [
     [
       'path',
       {
         d: 'M5 12h14',
+      },
+    ],
+  ],
+  monitor: [
+    [
+      'rect',
+      {
+        width: '20',
+        height: '14',
+        x: '2',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '8',
+        x2: '16',
+        y1: '21',
+        y2: '21',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '12',
+        x2: '12',
+        y1: '17',
+        y2: '21',
       },
     ],
   ],
@@ -28331,33 +28361,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  monitor: [
+  moon: [
     [
-      'rect',
+      'path',
       {
-        width: '20',
-        height: '14',
-        x: '2',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '8',
-        x2: '16',
-        y1: '21',
-        y2: '21',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '12',
-        x2: '12',
-        y1: '17',
-        y2: '21',
+        d: 'M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401',
       },
     ],
   ],
@@ -28374,14 +28382,6 @@ export const lucideIcons: Record<string, IconData> = {
         d: 'M20 3v4',
       },
     ],
-    [
-      'path',
-      {
-        d: 'M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401',
-      },
-    ],
-  ],
-  moon: [
     [
       'path',
       {
@@ -28425,6 +28425,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  mountain: [
+    [
+      'path',
+      {
+        d: 'm8 3 4 8 5-5 5 15H2L8 3z',
+      },
+    ],
+  ],
   'mountain-snow': [
     [
       'path',
@@ -28439,11 +28447,21 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  mountain: [
+  mouse: [
+    [
+      'rect',
+      {
+        x: '5',
+        y: '2',
+        width: '14',
+        height: '20',
+        rx: '7',
+      },
+    ],
     [
       'path',
       {
-        d: 'm8 3 4 8 5-5 5 15H2L8 3z',
+        d: 'M12 6v4',
       },
     ],
   ],
@@ -28473,6 +28491,28 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'mouse-pointer': [
+    [
+      'path',
+      {
+        d: 'M12.586 12.586 19 19',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z',
+      },
+    ],
+  ],
+  'mouse-pointer-2': [
+    [
+      'path',
+      {
+        d: 'M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z',
+      },
+    ],
+  ],
   'mouse-pointer-2-off': [
     [
       'path',
@@ -28490,14 +28530,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm6.816 11.528-2.779-6.84a.495.495 0 0 1 .651-.651l6.84 2.779',
-      },
-    ],
-  ],
-  'mouse-pointer-2': [
-    [
-      'path',
-      {
-        d: 'M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z',
       },
     ],
   ],
@@ -28555,35 +28587,41 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'mouse-pointer': [
+  move: [
     [
       'path',
       {
-        d: 'M12.586 12.586 19 19',
+        d: 'M12 2v20',
       },
     ],
     [
       'path',
       {
-        d: 'M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z',
-      },
-    ],
-  ],
-  mouse: [
-    [
-      'rect',
-      {
-        x: '5',
-        y: '2',
-        width: '14',
-        height: '20',
-        rx: '7',
+        d: 'm15 19-3 3-3-3',
       },
     ],
     [
       'path',
       {
-        d: 'M12 6v4',
+        d: 'm19 9 3 3-3 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 12h20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm5 9-3 3 3 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 5 3-3 3 3',
       },
     ],
   ],
@@ -28613,6 +28651,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'move-diagonal': [
+    [
+      'path',
+      {
+        d: 'M11 19H5v-6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 5h6v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 5 5 19',
+      },
+    ],
+  ],
   'move-diagonal-2': [
     [
       'path',
@@ -28633,23 +28691,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'move-diagonal': [
+  'move-down': [
     [
       'path',
       {
-        d: 'M11 19H5v-6',
+        d: 'M8 18L12 22L16 18',
       },
     ],
     [
       'path',
       {
-        d: 'M13 5h6v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 5 5 19',
+        d: 'M12 2V22',
       },
     ],
   ],
@@ -28678,20 +28730,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M5 5L19 19',
-      },
-    ],
-  ],
-  'move-down': [
-    [
-      'path',
-      {
-        d: 'M8 18L12 22L16 18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2V22',
       },
     ],
   ],
@@ -28743,6 +28781,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'move-up': [
+    [
+      'path',
+      {
+        d: 'M8 6L12 2L16 6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 2V22',
+      },
+    ],
+  ],
   'move-up-left': [
     [
       'path',
@@ -28771,20 +28823,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'move-up': [
-    [
-      'path',
-      {
-        d: 'M8 6L12 2L16 6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2V22',
-      },
-    ],
-  ],
   'move-vertical': [
     [
       'path',
@@ -28805,41 +28843,27 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  move: [
+  music: [
     [
       'path',
       {
-        d: 'M12 2v20',
+        d: 'M9 18V5l12-2v13',
       },
     ],
     [
-      'path',
+      'circle',
       {
-        d: 'm15 19-3 3-3-3',
+        cx: '6',
+        cy: '18',
+        r: '3',
       },
     ],
     [
-      'path',
+      'circle',
       {
-        d: 'm19 9 3 3-3 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 12h20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm5 9-3 3 3 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 5 3-3 3 3',
+        cx: '18',
+        cy: '16',
+        r: '3',
       },
     ],
   ],
@@ -28905,27 +28929,19 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  music: [
+  navigation: [
     [
-      'path',
+      'polygon',
       {
-        d: 'M9 18V5l12-2v13',
+        points: '3 11 22 2 13 21 11 13 3 11',
       },
     ],
+  ],
+  'navigation-2': [
     [
-      'circle',
+      'polygon',
       {
-        cx: '6',
-        cy: '18',
-        r: '3',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '18',
-        cy: '16',
-        r: '3',
+        points: '12 2 19 21 12 17 5 21 12 2',
       },
     ],
   ],
@@ -28952,14 +28968,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'navigation-2': [
-    [
-      'polygon',
-      {
-        points: '12 2 19 21 12 17 5 21 12 2',
-      },
-    ],
-  ],
   'navigation-off': [
     [
       'path',
@@ -28980,14 +28988,6 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '22',
         y1: '2',
         y2: '22',
-      },
-    ],
-  ],
-  navigation: [
-    [
-      'polygon',
-      {
-        points: '3 11 22 2 13 21 11 13 3 11',
       },
     ],
   ],
@@ -29116,6 +29116,48 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12',
         cy: '17',
         r: '5',
+      },
+    ],
+  ],
+  notebook: [
+    [
+      'path',
+      {
+        d: 'M2 6h4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 10h4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 14h4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 18h4',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '16',
+        height: '20',
+        x: '4',
+        y: '2',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 2v20',
       },
     ],
   ],
@@ -29271,45 +29313,51 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  notebook: [
+  'notepad-text': [
     [
       'path',
       {
-        d: 'M2 6h4',
+        d: 'M8 2v4',
       },
     ],
     [
       'path',
       {
-        d: 'M2 10h4',
+        d: 'M12 2v4',
       },
     ],
     [
       'path',
       {
-        d: 'M2 14h4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 18h4',
+        d: 'M16 2v4',
       },
     ],
     [
       'rect',
       {
         width: '16',
-        height: '20',
+        height: '18',
         x: '4',
-        y: '2',
+        y: '4',
         rx: '2',
       },
     ],
     [
       'path',
       {
-        d: 'M16 2v20',
+        d: 'M8 10h6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 14h8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 18h5',
       },
     ],
   ],
@@ -29393,51 +29441,23 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'notepad-text': [
+  nut: [
     [
       'path',
       {
-        d: 'M8 2v4',
+        d: 'M12 4V2',
       },
     ],
     [
       'path',
       {
-        d: 'M12 2v4',
+        d: 'M5 10v4a7.004 7.004 0 0 0 5.277 6.787c.412.104.802.292 1.102.592L12 22l.621-.621c.3-.3.69-.488 1.102-.592A7.003 7.003 0 0 0 19 14v-4',
       },
     ],
     [
       'path',
       {
-        d: 'M16 2v4',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '16',
-        height: '18',
-        x: '4',
-        y: '4',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 10h6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 14h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 18h5',
+        d: 'M12 4C8 4 4.5 6 4 8c-.243.97-.919 1.952-2 3 1.31-.082 1.972-.29 3-1 .54.92.982 1.356 2 2 1.452-.647 1.954-1.098 2.5-2 .595.995 1.151 1.427 2.5 2 1.31-.621 1.862-1.058 2.5-2 .629.977 1.162 1.423 2.5 2 1.209-.548 1.68-.967 2-2 1.032.916 1.683 1.157 3 1-1.297-1.036-1.758-2.03-2-3-.5-2-4-4-8-4Z',
       },
     ],
   ],
@@ -29476,23 +29496,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  nut: [
+  octagon: [
     [
       'path',
       {
-        d: 'M12 4V2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 10v4a7.004 7.004 0 0 0 5.277 6.787c.412.104.802.292 1.102.592L12 22l.621-.621c.3-.3.69-.488 1.102-.592A7.003 7.003 0 0 0 19 14v-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 4C8 4 4.5 6 4 8c-.243.97-.919 1.952-2 3 1.31-.082 1.972-.29 3-1 .54.92.982 1.356 2 2 1.452-.647 1.954-1.098 2.5-2 .595.995 1.151 1.427 2.5 2 1.31-.621 1.862-1.058 2.5-2 .629.977 1.162 1.423 2.5 2 1.209-.548 1.68-.967 2-2 1.032.916 1.683 1.157 3 1-1.297-1.036-1.758-2.03-2-3-.5-2-4-4-8-4Z',
+        d: 'M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z',
       },
     ],
   ],
@@ -29567,14 +29575,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 9 6 6',
-      },
-    ],
-  ],
-  octagon: [
-    [
-      'path',
-      {
-        d: 'M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z',
       },
     ],
   ],
@@ -29655,6 +29655,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm12.214 3.381 8.414 14.966a1 1 0 0 1-.167 1.199l-1.168 1.163a1 1 0 0 1-.706.291H6.351a1 1 0 0 1-.625-.219L3.25 18.8a1 1 0 0 1 .631-1.781l4.165.027',
+      },
+    ],
+  ],
+  package: [
+    [
+      'path',
+      {
+        d: 'M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 22V12',
+      },
+    ],
+    [
+      'polyline',
+      {
+        points: '3.29 7 12 12 20.71 7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm7.5 4.27 9 5.15',
       },
     ],
   ],
@@ -29893,32 +29919,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  package: [
-    [
-      'path',
-      {
-        d: 'M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 22V12',
-      },
-    ],
-    [
-      'polyline',
-      {
-        points: '3.29 7 12 12 20.71 7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm7.5 4.27 9 5.15',
-      },
-    ],
-  ],
   'paint-bucket': [
     [
       'path',
@@ -29973,6 +29973,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  paintbrush: [
+    [
+      'path',
+      {
+        d: 'm14.622 17.897-10.68-2.913',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15',
+      },
+    ],
+  ],
   'paintbrush-vertical': [
     [
       'path',
@@ -29996,26 +30016,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1',
-      },
-    ],
-  ],
-  paintbrush: [
-    [
-      'path',
-      {
-        d: 'm14.622 17.897-10.68-2.913',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15',
       },
     ],
   ],
@@ -30098,6 +30098,24 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 12-2 2',
+      },
+    ],
+  ],
+  'panel-bottom': [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 15h18',
       },
     ],
   ],
@@ -30185,7 +30203,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'panel-bottom': [
+  'panel-left': [
     [
       'rect',
       {
@@ -30199,7 +30217,7 @@ export const lucideIcons: Record<string, IconData> = {
     [
       'path',
       {
-        d: 'M3 15h18',
+        d: 'M9 3v18',
       },
     ],
   ],
@@ -30347,7 +30365,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'panel-left': [
+  'panel-right': [
     [
       'rect',
       {
@@ -30361,7 +30379,7 @@ export const lucideIcons: Record<string, IconData> = {
     [
       'path',
       {
-        d: 'M9 3v18',
+        d: 'M15 3v18',
       },
     ],
   ],
@@ -30449,7 +30467,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'panel-right': [
+  'panel-top': [
     [
       'rect',
       {
@@ -30463,7 +30481,7 @@ export const lucideIcons: Record<string, IconData> = {
     [
       'path',
       {
-        d: 'M15 3v18',
+        d: 'M3 9h18',
       },
     ],
   ],
@@ -30608,24 +30626,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm15 14-3 3-3-3',
-      },
-    ],
-  ],
-  'panel-top': [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 9h18',
       },
     ],
   ],
@@ -30895,6 +30895,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  pen: [
+    [
+      'path',
+      {
+        d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
+      },
+    ],
+  ],
   'pen-line': [
     [
       'path',
@@ -30957,11 +30965,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  pen: [
+  pencil: [
     [
       'path',
       {
         d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm15 5 4 4',
       },
     ],
   ],
@@ -31036,20 +31050,6 @@ export const lucideIcons: Record<string, IconData> = {
         d: 'm17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17',
       },
     ],
-    [
-      'path',
-      {
-        d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm15 5 4 4',
-      },
-    ],
-  ],
-  pencil: [
     [
       'path',
       {
@@ -31143,6 +31143,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M7 21V4a1 1 0 0 1 1-1h4a1 1 0 0 1 0 12H7',
+      },
+    ],
+  ],
+  phone: [
+    [
+      'path',
+      {
+        d: 'M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384',
       },
     ],
   ],
@@ -31266,14 +31274,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  phone: [
-    [
-      'path',
-      {
-        d: 'M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384',
-      },
-    ],
-  ],
   pi: [
     [
       'line',
@@ -31361,24 +31361,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'picture-in-picture-2': [
-    [
-      'path',
-      {
-        d: 'M21 9V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h4',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '10',
-        height: '7',
-        x: '12',
-        y: '13',
-        rx: '2',
-      },
-    ],
-  ],
   'picture-in-picture': [
     [
       'path',
@@ -31415,6 +31397,24 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'picture-in-picture-2': [
+    [
+      'path',
+      {
+        d: 'M21 9V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h4',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '10',
+        height: '7',
+        x: '12',
+        y: '13',
+        rx: '2',
+      },
+    ],
+  ],
   'piggy-bank': [
     [
       'path',
@@ -31432,6 +31432,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M2 8v1a2 2 0 0 0 2 2h1',
+      },
+    ],
+  ],
+  pilcrow: [
+    [
+      'path',
+      {
+        d: 'M13 4v16',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 4v16',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 4H9.5a4.5 4.5 0 0 0 0 9H13',
       },
     ],
   ],
@@ -31499,23 +31519,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  pilcrow: [
+  pill: [
     [
       'path',
       {
-        d: 'M13 4v16',
+        d: 'm10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z',
       },
     ],
     [
       'path',
       {
-        d: 'M17 4v16',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 4H9.5a4.5 4.5 0 0 0 0 9H13',
+        d: 'm8.5 8.5 7 7',
       },
     ],
   ],
@@ -31543,17 +31557,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  pill: [
+  pin: [
     [
       'path',
       {
-        d: 'm10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z',
+        d: 'M12 17v5',
       },
     ],
     [
       'path',
       {
-        d: 'm8.5 8.5 7 7',
+        d: 'M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z',
       },
     ],
   ],
@@ -31580,20 +31594,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11',
-      },
-    ],
-  ],
-  pin: [
-    [
-      'path',
-      {
-        d: 'M12 17v5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z',
       },
     ],
   ],
@@ -31649,6 +31649,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  plane: [
+    [
+      'path',
+      {
+        d: 'M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z',
+      },
+    ],
+  ],
   'plane-landing': [
     [
       'path',
@@ -31677,19 +31685,37 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  plane: [
-    [
-      'path',
-      {
-        d: 'M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z',
-      },
-    ],
-  ],
   play: [
     [
       'path',
       {
         d: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
+      },
+    ],
+  ],
+  plug: [
+    [
+      'path',
+      {
+        d: 'M12 22v-5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 8V2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 8V2',
       },
     ],
   ],
@@ -31757,32 +31783,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  plug: [
-    [
-      'path',
-      {
-        d: 'M12 22v-5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15 8V2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 8V2',
-      },
-    ],
-  ],
   plus: [
     [
       'path',
@@ -31794,6 +31794,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M12 5v14',
+      },
+    ],
+  ],
+  pocket: [
+    [
+      'path',
+      {
+        d: 'M20 3a2 2 0 0 1 2 2v6a1 1 0 0 1-20 0V5a2 2 0 0 1 2-2z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm8 10 4 4 4-4',
       },
     ],
   ],
@@ -31829,20 +31843,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  pocket: [
-    [
-      'path',
-      {
-        d: 'M20 3a2 2 0 0 1 2 2v6a1 1 0 0 1-20 0V5a2 2 0 0 1 2-2z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm8 10 4 4 4-4',
-      },
-    ],
-  ],
   podcast: [
     [
       'path',
@@ -31870,6 +31870,38 @@ export const lucideIcons: Record<string, IconData> = {
         cy: '11',
         r: '1',
         fill: 'currentColor',
+      },
+    ],
+  ],
+  pointer: [
+    [
+      'path',
+      {
+        d: 'M22 14a8 8 0 0 1-8 8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15',
       },
     ],
   ],
@@ -31908,38 +31940,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm2 2 20 20',
-      },
-    ],
-  ],
-  pointer: [
-    [
-      'path',
-      {
-        d: 'M22 14a8 8 0 0 1-8 8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15',
       },
     ],
   ],
@@ -32009,6 +32009,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  power: [
+    [
+      'path',
+      {
+        d: 'M12 2v10',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18.4 6.6a9 9 0 1 1-12.77.04',
+      },
+    ],
+  ],
   'power-off': [
     [
       'path',
@@ -32035,20 +32049,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  power: [
-    [
-      'path',
-      {
-        d: 'M12 2v10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18.4 6.6a9 9 0 1 1-12.77.04',
-      },
-    ],
-  ],
   presentation: [
     [
       'path',
@@ -32066,6 +32066,30 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm7 21 5-5 5 5',
+      },
+    ],
+  ],
+  printer: [
+    [
+      'path',
+      {
+        d: 'M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '6',
+        y: '14',
+        width: '12',
+        height: '8',
+        rx: '1',
       },
     ],
   ],
@@ -32092,30 +32116,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6',
-      },
-    ],
-  ],
-  printer: [
-    [
-      'path',
-      {
-        d: 'M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '6',
-        y: '14',
-        width: '12',
-        height: '8',
-        rx: '1',
       },
     ],
   ],
@@ -32423,6 +32423,40 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  radio: [
+    [
+      'path',
+      {
+        d: 'M16.247 7.761a6 6 0 0 1 0 8.478',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19.075 4.933a10 10 0 0 1 0 14.134',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4.925 19.067a10 10 0 0 1 0-14.134',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7.753 16.239a6 6 0 0 1 0-8.478',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '2',
+      },
+    ],
+  ],
   'radio-receiver': [
     [
       'path',
@@ -32496,40 +32530,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm8 22 4-11 4 11',
-      },
-    ],
-  ],
-  radio: [
-    [
-      'path',
-      {
-        d: 'M16.247 7.761a6 6 0 0 1 0 8.478',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19.075 4.933a10 10 0 0 1 0 14.134',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4.925 19.067a10 10 0 0 1 0-14.134',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7.753 16.239a6 6 0 0 1 0-8.478',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '2',
       },
     ],
   ],
@@ -32654,6 +32654,26 @@ export const lucideIcons: Record<string, IconData> = {
         x: '2',
         y: '6',
         rx: '2',
+      },
+    ],
+  ],
+  receipt: [
+    [
+      'path',
+      {
+        d: 'M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 17.5v-11',
       },
     ],
   ],
@@ -32873,26 +32893,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  receipt: [
-    [
-      'path',
-      {
-        d: 'M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 17.5v-11',
-      },
-    ],
-  ],
   'rectangle-circle': [
     [
       'path',
@@ -33009,6 +33009,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  redo: [
+    [
+      'path',
+      {
+        d: 'M21 7v6h-6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7',
+      },
+    ],
+  ],
   'redo-2': [
     [
       'path',
@@ -33045,17 +33059,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  redo: [
+  'refresh-ccw': [
     [
       'path',
       {
-        d: 'M21 7v6h-6',
+        d: 'M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8',
       },
     ],
     [
       'path',
       {
-        d: 'M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7',
+        d: 'M3 3v5h5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M16 16h5v5',
       },
     ],
   ],
@@ -33093,29 +33119,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'refresh-ccw': [
+  'refresh-cw': [
     [
       'path',
       {
-        d: 'M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8',
+        d: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8',
       },
     ],
     [
       'path',
       {
-        d: 'M3 3v5h5',
+        d: 'M21 3v5h-5',
       },
     ],
     [
       'path',
       {
-        d: 'M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16',
+        d: 'M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16',
       },
     ],
     [
       'path',
       {
-        d: 'M16 16h5v5',
+        d: 'M8 16H3v5',
       },
     ],
   ],
@@ -33160,32 +33186,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M22 22 2 2',
-      },
-    ],
-  ],
-  'refresh-cw': [
-    [
-      'path',
-      {
-        d: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 3v5h-5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 16H3v5',
       },
     ],
   ],
@@ -33267,6 +33267,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  repeat: [
+    [
+      'path',
+      {
+        d: 'm17 2 4 4-4 4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 11v-1a4 4 0 0 1 4-4h14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm7 22-4-4 4-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 13v1a4 4 0 0 1-4 4H3',
+      },
+    ],
+  ],
   'repeat-1': [
     [
       'path',
@@ -33325,29 +33351,51 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  repeat: [
+  replace: [
     [
       'path',
       {
-        d: 'm17 2 4 4-4 4',
+        d: 'M14 4a1 1 0 0 1 1-1',
       },
     ],
     [
       'path',
       {
-        d: 'M3 11v-1a4 4 0 0 1 4-4h14',
+        d: 'M15 10a1 1 0 0 1-1-1',
       },
     ],
     [
       'path',
       {
-        d: 'm7 22-4-4 4-4',
+        d: 'M21 4a1 1 0 0 0-1-1',
       },
     ],
     [
       'path',
       {
-        d: 'M21 13v1a4 4 0 0 1-4 4H3',
+        d: 'M21 9a1 1 0 0 1-1 1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm3 7 3 3 3-3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M6 10V5a2 2 0 0 1 2-2h2',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '3',
+        y: '14',
+        width: '7',
+        height: '7',
+        rx: '1',
       },
     ],
   ],
@@ -33411,51 +33459,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  replace: [
+  reply: [
     [
       'path',
       {
-        d: 'M14 4a1 1 0 0 1 1-1',
+        d: 'M20 18v-2a4 4 0 0 0-4-4H4',
       },
     ],
     [
       'path',
       {
-        d: 'M15 10a1 1 0 0 1-1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 4a1 1 0 0 0-1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 9a1 1 0 0 1-1 1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm3 7 3 3 3-3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 10V5a2 2 0 0 1 2-2h2',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '3',
-        y: '14',
-        width: '7',
-        height: '7',
-        rx: '1',
+        d: 'm9 17-5-5 5-5',
       },
     ],
   ],
@@ -33476,20 +33490,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm7 17-5-5 5-5',
-      },
-    ],
-  ],
-  reply: [
-    [
-      'path',
-      {
-        d: 'M20 18v-2a4 4 0 0 0-4-4H4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 17-5-5 5-5',
       },
     ],
   ],
@@ -33695,6 +33695,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'rotate-ccw': [
+    [
+      'path',
+      {
+        d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 3v5h5',
+      },
+    ],
+  ],
   'rotate-ccw-key': [
     [
       'path',
@@ -33749,17 +33763,17 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'rotate-ccw': [
+  'rotate-cw': [
     [
       'path',
       {
-        d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8',
+        d: 'M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8',
       },
     ],
     [
       'path',
       {
-        d: 'M3 3v5h5',
+        d: 'M21 3v5h-5',
       },
     ],
   ],
@@ -33783,17 +33797,27 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'rotate-cw': [
+  route: [
     [
-      'path',
+      'circle',
       {
-        d: 'M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8',
+        cx: '6',
+        cy: '19',
+        r: '3',
       },
     ],
     [
       'path',
       {
-        d: 'M21 3v5h-5',
+        d: 'M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '18',
+        cy: '5',
+        r: '3',
       },
     ],
   ],
@@ -33834,30 +33858,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M15 5h-4.3',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '18',
-        cy: '5',
-        r: '3',
-      },
-    ],
-  ],
-  route: [
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '19',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15',
       },
     ],
     [
@@ -34005,6 +34005,38 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  ruler: [
+    [
+      'path',
+      {
+        d: 'M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm14.5 12.5 2-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm11.5 9.5 2-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm8.5 6.5 2-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17.5 15.5 2-2',
+      },
+    ],
+  ],
   'ruler-dimension-line': [
     [
       'path',
@@ -34056,38 +34088,6 @@ export const lucideIcons: Record<string, IconData> = {
         width: '20',
         height: '8',
         rx: '2',
-      },
-    ],
-  ],
-  ruler: [
-    [
-      'path',
-      {
-        d: 'M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm14.5 12.5 2-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm11.5 9.5 2-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm8.5 6.5 2-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17.5 15.5 2-2',
       },
     ],
   ],
@@ -34193,32 +34193,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'satellite-dish': [
-    [
-      'path',
-      {
-        d: 'M4 10a7.31 7.31 0 0 0 10 10Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 15 3-3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17 13a6 6 0 0 0-6-6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 13A10 10 0 0 0 11 3',
-      },
-    ],
-  ],
   satellite: [
     [
       'path',
@@ -34251,6 +34225,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'satellite-dish': [
+    [
+      'path',
+      {
+        d: 'M4 10a7.31 7.31 0 0 0 10 10Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 15 3-3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 13a6 6 0 0 0-6-6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 13A10 10 0 0 0 11 3',
+      },
+    ],
+  ],
   'saudi-riyal': [
     [
       'path',
@@ -34274,6 +34274,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M20 10 4 13.5',
+      },
+    ],
+  ],
+  save: [
+    [
+      'path',
+      {
+        d: 'M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 3v4a1 1 0 0 0 1 1h7',
       },
     ],
   ],
@@ -34347,23 +34367,35 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  save: [
+  scale: [
     [
       'path',
       {
-        d: 'M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z',
+        d: 'M12 3v18',
       },
     ],
     [
       'path',
       {
-        d: 'M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7',
+        d: 'm19 8 3 8a5 5 0 0 1-6 0zV7',
       },
     ],
     [
       'path',
       {
-        d: 'M7 3v4a1 1 0 0 0 1 1h7',
+        d: 'M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm5 8 3 8a5 5 0 0 1-6 0zV7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 21h10',
       },
     ],
   ],
@@ -34397,38 +34429,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  scale: [
-    [
-      'path',
-      {
-        d: 'M12 3v18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm19 8 3 8a5 5 0 0 1-6 0zV7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm5 8 3 8a5 5 0 0 1-6 0zV7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 21h10',
-      },
-    ],
-  ],
   scaling: [
     [
       'path',
@@ -34452,6 +34452,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M21 3 9 15',
+      },
+    ],
+  ],
+  scan: [
+    [
+      'path',
+      {
+        d: 'M3 7V5a2 2 0 0 1 2-2h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 3h2a2 2 0 0 1 2 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 17v2a2 2 0 0 1-2 2h-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 21H5a2 2 0 0 1-2-2v-2',
       },
     ],
   ],
@@ -34785,32 +34811,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  scan: [
-    [
-      'path',
-      {
-        d: 'M3 7V5a2 2 0 0 1 2-2h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17 3h2a2 2 0 0 1 2 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 17v2a2 2 0 0 1-2 2h-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 21H5a2 2 0 0 1-2-2v-2',
-      },
-    ],
-  ],
   school: [
     [
       'path',
@@ -34848,6 +34848,42 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12',
         cy: '9',
         r: '2',
+      },
+    ],
+  ],
+  scissors: [
+    [
+      'circle',
+      {
+        cx: '6',
+        cy: '6',
+        r: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8.12 8.12 12 12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 4 8.12 15.88',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '6',
+        cy: '18',
+        r: '3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14.8 14.8 20 20',
       },
     ],
   ],
@@ -34899,42 +34935,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  scissors: [
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '6',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8.12 8.12 12 12',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 4 8.12 15.88',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '6',
-        cy: '18',
-        r: '3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14.8 14.8 20 20',
-      },
-    ],
-  ],
   scooter: [
     [
       'path',
@@ -34962,38 +34962,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '4.5',
         cy: '17.5',
         r: '2.5',
-      },
-    ],
-  ],
-  'screen-share-off': [
-    [
-      'path',
-      {
-        d: 'M13 3H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 21h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 17v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm22 3-5 5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17 3 5 5',
       },
     ],
   ],
@@ -35029,6 +34997,52 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'screen-share-off': [
+    [
+      'path',
+      {
+        d: 'M13 3H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 21h8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 17v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm22 3-5 5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17 3 5 5',
+      },
+    ],
+  ],
+  scroll: [
+    [
+      'path',
+      {
+        d: 'M19 17V5a2 2 0 0 0-2-2H4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3',
+      },
+    ],
+  ],
   'scroll-text': [
     [
       'path',
@@ -35055,17 +35069,19 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  scroll: [
+  search: [
     [
       'path',
       {
-        d: 'M19 17V5a2 2 0 0 0-2-2H4',
+        d: 'm21 21-4.34-4.34',
       },
     ],
     [
-      'path',
+      'circle',
       {
-        d: 'M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3',
+        cx: '11',
+        cy: '11',
+        r: '8',
       },
     ],
   ],
@@ -35197,22 +35213,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  search: [
-    [
-      'path',
-      {
-        d: 'm21 21-4.34-4.34',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '11',
-        cy: '11',
-        r: '8',
-      },
-    ],
-  ],
   section: [
     [
       'path',
@@ -35224,6 +35224,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 19a4 3 0 0 0 8 0c0-4-8-3-8-7a4 3 0 0 1 8 0',
+      },
+    ],
+  ],
+  send: [
+    [
+      'path',
+      {
+        d: 'M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm21.854 2.147-10.94 10.939',
       },
     ],
   ],
@@ -35275,20 +35289,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  send: [
-    [
-      'path',
-      {
-        d: 'M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm21.854 2.147-10.94 10.939',
-      },
-    ],
-  ],
   'separator-horizontal': [
     [
       'path',
@@ -35326,6 +35326,48 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm8 8-4 4 4 4',
+      },
+    ],
+  ],
+  server: [
+    [
+      'rect',
+      {
+        width: '20',
+        height: '8',
+        x: '2',
+        y: '2',
+        rx: '2',
+        ry: '2',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '20',
+        height: '8',
+        x: '2',
+        y: '14',
+        rx: '2',
+        ry: '2',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '6',
+        x2: '6.01',
+        y1: '6',
+        y2: '6',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '6',
+        x2: '6.01',
+        y1: '18',
+        y2: '18',
       },
     ],
   ],
@@ -35473,45 +35515,19 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  server: [
+  settings: [
     [
-      'rect',
+      'path',
       {
-        width: '20',
-        height: '8',
-        x: '2',
-        y: '2',
-        rx: '2',
-        ry: '2',
+        d: 'M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915',
       },
     ],
     [
-      'rect',
+      'circle',
       {
-        width: '20',
-        height: '8',
-        x: '2',
-        y: '14',
-        rx: '2',
-        ry: '2',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '6',
-        x2: '6.01',
-        y1: '6',
-        y2: '6',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '6',
-        x2: '6.01',
-        y1: '18',
-        y2: '18',
+        cx: '12',
+        cy: '12',
+        r: '3',
       },
     ],
   ],
@@ -35545,22 +35561,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  settings: [
-    [
-      'path',
-      {
-        d: 'M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '3',
-      },
-    ],
-  ],
   shapes: [
     [
       'path',
@@ -35584,6 +35584,26 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '17.5',
         cy: '17.5',
         r: '3.5',
+      },
+    ],
+  ],
+  share: [
+    [
+      'path',
+      {
+        d: 'M12 2v13',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16 6-4-4-4 4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8',
       },
     ],
   ],
@@ -35628,26 +35648,6 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '8.59',
         y1: '6.51',
         y2: '10.49',
-      },
-    ],
-  ],
-  share: [
-    [
-      'path',
-      {
-        d: 'M12 2v13',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16 6-4-4-4 4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8',
       },
     ],
   ],
@@ -35705,6 +35705,14 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M14 11a2 2 0 1 1-4 0 4 4 0 0 1 8 0 6 6 0 0 1-12 0 8 8 0 0 1 16 0 10 10 0 1 1-20 0 11.93 11.93 0 0 1 2.42-7.22 2 2 0 1 1 3.16 2.44',
+      },
+    ],
+  ],
+  shield: [
+    [
+      'path',
+      {
+        d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
       },
     ],
   ],
@@ -35912,11 +35920,35 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  shield: [
+  ship: [
     [
       'path',
       {
-        d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
+        d: 'M12 10.189V14',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 2v3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
       },
     ],
   ],
@@ -35983,38 +36015,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12',
         cy: '12',
         r: '2.5',
-      },
-    ],
-  ],
-  ship: [
-    [
-      'path',
-      {
-        d: 'M12 10.189V14',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2v3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
       },
     ],
   ],
@@ -36358,6 +36358,38 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  signal: [
+    [
+      'path',
+      {
+        d: 'M2 20h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 20v-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 20v-8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M17 20V8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 4v16',
+      },
+    ],
+  ],
   'signal-high': [
     [
       'path',
@@ -36426,38 +36458,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  signal: [
-    [
-      'path',
-      {
-        d: 'M2 20h.01',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 20v-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 20v-8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M17 20V8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M22 4v16',
-      },
-    ],
-  ],
   signature: [
     [
       'path',
@@ -36469,6 +36469,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M3 21h18',
+      },
+    ],
+  ],
+  signpost: [
+    [
+      'path',
+      {
+        d: 'M12 13v8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 3v3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M18 6a2 2 0 0 1 1.387.56l2.307 2.22a1 1 0 0 1 0 1.44l-2.307 2.22A2 2 0 0 1 18 13H6a2 2 0 0 1-1.387-.56l-2.306-2.22a1 1 0 0 1 0-1.44l2.306-2.22A2 2 0 0 1 6 6z',
       },
     ],
   ],
@@ -36495,26 +36515,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 22h8',
-      },
-    ],
-  ],
-  signpost: [
-    [
-      'path',
-      {
-        d: 'M12 13v8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 3v3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M18 6a2 2 0 0 1 1.387.56l2.307 2.22a1 1 0 0 1 0 1.44l-2.307 2.22A2 2 0 0 1 18 13H6a2 2 0 0 1-1.387-.56l-2.306-2.22a1 1 0 0 1 0-1.44l2.306-2.22A2 2 0 0 1 6 6z',
       },
     ],
   ],
@@ -36820,6 +36820,25 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  smartphone: [
+    [
+      'rect',
+      {
+        width: '14',
+        height: '20',
+        x: '5',
+        y: '2',
+        rx: '2',
+        ry: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 18h.01',
+      },
+    ],
+  ],
   'smartphone-charging': [
     [
       'rect',
@@ -36869,22 +36888,37 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  smartphone: [
+  smile: [
     [
-      'rect',
+      'circle',
       {
-        width: '14',
-        height: '20',
-        x: '5',
-        y: '2',
-        rx: '2',
-        ry: '2',
+        cx: '12',
+        cy: '12',
+        r: '10',
       },
     ],
     [
       'path',
       {
-        d: 'M12 18h.01',
+        d: 'M8 14s1.5 2 4 2 4-2 4-2',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '9',
+        x2: '9.01',
+        y1: '9',
+        y2: '9',
+      },
+    ],
+    [
+      'line',
+      {
+        x1: '15',
+        x2: '15.01',
+        y1: '9',
+        y2: '9',
       },
     ],
   ],
@@ -36929,40 +36963,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M19 2v6',
-      },
-    ],
-  ],
-  smile: [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8 14s1.5 2 4 2 4-2 4-2',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '9',
-        x2: '9.01',
-        y1: '9',
-        y2: '9',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '15',
-        x2: '15.01',
-        y1: '9',
-        y2: '9',
       },
     ],
   ],
@@ -37324,6 +37324,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'spell-check': [
+    [
+      'path',
+      {
+        d: 'm6 16 6-12 6 12',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8 12h8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16 20 2 2 4-4',
+      },
+    ],
+  ],
   'spell-check-2': [
     [
       'path',
@@ -37344,23 +37364,27 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'spell-check': [
+  spline: [
     [
-      'path',
+      'circle',
       {
-        d: 'm6 16 6-12 6 12',
+        cx: '19',
+        cy: '5',
+        r: '2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '5',
+        cy: '19',
+        r: '2',
       },
     ],
     [
       'path',
       {
-        d: 'M8 12h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16 20 2 2 4-4',
+        d: 'M5 17A12 12 0 0 1 17 5',
       },
     ],
   ],
@@ -37391,30 +37415,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '5',
         cy: '19',
         r: '2',
-      },
-    ],
-  ],
-  spline: [
-    [
-      'circle',
-      {
-        cx: '19',
-        cy: '5',
-        r: '2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '5',
-        cy: '19',
-        r: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 17A12 12 0 0 1 17 5',
       },
     ],
   ],
@@ -37575,6 +37575,18 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  square: [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+  ],
   'square-activity': [
     [
       'rect',
@@ -37590,6 +37602,30 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M17 12h-2l-2 5-2-10-2 5H7',
+      },
+    ],
+  ],
+  'square-arrow-down': [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 8v8',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm8 12 4 4 4-4',
       },
     ],
   ],
@@ -37638,30 +37674,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M16 8v8H8',
-      },
-    ],
-  ],
-  'square-arrow-down': [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 8v8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm8 12 4 4 4-4',
       },
     ],
   ],
@@ -37793,6 +37805,30 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'square-arrow-up': [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16 12-4-4-4 4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 16V8',
+      },
+    ],
+  ],
   'square-arrow-up-left': [
     [
       'rect',
@@ -37838,30 +37874,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm8 16 8-8',
-      },
-    ],
-  ],
-  'square-arrow-up': [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16 12-4-4-4 4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 16V8',
       },
     ],
   ],
@@ -38039,20 +38051,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'square-check-big': [
-    [
-      'path',
-      {
-        d: 'M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 11 3 3L22 4',
-      },
-    ],
-  ],
   'square-check': [
     [
       'rect',
@@ -38068,6 +38066,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 12 2 2 4-4',
+      },
+    ],
+  ],
+  'square-check-big': [
+    [
+      'path',
+      {
+        d: 'M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 11 3 3L22 4',
       },
     ],
   ],
@@ -38167,6 +38179,100 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'square-dashed': [
+    [
+      'path',
+      {
+        d: 'M5 3a2 2 0 0 0-2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 3a2 2 0 0 1 2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 19a2 2 0 0 1-2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5 21a2 2 0 0 1-2-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 3h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 21h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 3h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 21h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 9v1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 9v1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 14v1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 14v1',
+      },
+    ],
+  ],
+  'square-dashed-bottom': [
+    [
+      'path',
+      {
+        d: 'M5 21a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 21h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 21h1',
+      },
+    ],
+  ],
   'square-dashed-bottom-code': [
     [
       'path',
@@ -38196,26 +38302,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 21h1',
-      },
-    ],
-  ],
-  'square-dashed-bottom': [
-    [
-      'path',
-      {
-        d: 'M5 21a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 21h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 21h1',
       },
     ],
   ],
@@ -38426,80 +38512,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 21h1',
-      },
-    ],
-  ],
-  'square-dashed': [
-    [
-      'path',
-      {
-        d: 'M5 3a2 2 0 0 0-2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 3a2 2 0 0 1 2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 19a2 2 0 0 1-2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 21a2 2 0 0 1-2-2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 3h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 21h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 3h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 21h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 9v1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 9v1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 14v1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 14v1',
       },
     ],
   ],
@@ -38752,6 +38764,24 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'square-parking': [
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 17V7h4a3 3 0 0 1 0 6H9',
+      },
+    ],
+  ],
   'square-parking-off': [
     [
       'path',
@@ -38781,24 +38811,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 17v-2.3',
-      },
-    ],
-  ],
-  'square-parking': [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 17V7h4a3 3 0 0 1 0 6H9',
       },
     ],
   ],
@@ -39285,32 +39297,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'square-user-round': [
-    [
-      'path',
-      {
-        d: 'M18 21a6 6 0 0 0-12 0',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '11',
-        r: '4',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
-      },
-    ],
-  ],
   'square-user': [
     [
       'rect',
@@ -39337,6 +39323,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'square-user-round': [
+    [
+      'path',
+      {
+        d: 'M18 21a6 6 0 0 0-12 0',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '11',
+        r: '4',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+  ],
   'square-x': [
     [
       'rect',
@@ -39359,18 +39371,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm9 9 6 6',
-      },
-    ],
-  ],
-  square: [
-    [
-      'rect',
-      {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
-        rx: '2',
       },
     ],
   ],
@@ -39502,6 +39502,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  squircle: [
+    [
+      'path',
+      {
+        d: 'M12 3c7.2 0 9 1.8 9 9s-1.8 9-9 9-9-1.8-9-9 1.8-9 9-9',
+      },
+    ],
+  ],
   'squircle-dashed': [
     [
       'path',
@@ -39552,14 +39560,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  squircle: [
-    [
-      'path',
-      {
-        d: 'M12 3c7.2 0 9 1.8 9 9s-1.8 9-9 9-9-1.8-9-9 1.8-9 9-9',
-      },
-    ],
-  ],
   squirrel: [
     [
       'path',
@@ -39606,6 +39606,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  star: [
+    [
+      'path',
+      {
+        d: 'M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z',
+      },
+    ],
+  ],
   'star-half': [
     [
       'path',
@@ -39634,14 +39642,6 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '22',
         y1: '2',
         y2: '22',
-      },
-    ],
-  ],
-  star: [
-    [
-      'path',
-      {
-        d: 'M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z',
       },
     ],
   ],
@@ -39880,6 +39880,64 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  sun: [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '12',
+        r: '4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 20v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm4.93 4.93 1.41 1.41',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm17.66 17.66 1.41 1.41',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 12h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 12h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm6.34 17.66-1.41 1.41',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm19.07 4.93-1.41 1.41',
+      },
+    ],
+  ],
   'sun-dim': [
     [
       'circle',
@@ -40093,64 +40151,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm4.34 6.34-.7-.7',
-      },
-    ],
-  ],
-  sun: [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '12',
-        r: '4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 20v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm4.93 4.93 1.41 1.41',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm17.66 17.66 1.41 1.41',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 12h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 12h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm6.34 17.66-1.41 1.41',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm19.07 4.93-1.41 1.41',
       },
     ],
   ],
@@ -40486,6 +40486,36 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  table: [
+    [
+      'path',
+      {
+        d: 'M12 3v18',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '18',
+        height: '18',
+        x: '3',
+        y: '3',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 9h18',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 15h18',
+      },
+    ],
+  ],
   'table-2': [
     [
       'path',
@@ -40764,33 +40794,25 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  table: [
-    [
-      'path',
-      {
-        d: 'M12 3v18',
-      },
-    ],
+  tablet: [
     [
       'rect',
       {
-        width: '18',
-        height: '18',
-        x: '3',
-        y: '3',
+        width: '16',
+        height: '20',
+        x: '4',
+        y: '2',
         rx: '2',
+        ry: '2',
       },
     ],
     [
-      'path',
+      'line',
       {
-        d: 'M3 9h18',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 15h18',
+        x1: '12',
+        x2: '12.01',
+        y1: '18',
+        y2: '18',
       },
     ],
   ],
@@ -40815,28 +40837,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M8 18h.01',
-      },
-    ],
-  ],
-  tablet: [
-    [
-      'rect',
-      {
-        width: '16',
-        height: '20',
-        x: '4',
-        y: '2',
-        rx: '2',
-        ry: '2',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '12',
-        x2: '12.01',
-        y1: '18',
-        y2: '18',
       },
     ],
   ],
@@ -41112,6 +41112,32 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  tent: [
+    [
+      'path',
+      {
+        d: 'M3.5 21 14 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20.5 21 10 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15.5 21 12 15l-3.5 6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 21h20',
+      },
+    ],
+  ],
   'tent-tree': [
     [
       'circle',
@@ -41158,32 +41184,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  tent: [
-    [
-      'path',
-      {
-        d: 'M3.5 21 14 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20.5 21 10 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15.5 21 12 15l-3.5 6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 21h20',
-      },
-    ],
-  ],
   terminal: [
     [
       'path',
@@ -41195,26 +41195,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm4 17 6-6-6-6',
-      },
-    ],
-  ],
-  'test-tube-diagonal': [
-    [
-      'path',
-      {
-        d: 'M21 7 6.82 21.18a2.83 2.83 0 0 1-3.99-.01a2.83 2.83 0 0 1 0-4L17 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16 2 6 6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 16H4',
       },
     ],
   ],
@@ -41235,6 +41215,26 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M14.5 16h-5',
+      },
+    ],
+  ],
+  'test-tube-diagonal': [
+    [
+      'path',
+      {
+        d: 'M21 7 6.82 21.18a2.83 2.83 0 0 1-3.99-.01a2.83 2.83 0 0 1 0-4L17 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16 2 6 6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 16H4',
       },
     ],
   ],
@@ -41356,6 +41356,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'text-cursor': [
+    [
+      'path',
+      {
+        d: 'M17 22h-1a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 22h1a4 4 0 0 0 4-4v-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 2h1a4 4 0 0 1 4 4v1',
+      },
+    ],
+  ],
   'text-cursor-input': [
     [
       'path',
@@ -41385,26 +41405,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 6v12',
-      },
-    ],
-  ],
-  'text-cursor': [
-    [
-      'path',
-      {
-        d: 'M17 22h-1a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 22h1a4 4 0 0 0 4-4v-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 2h1a4 4 0 0 1 4 4v1',
       },
     ],
   ],
@@ -41674,6 +41674,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  thermometer: [
+    [
+      'path',
+      {
+        d: 'M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z',
+      },
+    ],
+  ],
   'thermometer-snowflake': [
     [
       'path',
@@ -41762,14 +41770,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  thermometer: [
-    [
-      'path',
-      {
-        d: 'M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z',
-      },
-    ],
-  ],
   'thumbs-down': [
     [
       'path',
@@ -41795,6 +41795,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M7 10v12',
+      },
+    ],
+  ],
+  ticket: [
+    [
+      'path',
+      {
+        d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 5v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 17v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M13 11v2',
       },
     ],
   ],
@@ -41906,29 +41932,39 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  ticket: [
+  tickets: [
     [
       'path',
       {
-        d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+        d: 'm3.173 8.18 11-5a2 2 0 0 1 2.647.993L18.56 8',
       },
     ],
     [
       'path',
       {
-        d: 'M13 5v2',
+        d: 'M6 10V8',
       },
     ],
     [
       'path',
       {
-        d: 'M13 17v2',
+        d: 'M6 14v1',
       },
     ],
     [
       'path',
       {
-        d: 'M13 11v2',
+        d: 'M6 19v2',
+      },
+    ],
+    [
+      'rect',
+      {
+        x: '2',
+        y: '8',
+        width: '20',
+        height: '13',
+        rx: '2',
       },
     ],
   ],
@@ -41980,39 +42016,31 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  tickets: [
+  timer: [
     [
-      'path',
+      'line',
       {
-        d: 'm3.173 8.18 11-5a2 2 0 0 1 2.647.993L18.56 8',
+        x1: '10',
+        x2: '14',
+        y1: '2',
+        y2: '2',
       },
     ],
     [
-      'path',
+      'line',
       {
-        d: 'M6 10V8',
+        x1: '12',
+        x2: '15',
+        y1: '14',
+        y2: '11',
       },
     ],
     [
-      'path',
+      'circle',
       {
-        d: 'M6 14v1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M6 19v2',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '2',
-        y: '8',
-        width: '20',
-        height: '13',
-        rx: '2',
+        cx: '12',
+        cy: '14',
+        r: '8',
       },
     ],
   ],
@@ -42071,34 +42099,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 17H4v5',
-      },
-    ],
-  ],
-  timer: [
-    [
-      'line',
-      {
-        x1: '10',
-        x2: '14',
-        y1: '2',
-        y2: '2',
-      },
-    ],
-    [
-      'line',
-      {
-        x1: '12',
-        x2: '15',
-        y1: '14',
-        y2: '11',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '14',
-        r: '8',
       },
     ],
   ],
@@ -42266,6 +42266,30 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  touchpad: [
+    [
+      'rect',
+      {
+        width: '20',
+        height: '16',
+        x: '2',
+        y: '4',
+        rx: '2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 14h20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 20v-6',
+      },
+    ],
+  ],
   'touchpad-off': [
     [
       'path',
@@ -42301,30 +42325,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9.656 4H20a2 2 0 0 1 2 2v10.344',
-      },
-    ],
-  ],
-  touchpad: [
-    [
-      'rect',
-      {
-        width: '20',
-        height: '16',
-        x: '2',
-        y: '4',
-        rx: '2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 14h20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 20v-6',
       },
     ],
   ],
@@ -42482,6 +42482,44 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'train-front': [
+    [
+      'path',
+      {
+        d: 'M8 3.1V7a4 4 0 0 0 8 0V3.1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm9 15-1-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm15 15 1-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm8 19-2 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm16 19 2 3',
+      },
+    ],
+  ],
   'train-front-tunnel': [
     [
       'path',
@@ -42523,44 +42561,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm15 19 2 3',
-      },
-    ],
-  ],
-  'train-front': [
-    [
-      'path',
-      {
-        d: 'M8 3.1V7a4 4 0 0 0 8 0V3.1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm9 15-1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm15 15 1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm8 19-2 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm16 19 2 3',
       },
     ],
   ],
@@ -42708,19 +42708,7 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'trash-2': [
-    [
-      'path',
-      {
-        d: 'M10 11v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M14 11v6',
-      },
-    ],
+  trash: [
     [
       'path',
       {
@@ -42740,7 +42728,19 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  trash: [
+  'trash-2': [
+    [
+      'path',
+      {
+        d: 'M10 11v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M14 11v6',
+      },
+    ],
     [
       'path',
       {
@@ -42885,6 +42885,20 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'trending-up': [
+    [
+      'path',
+      {
+        d: 'M16 7h6v6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm22 7-8.5 8.5-5-5L2 17',
+      },
+    ],
+  ],
   'trending-up-down': [
     [
       'path',
@@ -42911,17 +42925,11 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'trending-up': [
+  triangle: [
     [
       'path',
       {
-        d: 'M16 7h6v6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm22 7-8.5 8.5-5-5L2 17',
+        d: 'M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z',
       },
     ],
   ],
@@ -43009,14 +43017,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  triangle: [
-    [
-      'path',
-      {
-        d: 'M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z',
-      },
-    ],
-  ],
   trophy: [
     [
       'path',
@@ -43052,6 +43052,42 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M6 9H4.5a1 1 0 0 1 0-5H6',
+      },
+    ],
+  ],
+  truck: [
+    [
+      'path',
+      {
+        d: 'M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15 18H9',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '17',
+        cy: '18',
+        r: '2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '7',
+        cy: '18',
+        r: '2',
       },
     ],
   ],
@@ -43099,42 +43135,6 @@ export const lucideIcons: Record<string, IconData> = {
       {
         cx: '7',
         cy: '19',
-        r: '2',
-      },
-    ],
-  ],
-  truck: [
-    [
-      'path',
-      {
-        d: 'M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15 18H9',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '17',
-        cy: '18',
-        r: '2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '7',
-        cy: '18',
         r: '2',
       },
     ],
@@ -43217,6 +43217,42 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  tv: [
+    [
+      'path',
+      {
+        d: 'm17 2-5 5-5-5',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '20',
+        height: '15',
+        x: '2',
+        y: '7',
+        rx: '2',
+      },
+    ],
+  ],
+  'tv-minimal': [
+    [
+      'path',
+      {
+        d: 'M7 21h10',
+      },
+    ],
+    [
+      'rect',
+      {
+        width: '20',
+        height: '14',
+        x: '2',
+        y: '3',
+        rx: '2',
+      },
+    ],
+  ],
   'tv-minimal-play': [
     [
       'path',
@@ -43241,42 +43277,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'tv-minimal': [
-    [
-      'path',
-      {
-        d: 'M7 21h10',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '20',
-        height: '14',
-        x: '2',
-        y: '3',
-        rx: '2',
-      },
-    ],
-  ],
-  tv: [
-    [
-      'path',
-      {
-        d: 'm17 2-5 5-5-5',
-      },
-    ],
-    [
-      'rect',
-      {
-        width: '20',
-        height: '15',
-        x: '2',
-        y: '7',
-        rx: '2',
-      },
-    ],
-  ],
   twitch: [
     [
       'path',
@@ -43290,14 +43290,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z',
-      },
-    ],
-  ],
-  'type-outline': [
-    [
-      'path',
-      {
-        d: 'M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z',
       },
     ],
   ],
@@ -43318,6 +43310,34 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 20h6',
+      },
+    ],
+  ],
+  'type-outline': [
+    [
+      'path',
+      {
+        d: 'M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z',
+      },
+    ],
+  ],
+  umbrella: [
+    [
+      'path',
+      {
+        d: 'M12 13v7a2 2 0 0 0 4 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20.992 13a1 1 0 0 0 .97-1.274 10.284 10.284 0 0 0-19.923 0A1 1 0 0 0 3 13z',
       },
     ],
   ],
@@ -43353,26 +43373,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  umbrella: [
-    [
-      'path',
-      {
-        d: 'M12 13v7a2 2 0 0 0 4 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20.992 13a1 1 0 0 0 .97-1.274 10.284 10.284 0 0 0-19.923 0A1 1 0 0 0 3 13z',
-      },
-    ],
-  ],
   underline: [
     [
       'path',
@@ -43387,6 +43387,20 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '20',
         y1: '20',
         y2: '20',
+      },
+    ],
+  ],
+  undo: [
+    [
+      'path',
+      {
+        d: 'M3 7v6h6',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13',
       },
     ],
   ],
@@ -43423,20 +43437,6 @@ export const lucideIcons: Record<string, IconData> = {
         cx: '12',
         cy: '17',
         r: '1',
-      },
-    ],
-  ],
-  undo: [
-    [
-      'path',
-      {
-        d: 'M3 7v6h6',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13',
       },
     ],
   ],
@@ -43608,14 +43608,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'unlink-2': [
-    [
-      'path',
-      {
-        d: 'M15 7h2a5 5 0 0 1 0 10h-2m-6 0H7A5 5 0 0 1 7 7h2',
-      },
-    ],
-  ],
   unlink: [
     [
       'path',
@@ -43663,6 +43655,14 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '22',
         y1: '16',
         y2: '16',
+      },
+    ],
+  ],
+  'unlink-2': [
+    [
+      'path',
+      {
+        d: 'M15 7h2a5 5 0 0 1 0 10h-2m-6 0H7A5 5 0 0 1 7 7h2',
       },
     ],
   ],
@@ -43769,6 +43769,22 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm18 12 1-1 1 1-1 1Z',
+      },
+    ],
+  ],
+  user: [
+    [
+      'path',
+      {
+        d: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '7',
+        r: '4',
       },
     ],
   ],
@@ -43976,6 +43992,22 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '16',
         y1: '11',
         y2: '11',
+      },
+    ],
+  ],
+  'user-round': [
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '8',
+        r: '5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 21a8 8 0 0 0-16 0',
       },
     ],
   ],
@@ -44203,22 +44235,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  'user-round': [
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '8',
-        r: '5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 21a8 8 0 0 0-16 0',
-      },
-    ],
-  ],
   'user-search': [
     [
       'circle',
@@ -44305,44 +44321,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  user: [
-    [
-      'path',
-      {
-        d: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '12',
-        cy: '7',
-        r: '4',
-      },
-    ],
-  ],
-  'users-round': [
-    [
-      'path',
-      {
-        d: 'M18 21a8 8 0 0 0-16 0',
-      },
-    ],
-    [
-      'circle',
-      {
-        cx: '10',
-        cy: '8',
-        r: '5',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3',
-      },
-    ],
-  ],
   users: [
     [
       'path',
@@ -44371,6 +44349,48 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  'users-round': [
+    [
+      'path',
+      {
+        d: 'M18 21a8 8 0 0 0-16 0',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '10',
+        cy: '8',
+        r: '5',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3',
+      },
+    ],
+  ],
+  utensils: [
+    [
+      'path',
+      {
+        d: 'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 2v20',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7',
+      },
+    ],
+  ],
   'utensils-crossed': [
     [
       'path',
@@ -44394,26 +44414,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm19 5-7 7',
-      },
-    ],
-  ],
-  utensils: [
-    [
-      'path',
-      {
-        d: 'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 2v20',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7',
       },
     ],
   ],
@@ -44715,6 +44715,28 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  venus: [
+    [
+      'path',
+      {
+        d: 'M12 15v7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M9 19h6',
+      },
+    ],
+    [
+      'circle',
+      {
+        cx: '12',
+        cy: '9',
+        r: '6',
+      },
+    ],
+  ],
   'venus-and-mars': [
     [
       'path',
@@ -44749,25 +44771,27 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  venus: [
+  vibrate: [
     [
       'path',
       {
-        d: 'M12 15v7',
+        d: 'm2 8 2 2-2 2 2 2-2 2',
       },
     ],
     [
       'path',
       {
-        d: 'M9 19h6',
+        d: 'm22 8-2 2 2 2-2 2 2 2',
       },
     ],
     [
-      'circle',
+      'rect',
       {
-        cx: '12',
-        cy: '9',
-        r: '6',
+        width: '8',
+        height: '14',
+        x: '8',
+        y: '5',
+        rx: '1',
       },
     ],
   ],
@@ -44806,27 +44830,21 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  vibrate: [
+  video: [
     [
       'path',
       {
-        d: 'm2 8 2 2-2 2 2 2-2 2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm22 8-2 2 2 2-2 2 2 2',
+        d: 'm16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5',
       },
     ],
     [
       'rect',
       {
-        width: '8',
-        height: '14',
-        x: '8',
-        y: '5',
-        rx: '1',
+        x: '2',
+        y: '6',
+        width: '14',
+        height: '12',
+        rx: '2',
       },
     ],
   ],
@@ -44847,24 +44865,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm2 2 20 20',
-      },
-    ],
-  ],
-  video: [
-    [
-      'path',
-      {
-        d: 'm16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5',
-      },
-    ],
-    [
-      'rect',
-      {
-        x: '2',
-        y: '6',
-        width: '14',
-        height: '12',
-        rx: '2',
       },
     ],
   ],
@@ -45003,6 +45003,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  volume: [
+    [
+      'path',
+      {
+        d: 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z',
+      },
+    ],
+  ],
   'volume-1': [
     [
       'path',
@@ -45095,14 +45103,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  volume: [
-    [
-      'path',
-      {
-        d: 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z',
-      },
-    ],
-  ],
   vote: [
     [
       'path',
@@ -45120,6 +45120,20 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M22 19H2',
+      },
+    ],
+  ],
+  wallet: [
+    [
+      'path',
+      {
+        d: 'M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4',
       },
     ],
   ],
@@ -45161,20 +45175,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  wallet: [
-    [
-      'path',
-      {
-        d: 'M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4',
-      },
-    ],
-  ],
   wallpaper: [
     [
       'path',
@@ -45210,56 +45210,6 @@ export const lucideIcons: Record<string, IconData> = {
         width: '20',
         height: '14',
         rx: '2',
-      },
-    ],
-  ],
-  'wand-sparkles': [
-    [
-      'path',
-      {
-        d: 'm21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm14 7 3 3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M5 6v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19 14v4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M10 2v2',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 8H3',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M21 16h-4',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M11 3H9',
       },
     ],
   ],
@@ -45316,6 +45266,56 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M12.2 6.2 11 5',
+      },
+    ],
+  ],
+  'wand-sparkles': [
+    [
+      'path',
+      {
+        d: 'm21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm14 7 3 3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5 6v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19 14v4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M10 2v2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7 8H3',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M21 16h-4',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M11 3H9',
       },
     ],
   ],
@@ -45411,6 +45411,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  waves: [
+    [
+      'path',
+      {
+        d: 'M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
+      },
+    ],
+  ],
   'waves-arrow-down': [
     [
       'path',
@@ -45492,26 +45512,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M9 5a2 2 0 0 0-2 2v11',
-      },
-    ],
-  ],
-  waves: [
-    [
-      'path',
-      {
-        d: 'M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
       },
     ],
   ],
@@ -45597,6 +45597,26 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  webhook: [
+    [
+      'path',
+      {
+        d: 'M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'm12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8',
+      },
+    ],
+  ],
   'webhook-off': [
     [
       'path',
@@ -45641,23 +45661,19 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  webhook: [
+  weight: [
     [
-      'path',
+      'circle',
       {
-        d: 'M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2',
+        cx: '12',
+        cy: '5',
+        r: '3',
       },
     ],
     [
       'path',
       {
-        d: 'm6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'm12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8',
+        d: 'M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z',
       },
     ],
   ],
@@ -45683,19 +45699,53 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  weight: [
+  wheat: [
     [
-      'circle',
+      'path',
       {
-        cx: '12',
-        cy: '5',
-        r: '3',
+        d: 'M2 22 16 8',
       },
     ],
     [
       'path',
       {
-        d: 'M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z',
+        d: 'M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z',
       },
     ],
   ],
@@ -45764,56 +45814,6 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  wheat: [
-    [
-      'path',
-      {
-        d: 'M2 22 16 8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z',
-      },
-    ],
-  ],
   'whole-word': [
     [
       'circle',
@@ -45847,6 +45847,32 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1',
+      },
+    ],
+  ],
+  wifi: [
+    [
+      'path',
+      {
+        d: 'M12 20h.01',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M2 8.82a15 15 0 0 1 20 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M5 12.859a10 10 0 0 1 14 0',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M8.5 16.429a5 5 0 0 1 7 0',
       },
     ],
   ],
@@ -46082,29 +46108,23 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  wifi: [
+  wind: [
     [
       'path',
       {
-        d: 'M12 20h.01',
+        d: 'M12.8 19.6A2 2 0 1 0 14 16H2',
       },
     ],
     [
       'path',
       {
-        d: 'M2 8.82a15 15 0 0 1 20 0',
+        d: 'M17.5 8a2.5 2.5 0 1 1 2 4H2',
       },
     ],
     [
       'path',
       {
-        d: 'M5 12.859a10 10 0 0 1 14 0',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M8.5 16.429a5 5 0 0 1 7 0',
+        d: 'M9.8 4.4A2 2 0 1 1 11 8H2',
       },
     ],
   ],
@@ -46134,23 +46154,29 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
-  wind: [
+  wine: [
     [
       'path',
       {
-        d: 'M12.8 19.6A2 2 0 1 0 14 16H2',
+        d: 'M8 22h8',
       },
     ],
     [
       'path',
       {
-        d: 'M17.5 8a2.5 2.5 0 1 1 2 4H2',
+        d: 'M7 10h10',
       },
     ],
     [
       'path',
       {
-        d: 'M9.8 4.4A2 2 0 1 1 11 8H2',
+        d: 'M12 15v7',
+      },
+    ],
+    [
+      'path',
+      {
+        d: 'M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z',
       },
     ],
   ],
@@ -46186,32 +46212,6 @@ export const lucideIcons: Record<string, IconData> = {
         x2: '22',
         y1: '2',
         y2: '22',
-      },
-    ],
-  ],
-  wine: [
-    [
-      'path',
-      {
-        d: 'M8 22h8',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M7 10h10',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 15v7',
-      },
-    ],
-    [
-      'path',
-      {
-        d: 'M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z',
       },
     ],
   ],
@@ -46299,6 +46299,14 @@ export const lucideIcons: Record<string, IconData> = {
       },
     ],
   ],
+  zap: [
+    [
+      'path',
+      {
+        d: 'M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z',
+      },
+    ],
+  ],
   'zap-off': [
     [
       'path',
@@ -46322,14 +46330,6 @@ export const lucideIcons: Record<string, IconData> = {
       'path',
       {
         d: 'm2 2 20 20',
-      },
-    ],
-  ],
-  zap: [
-    [
-      'path',
-      {
-        d: 'M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z',
       },
     ],
   ],
