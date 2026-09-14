@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0-beta.8
+
+### Patch Changes
+
+- [`b014817`](https://github.com/wireweave/wireweave/commit/b014817715ebeda17d73689bc16b5271f7adad2c) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep the published prompts artifact stable across unrelated Core releases by making its Core-spec coverage check an explicit monorepo test boundary instead of a packaged development dependency.
+
 ## 0.2.0-beta.7
 
 ### Patch Changes

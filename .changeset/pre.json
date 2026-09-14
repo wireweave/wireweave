@@ -16,6 +16,7 @@
   "changesets": [
     "agent-prompts-component-parameters",
     "agent-prompts-interaction-wiring",
+    "agent-prompts-test-boundary",
     "core-a11y-icons",
     "core-anchor-navigation",
     "core-app-runtime",
