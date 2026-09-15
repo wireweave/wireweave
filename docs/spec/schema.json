@@ -5491,6 +5491,7 @@
         },
         "assets": {
           "type": "array",
+          "description": "Ordered manifest bytes. Core validates unique IDs, digest/byteLength/base64, media content and the 32 MiB aggregate limit before app compilation; the host must materialize any approved URL into these bytes.",
           "items": {
             "type": "object",
             "properties": {
@@ -5523,7 +5524,8 @@
           "const": "15.1.0"
         },
         "fontAssetId": {
-          "$ref": "#/$defs/Id"
+          "$ref": "#/$defs/Id",
+          "description": "Optional asset ID that must resolve to a validated font/woff2 manifest entry."
         }
       },
       "required": [
@@ -6002,6 +6004,7 @@
       "additionalProperties": false
     },
     "RuntimeInput": {
+      "description": "Closed conformance input union. Event value/checked/key fields are further constrained by the native event and addressed control; unknown fields are rejected.",
       "oneOf": [
         {
           "type": "object",

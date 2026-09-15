@@ -164,6 +164,32 @@ describe('canonical admission and dependency closure', () => {
     failure(createAppBundle([parsed], input), 'WW_IMPORT')
     failure(createAppBundle([parsed], { ...input, id: 'demo {} app injected' }), 'WW_SCHEMA')
   })
+  it('orders bundle admission diagnostics by module input order', () => {
+    const first = parse('module z namespace=z { page "Z" id=z {} }', {
+        languageVersion: '4.0.0',
+        sourceId: 'z.wf',
+      }),
+      second = parse('module a namespace=a { page "A" id=a {} }', {
+        languageVersion: '4.0.0',
+        sourceId: 'a.wf',
+      })
+    const result = createAppBundle([first, second], {
+      id: 'demo',
+      entry: { namespace: 'z', id: 'z' },
+      profile: first.app.profile,
+      states: [],
+      fixtures: [],
+      registry: first.registry,
+      moduleSources: {},
+    })
+    expect(result.ok).toBe(false)
+    if (result.ok) throw new Error('Expected missing source bytes')
+    expect(result.diagnostics.map(({ sourceId, messageKey }) => [sourceId, messageKey])).toEqual([
+      ['z.wf', 'app.missing-source-bytes'],
+      ['a.wf', 'app.missing-source-bytes'],
+      ['app', 'app.module-count'],
+    ])
+  })
 
   it.each(['digest', 'export', 'symbol', 'module'])(
     'rejects a missing import %s contract',
@@ -472,6 +498,38 @@ describe('the actual exported document', () => {
       JSON.parse(document.querySelector('#wf-model')!.textContent).registry.entries,
     ).toHaveLength(2)
     expect(document.querySelectorAll('[data-wf-requirement]')).toHaveLength(2)
+    expect(errors).toEqual([])
+    dom.window.close()
+  })
+
+  it('projects pending fixture work to the initiating control and its owning regions', () => {
+    const source = app(
+      page(
+        'button "Run" id=run on=[{id=click,event=click,concurrency=drop,operations=[{id=request,executionClass=simulated,effect={kind=simulate,fixtureRef=response,resultState="app:result",statusState="app:status",errorState="app:error",timeoutMs=50},after=[],onFailure=stop,obligationRefs=[]}]}]',
+      ),
+      'states=[{id=result,type=record,initial={},lifetime=session,sensitive=false},{id=status,type=string,initial="idle",lifetime=session,sensitive=false},{id=error,type=record,initial={},lifetime=session,sensitive=false}] fixtures=[{id=response,steps=[{delayMs=20,outcome=success,value={ok=true}}],exhaustion=error}]',
+    )
+    const { dom, errors } = browser(value(renderSite(bundle(source))))
+    const document = dom.window.document,
+      root = document.getElementById('wireweave-app')!,
+      button = document.querySelector<HTMLButtonElement>('[data-wf-kind=button]')!,
+      pageRegion = document.querySelector<HTMLElement>('[data-wf-kind=page]')!
+    const driver = (
+      dom.window as unknown as {
+        wireweaveRuntime: { pause(): void; advanceClock(ms: number): void }
+      }
+    ).wireweaveRuntime
+    driver.pause()
+    button.click()
+    expect(button.getAttribute('aria-busy')).toBe('true')
+    expect(button.getAttribute('data-wf-pending')).toBe('true')
+    expect(pageRegion.getAttribute('aria-busy')).toBe('true')
+    expect(root.getAttribute('aria-busy')).toBe('true')
+    driver.advanceClock(20)
+    expect(button.hasAttribute('aria-busy')).toBe(false)
+    expect(button.hasAttribute('data-wf-pending')).toBe(false)
+    expect(pageRegion.hasAttribute('aria-busy')).toBe(false)
+    expect(root.getAttribute('aria-busy')).toBe('false')
     expect(errors).toEqual([])
     dom.window.close()
   })

@@ -1,5 +1,6 @@
 import { getV4SourceSpan, parseV4, V4ParseError } from '../parser'
 import { digestV4 } from '../parser/v4-lexical'
+import { validateAppAssets } from './assets'
 import type {
   CanonicalDefinition,
   CanonicalModule,
@@ -14,7 +15,7 @@ import type {
 export interface Diagnostic {
   severity: 'error'
   code: string
-  phase: 'schema' | 'import' | 'link' | 'compile'
+  phase: 'parse' | 'schema' | 'link' | 'semantic' | 'compile' | 'runtime'
   sourceId: string
   start: number
   end: number
@@ -117,6 +118,12 @@ export interface AppArtifact {
     readonly htmlDigest: string
     readonly runtimeDigest: string
     readonly executionScope: 'standard-1'
+    readonly assets: readonly {
+      readonly id: string
+      readonly mediaType: string
+      readonly digest: string
+      readonly byteLength: number
+    }[]
     readonly unsupportedOperations: readonly {
       renderedId: string
       handlerId: string
@@ -217,16 +224,32 @@ function diagnostic(
     related: [],
   }
 }
-function failed<T>(diagnostics: Diagnostic[]): AppResult<T> {
-  const sorted = diagnostics
-    .slice()
-    .sort(
-      (a, b) =>
-        (a.sourceId < b.sourceId ? -1 : a.sourceId > b.sourceId ? 1 : 0) ||
-        a.start - b.start ||
-        (a.phase < b.phase ? -1 : a.phase > b.phase ? 1 : 0) ||
-        (a.code < b.code ? -1 : a.code > b.code ? 1 : 0),
+const diagnosticPhaseOrder: Record<Diagnostic['phase'], number> = {
+  parse: 0,
+  schema: 1,
+  link: 2,
+  semantic: 3,
+  compile: 4,
+  runtime: 5,
+}
+function failed<T>(
+  diagnostics: Diagnostic[],
+  sourceOrder: ReadonlyMap<string, number> = new Map(),
+): AppResult<T> {
+  const sorted = diagnostics.slice().sort((a, b) => {
+    const aModule = sourceOrder.get(a.sourceId) ?? Number.MAX_SAFE_INTEGER
+    const bModule = sourceOrder.get(b.sourceId) ?? Number.MAX_SAFE_INTEGER
+    return (
+      (aModule < bModule ? -1 : aModule > bModule ? 1 : 0) ||
+      a.start - b.start ||
+      diagnosticPhaseOrder[a.phase] - diagnosticPhaseOrder[b.phase] ||
+      (a.code < b.code ? -1 : a.code > b.code ? 1 : 0) ||
+      a.end - b.end ||
+      (a.sourceId < b.sourceId ? -1 : a.sourceId > b.sourceId ? 1 : 0) ||
+      (a.path < b.path ? -1 : a.path > b.path ? 1 : 0) ||
+      (a.messageKey < b.messageKey ? -1 : a.messageKey > b.messageKey ? 1 : 0)
     )
+  })
   if (sorted.length > 1000) {
     const omitted = sorted.length - 999
     sorted.length = 999
@@ -302,6 +325,7 @@ export function createAppBundle(
     throw new TypeError('Parsed documents and explicit bundle options are required')
   const diagnostics: Diagnostic[] = []
   const modules: CanonicalModule[] = []
+  const sourceOrder = new Map<string, number>()
   const sourceByPath = new Map<string, V4SourceSpan>()
   try {
     jcs(options)
@@ -323,6 +347,8 @@ export function createAppBundle(
         continue
       }
       for (const module of document.modules) {
+        const moduleSourceId = sourceOf(module).sourceId
+        if (!sourceOrder.has(moduleSourceId)) sourceOrder.set(moduleSourceId, sourceOrder.size)
         const bytes = options.moduleSources[module.id]
         if (modules.some((prior) => prior.id === module.id)) {
           diagnostics.push(
@@ -339,7 +365,7 @@ export function createAppBundle(
               'app.missing-source-bytes',
               sourceOf(module),
               { id: module.id },
-              'import',
+              'link',
             ),
           )
           continue
@@ -356,7 +382,7 @@ export function createAppBundle(
               'app.source-content-mismatch',
               sourceOf(module),
               { id: module.id },
-              'import',
+              'link',
             ),
           )
           continue
@@ -381,10 +407,10 @@ export function createAppBundle(
     for (const id of Object.keys(options.moduleSources))
       if (!modules.some((module) => module.id === id)) {
         diagnostics.push(
-          diagnostic('WW_IMPORT', 'app.unselected-source', undefined, { id }, 'import'),
+          diagnostic('WW_IMPORT', 'app.unselected-source', undefined, { id }, 'link'),
         )
       }
-    if (diagnostics.length > 0) return failed(diagnostics)
+    if (diagnostics.length > 0) return failed(diagnostics, sourceOrder)
     const candidate = {
       [bundleBrand]: true as const,
       schemaVersion: '1.0.0' as const,
@@ -404,7 +430,7 @@ export function createAppBundle(
     return { ok: true, value: bundle, diagnostics: [] }
   } catch (error) {
     if (error instanceof V4ParseError)
-      return failed(error.diagnostics.map((item) => ({ ...item, phase: 'schema' })))
+      return failed(error.diagnostics.map((item) => ({ ...item, phase: item.phase })))
     if (error instanceof TypeError)
       return failed([diagnostic('WW_SCHEMA', 'app.invalid-json', undefined, {}, 'schema')])
     throw error
@@ -425,6 +451,7 @@ class Linker {
   private readonly registry = new Map<string, JsonObject>()
   private expandedCount = 0
   private readonly domIds = new Set<string>()
+  private semanticPhase = false
   constructor(
     readonly bundle: AppBundle,
     readonly data: BundleData,
@@ -439,7 +466,7 @@ class Linker {
         key,
         node === undefined ? undefined : this.source(node),
         details,
-        code === 'WW_IMPORT' ? 'import' : 'link',
+        code === 'WW_SCHEMA' ? 'schema' : this.semanticPhase ? 'semantic' : 'link',
         node === undefined ? '' : (this.pathByNode.get(node) ?? ''),
       ),
     )
@@ -1194,14 +1221,13 @@ class Linker {
     return state
   }
   semantics(): void {
+    this.semanticPhase = true
     for (const entry of this.bundle.registry.entries)
       for (const binding of Array.isArray(entry.bindings) ? entry.bindings : [])
         this.binding(binding)
-    if (
-      asObjects(this.bundle.profile.assets).length > 0 ||
-      this.bundle.profile.fontAssetId !== undefined
-    )
-      this.error('WW_ASSET', 'app.asset-decoder-unavailable')
+    const validatedAssets = validateAppAssets(this.bundle.profile)
+    for (const item of validatedAssets.issues)
+      this.error('WW_ASSET', item.key, undefined, item.details)
     const scopes = [
       { node: undefined, states: this.bundle.states, app: true },
       ...[...this.owners.values()].map((owner) => ({
@@ -1238,8 +1264,16 @@ class Linker {
         ['left', 'right', 'justify'].includes(textValue(attrs.align))
       )
         this.error('WW_LAYOUT', 'app.container-alignment', node)
-      if (attrs.src !== undefined && attrs.src !== true)
-        this.error('WW_ASSET', 'app.unresolved-asset', node)
+      if (attrs.src !== undefined) {
+        if (attrs.src === true) {
+          if (node.kind !== 'avatar') this.error('WW_ASSET', 'app.avatar-placeholder-only', node)
+        } else if (
+          (node.kind !== 'image' && node.kind !== 'avatar') ||
+          !validatedAssets.assets.has(textValue(attrs.src))
+        ) {
+          this.error('WW_ASSET', 'app.unresolved-asset', node, { id: textValue(attrs.src) })
+        }
+      }
       const interactive = [
         'input',
         'textarea',
@@ -1797,15 +1831,20 @@ function asObjects(value: JsonValue | undefined): JsonObject[] {
 export function linkAppV4(bundle: AppBundle): AppResult<LinkedApp> {
   const data = typeof bundle === 'object' && bundle !== null ? bundles.get(bundle) : undefined
   if (data === undefined) return failed([diagnostic('WW_SCHEMA', 'app.untrusted-bundle')])
+  const sourceOrder = new Map<string, number>()
+  for (const [index, module] of bundle.modules.entries()) {
+    const source = data.sourceByPath.get(module.id) ?? sourceOf(module)
+    if (!sourceOrder.has(source.sourceId)) sourceOrder.set(source.sourceId, index)
+  }
   const linker = new Linker(bundle, data)
   linker.index()
   linker.imports()
   linker.references()
   linker.registryChecks()
-  if (linker.diagnostics.length > 0) return failed(linker.diagnostics)
+  if (linker.diagnostics.length > 0) return failed(linker.diagnostics, sourceOrder)
   linker.expandAll()
   linker.semantics()
-  if (linker.diagnostics.length > 0) return failed(linker.diagnostics)
+  if (linker.diagnostics.length > 0) return failed(linker.diagnostics, sourceOrder)
   const sourceMap = linker.expanded.map((entry): SourceMapEntry => ({
     renderedId: entry.renderedId,
     identity: entry.identity,
