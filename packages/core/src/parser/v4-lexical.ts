@@ -210,9 +210,8 @@ const SHA256_K = new Uint32Array([
   0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
 ])
 
-/** Synchronous SHA-256 over UTF-8 bytes; independent of Node, WebCrypto, and I/O. */
-export function digestV4(source: string): string {
-  const bytes = new TextEncoder().encode(source)
+/** Synchronous SHA-256 over bytes; independent of Node, WebCrypto, and I/O. */
+export function digestBytesV4(bytes: Uint8Array): string {
   const padded = new Uint8Array(Math.ceil((bytes.length + 9) / 64) * 64)
   padded.set(bytes)
   padded[bytes.length] = 0x80
@@ -262,4 +261,9 @@ export function digestV4(source: string): string {
     }
   }
   return `sha256:${hash.map((value) => value.toString(16).padStart(8, '0')).join('')}`
+}
+
+/** Synchronous SHA-256 over UTF-8 bytes; independent of Node, WebCrypto, and I/O. */
+export function digestV4(source: string): string {
+  return digestBytesV4(new TextEncoder().encode(source))
 }
