@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.15
+
+### Patch Changes
+
+- [`1e91719`](https://github.com/wireweave/wireweave/commit/1e91719355a266bafb4a770526e2bb2789951d7e) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Validate embedded application assets and runtime event payloads before producing deterministic standalone HTML.
+
 ## 4.0.0-beta.14
 
 ### Minor Changes
