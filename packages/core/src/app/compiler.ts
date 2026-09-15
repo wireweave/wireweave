@@ -14,6 +14,7 @@ import {
 } from './v4'
 import { digestV4 } from '../parser/v4-lexical'
 import type { JsonObject, JsonValue } from '../parser/v4-types'
+import { validateAppAssets, type ValidatedAppAsset } from './assets'
 import type {
   AppArtifact,
   AppBundle,
@@ -176,10 +177,13 @@ function hashBase64(value: string): string {
 class HtmlArtifact {
   readonly unsupported: { renderedId: string; handlerId: string; operationId: string }[] = []
   readonly rules: string[] = []
+  readonly assets: ReadonlyMap<string, ValidatedAppAsset>
   constructor(
     readonly data: LinkedData,
     readonly program: RuntimeProgram,
-  ) {}
+  ) {
+    this.assets = validateAppAssets(data.bundle.profile).assets
+  }
   node(entry: ExpandedNode): string {
     const { node, renderedId } = entry
     const attrs = node.attributes
@@ -299,16 +303,20 @@ class HtmlArtifact {
       return `<h${rank}${common}>${escape(label)}</h${rank}>`
     }
     if (node.kind === 'divider') return `<hr${common}>`
-    if (node.kind === 'image')
-      return attrs.src === undefined
+    if (node.kind === 'image') {
+      const asset = typeof attrs.src === 'string' ? this.assets.get(attrs.src) : undefined
+      return asset === undefined
         ? `<div${common} role="img"${attribute('aria-label', attrs.alt ?? 'Image placeholder')}></div>`
-        : `<img${common}${attribute('src', attrs.src)}${attribute('alt', attrs.alt ?? '')}>`
-    if (
-      node.kind === 'avatar' ||
-      node.kind === 'icon' ||
-      node.kind === 'badge' ||
-      node.kind === 'marker'
-    )
+        : `<img${common}${attribute('src', `data:${asset.mediaType};base64,${asset.base64}`)}${attribute('alt', attrs.alt ?? '')}>`
+    }
+    if (node.kind === 'avatar') {
+      const accessibleLabel = (attrs['aria-label'] ?? attrs.aria ?? label) || attrs.name || 'Avatar'
+      const asset = typeof attrs.src === 'string' ? this.assets.get(attrs.src) : undefined
+      return asset === undefined
+        ? `<span${common}${attribute('role', 'img')}${attrs['aria-label'] === undefined && attrs.aria === undefined ? attribute('aria-label', accessibleLabel) : ''}>${escape(node.number ?? (label || attrs.name || ''))}</span>`
+        : `<span${common}${attribute('role', 'img')}${attrs['aria-label'] === undefined && attrs.aria === undefined ? attribute('aria-label', accessibleLabel) : ''}><img${attribute('src', `data:${asset.mediaType};base64,${asset.base64}`)}${attribute('alt', accessibleLabel)}></span>`
+    }
+    if (node.kind === 'icon' || node.kind === 'badge' || node.kind === 'marker')
       return `<span${common}>${escape(node.number ?? (label || attrs.name || ''))}</span>`
     if (node.kind === 'progress')
       return `<progress${common}${attribute('value', attrs.indeterminate === true ? undefined : (value ?? 0))}${attribute('max', attrs.max ?? 100)}>${escape(label)}</progress>`
@@ -508,7 +516,17 @@ class HtmlArtifact {
           `<section data-wf-requirement="${escape(entry.id)}"><h3>${escape(entry.title)}</h3><p>${escape(entry.behavior ?? entry.trigger ?? '')}</p></section>`,
       )
       .join('')
-    const css = `#wireweave-app{font:16px/1.5 system-ui,sans-serif;color:#18181b;background:white}#wireweave-app [hidden]{display:none!important}#wireweave-app *{box-sizing:border-box}#wireweave-app :focus-visible{outline:2px solid #18181b;outline-offset:2px}#wireweave-app button,#wireweave-app input,#wireweave-app select{min-height:24px;font:inherit}#wireweave-app .wf-row{display:flex;gap:0}#wireweave-app .wf-col{flex:1}#wireweave-app .wf-stack,#wireweave-app .wf-field{display:flex;flex-direction:column;gap:8px}#wireweave-app .wf-page,#wireweave-app [data-wf-shell]{width:${textValue(bundle.profile.width)}px;height:${textValue(bundle.profile.height)}px;overflow:auto}#wireweave-app .wf-card,#wireweave-app th,#wireweave-app td{border:1px solid #71717a;padding:8px}#wireweave-app .wf-relative{position:relative}#wireweave-app [data-wf-slot]{display:contents}${this.rules.join('')}#wireweave-app[data-wf-view=accessible] .wf-node,#wireweave-app[data-wf-view=accessible] [data-wf-shell]{position:static!important;transform:none!important;width:auto!important;height:auto!important;min-width:0!important;max-width:100%!important;min-height:0!important;overflow-wrap:anywhere;order:0!important}#wireweave-app[data-wf-view=accessible] .wf-row{flex-direction:column!important;flex-wrap:wrap!important}#wireweave-app[data-wf-view=accessible] .wf-col{flex-basis:auto!important}#wireweave-app .wf-field{min-width:0}#wireweave-app .wf-field input,#wireweave-app .wf-field textarea,#wireweave-app .wf-field select{max-width:100%}#wireweave-app [data-wf-field][hidden]{display:none!important}#wireweave-app [role=tablist]{display:flex;flex-wrap:wrap}#wireweave-app [role=tooltip]{background:#f4f4f5;border:1px solid #71717a}#wireweave-app dialog{color:#18181b;background:white;max-width:100%;max-height:100%;overflow:auto}`
+    const font =
+      typeof bundle.profile.fontAssetId === 'string'
+        ? this.assets.get(bundle.profile.fontAssetId)
+        : undefined
+    const fontFace =
+      font === undefined
+        ? ''
+        : `@font-face{font-family:WireweaveProfile;src:url(data:${font.mediaType};base64,${font.base64}) format("woff2");font-display:swap}`
+    const fontFamily =
+      font === undefined ? 'system-ui,sans-serif' : 'WireweaveProfile,system-ui,sans-serif'
+    const css = `${fontFace}#wireweave-app{font:16px/1.5 ${fontFamily};color:#18181b;background:white}#wireweave-app [hidden]{display:none!important}#wireweave-app *{box-sizing:border-box}#wireweave-app :focus-visible{outline:2px solid #18181b;outline-offset:2px}#wireweave-app button,#wireweave-app input,#wireweave-app select{min-height:24px;font:inherit}#wireweave-app .wf-row{display:flex;gap:0}#wireweave-app .wf-col{flex:1}#wireweave-app .wf-stack,#wireweave-app .wf-field{display:flex;flex-direction:column;gap:8px}#wireweave-app .wf-page,#wireweave-app [data-wf-shell]{width:${textValue(bundle.profile.width)}px;height:${textValue(bundle.profile.height)}px;overflow:auto}#wireweave-app .wf-card,#wireweave-app th,#wireweave-app td{border:1px solid #71717a;padding:8px}#wireweave-app .wf-relative{position:relative}#wireweave-app [data-wf-slot]{display:contents}${this.rules.join('')}#wireweave-app[data-wf-view=accessible] .wf-node,#wireweave-app[data-wf-view=accessible] [data-wf-shell]{position:static!important;transform:none!important;width:auto!important;height:auto!important;min-width:0!important;max-width:100%!important;min-height:0!important;overflow-wrap:anywhere;order:0!important}#wireweave-app[data-wf-view=accessible] .wf-row{flex-direction:column!important;flex-wrap:wrap!important}#wireweave-app[data-wf-view=accessible] .wf-col{flex-basis:auto!important}#wireweave-app .wf-field{min-width:0}#wireweave-app .wf-field input,#wireweave-app .wf-field textarea,#wireweave-app .wf-field select{max-width:100%}#wireweave-app [data-wf-field][hidden]{display:none!important}#wireweave-app [role=tablist]{display:flex;flex-wrap:wrap}#wireweave-app [role=tooltip]{background:#f4f4f5;border:1px solid #71717a}#wireweave-app dialog{color:#18181b;background:white;max-width:100%;max-height:100%;overflow:auto}`
     const runtimeData = this.program
     const csp = `default-src 'none'; script-src 'sha256-${hashBase64(NATIVE_RUNTIME)}'; style-src 'sha256-${hashBase64(css)}'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'`
     return `<!DOCTYPE html>\n<html lang="${escape(bundle.profile.language)}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${escape(csp)}"><title>${escape(bundle.id)}</title><style>${css}</style></head><body><div id="wireweave-app">${shells}<div data-wf-screen-storage>${screens}</div><section data-wf-route-error role="alert" hidden><h1 tabindex="-1">Unknown screen</h1><p data-wf-invalid-address></p><a href="${escape(address(bundle.entry))}">Open entry screen</a></section><div role="group" aria-label="Execution view"><button type="button" data-wf-tooling="view">Switch fixed or accessible view</button><button type="button" data-wf-tooling="reset">Reset scenario</button></div><p data-wf-runtime-status role="status" aria-live="polite"></p><details data-wf-requirement-panel><summary>Implementation requirements</summary>${registryPanels}</details></div><script type="application/json" id="wf-model">${jsonBlock(bundle)}</script><script type="application/json" id="wf-source-map">${jsonBlock(this.data.sourceMap)}</script><script type="application/json" id="wf-runtime-data">${jsonBlock(runtimeData)}</script><script type="application/json" id="wf-runtime-trace">[]</script><script>${NATIVE_RUNTIME}</script></body></html>`
@@ -2339,6 +2357,7 @@ function runtimeEngine(program: RuntimeProgram) {
         append(state, null, null, null, { type: input.kind }, 'busy', 'history-compensation')
         return state
       }
+      state.diagnostic = null
       if (input.kind === 'reset') {
         reset(state)
         drain(state)
@@ -2434,6 +2453,12 @@ function runtimeEngine(program: RuntimeProgram) {
       if (!node) throw Error('unknown-source')
       if (!['click', 'input', 'change', 'submit', 'keydown', 'focus', 'blur'].includes(input.event))
         throw Error('event-type')
+      if ('value' in input) {
+        if (input.value === undefined) throw Error('event-payload')
+        bounded(input.value)
+      }
+      if ('checked' in input && typeof input.checked !== 'boolean') throw Error('event-payload')
+      if ('key' in input && typeof input.key !== 'string') throw Error('event-payload')
       if (
         input.event === 'keydown' &&
         (typeof input.key !== 'string' || 'value' in input || 'checked' in input)
@@ -2451,10 +2476,15 @@ function runtimeEngine(program: RuntimeProgram) {
         )
       )
         throw Error('event-owner')
+      if (['input', 'change'].includes(input.event)) {
+        const booleanControl = ['checkbox', 'radio', 'switch'].includes(node.kind)
+        if ('key' in input) throw Error('event-payload')
+        if (booleanControl && 'value' in input) throw Error('event-payload')
+        if (!booleanControl && 'checked' in input) throw Error('event-payload')
+      }
       if (input.event === 'submit' && node.kind !== 'form') throw Error('event-owner')
       const event: JsonObject = { type: input.event }
       if (input.value !== undefined) {
-        bounded(input.value)
         event.value = input.value
       }
       if (input.checked !== undefined) event.checked = input.checked
@@ -2627,11 +2657,16 @@ function runtimeProgram(linked: LinkedApp): RuntimeProgram {
       form: entry.formTarget ?? form?.renderedId ?? null,
     }
   })
+  const runtimeProfile = Object.fromEntries(
+    Object.entries(data.bundle.profile).filter(
+      ([key]) => key !== 'assets' && key !== 'fontAssetId',
+    ),
+  )
   const program: RuntimeProgram = freeze({
     appId: data.bundle.id,
     modelDigest: linked.digest,
     profileDigest: digestV4(jcs(data.bundle.profile)),
-    profile: data.bundle.profile,
+    profile: runtimeProfile,
     entry: data.bundle.entry,
     nodes: runtimeNodes,
     states,
@@ -2713,6 +2748,16 @@ function browserAdapter(engine: ReturnType<typeof runtimeEngine>, program: Runti
     if (node?.kind === 'dropdown') return document.getElementById(id + '-trigger')
     return element(id)
   }
+  function pendingFor(id: string): boolean {
+    for (const request of Object.values(state.requests)) {
+      let owner = nodes.get(request.owner)
+      while (owner) {
+        if (owner.id === id) return true
+        owner = owner.parent ? nodes.get(owner.parent) : undefined
+      }
+    }
+    return false
+  }
   function metadata(sequence: number): { wireweave: { modelDigest: string; sequence: number } } {
     return { wireweave: { modelDigest: program.modelDigest, sequence } }
   }
@@ -2778,11 +2823,23 @@ function browserAdapter(engine: ReturnType<typeof runtimeEngine>, program: Runti
       root.querySelector('[data-wf-invalid-address]')!.textContent = state.address
       root.setAttribute('data-wf-route', state.route ? state.address : 'error')
       root.setAttribute('data-wf-view', state.viewMode)
-      root.setAttribute('aria-busy', String(state.suspended))
+      root.setAttribute(
+        'aria-busy',
+        String(state.suspended || Object.keys(state.requests).length > 0),
+      )
       for (const node of program.nodes) {
         const el = element(node.id)
         if (!el) continue
         el.hidden = view.visible[node.id] !== true
+        const pending = pendingFor(node.id)
+        if (pending || node.attributes.loading === true) {
+          el.setAttribute('aria-busy', 'true')
+          if (pending) el.setAttribute('data-wf-pending', 'true')
+          else el.removeAttribute('data-wf-pending')
+        } else {
+          el.removeAttribute('aria-busy')
+          el.removeAttribute('data-wf-pending')
+        }
         const field = el.closest<HTMLElement>('[data-wf-field]')
         if (field) field.hidden = el.hidden
         if (node.kind === 'tab') {
@@ -2835,10 +2892,7 @@ function browserAdapter(engine: ReturnType<typeof runtimeEngine>, program: Runti
             error.textContent = state.invalid[node.id] ? 'Check the required input values.' : ''
             error.hidden = !state.invalid[node.id]
           }
-          el.setAttribute(
-            'aria-busy',
-            String(Object.values(state.requests).some((request) => request.owner === node.id)),
-          )
+          el.setAttribute('aria-busy', String(pending || node.attributes.loading === true))
         }
         if (node.kind === 'accordion')
           (el as HTMLDetailsElement).open = state.expanded[node.id] === true
@@ -3191,6 +3245,12 @@ function compileAppV4(linked: LinkedApp): AppResult<AppArtifact> {
       htmlDigest: digestV4(html),
       runtimeDigest: digestV4(NATIVE_RUNTIME),
       executionScope: 'standard-1',
+      assets: [...renderer.assets.values()].map(({ id, mediaType, digest, byteLength }) => ({
+        id,
+        mediaType,
+        digest,
+        byteLength,
+      })),
       unsupportedOperations: renderer.unsupported,
     },
   })
