@@ -284,6 +284,22 @@ describe('fixture ordering, reservations, cancellation and reset', () => {
     expect(reset.fixtureCursors).toEqual({})
     expect(advanceClock(reset, 50).states['app:status']).toBe('idle')
   })
+  it('clears the previous runtime diagnostic after a later successful transaction', () => {
+    const app = linked(
+      appSource(control('run', [simulation]), outputs, [
+        fixture([
+          { delayMs: 0, outcome: 'error', value: { code: 'temporary' } },
+          { delayMs: 0, outcome: 'success', value: { ok: true } },
+        ]),
+      ]),
+    )
+    let snapshot = advanceClock(click(createRuntime(app), app, 'run'), 0)
+    expect(snapshot.states['app:status']).toBe('failed')
+    expect(snapshot.diagnostic).toBe('fixture-error')
+    snapshot = advanceClock(click(snapshot, app, 'run'), 0)
+    expect(snapshot.states['app:status']).toBe('succeeded')
+    expect(snapshot.diagnostic).toBeNull()
+  })
   it('does not roll back an earlier committed segment when the continuation fails', () => {
     const app = linked(
       appSource(
@@ -427,6 +443,39 @@ describe('closed inputs, atomic failures and resource bounds', () => {
     for (const delta of [-1, 0.5, 600001, Infinity])
       expect(advanceClock(initial, delta).trace.at(-1)?.diagnostic).toBe('limit-clock')
     expect(advanceClock(initial, 600000).virtualTime).toBe(600000)
+  })
+  it('enforces native event payloads for text and boolean controls', () => {
+    const app = linked(
+      appSource('input "Name" id=name checkbox "Enabled" id=enabled', [
+        state('name', 'string', ''),
+        state('enabled', 'boolean', false),
+      ]),
+    )
+    const initial = createRuntime(app)
+    const invalidText = reduceEvent(initial, {
+      kind: 'event',
+      source: source(app, 'name'),
+      event: 'input',
+      checked: true,
+    } as unknown as RuntimeInput)
+    expect(invalidText.states).toEqual(initial.states)
+    expect(invalidText.trace.at(-1)?.diagnostic).toBe('event-payload')
+    const invalidBoolean = reduceEvent(initial, {
+      kind: 'event',
+      source: source(app, 'enabled'),
+      event: 'change',
+      value: 'true',
+    } as unknown as RuntimeInput)
+    expect(invalidBoolean.states).toEqual(initial.states)
+    expect(invalidBoolean.trace.at(-1)?.diagnostic).toBe('event-payload')
+    const invalidKey = reduceEvent(initial, {
+      kind: 'event',
+      source: source(app, 'name'),
+      event: 'input',
+      key: 'Enter',
+    } as unknown as RuntimeInput)
+    expect(invalidKey.states).toEqual(initial.states)
+    expect(invalidKey.trace.at(-1)?.diagnostic).toBe('event-payload')
   })
   it('caps queued handler activations without dropping accepted work', () => {
     const app = linked(
@@ -682,5 +731,80 @@ describe('compile-time runtime admission', () => {
       `app demo profile={id=neutral-app,width=1440,height=900,language=en,entryPolicy=explicit,unknownRoute=error-view,clockStartMs=0,limits=standard-1,assets=[{id=font,mediaType="font/woff2",digest="sha256:${'0'.repeat(64)}",byteLength=3,base64="YWJj"}],fontAssetId=font,unicodeVersion="15.1.0"} `,
     )
     rejected(sourceText, 'WW_ASSET')
+  })
+  it('reserves duplicate asset IDs before validating their content', () => {
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>'
+    const base64 = Buffer.from(svg, 'utf8').toString('base64')
+    const digest = createHash('sha256').update(Buffer.from(svg, 'utf8')).digest('hex')
+    const sourceText = appSource('image id=logo src="logo"').replace(
+      'app demo ',
+      `app demo profile={id=neutral-app,width=1440,height=900,language=en,entryPolicy=explicit,unknownRoute=error-view,clockStartMs=0,limits=standard-1,assets=[{id=logo,mediaType="image/jpeg",digest="sha256:${digest}",byteLength=${Buffer.byteLength(svg)},base64="${base64}"},{id=logo,mediaType="image/svg+xml",digest="sha256:${digest}",byteLength=${Buffer.byteLength(svg)},base64="${base64}"}],unicodeVersion="15.1.0"} `,
+    )
+    const result = admitted(sourceText)
+    expect(result.ok).toBe(false)
+    if (result.ok) throw Error('Expected duplicate asset rejection')
+    expect(result.diagnostics.some((entry) => entry.messageKey === 'app.asset-duplicate')).toBe(
+      true,
+    )
+  })
+  it('verifies and embeds declared image assets without enabling network fetches', () => {
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>'
+    const base64 = Buffer.from(svg, 'utf8').toString('base64')
+    const digest = createHash('sha256').update(Buffer.from(svg, 'utf8')).digest('hex')
+    const sourceText = appSource('image id=logo src="logo" alt="Logo"').replace(
+      'app demo ',
+      `app demo profile={id=neutral-app,width=1440,height=900,language=en,entryPolicy=explicit,unknownRoute=error-view,clockStartMs=0,limits=standard-1,assets=[{id=logo,mediaType="image/svg+xml",digest="sha256:${digest}",byteLength=${Buffer.byteLength(svg)},base64="${base64}"}],unicodeVersion="15.1.0"} `,
+    )
+    const artifact = unwrap(compileApp(linked(sourceText)))
+    expect(artifact.html).toContain(`src="data:image/svg+xml;base64,${base64}"`)
+    expect(artifact.html).toContain('connect-src &#39;none&#39;')
+    expect(artifact.manifest.assets).toEqual([
+      {
+        id: 'logo',
+        mediaType: 'image/svg+xml',
+        digest: `sha256:${digest}`,
+        byteLength: Buffer.byteLength(svg),
+      },
+    ])
+  })
+  it('rejects an otherwise valid digest when an SVG contains executable or external content', () => {
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>'
+    const base64 = Buffer.from(svg, 'utf8').toString('base64')
+    const digest = createHash('sha256').update(Buffer.from(svg, 'utf8')).digest('hex')
+    const sourceText = appSource('image id=logo src="logo"').replace(
+      'app demo ',
+      `app demo profile={id=neutral-app,width=1440,height=900,language=en,entryPolicy=explicit,unknownRoute=error-view,clockStartMs=0,limits=standard-1,assets=[{id=logo,mediaType="image/svg+xml",digest="sha256:${digest}",byteLength=${Buffer.byteLength(svg)},base64="${base64}"}],unicodeVersion="15.1.0"} `,
+    )
+    rejected(sourceText, 'WW_ASSET')
+  })
+  it('rejects SVG image source URLs even when their digest is correct', () => {
+    const svg =
+      '<svg xmlns="http://www.w3.org/2000/svg"><image src="https://example.test/a.png"/></svg>'
+    const base64 = Buffer.from(svg, 'utf8').toString('base64')
+    const digest = createHash('sha256').update(Buffer.from(svg, 'utf8')).digest('hex')
+    const sourceText = appSource('image id=logo src="logo"').replace(
+      'app demo ',
+      `app demo profile={id=neutral-app,width=1440,height=900,language=en,entryPolicy=explicit,unknownRoute=error-view,clockStartMs=0,limits=standard-1,assets=[{id=logo,mediaType="image/svg+xml",digest="sha256:${digest}",byteLength=${Buffer.byteLength(svg)},base64="${base64}"}],unicodeVersion="15.1.0"} `,
+    )
+    rejected(sourceText, 'WW_ASSET')
+  })
+  it('embeds a verified WOFF2 profile font with a neutral system fallback', () => {
+    const bytes = Buffer.alloc(48)
+    bytes.write('wOF2', 0, 'ascii')
+    bytes.writeUInt32BE(bytes.length, 8)
+    bytes.writeUInt16BE(1, 12)
+    bytes.writeUInt32BE(1, 16)
+    bytes.writeUInt16BE(1, 24)
+    const base64 = bytes.toString('base64')
+    const digest = createHash('sha256').update(bytes).digest('hex')
+    const sourceText = appSource('text "Home"').replace(
+      'app demo ',
+      `app demo profile={id=neutral-app,width=1440,height=900,language=en,entryPolicy=explicit,unknownRoute=error-view,clockStartMs=0,limits=standard-1,assets=[{id=font,mediaType="font/woff2",digest="sha256:${digest}",byteLength=${bytes.length},base64="${base64}"}],fontAssetId=font,unicodeVersion="15.1.0"} `,
+    )
+    const artifact = unwrap(compileApp(linked(sourceText)))
+    expect(artifact.html).toContain(
+      `@font-face{font-family:WireweaveProfile;src:url(data:font/woff2;base64,${base64}) format("woff2")`,
+    )
+    expect(artifact.html).toContain('font:16px/1.5 WireweaveProfile,system-ui,sans-serif')
   })
 })
