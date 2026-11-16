@@ -303,6 +303,7 @@ function stepBody(name) {
 }
 
 test('both workflows share release verification and publish preserves branch/OIDC policy', () => {
+  assert.match(ci, /pull_request:\s+branches: \[main, develop, release\/v2\.0\.0\]/)
   for (const workflow of [ci, publish]) {
     assert.equal(workflow.match(/run: pnpm release:verify /g)?.length, 1)
     assert.match(workflow, /if: always\(\)/)

@@ -4,7 +4,7 @@ name: CI
 # Pushes remain owned by publish.yml: develop -> beta, main -> stable.
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, release/v2.0.0]
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}

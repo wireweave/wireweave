@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const cli = join(root, 'packages/cli/dist/index.js')
 const [command = 'doctor', feature = 'all'] = process.argv.slice(2)
-const features = ['parse', 'render', 'export', 'all']
+const features = ['parse', 'render', 'export', 'app', 'all']
 assert.ok(process.argv.length <= 4, 'Unexpected command arguments')
 assert.ok(
   ['doctor', 'drive'].includes(command),
-  'Usage: verify-local-tools.mjs doctor|drive [parse|render|export|all]',
+  'Usage: verify-local-tools.mjs doctor|drive [parse|render|export|app|all]',
 )
 assert.ok(features.includes(feature), `Unknown feature: ${feature}`)
 
@@ -107,6 +109,80 @@ if (command === 'doctor') {
       assert.equal(payload.pages[0].children[1].type, 'button')
       assert.equal(payload.pages[0].children[1].content, 'Continue')
       report.checks.push('export JSON file preserving page, text and button content')
+    }
+    if (feature === 'app' || feature === 'all') {
+      const require = createRequire(join(root, 'packages/sdk/package.json'))
+      const { parse } = require('@wireweave/core')
+      const {
+        createAppBundle,
+        linkApp,
+        compileApp,
+        createRuntime,
+        reduceEvent,
+      } = require('@wireweave/core/app')
+      const corpus = JSON.parse(readFileSync(join(root, 'docs/spec/examples.json'), 'utf8'))
+      const fixture = corpus.valid.find((item) => item.id === 'minimal-navigation')
+      assert.ok(fixture, 'Canonical minimal-navigation fixture is required')
+      writeFileSync(join(evidence, 'app.wf'), fixture.source)
+      const parsed = parse(fixture.source, { languageVersion: '4.0.0', sourceId: 'app.wf' })
+      const unwrap = (result) => {
+        assert.equal(result.ok, true, JSON.stringify(result.diagnostics))
+        return result.value
+      }
+      const bundle = unwrap(
+        createAppBundle([parsed], {
+          id: parsed.app.id,
+          entry: parsed.app.entry,
+          profile: parsed.app.profile,
+          states: parsed.states,
+          registry: parsed.registry,
+          fixtures: parsed.fixtures,
+          moduleSources: fixture.moduleSources,
+        }),
+      )
+      const linked = unwrap(linkApp(bundle))
+      const artifact = unwrap(compileApp(linked))
+      assert.equal(
+        artifact.manifest.htmlDigest,
+        `sha256:${createHash('sha256').update(artifact.html).digest('hex')}`,
+      )
+      assert.equal(
+        unwrap(compileApp(linked)).html,
+        artifact.html,
+        'Repeated compilation must preserve bytes',
+      )
+      const initial = createRuntime(linked)
+      assert.deepEqual(initial.route, { namespace: 'main', id: 'home' })
+      const identity = (id) => {
+        const entry = linked.sourceMap.find((item) => item.identity.localId === id)
+        assert.ok(entry, `Missing authored control identity: ${id}`)
+        return entry.identity
+      }
+      const settings = reduceEvent(initial, {
+        kind: 'event',
+        source: identity('settingsLink'),
+        event: 'click',
+      })
+      assert.deepEqual(settings.route, { namespace: 'main', id: 'settings' })
+      const returned = reduceEvent(settings, {
+        kind: 'event',
+        source: identity('homeLink'),
+        event: 'click',
+      })
+      assert.deepEqual(returned.route, { namespace: 'main', id: 'home' })
+      assert.deepEqual(
+        initial.route,
+        { namespace: 'main', id: 'home' },
+        'Runtime input must not mutate prior state',
+      )
+      writeFileSync(join(evidence, 'app.html'), artifact.html)
+      writeFileSync(
+        join(evidence, 'app.json'),
+        `${JSON.stringify({ fixture: fixture.id, manifest: artifact.manifest, actions: ['settingsLink:click', 'homeLink:click'], routes: [initial.route, settings.route, returned.route] }, null, 2)}\n`,
+      )
+      report.checks.push(
+        'public Core 4 AppBundle compile/digest and authored runtime Home -> Settings -> Home',
+      )
     }
     report.ok = true
   } catch (error) {

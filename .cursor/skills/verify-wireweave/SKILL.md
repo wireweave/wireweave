@@ -1,6 +1,6 @@
 ---
 name: verify-wireweave
-description: Verify Wireweave's public local CLI parsing, HTML rendering and JSON export through real built artifacts; use after language, SDK dispatch or CLI changes.
+description: Verify Wireweave's public Core 4 AppBundle/runtime API and local CLI parse/render/export through real built artifacts; use after language, SDK dispatch or CLI changes.
 ---
 
 # Verify Wireweave
@@ -29,14 +29,15 @@ It checks Node compatibility, the built CLI, the existing content-based dist fre
 node scripts/verify-local-tools.mjs drive parse
 node scripts/verify-local-tools.mjs drive render
 node scripts/verify-local-tools.mjs drive export
+node scripts/verify-local-tools.mjs drive app
 node scripts/verify-local-tools.mjs drive all
 ```
 
-Each invocation creates its own input and scratch directory, runs `packages/cli/dist/index.js` in real Node subprocesses, and returns nonzero for a wrong exit status, wrong content, missing file or timeout. The parse journey includes valid DSL, rejected malformed DSL and strict validation. Render and export reopen the files written by the actual CLI. Parallel invocations have separate scratch and evidence directories and do not share a server or user project.
+Each invocation creates its own input and scratch directory and returns nonzero for a wrong exit status, wrong content, missing file or timeout. The CLI journeys run `packages/cli/dist/index.js` in real Node subprocesses. Parse includes valid DSL, rejected malformed DSL and strict validation. Render and export reopen the files written by the actual CLI. The separate `app` journey resolves the public Core 4 library exports from the SDK consumer, admits and compiles the canonical navigation fixture, checks deterministic HTML/digest and executes authored runtime transitions Home → Settings → Home. Parallel invocations have separate scratch and evidence directories and do not share a server or user project.
 
 ## Evidence
 
-The helper prints its unique `.local/verification/cli-*` directory. Keep `result.json`, `commands.json`, `input.wf` and the requested `parsed.json`, `proof.html` or `export.json`. Results include the Git HEAD, runtime, CLI version, selected journey, checked outcomes and cleanup result. HEAD alone does not identify an uncommitted diff: attach `git diff` and relevant untracked patch files when reviewing work before commit, and rerun against the final PR head.
+The helper prints its unique `.local/verification/cli-*` directory. Keep `result.json`, `commands.json`, `input.wf` and the requested `parsed.json`, `proof.html`, `export.json` or `app.wf`/`app.html`/`app.json`. Results include the Git HEAD, runtime, CLI version, selected journey, checked outcomes and cleanup result. HEAD alone does not identify an uncommitted diff: attach `git diff` and relevant untracked patch files when reviewing work before commit, and rerun against the final PR head.
 
 Capture commands and resulting state together. Reopen generated files to verify side effects. HTML content checks prove that the renderer emitted authored elements; they do not prove navigation, layout, keyboard behavior or accessibility. A change affecting those needs a real browser journey with actions, console/network evidence and screenshots through the relevant consumer. Do not replace a failing user path with an internal setter or a mocked implementation.
 

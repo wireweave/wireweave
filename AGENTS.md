@@ -1,10 +1,12 @@
 # Wireweave development harness
 
-Read [CLAUDE.md](CLAUDE.md) for package ownership, toolchain, hooks and release policy, then the affected package's public contract and tests. This file governs the agent workflow; it does not replace language specifications or grant future publication authority.
+Read [CLAUDE.md](CLAUDE.md) for owner boundaries, [README.md](README.md) for the toolchain and commands, then [LANGUAGE](docs/spec/LANGUAGE.md), [RUNTIME](docs/spec/RUNTIME.md) or [TOOLING](docs/spec/TOOLING.md) for the affected contract and its tests. This file governs the agent workflow; it does not replace language specifications or grant future publication authority.
 
 ## Ownership and autonomy
 
 This public repository owns deterministic DSL parsing, rendering, analysis and local SDK/CLI/MCP surfaces. Product planning belongs to the Wireweave binding in agent-harness; Studio owns user experience, persistence, current permissions and actual host I/O. Fix a language defect here rather than reproducing a compiler inside either consumer. Studio must consume a published registry version through its own dependency contract; a source symlink is not release evidence.
+
+The approved v2 integration base is `release/v2.0.0`, seeded from the latest Core develop line; target this release branch for v2 PRs. The publication policy in `scripts/release-registry.mjs` remains separate: develop carries Core 4 beta while main carries Core 3 stable. PR verification runs on the release branch without adding it to npm publication triggers. Never promote a major or bypass beta registry verification merely to align sibling checkouts. The `@wireweave/core/app` AppBundle API and legacy fragment/CLI facades are separate verification surfaces.
 
 Use the existing isolated checkout. Do not create a worktree unless requested. Preserve user changes. Keep repository-specific facts in their owner document and link them from other agent entry points. Load only the contracts relevant to the current slice.
 
