@@ -55,6 +55,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ci-verification-${{ github.run_id }}-${{ github.run_attempt }}
-          path: .local/release-evidence/*.json
+          path: |
+            .local/release-evidence/*.json
+            .local/verification/cli-*/
           include-hidden-files: true
           if-no-files-found: warn
