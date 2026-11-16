@@ -41,7 +41,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
       - name: Update npm for trusted publishing
-        # npm 11 supports OIDC and the repository's Node 22.13 floor.
+        # npm 11 supports OIDC and the repository's Node 22.22.2 floor.
         run: npm install -g npm@11
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

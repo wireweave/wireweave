@@ -31,8 +31,15 @@ function execute(args, cwd = root) {
 }
 
 function doctor() {
-  const [major, minor] = process.versions.node.split('.').map(Number)
-  assert.ok(major > 22 || (major === 22 && minor >= 13), 'Node >=22.13 is required')
+  const required = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).engines.node
+  const floor = /^>=(\d+)\.(\d+)\.(\d+)$/.exec(required)
+  assert.ok(floor, `Unsupported Node engine range: ${required}`)
+  const actual = process.versions.node.split('.').map(Number)
+  let comparison = 0
+  for (let index = 0; index < actual.length && comparison === 0; index++) {
+    comparison = actual[index] - Number(floor[index + 1])
+  }
+  assert.ok(comparison >= 0, `Node ${required} is required`)
   assert.ok(existsSync(cli), 'Missing built CLI; run pnpm install --frozen-lockfile and pnpm build')
   const freshness = execute([join(root, 'scripts/dist-freshness-gate.mjs'), '--check'])
   assert.equal(freshness.status, 0, freshness.stderr || freshness.stdout)

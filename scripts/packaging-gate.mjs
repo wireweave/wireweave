@@ -604,7 +604,7 @@ const PROBE_SCRIPT = fileURLToPath(import.meta.url)
  *
  * The flag is detected rather than hardcoded because it was renamed:
  * --experimental-permission on Node 22, --permission from Node 23. This repo's
- * engines floor is 22.13, so both are reachable and neither can be assumed.
+ * engines floor is 22.22.2, so both are reachable and neither can be assumed.
  * When neither works the gate still runs with its other detectors and says so,
  * rather than silently narrowing.
  */
