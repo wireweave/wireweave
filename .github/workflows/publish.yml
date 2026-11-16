@@ -41,7 +41,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
       - name: Update npm for trusted publishing
-        # npm 11 supports OIDC and the repository's Node 22.13 floor.
+        # npm 11 supports OIDC and the repository's Node 22.22.2 floor.
         run: npm install -g npm@11
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -166,6 +166,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: release-verification-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
-          path: .local/release-evidence/*.json
+          path: |
+            .local/release-evidence/*.json
+            .local/verification/cli-*/
           include-hidden-files: true
           if-no-files-found: warn

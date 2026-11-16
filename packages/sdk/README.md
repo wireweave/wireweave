@@ -6,7 +6,7 @@ The [public tool contract](https://github.com/wireweave/wireweave/blob/develop/d
 
 ## Installation
 
-Use Node.js >=22.13.0. Replace `<pinned-version>` with the release selected for your toolchain.
+Use Node.js >=22.22.2. Replace `<pinned-version>` with the release selected for your toolchain.
 
 ```bash
 pnpm add --save-exact '@wireweave/sdk@<pinned-version>'

@@ -66,7 +66,7 @@ Transport request IDs identify delivery; idempotency keys identify repeatable ef
 
 ## 4. CLI
 
-The binary is `wireweave`. Node >=22.13.0 and the exact package version in the installed ToolchainProfile are required. `--version` prints tool, Core, language, schema and runtime versions; `--help` prints the catalog for those versions. Installation can use `npm install --global @wireweave/cli@<pinned-version>` or an installed package manager lockfile. Angle-bracket values denote user-supplied versions, not literal shell arguments.
+The binary is `wireweave`. Node >=22.22.2 and the exact package version in the installed ToolchainProfile are required. `--version` prints tool, Core, language, schema and runtime versions; `--help` prints the catalog for those versions. Installation can use `npm install --global @wireweave/cli@<pinned-version>` or an installed package manager lockfile. Angle-bracket values denote user-supplied versions, not literal shell arguments.
 
 All local commands accept `--language-version 4.0.0`, `--format json|summary`, `--diagnostics <path>` and a byte-limit profile. Diagnostic output goes to stderr unless a file is selected; successful primary output goes to stdout or `--output`. Multiple input globs expand before Core execution, are sorted by normalized relative path and are recorded in the input manifest.
 

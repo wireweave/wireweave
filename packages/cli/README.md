@@ -6,7 +6,7 @@ The [public tool contract](../../docs/spec/TOOLING.md#4-cli) defines this packag
 
 ## Installation
 
-Use Node.js >=22.13.0. Replace `<pinned-version>` with the release selected for your toolchain.
+Use Node.js >=22.22.2. Replace `<pinned-version>` with the release selected for your toolchain.
 
 ```bash
 npm install --global '@wireweave/cli@<pinned-version>'
