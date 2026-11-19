@@ -28,10 +28,19 @@
 //                                            (after Build)
 
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from 'node:fs'
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  rmSync,
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 
 import { publishedPackages } from './published-packages.mjs'
 import { workspaceProjects } from './workspace-projects.mjs'
@@ -443,6 +452,23 @@ function publishPathIsPnpm() {
   )
 }
 
+function verifyPackedCoreCatalog(tarball, destination) {
+  const consumer = realpathSync(mkdtempSync(join(destination, 'core-catalog-')))
+  const packageRoot = join(consumer, 'node_modules', '@wireweave', 'core')
+  mkdirSync(packageRoot, { recursive: true })
+  execFileSync('tar', ['-xzf', tarball, '--strip-components=1', '-C', packageRoot])
+  const probe = join(consumer, 'verify.mjs')
+  copyFileSync(new URL('./verify-packed-core-catalog.mjs', import.meta.url), probe)
+  const flag = permissionFlag()
+  if (!flag) throw new Error('Node filesystem permissions unavailable for packed Core check')
+  execFileSync(process.execPath, [flag, `--allow-fs-read=${consumer}`, probe], {
+    cwd: consumer,
+    env: {},
+    stdio: 'inherit',
+    timeout: 15_000,
+  })
+}
+
 function checkTarballs() {
   const failures = []
   const destination = mkdtempSync(join(tmpdir(), 'wireweave-pack-'))
@@ -543,6 +569,18 @@ function checkTarballs() {
             '\n      These exist, so every presence check passes; a consumer still ' +
             'gets an empty module or no types.',
         )
+      }
+      if (
+        pkg.name === '@wireweave/core' &&
+        manifest.exports?.['./spec'] &&
+        !missing.length &&
+        !hollow.length
+      ) {
+        try {
+          verifyPackedCoreCatalog(path, destination)
+        } catch (error) {
+          failures.push(`${pkg.name}: packed catalog verification failed: ${error.message}`)
+        }
       }
     }
   } finally {
