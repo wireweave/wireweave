@@ -1,7 +1,8 @@
 /** Core-owned multi-module application contract and deterministic linker. */
 export * from './types'
 export * from './linker'
-export * from './compiler'
+export { compileApp, linkAndCompileApp, renderSite } from './compiler'
+export type { AppCompileResult, CompileAppOptions } from './compiler'
 export { createAppBundle } from './v4'
 export { advanceClock, createRuntime, reduceEvent, resetRuntime } from './compiler'
 export type {
