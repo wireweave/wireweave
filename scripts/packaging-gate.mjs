@@ -585,6 +585,19 @@ function checkTarballs() {
         } catch (error) {
           failures.push(`${pkg.name}: packed catalog verification failed: ${error.message}`)
         }
+        try {
+          execFileSync(
+            process.execPath,
+            [fileURLToPath(new URL('./verify-packed-core-app.mjs', import.meta.url)), path],
+            {
+              env: {},
+              stdio: 'inherit',
+              timeout: 30_000,
+            },
+          )
+        } catch (error) {
+          failures.push(`${pkg.name}: packed app verification failed: ${error.message}`)
+        }
       }
     }
   } finally {
