@@ -125,13 +125,13 @@
     "build:icons": "node scripts/generate-icons.mjs",
     "build:icon-names": "node scripts/extract-icon-names.mjs",
     "build:ts": "tsup",
-    "build": "pnpm build:grammar && pnpm build:spec && pnpm build:icons && pnpm build:icon-names && pnpm build:language-resources && pnpm build:ts",
+    "build": "pnpm build:grammar && pnpm build:spec && pnpm build:icons && pnpm build:icon-names && pnpm build:language-resources && pnpm build:catalog-fingerprint && pnpm build:ts",
     "postbuild": "node ../../scripts/dist-freshness-gate.mjs --write .",
     "check:parser-sync": "node scripts/check-generated-parser.mjs",
     "check:spec-sync": "node scripts/extract-grammar-elements.mjs --check",
     "check:icons-sync": "node scripts/generate-icons.mjs --check",
     "check:icon-names-sync": "node scripts/extract-icon-names.mjs --check",
-    "pretest": "pnpm run check:parser-sync && pnpm run check:spec-sync && pnpm run check:icons-sync && pnpm run check:icon-names-sync && pnpm run check:language-resources-sync",
+    "pretest": "pnpm run check:parser-sync && pnpm run check:spec-sync && pnpm run check:icons-sync && pnpm run check:icon-names-sync && pnpm run check:language-resources-sync && pnpm run check:catalog-fingerprint-sync",
     "test": "pnpm test:generators && vitest run",
     "test:generators": "node --test scripts/*.test.mjs",
     "test:watch": "vitest",
@@ -146,7 +146,9 @@
     "knip": "knip",
     "publint": "publint --strict",
     "build:language-resources": "node scripts/generate-language-resources.mjs",
-    "check:language-resources-sync": "node scripts/generate-language-resources.mjs --check"
+    "check:language-resources-sync": "node scripts/generate-language-resources.mjs --check",
+    "build:catalog-fingerprint": "node scripts/generate-catalog-fingerprint.mjs",
+    "check:catalog-fingerprint-sync": "node scripts/generate-catalog-fingerprint.mjs --check"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",

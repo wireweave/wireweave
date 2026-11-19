@@ -16,8 +16,23 @@ content-addressed opaque identities: only exact listed URIs resolve; unknown URI
 fragments and arbitrary URLs return null without I/O. No caller-controlled path is read.
 This is a source asset catalog, not a complete language profile or conformance claim.
 It does not yet supply the schema closure (including the external product Registry),
-language/schema/catalog fingerprints, runtime digest or supported browser profiles
+language/schema fingerprints, runtime digest or supported browser profiles
 required by the complete contract above. Consumers requiring those must fail closed.
+
+`languageCatalogFingerprint` in `/spec` identifies the generated Core DSL catalog. Scope `wireweave-core-dsl-catalog-v1` includes
+`GRAMMAR_ELEMENTS`, `GRAMMAR_BLOCK_NODE_TYPES`, `GRAMMAR_CHILD_KEYWORDS`,
+`COMPONENT_SPECS`, `BLOCK_NODE_SPECS`, `ATTRIBUTE_SPECS`, node-type-keyed
+`ATTRIBUTE_OVERRIDES`, and `LUCIDE_ICON_NAMES` (IDs only). It includes descriptions
+and excludes glyph paths. Canonicalization `wireweave-sorted-json-v1` encodes
+`{scope, canonicalization, catalog}` as compact JSON, sorts object keys by UTF-16
+code units and preserves array order. JSON scalar encodings follow ECMAScript
+`JSON.stringify`; unsupported values, sparse arrays and cycles fail generation.
+The UTF-8 bytes of that envelope produce `byteLength` and the
+`sha256:`-prefixed `digest`. Consumers can reconstruct the envelope from the
+eight named exports and the two version identifiers. Build-time generation keeps imports independent of
+filesystem access, network access and Node crypto. This fingerprint covers the
+listed catalog values; schema closure, runtime and full language conformance
+need separate evidence.
 
 The release pins Node engine, Core/language/schema versions, icon and Unicode datasets, renderer/runtime digest and supported browser profiles. Tool discovery reports these values. A client cannot claim support from a package name or semver range alone. The installed release is selected at installation/admission; a plugin does not download npm latest during every invocation.
 
