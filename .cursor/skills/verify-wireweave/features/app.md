@@ -17,3 +17,13 @@ Run `node scripts/verify-local-tools.mjs drive app` after building this develop 
 ## Gotchas
 
 This journey proves deterministic public library behavior, not DOM event binding, rendered geometry or browser accessibility. Use real browser controls for those scopes. The legacy fragment/CLI facade does not certify AppBundle support. The approved v2 PR base is `release/v2.0.0`; npm publication remains on develop/beta under the existing release policy. Do not change main/stable or substitute a private consumer's source checkout for a published beta artifact.
+
+## Installed source-resource catalog
+
+The public `/spec` exports `languageSourceResources` and
+`resolveLanguageSourceResource(uri)`. After a fresh Core build and pack, import
+both ESM and CJS from the installed tarball, encode each resource's text as UTF-8,
+and compare byte length and SHA-256 with its manifest and canonical source.
+Unknown URLs, paths and URI fragments must return null without network access.
+The resources are frozen. These source assets do not establish the still-missing
+external product schema closure, complete language profile or browser capability.

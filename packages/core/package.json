@@ -125,13 +125,13 @@
     "build:icons": "node scripts/generate-icons.mjs",
     "build:icon-names": "node scripts/extract-icon-names.mjs",
     "build:ts": "tsup",
-    "build": "pnpm build:grammar && pnpm build:spec && pnpm build:icons && pnpm build:icon-names && pnpm build:ts",
+    "build": "pnpm build:grammar && pnpm build:spec && pnpm build:icons && pnpm build:icon-names && pnpm build:language-resources && pnpm build:ts",
     "postbuild": "node ../../scripts/dist-freshness-gate.mjs --write .",
     "check:parser-sync": "node scripts/check-generated-parser.mjs",
     "check:spec-sync": "node scripts/extract-grammar-elements.mjs --check",
     "check:icons-sync": "node scripts/generate-icons.mjs --check",
     "check:icon-names-sync": "node scripts/extract-icon-names.mjs --check",
-    "pretest": "pnpm run check:parser-sync && pnpm run check:spec-sync && pnpm run check:icons-sync && pnpm run check:icon-names-sync",
+    "pretest": "pnpm run check:parser-sync && pnpm run check:spec-sync && pnpm run check:icons-sync && pnpm run check:icon-names-sync && pnpm run check:language-resources-sync",
     "test": "pnpm test:generators && vitest run",
     "test:generators": "node --test scripts/*.test.mjs",
     "test:watch": "vitest",
@@ -144,7 +144,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "knip": "knip",
-    "publint": "publint --strict"
+    "publint": "publint --strict",
+    "build:language-resources": "node scripts/generate-language-resources.mjs",
+    "check:language-resources-sync": "node scripts/generate-language-resources.mjs --check"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",

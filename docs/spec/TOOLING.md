@@ -8,6 +8,17 @@ The npm library, SDK local dispatch, CLI, MCP server, markdown integration and e
 
 `@wireweave/core` publishes ESM and CJS with declarations. Public subpaths are `.`, `/parser`, `/renderer`, `/spec`, `/app`, `/interaction`. `/spec` exports the language/schema/catalog fingerprints and a URI-to-bytes resolver containing the exact immutable transitive schema closure, including the product Registry schema and its digest. Public npm consumers validate offline using those bundled resources; they need no private workspace, product service, account or network schema resolver. Every export in the release manifest must exist in the packed artifact, have substantive contents and resolve all imports. Importing any entry is side-effect-free: no process globals, prototype mutation, filesystem/network I/O, timers or account initialization. Core does not depend on host, SDK, provider or Wireweave binding packages.
 
+The installed `/spec` source-resource surface is `languageSourceResources` and
+`resolveLanguageSourceResource(uri)`. It embeds exact UTF-8 bytes (as immutable text),
+SHA-256 digests, byte lengths and media types for LANGUAGE.md, RUNTIME.md, TOOLING.md
+and language.ebnf, with the supplying package name/version. Resource URIs are
+content-addressed opaque identities: only exact listed URIs resolve; unknown URIs,
+fragments and arbitrary URLs return null without I/O. No caller-controlled path is read.
+This is a source asset catalog, not a complete language profile or conformance claim.
+It does not yet supply the schema closure (including the external product Registry),
+language/schema/catalog fingerprints, runtime digest or supported browser profiles
+required by the complete contract above. Consumers requiring those must fail closed.
+
 The release pins Node engine, Core/language/schema versions, icon and Unicode datasets, renderer/runtime digest and supported browser profiles. Tool discovery reports these values. A client cannot claim support from a package name or semver range alone. The installed release is selected at installation/admission; a plugin does not download npm latest during every invocation.
 
 ## 2. Pure library API
