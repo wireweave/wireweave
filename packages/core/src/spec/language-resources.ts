@@ -1,4 +1,8 @@
-import { LANGUAGE_RESOURCE_DATA, LANGUAGE_RESOURCE_PACKAGE } from './language-resources.generated'
+import {
+  LANGUAGE_RESOURCE_DATA,
+  LANGUAGE_RESOURCE_PACKAGE,
+  LANGUAGE_SCHEMA_METADATA,
+} from './language-resources.generated'
 
 /** A source asset, not a complete language profile, schema closure or execution capability. */
 export interface LanguageSourceResource {
@@ -17,7 +21,21 @@ export interface LanguageSourceResource {
 export const languageSourceResources = Object.freeze({
   package: Object.freeze({ ...LANGUAGE_RESOURCE_PACKAGE }),
   resources: Object.freeze(
-    LANGUAGE_RESOURCE_DATA.map((resource) => Object.freeze({ ...resource })),
+    LANGUAGE_RESOURCE_DATA.map<Readonly<LanguageSourceResource>>((resource) =>
+      Object.freeze({ ...resource }),
+    ),
+  ),
+})
+
+/** Exact public Core schema and its declared external references. Partial by
+ * design: the inventory does not resolve references or supply validation closure. */
+export const languageSchemaSource = Object.freeze({
+  ...LANGUAGE_SCHEMA_METADATA,
+  resource: languageSourceResources.resources.find(
+    (resource) => resource.path === 'docs/spec/schema.json',
+  )!,
+  externalRefs: Object.freeze(
+    LANGUAGE_SCHEMA_METADATA.externalRefs.map((reference) => Object.freeze({ ...reference })),
   ),
 })
 

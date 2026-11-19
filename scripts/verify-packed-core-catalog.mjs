@@ -2,11 +2,13 @@
 import assert from 'node:assert/strict'
 import { Buffer } from 'node:buffer'
 import { createHash } from 'node:crypto'
+import { readFileSync } from 'node:fs'
 import http from 'node:http'
 import https from 'node:https'
 import { createRequire, syncBuiltinESMExports } from 'node:module'
 import net from 'node:net'
 import tls from 'node:tls'
+import { URL } from 'node:url'
 
 const forbidden = () => {
   throw new Error('Unexpected network call while verifying packed Core /spec')
@@ -54,8 +56,27 @@ function fingerprint(catalog, scope, canonicalization) {
 const esm = await import('@wireweave/core/spec')
 const cjs = createRequire(import.meta.url)('@wireweave/core/spec')
 assert.deepEqual(esm.languageCatalogFingerprint, cjs.languageCatalogFingerprint)
+assert.deepEqual(esm.languageSchemaSource, cjs.languageSchemaSource)
+const schemaBytes = readFileSync(new URL('./expected-schema.json', import.meta.url))
+const canonicalSchema = JSON.parse(schemaBytes)
+const registryId = 'https://wireweave.org/contracts/product/1.0/schema.json'
 
 for (const spec of [esm, cjs]) {
+  const { coverage, schemaId, dialectId, resource, externalRefs } = spec.languageSchemaSource
+  assert.equal(coverage, 'partial')
+  assert.equal(schemaId, canonicalSchema.$id)
+  assert.equal(dialectId, canonicalSchema.$schema)
+  assert.equal(resource.path, 'docs/spec/schema.json')
+  assert.equal(resource.mediaType, 'application/schema+json')
+  assert.deepEqual(Buffer.from(resource.text, 'utf8'), schemaBytes)
+  assert.equal(resource.byteLength, schemaBytes.length)
+  assert.equal(resource.digest, `sha256:${createHash('sha256').update(schemaBytes).digest('hex')}`)
+  assert.deepEqual(externalRefs, [{ resourceId: registryId, ref: registryId + '#/$defs/Registry' }])
+  assert.equal(spec.resolveLanguageSourceResource(resource.uri), resource)
+  for (const identifier of [schemaId, dialectId, registryId, externalRefs[0].ref]) {
+    assert.equal(spec.resolveLanguageSourceResource(identifier), null)
+  }
+
   const metadata = spec.languageCatalogFingerprint
   assert(Object.isFrozen(metadata))
   const { scope, canonicalization } = metadata
@@ -75,4 +96,6 @@ for (const spec of [esm, cjs]) {
   assert.notEqual(fingerprint(changed, scope, canonicalization).digest, metadata.digest)
 }
 
-console.log('Packed Core /spec: ESM and CJS catalog fingerprints verified from public exports')
+console.log(
+  'Packed Core /spec: ESM and CJS catalog fingerprints and partial schema source verified from public exports',
+)

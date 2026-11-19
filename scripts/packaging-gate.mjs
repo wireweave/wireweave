@@ -459,6 +459,10 @@ function verifyPackedCoreCatalog(tarball, destination) {
   execFileSync('tar', ['-xzf', tarball, '--strip-components=1', '-C', packageRoot])
   const probe = join(consumer, 'verify.mjs')
   copyFileSync(new URL('./verify-packed-core-catalog.mjs', import.meta.url), probe)
+  copyFileSync(
+    new URL('../docs/spec/schema.json', import.meta.url),
+    join(consumer, 'expected-schema.json'),
+  )
   const flag = permissionFlag()
   if (!flag) throw new Error('Node filesystem permissions unavailable for packed Core check')
   execFileSync(process.execPath, [flag, `--allow-fs-read=${consumer}`, probe], {
