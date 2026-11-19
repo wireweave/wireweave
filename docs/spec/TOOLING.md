@@ -11,13 +11,18 @@ The npm library, SDK local dispatch, CLI, MCP server, markdown integration and e
 The installed `/spec` source-resource surface is `languageSourceResources` and
 `resolveLanguageSourceResource(uri)`. It embeds exact UTF-8 bytes (as immutable text),
 SHA-256 digests, byte lengths and media types for LANGUAGE.md, RUNTIME.md, TOOLING.md
-and language.ebnf, with the supplying package name/version. Resource URIs are
+language.ebnf and schema.json, with the supplying package name/version. Resource URIs are
 content-addressed opaque identities: only exact listed URIs resolve; unknown URIs,
 fragments and arbitrary URLs return null without I/O. No caller-controlled path is read.
 This is a source asset catalog, not a complete language profile or conformance claim.
-It does not yet supply the schema closure (including the external product Registry),
-language/schema fingerprints, runtime digest or supported browser profiles
-required by the complete contract above. Consumers requiring those must fail closed.
+`languageSchemaSource` has `coverage: 'partial'`. Its `resource` holds the exact
+public Core schema source and its byte length and SHA-256 digest. `schemaId` and
+`dialectId` identify the schema and declared dialect. Each `externalRefs` item
+records the reference as written and its fragment-free target `resourceId`.
+The current external reference targets the product Registry definition. The inventory
+does not resolve those identifiers, embed the product Registry, or establish
+transitive validation closure. Consumers requiring the complete contract above
+must fail closed until they have verified its full closure.
 
 `languageCatalogFingerprint` in `/spec` identifies the generated Core DSL catalog. Scope `wireweave-core-dsl-catalog-v1` includes
 `GRAMMAR_ELEMENTS`, `GRAMMAR_BLOCK_NODE_TYPES`, `GRAMMAR_CHILD_KEYWORDS`,

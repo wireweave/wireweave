@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 import { TextDecoder } from 'node:util'
 
 import { formatGeneratedSource } from './format-generated.mjs'
@@ -20,7 +20,8 @@ if (
 )
   throw new Error('Invalid Core package identity')
 const pkg = { name: rawPackage.name, version: rawPackage.version }
-const files = ['LANGUAGE.md', 'RUNTIME.md', 'TOOLING.md', 'language.ebnf']
+const schemaPath = 'docs/spec/schema.json'
+const files = ['LANGUAGE.md', 'RUNTIME.md', 'TOOLING.md', 'language.ebnf', 'schema.json']
 const resources = files.map((name) => {
   const path = `docs/spec/${name}`
   const bytes = readFileSync(resolve(root, path))
@@ -31,12 +32,60 @@ const resources = files.map((name) => {
     path,
     digest,
     byteLength: bytes.length,
-    mediaType: name.endsWith('.md') ? 'text/markdown' : 'text/plain',
+    mediaType:
+      name === 'schema.json'
+        ? 'application/schema+json'
+        : name.endsWith('.md')
+          ? 'text/markdown'
+          : 'text/plain',
     text,
   }
 })
+const schemaResource = resources.find(({ path }) => path === schemaPath)
+if (!schemaResource) throw new Error('Missing public schema source')
+/** @type {unknown} */
+const schema = JSON.parse(schemaResource.text)
+if (
+  !schema ||
+  typeof schema !== 'object' ||
+  !('$id' in schema) ||
+  typeof schema.$id !== 'string' ||
+  !('$schema' in schema) ||
+  typeof schema.$schema !== 'string'
+)
+  throw new Error('Invalid public schema identity')
+const schemaId = new URL(schema.$id).href
+const dialectId = new URL(schema.$schema).href
+/** @type {Map<string, { ref: string, resourceId: string }>} */
+const externalRefs = new Map()
+/** @param {unknown} value */
+function collectRefs(value) {
+  if (value === null || typeof value !== 'object') return
+  if (value !== schema && '$id' in value) {
+    throw new Error('Embedded schema resource IDs require scope-aware reference inventory')
+  }
+  /** @type {[string, unknown][]} */
+  const entries = Object.entries(value)
+  for (const [keyword, child] of entries) {
+    if (['$ref', '$dynamicRef', '$recursiveRef'].includes(keyword)) {
+      if (typeof child !== 'string') throw new Error('Invalid schema reference')
+      const target = new URL(child, schemaId)
+      target.hash = ''
+      if (target.href !== schemaId) externalRefs.set(child, { ref: child, resourceId: target.href })
+    } else {
+      collectRefs(child)
+    }
+  }
+}
+collectRefs(schema)
+const schemaMetadata = {
+  coverage: 'partial',
+  schemaId,
+  dialectId,
+  externalRefs: [...externalRefs.keys()].sort().map((key) => externalRefs.get(key)),
+}
 const source = await formatGeneratedSource(
-  `// Generated from canonical docs/spec sources. Do not edit.\nexport const LANGUAGE_RESOURCE_PACKAGE = ${JSON.stringify({ name: pkg.name, version: pkg.version })} as const\nexport const LANGUAGE_RESOURCE_DATA = ${JSON.stringify(resources)} as const\n`,
+  `// Generated from canonical docs/spec sources. Do not edit.\nexport const LANGUAGE_RESOURCE_PACKAGE = ${JSON.stringify({ name: pkg.name, version: pkg.version })} as const\nexport const LANGUAGE_RESOURCE_DATA = ${JSON.stringify(resources)} as const\nexport const LANGUAGE_SCHEMA_METADATA = ${JSON.stringify(schemaMetadata)} as const\n`,
   output,
 )
 if (process.argv.includes('--check')) {
