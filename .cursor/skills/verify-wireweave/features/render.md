@@ -4,6 +4,9 @@
 
 - Render supported DSL through the local SDK/CLI path.
 - Save a complete HTML document with the authored text and button.
+- Local top-level component declarations resolve through the shared linker in
+  `renderToHtml`, `renderCanvas` and `renderSite`; duplicate/cyclic definitions
+  fail with linker diagnostics rather than unresolved placeholders.
 
 ## How to get to it (user POV)
 

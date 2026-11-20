@@ -18,6 +18,7 @@
 
 import type { WireframeDocument, PageNode } from '../ast/types'
 import { documentPages } from '../ast/utils'
+import { resolveFragmentComponents } from '../app/fragment-components'
 import type { CanvasOptions, CanvasRenderResult } from './types'
 import { HtmlRenderer } from './html'
 import { resolvePageDimensions } from './page-renderer'
@@ -88,6 +89,7 @@ export function renderCanvas(
   doc: WireframeDocument,
   options: CanvasOptions = {},
 ): CanvasRenderResult {
+  doc = resolveFragmentComponents(doc)
   const gap = options.gap ?? DEFAULT_GAP
   const prefix = options.classPrefix ?? DEFAULT_PREFIX
   const includeStyles = options.includeStyles !== false

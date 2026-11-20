@@ -42,6 +42,7 @@
 import type { PageNode, WireframeDocument } from '../../ast/types'
 import { expandRepeats } from '../../ast/expand-repeats'
 import { expandVariants } from '../../ast/expand-variants'
+import { resolveFragmentComponents } from '../../app/fragment-components'
 import { collectInteractions } from '../../interaction/model'
 import { HtmlRenderer } from '../html'
 import { generateStyles } from '../styles'
@@ -307,7 +308,7 @@ export function renderSite(document: WireframeDocument, options: SiteOptions = {
   // each `repeat` once and then clone the result per variant, which is the same
   // tree by more work. Both are idempotent, so the order is about cost, not
   // correctness.
-  document = expandRepeats(expandVariants(document))
+  document = expandRepeats(expandVariants(resolveFragmentComponents(document)))
   const model = buildSiteModel(document)
   const interactionModel = collectInteractions(document)
   const make: MakeRenderer = (idScope) =>

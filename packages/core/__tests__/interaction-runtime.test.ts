@@ -349,9 +349,9 @@ page "Dash" id=dash uses=shell variants=[loading, ready] { text "body" }`),
  * the definition cannot tell apart.
  *
  * `linkApp` is what binds them: `expandComponentUse` substitutes the inputs and
- * returns a tree whose handlers name real screens. So the linked path sees
- * every component interaction and the unlinked one sees none — pinned here so
- * the difference stays a documented contract rather than a surprise.
+ * returns a tree whose handlers name real screens. The raw collector still
+ * requires that prepared tree; public renderSite prepares complete local
+ * declarations through the same linker before collecting their interactions.
  */
 describe('component interactions require the linked path', () => {
   const SOURCE = `component navCard(to: string) {
@@ -373,10 +373,18 @@ page "B" id=b { text "b" }`
     expect(collectInteractions(document).interactions).toEqual([])
   })
 
-  it('marks the invocation unresolved when renderSite runs on an unlinked document', () => {
+  it('links local declarations before rendering and executing their bound handlers', () => {
     const html = renderSite(parse(SOURCE))
 
-    expect(html).toContain('data-wf-component-unresolved')
+    expect(html).not.toContain('data-wf-component-unresolved')
     expect(html).toContain('data-wf-component="navCard"')
+    expect(html).not.toContain('$to')
+    const dom = mount(html)
+    click(dom, elementWithText(dom, '.wf-card', 'go'))
+    expect(dom.window.document.querySelector('.wf-site')?.getAttribute('data-current-screen')).toBe(
+      '1',
+    )
+    expect(dom.window.location.hash).toBe('#b')
+    dom.window.close()
   })
 })

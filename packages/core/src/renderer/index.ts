@@ -10,6 +10,7 @@ import { exportLinkedAppToSvg } from '../export/v4-svg'
 import type { V4SvgExportResult, V4SvgProfile } from '../export/types'
 import { documentPages } from '../ast/utils'
 import { expandVariants } from '../ast/expand-variants'
+import { resolveFragmentComponents } from '../app/fragment-components'
 import { createHtmlRenderer } from './html'
 import type {
   RenderOptions,
@@ -105,7 +106,7 @@ export function render(
   // counting before expansion would draw it as one legacy page and silently
   // drop two thirds of what the document declares. Idempotent and identity-
   // preserving, so a document without variants is untouched.
-  document = expandVariants(document)
+  document = expandVariants(resolveFragmentComponents(document))
   const isMultiPage = documentPages(document).length > 1
 
   if (isMultiPage) {
@@ -125,7 +126,7 @@ export function render(
  * @returns Complete HTML document string
  */
 export function renderToHtml(document: WireframeDocument, options: RenderOptions = {}): string {
-  document = expandVariants(document)
+  document = expandVariants(resolveFragmentComponents(document))
   const { html, css } = render(document, options)
   const prefix = options.classPrefix ?? 'wf'
 
