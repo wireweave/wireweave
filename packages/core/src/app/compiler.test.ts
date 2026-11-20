@@ -144,6 +144,41 @@ const fixture = (steps: JsonObject[], exhaustion = 'error'): JsonObject => ({
   exhaustion,
 })
 
+describe('primary actions in the compiled neutral application', () => {
+  it('styles a primary route link and action button while preserving native semantics', () => {
+    const artifact = unwrap(
+      compileApp(
+        linked(`
+app review entry={namespace=main,id=changes} {
+  module main namespace=main {
+    page "Changes" id=changes {
+      link "Choose channel" id=choose navigate=review primary
+      link "Ordinary navigation" id=ordinary navigate=review
+    }
+    page "Review" id=review {
+      button "Approve" id=approve primary
+      button "Unavailable" id=unavailable primary disabled
+    }
+  }
+}
+`),
+      ),
+    )
+    expect(artifact.html).toMatch(
+      /<a[^>]*class="[^"]*wf-primary-action[^"]*"[^>]*href="#wf\/main\/review"[^>]*>Choose channel<\/a>/,
+    )
+    expect(artifact.html).toMatch(
+      /<button[^>]*class="[^"]*wf-primary-action[^"]*"[^>]*type="button"[^>]*>Approve<\/button>/,
+    )
+    expect(artifact.html).toMatch(
+      /<button[^>]*wf-primary-action[^>]* disabled[^>]*>Unavailable<\/button>/,
+    )
+    expect(artifact.html).toMatch(
+      /<a[^>]*class="(?![^"]*wf-primary-action)[^"]*"[^>]*>Ordinary navigation<\/a>/,
+    )
+  })
+})
+
 describe('the canonical virtual-clock conformance corpus', () => {
   it.each(corpus.runtimeCases)(
     '$id executes the real reducer and matches exact observations',
