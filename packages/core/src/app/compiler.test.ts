@@ -156,8 +156,9 @@ app review entry={namespace=main,id=changes} {
       link "Ordinary navigation" id=ordinary navigate=review
     }
     page "Review" id=review {
-      button "Approve" id=approve primary
-      button "Unavailable" id=unavailable primary disabled
+      button "Approve" id=approve primary ghost
+      button "Unavailable" id=unavailable primary ghost disabled
+      button "Ordinary ghost" id=ordinaryGhost ghost
     }
   }
 }
@@ -179,6 +180,14 @@ app review entry={namespace=main,id=changes} {
     expect(artifact.html).toMatch(
       /<a[^>]*class="(?![^"]*wf-primary-action)[^"]*"[^>]*>Ordinary navigation<\/a>/,
     )
+    for (const label of ['Approve', 'Unavailable', 'Ordinary ghost']) {
+      const renderedId = artifact.html.match(
+        new RegExp(`<button id="([^"]+)"[^>]*>${label}</button>`),
+      )?.[1]
+      expect(renderedId).toBeDefined()
+      const transparentRule = `.${renderedId}{background:transparent;border-color:transparent`
+      expect(artifact.html.includes(transparentRule)).toBe(label === 'Ordinary ghost')
+    }
   })
 })
 

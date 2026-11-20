@@ -475,14 +475,13 @@ class HtmlArtifact {
     }
     if (a.border === true || a.outline === true || a.bordered === true)
       styles.push('border:1px solid #71717a')
-    if (a.ghost === true) styles.push('background:transparent', 'border-color:transparent')
+    const primaryAction = isPrimaryAction(entry)
+    if (a.ghost === true && !primaryAction)
+      styles.push('background:transparent', 'border-color:transparent')
     if (a.rounded === true || a.pill === true)
       styles.push(`border-radius:${a.pill === true ? '999px' : '4px'}`)
     if (a.muted === true) styles.push('color:#52525b')
-    if (
-      !isPrimaryAction(entry) &&
-      (a.bg !== undefined || a.primary === true || a.secondary === true)
-    )
+    if (!primaryAction && (a.bg !== undefined || a.primary === true || a.secondary === true))
       styles.push('background:#f4f4f5')
     if (a.shadow !== undefined && a.shadow !== 'none')
       styles.push(
