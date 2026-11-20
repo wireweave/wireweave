@@ -175,6 +175,16 @@ function hashBase64(value: string): string {
   return output
 }
 
+/** A primary treatment changes prominence, never the control's native role. */
+function isPrimaryAction(entry: ExpandedNode): boolean {
+  const { kind, attributes } = entry.node
+  return (
+    attributes.primary === true &&
+    (kind === 'button' ||
+      (kind === 'link' && (entry.route !== undefined || attributes.href !== undefined)))
+  )
+}
+
 class HtmlArtifact {
   readonly unsupported: { renderedId: string; handlerId: string; operationId: string }[] = []
   readonly rules: string[] = []
@@ -192,7 +202,10 @@ class HtmlArtifact {
     const children = (): string => entry.children.map((child) => this.node(child)).join('')
     let common =
       attribute('id', renderedId) +
-      attribute('class', `wf-node wf-${node.kind} ${renderedId}`) +
+      attribute(
+        'class',
+        `wf-node wf-${node.kind} ${renderedId}${isPrimaryAction(entry) ? ' wf-primary-action' : ''}`,
+      ) +
       attribute('data-wf-kind', node.kind) +
       attribute('data-wf-source', entry.owner.module.id) +
       attribute('data-wf-identity', jcs(entry.identity)) +
@@ -462,11 +475,13 @@ class HtmlArtifact {
     }
     if (a.border === true || a.outline === true || a.bordered === true)
       styles.push('border:1px solid #71717a')
-    if (a.ghost === true) styles.push('background:transparent', 'border-color:transparent')
+    const primaryAction = isPrimaryAction(entry)
+    if (a.ghost === true && !primaryAction)
+      styles.push('background:transparent', 'border-color:transparent')
     if (a.rounded === true || a.pill === true)
       styles.push(`border-radius:${a.pill === true ? '999px' : '4px'}`)
     if (a.muted === true) styles.push('color:#52525b')
-    if (a.bg !== undefined || a.primary === true || a.secondary === true)
+    if (!primaryAction && (a.bg !== undefined || a.primary === true || a.secondary === true))
       styles.push('background:#f4f4f5')
     if (a.shadow !== undefined && a.shadow !== 'none')
       styles.push(
@@ -527,7 +542,11 @@ class HtmlArtifact {
         : `@font-face{font-family:WireweaveProfile;src:url(data:${font.mediaType};base64,${font.base64}) format("woff2");font-display:swap}`
     const fontFamily =
       font === undefined ? 'system-ui,sans-serif' : 'WireweaveProfile,system-ui,sans-serif'
-    const css = `${fontFace}#wireweave-app{font:16px/1.5 ${fontFamily};color:#18181b;background:white}#wireweave-app [hidden]{display:none!important}#wireweave-app *{box-sizing:border-box}#wireweave-app :focus-visible{outline:2px solid #18181b;outline-offset:2px}#wireweave-app button,#wireweave-app input,#wireweave-app select{min-height:24px;font:inherit}#wireweave-app .wf-row{display:flex;gap:0}#wireweave-app .wf-col{flex:1}#wireweave-app .wf-stack,#wireweave-app .wf-field{display:flex;flex-direction:column;gap:8px}#wireweave-app .wf-page,#wireweave-app [data-wf-shell]{width:${textValue(bundle.profile.width)}px;height:${textValue(bundle.profile.height)}px;overflow:auto}#wireweave-app .wf-card,#wireweave-app th,#wireweave-app td{border:1px solid #71717a;padding:8px}#wireweave-app .wf-relative{position:relative}#wireweave-app [data-wf-slot]{display:contents}${this.rules.join('')}#wireweave-app[data-wf-view=accessible] .wf-node,#wireweave-app[data-wf-view=accessible] [data-wf-shell]{position:static!important;transform:none!important;width:auto!important;height:auto!important;min-width:0!important;max-width:100%!important;min-height:0!important;overflow-wrap:anywhere;order:0!important}#wireweave-app[data-wf-view=accessible] .wf-row{flex-direction:column!important;flex-wrap:wrap!important}#wireweave-app[data-wf-view=accessible] .wf-col{flex-basis:auto!important}#wireweave-app .wf-field{min-width:0}#wireweave-app .wf-field input,#wireweave-app .wf-field textarea,#wireweave-app .wf-field select{max-width:100%}#wireweave-app [data-wf-field][hidden]{display:none!important}#wireweave-app [role=tablist]{display:flex;flex-wrap:wrap}#wireweave-app [role=tooltip]{background:#f4f4f5;border:1px solid #71717a}#wireweave-app dialog{color:#18181b;background:white;max-width:100%;max-height:100%;overflow:auto}`
+    const primaryActionCss =
+      '#wireweave-app .wf-primary-action{display:inline-flex;align-items:center;align-self:flex-start;width:fit-content;max-width:100%;min-height:40px;padding:8px 14px;border:1px solid #18181b;border-radius:4px;background:#18181b;color:white;font-weight:600;text-decoration:none}' +
+      '#wireweave-app .wf-primary-action:not(:disabled,[aria-disabled=true]):hover{background:#3f3f46;cursor:pointer}' +
+      '#wireweave-app .wf-primary-action:is(:disabled,[aria-disabled=true]){background:#f4f4f5;border-color:#71717a;color:#52525b}'
+    const css = `${fontFace}#wireweave-app{font:16px/1.5 ${fontFamily};color:#18181b;background:white}#wireweave-app [hidden]{display:none!important}#wireweave-app *{box-sizing:border-box}#wireweave-app :focus-visible{outline:2px solid #18181b;outline-offset:2px}#wireweave-app button,#wireweave-app input,#wireweave-app select{min-height:24px;font:inherit}#wireweave-app .wf-row{display:flex;gap:0}${primaryActionCss}#wireweave-app .wf-col{flex:1}#wireweave-app .wf-stack,#wireweave-app .wf-field{display:flex;flex-direction:column;gap:8px}#wireweave-app .wf-page,#wireweave-app [data-wf-shell]{width:${textValue(bundle.profile.width)}px;height:${textValue(bundle.profile.height)}px;overflow:auto}#wireweave-app .wf-card,#wireweave-app th,#wireweave-app td{border:1px solid #71717a;padding:8px}#wireweave-app .wf-relative{position:relative}#wireweave-app [data-wf-slot]{display:contents}${this.rules.join('')}#wireweave-app[data-wf-view=accessible] .wf-node,#wireweave-app[data-wf-view=accessible] [data-wf-shell]{position:static!important;transform:none!important;width:auto!important;height:auto!important;min-width:0!important;max-width:100%!important;min-height:0!important;overflow-wrap:anywhere;order:0!important}#wireweave-app[data-wf-view=accessible] .wf-row{flex-direction:column!important;flex-wrap:wrap!important}#wireweave-app[data-wf-view=accessible] .wf-col{flex-basis:auto!important}#wireweave-app .wf-field{min-width:0}#wireweave-app .wf-field input,#wireweave-app .wf-field textarea,#wireweave-app .wf-field select{max-width:100%}#wireweave-app [data-wf-field][hidden]{display:none!important}#wireweave-app [role=tablist]{display:flex;flex-wrap:wrap}#wireweave-app [role=tooltip]{background:#f4f4f5;border:1px solid #71717a}#wireweave-app dialog{color:#18181b;background:white;max-width:100%;max-height:100%;overflow:auto}`
     const runtimeData = this.program
     const csp = `default-src 'none'; script-src 'sha256-${hashBase64(NATIVE_RUNTIME)}'; style-src 'sha256-${hashBase64(css)}'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'`
     return `<!DOCTYPE html>\n<html lang="${escape(bundle.profile.language)}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${escape(csp)}"><title>${escape(bundle.id)}</title><style>${css}</style></head><body><div id="wireweave-app">${shells}<div data-wf-screen-storage>${screens}</div><section data-wf-route-error role="alert" hidden><h1 tabindex="-1">Unknown screen</h1><p data-wf-invalid-address></p><a href="${escape(address(bundle.entry))}">Open entry screen</a></section><div role="group" aria-label="Execution view"><button type="button" data-wf-tooling="view">Switch fixed or accessible view</button><button type="button" data-wf-tooling="reset">Reset scenario</button></div><p data-wf-runtime-status role="status" aria-live="polite"></p><details data-wf-requirement-panel><summary>Implementation requirements</summary>${registryPanels}</details></div><script type="application/json" id="wf-model">${jsonBlock(bundle)}</script><script type="application/json" id="wf-source-map">${jsonBlock(this.data.sourceMap)}</script><script type="application/json" id="wf-runtime-data">${jsonBlock(runtimeData)}</script><script type="application/json" id="wf-runtime-trace">[]</script><script>${NATIVE_RUNTIME}</script></body></html>`
