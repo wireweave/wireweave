@@ -50,7 +50,7 @@ describe('legacy renderSite modal focus lifecycle', () => {
   })
   it('preserves the outer context when Escape closes a nested dialog', () => {
     const { dom, document, openers, review, close, escape } = mount()
-    openers[0]!.click()
+    openers[0].click()
     const nestedOpener = review.querySelector<HTMLButtonElement>('[data-opens="nested"]')!
     nestedOpener.click()
     expect(document.activeElement?.textContent).toBe('Close nested')
@@ -65,7 +65,7 @@ describe('legacy renderSite modal focus lifecycle', () => {
     'does not grab focus when the opener is %s',
     (state) => {
       const { dom, document, openers, close } = mount()
-      const opener = openers[0]!
+      const opener = openers[0]
       opener.click()
       if (state === 'removed') opener.remove()
       if (state === 'disabled') opener.disabled = true
@@ -77,11 +77,11 @@ describe('legacy renderSite modal focus lifecycle', () => {
   )
   it('does not duplicate the focus record on repeated open and restores on backdrop dismissal', () => {
     const { dom, document, openers, review, escape } = mount()
-    openers[1]!.click()
-    openers[1]!.click()
+    openers[1].click()
+    openers[1].click()
     review.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }))
     expect(document.activeElement).toBe(openers[1])
-    const other = openers[0]!
+    const other = openers[0]
     other.focus()
     escape()
     expect(document.activeElement).toBe(other)
@@ -108,7 +108,7 @@ describe('legacy renderSite modal focus lifecycle', () => {
   })
   it('does not restore the previous screen opener after navigation', () => {
     const { dom, document, openers, review, escape } = mount()
-    openers[0]!.click()
+    openers[0].click()
     review.querySelector<HTMLAnchorElement>('[data-navigate="next"]')!.click()
     const next = document.querySelector<HTMLButtonElement>('[data-screen="1"] button')!
     next.focus()
