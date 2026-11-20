@@ -164,6 +164,9 @@ app review entry={namespace=main,id=changes} {
 `),
       ),
     )
+    expect(artifact.html).toContain(
+      '.wf-primary-action:not(:disabled,[aria-disabled=true]):hover{background:#3f3f46;cursor:pointer}',
+    )
     expect(artifact.html).toMatch(
       /<a[^>]*class="[^"]*wf-primary-action[^"]*"[^>]*href="#wf\/main\/review"[^>]*>Choose channel<\/a>/,
     )
