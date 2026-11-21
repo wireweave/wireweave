@@ -27,3 +27,12 @@ and compare byte length and SHA-256 with its manifest and canonical source.
 Unknown URLs, paths and URI fragments must return null without network access.
 The resources are frozen. These source assets do not establish the still-missing
 external product schema closure, complete language profile or browser capability.
+
+## Standalone viewport boundary
+
+Observe the unchanged compiled artifact at its authored viewport and at a wider
+host viewport. The owned document wrapper must add no body margin outside the
+fixed board. Check actual document/board rectangles and reachable controls at
+100% scale. A board authored wider than the host remains fixed-width and scrolls;
+that observation is not compact-layout conformance. Repeat with a genuinely
+overflowing required control: removing wrapper margins must not conceal it.
