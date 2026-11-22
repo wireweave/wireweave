@@ -16,3 +16,7 @@ Run `node scripts/verify-local-tools.mjs drive render`. It invokes the built CLI
 ## Gotchas
 
 An emitted HTML file is not a browser behavior proof. Navigation, events, layout, keyboard and accessibility changes require a real browser run through authored controls. A missing document or content fails this journey; do not replace its assertions with an output-size check.
+
+## Modal lifecycle
+
+For exported site changes, activate the authored modal with keyboard input at a normal and narrow host viewport. Focus must enter the dialog, wrap for Tab and Shift+Tab, and return to the exact enabled visible opener after authored close and Escape. Check nested modal return, removed/hidden/disabled invokers, route switches and non-modal overlays separately. The board remains at its authored dimensions; keyboard reachability does not prove compact visual quality or native desktop acceptance.
