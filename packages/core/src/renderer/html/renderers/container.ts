@@ -41,12 +41,13 @@ export function renderModal(node: ModalNode, ctx: RenderContext): string {
   const styleAttr = styles ? ` style="${styles}"` : ''
   const idAttr = node.id ? ` id="${ctx.escapeHtml(ctx.scopedId(node.id))}"` : ''
 
+  const nameAttr = node.title?.trim() ? ` aria-label="${ctx.escapeHtml(node.title)}"` : ''
   const title = node.title
     ? `<h2 class="${ctx.prefix}-title">${ctx.escapeHtml(node.title)}</h2>\n`
     : ''
   const children = ctx.renderChildren(node.children)
   return `<div class="${ctx.prefix}-modal-backdrop"${idAttr}>
-  <div class="${classes}"${styleAttr} role="dialog" aria-modal="true">
+  <div class="${classes}"${styleAttr} role="dialog" aria-modal="true"${nameAttr}>
 ${title}${children}
   </div>
 </div>`
