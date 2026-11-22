@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0-beta.10
+
+### Patch Changes
+
+- [#55](https://github.com/wireweave/wireweave/pull/55) [`820094d`](https://github.com/wireweave/wireweave/commit/820094d016fdcf12fe12d67bc1f957e33b1c6d26) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Make generated heading guidance distinguish page titles, main sections and nested groups while preserving independent page and dialog hierarchies. Use text for large descriptive copy instead of title solely for visual size.
+
 ## 0.2.0-beta.9
 
 ### Patch Changes

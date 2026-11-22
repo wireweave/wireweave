@@ -41,6 +41,7 @@
     "engines-node-floor",
     "fixed-app-runtime-html",
     "fixed-standalone-board-document",
+    "heading-level-guidance",
     "language-data-core-dependency",
     "layout-site-beta",
     "markdown-plugin-layout-compat",
