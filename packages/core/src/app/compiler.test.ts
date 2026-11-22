@@ -189,6 +189,33 @@ app review entry={namespace=main,id=changes} {
       expect(artifact.html.includes(transparentRule)).toBe(label === 'Ordinary ghost')
     }
   })
+
+  it('lets the authored action row control cross-axis alignment of primary actions', () => {
+    const { html, sourceMap } = unwrap(
+      compileApp(
+        linked(
+          appSource(
+            `row id=actions align=center gap=12px justify=end {
+              button "Save" id=save primary
+              link "Continue" id=next navigate=review primary
+              button "Cancel" id=cancel h=64
+            }`,
+            [],
+            [],
+            'page "Review" id=review {}',
+          ),
+        ),
+      ),
+    )
+    const row = sourceMap.find(({ identity }) => identity.localId === 'actions')
+    expect(row).toBeDefined()
+    expect(html).toContain(
+      `.${row!.renderedId}{gap:12px;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:flex-end;align-items:center}`,
+    )
+    const primaryRule = html.match(/\.wf-primary-action\{([^}]+)\}/)?.[1]
+    expect(primaryRule).toContain('align-items:center')
+    expect(primaryRule).not.toContain('align-self:')
+  })
 })
 
 describe('the canonical virtual-clock conformance corpus', () => {
