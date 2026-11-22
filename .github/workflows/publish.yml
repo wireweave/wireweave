@@ -62,9 +62,16 @@ jobs:
           node scripts/release-registry.mjs policy --branch "$GITHUB_REF_NAME" --versioned
           pnpm install --lockfile-only --ignore-scripts --no-frozen-lockfile
           pnpm install --frozen-lockfile --ignore-scripts
-          git diff --name-only --diff-filter=ACM -z -- .changeset 'packages/*/package.json' 'packages/*/CHANGELOG.md' pnpm-lock.yaml |
+          versioned_paths=(.changeset 'packages/*/package.json' 'packages/*/CHANGELOG.md' pnpm-lock.yaml)
+          if [ "$GITHUB_REF_NAME" = develop ]; then
+            pnpm --filter @wireweave/core run build:language-resources
+            versioned_paths+=(packages/core/src/spec/language-resources.generated.ts)
+          fi
+          git diff --name-only --diff-filter=ACM -z -- "${versioned_paths[@]}" |
             xargs -0 --no-run-if-empty pnpm exec prettier --write
-          git add -A
+          git add -A -- "${versioned_paths[@]}"
+          git diff --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
           echo "tree=$(git write-tree)" >> "$GITHUB_OUTPUT"
 
       - name: Verify exact versioned tree

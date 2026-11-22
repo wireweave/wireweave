@@ -27,7 +27,14 @@ const queries = [
   'status --porcelain=v1',
 ]
 
-function runGate({ tracked = [artifact], untracked = [], ignored = [], changed = [] } = {}) {
+function runGate({
+  tracked = [artifact],
+  untracked = [],
+  ignored = [],
+  changed = [],
+  testedTree,
+  indexTree = testedTree,
+} = {}) {
   const outputs = [tracked, untracked, ignored, changed]
   const calls = []
   const stdout = []
@@ -38,6 +45,11 @@ function runGate({ tracked = [artifact], untracked = [], ignored = [], changed =
     execute(
       (command, args) => {
         assert.equal(command, 'git')
+        if (args[0] === 'write-tree') {
+          assert.deepEqual(args, ['write-tree'])
+          assert.ok(testedTree)
+          return indexTree + '\n'
+        }
         const separator = args.indexOf('--')
         assert.ok(separator > 0)
         assert.equal(args.slice(0, separator).join(' '), queries[calls.length])
@@ -47,6 +59,7 @@ function runGate({ tracked = [artifact], untracked = [], ignored = [], changed =
         return outputs[calls.length - 1].join('\n') + '\n'
       },
       {
+        env: testedTree === undefined ? {} : { WIREWEAVE_TESTED_TREE: testedTree },
         exit(code) {
           status = code
           throw stopped
@@ -57,7 +70,7 @@ function runGate({ tracked = [artifact], untracked = [], ignored = [], changed =
   } catch (error) {
     if (error !== stopped) throw error
   }
-  assert.equal(calls.length, 4, 'Every artifact state must be observed')
+  assert.equal(calls.length, testedTree === indexTree ? 4 : 0)
   return { status, stdout: stdout.join('\n'), stderr: stderr.join('\n'), scopes: calls }
 }
 
@@ -143,6 +156,21 @@ for (const status of [' M', 'M ', ' D', 'D ']) {
   })
 }
 
+test('a generated modification in the exact staged release tree passes', () => {
+  const result = runGate({ testedTree: 'a'.repeat(40), changed: [`M  ${artifact}`] })
+  assert.equal(result.status, 0)
+})
+
+test('the staged release mode rejects unstaged drift and an unexpected index', () => {
+  const testedTree = 'a'.repeat(40)
+  const drift = runGate({ testedTree, changed: [`MM ${artifact}`] })
+  assert.equal(drift.status, 1)
+  assert.match(drift.stderr, /Generated artifacts are stale/)
+  const mismatch = runGate({ testedTree, indexTree: 'b'.repeat(40) })
+  assert.equal(mismatch.status, 1)
+  assert.match(mismatch.stderr, /Staged tree differs/)
+})
+
 test('a Git failure propagates instead of passing without evidence', () => {
   const failure = new Error('Git cannot read the index')
   assert.throws(
@@ -152,6 +180,7 @@ test('a Git failure propagates instead of passing without evidence', () => {
           throw failure
         },
         {
+          env: {},
           exit() {
             assert.fail('Unexpected exit')
           },
