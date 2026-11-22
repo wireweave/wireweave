@@ -51,6 +51,7 @@
     "partial-core-schema-source",
     "quiet-catalog-proof",
     "side-effects-declarations",
+    "site-modal-focus",
     "ux-rules-content-authoring",
     "v2-secure-toolchain",
     "v4-primary-action-hover",

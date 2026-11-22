@@ -1,5 +1,14 @@
 # @wireweave/sdk
 
+## 0.2.0-beta.17
+
+### Patch Changes
+
+- Updated dependencies [[`5e9029c`](https://github.com/wireweave/wireweave/commit/5e9029cd49ac0ce3c15567956daba0a22880e8c9)]:
+  - @wireweave/core@4.0.0-beta.17
+  - @wireweave/language-data@1.6.0-beta.12
+  - @wireweave/ux-rules@1.5.0-beta.17
+
 ## 0.2.0-beta.16
 
 ### Patch Changes

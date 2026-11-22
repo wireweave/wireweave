@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.17
+
+### Patch Changes
+
+- [#56](https://github.com/wireweave/wireweave/pull/56) [`5e9029c`](https://github.com/wireweave/wireweave/commit/5e9029cd49ac0ce3c15567956daba0a22880e8c9) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Fix exported site modal focus entry, keyboard containment and safe focus restoration across close, Escape and route changes without changing authored board geometry.
+
 ## 4.0.0-beta.16
 
 ### Minor Changes
