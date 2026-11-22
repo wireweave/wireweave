@@ -31,6 +31,7 @@
  */
 
 import { describe, it, expect } from 'vitest'
+import { JSDOM } from 'jsdom'
 import { parse, render, renderSite } from '../src'
 import { INTERACTIVE_ATTR_NAMES } from '../src/renderer/html/interactive'
 import { ID_SCOPE_ATTR } from '../src/renderer/site/runtime'
@@ -181,19 +182,26 @@ describe('renderSite gives each declaring context an id namespace', () => {
 
 describe('the runtime still resolves what the author wrote', () => {
   it('opens the declaring screen’s own overlay, not the other screen’s', () => {
-    const host = boot(renderSite(DOC))
-    goTo(host, 'b')
-
-    const modalB = host.root.querySelector('[id="s1-confirm"]') as Element
-    const modalA = host.root.querySelector('[id="s0-confirm"]') as Element
-
-    expect(modalB.className).toContain(CLOSED)
-    host.dispatch('click', { target: triggerIn(screenNamed(host, 'b'), OPENS_ATTR) })
-
-    expect(modalB.className).not.toContain(CLOSED)
-    // The other screen's identically-named modal is untouched: same authored
-    // name, different namespace, and the search never left screen B.
-    expect(modalA.className).toContain(CLOSED)
+    // Modal focus now uses real DOM controls; the minimal navigation stub
+    // cannot model query/focus/visibility semantics.
+    const dom = new JSDOM(renderSite(DOC), {
+      runScripts: 'dangerously',
+      url: 'https://local.test/',
+    })
+    try {
+      dom.window.location.hash = '#b'
+      dom.window.dispatchEvent(new dom.window.HashChangeEvent('hashchange'))
+      const root = dom.window.document
+      const modalB = root.querySelector<HTMLElement>('[id="s1-confirm"]')!
+      const modalA = root.querySelector<HTMLElement>('[id="s0-confirm"]')!
+      expect(modalB.className).toContain(CLOSED)
+      root.querySelector<HTMLButtonElement>(`[data-screen-name="b"] [${OPENS_ATTR}]`)!.click()
+      expect(modalB.className).not.toContain(CLOSED)
+      // Same authored name, different namespace: A must remain untouched.
+      expect(modalA.className).toContain(CLOSED)
+    } finally {
+      dom.window.close()
+    }
   })
 
   it('lets a page shadow the shell overlay it shares a name with', () => {

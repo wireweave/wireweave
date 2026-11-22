@@ -318,6 +318,119 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     }
   }
 
+  // Modal focus belongs to the emitted document, never an embedding host.
+  // Keep the actual activating element: duplicate labels are not identities.
+  var modalFocus = [];
+  var pendingFocus = null;
+  var focusSelector = 'button, a[href], input, select, textarea, [tabindex]';
+
+  function canFocus(element) {
+    if (!element || !site.contains(element) || element.disabled || element.getAttribute('aria-disabled') === 'true') return false;
+    for (var node = element; node && node !== site; node = node.parentElement) {
+      if (node.hidden || node.hasAttribute('inert') || node.getAttribute('aria-hidden') === 'true' || node.classList.contains(CLOSED)) return false;
+      if (node.hasAttribute('data-screen') && !node.classList.contains(ON)) return false;
+      var style = window.getComputedStyle(node);
+      if (style.display === 'none' || style.visibility === 'hidden') return false;
+    }
+    return true;
+  }
+
+  function modalControls(dialog) {
+    var candidates = dialog.querySelectorAll(focusSelector);
+    var controls = [];
+    for (var i = 0; i < candidates.length; i++) {
+      if (candidates[i].tabIndex >= 0 && canFocus(candidates[i])) controls.push(candidates[i]);
+    }
+    return controls;
+  }
+
+  function topModal() {
+    while (modalFocus.length) {
+      var record = modalFocus[modalFocus.length - 1];
+      if (record.key === current && site.contains(record.overlay) && !record.overlay.classList.contains(CLOSED)) return record;
+      modalFocus.pop();
+    }
+    return null;
+  }
+
+  var modalInert = [];
+  function updateModalInert() {
+    for (var i = 0; i < modalInert.length; i++) modalInert[i].removeAttribute('inert');
+    modalInert = [];
+    var top = topModal();
+    if (!top) return;
+    for (var node = top.overlay; node && node !== site; node = node.parentElement) {
+      var siblings = node.parentElement.children;
+      for (var j = 0; j < siblings.length; j++) {
+        if (siblings[j] !== node && !siblings[j].hasAttribute('inert')) {
+          siblings[j].setAttribute('inert', '');
+          modalInert.push(siblings[j]);
+        }
+      }
+    }
+  }
+
+  function focusScreen() {
+    var screen = screens[current];
+    if (!screen) return;
+    var target = screen.querySelector('h1, h2, [role="heading"]') || screen;
+    if (!canFocus(target)) target = screen;
+    if (!canFocus(target)) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus();
+  }
+
+  function openOverlay(overlay, opener) {
+    if (!overlay.classList.contains(CLOSED)) return;
+    overlay.classList.remove(CLOSED);
+    pendingFocus = null;
+    if (!overlay.classList.contains(P + '-modal-backdrop')) return;
+    var dialog = overlay.querySelector('[role="dialog"]');
+    if (!dialog) return;
+    modalFocus.push({ overlay: overlay, dialog: dialog, opener: opener, key: current });
+    updateModalInert();
+    var preferred = dialog.querySelector('[autofocus]');
+    var controls = modalControls(dialog);
+    if (preferred && canFocus(preferred)) preferred.focus();
+    else if (controls.length) controls[0].focus();
+    else {
+      if (!dialog.hasAttribute('tabindex')) dialog.setAttribute('tabindex', '-1');
+      dialog.focus();
+    }
+  }
+
+  function closeOverlay(overlay) {
+    overlay.classList.add(CLOSED);
+    for (var i = modalFocus.length - 1; i >= 0; i--) {
+      if (modalFocus[i].overlay !== overlay) continue;
+      var record = modalFocus[i];
+      // Closing a parent also retires nested modal contexts.
+      for (var j = i; j < modalFocus.length; j++) modalFocus[j].overlay.classList.add(CLOSED);
+      modalFocus.splice(i);
+      updateModalInert();
+      pendingFocus = record;
+      return;
+    }
+  }
+
+  function restoreModalFocus() {
+    var record = pendingFocus;
+    pendingFocus = null;
+    if (!record || record.key !== current) return;
+    var top = topModal();
+    if (canFocus(record.opener) && (!top || top.dialog.contains(record.opener))) record.opener.focus();
+    else if (top) {
+      var controls = modalControls(top.dialog);
+      (controls[0] || top.dialog).focus();
+    } else focusScreen();
+  }
+
+  function dismissOverlay() {
+    var top = topModal();
+    if (top) closeOverlay(top.overlay);
+    else closeOverlays(current);
+  }
+
   function initOverlays() {
     for (var i = 0; i < order.length; i++) closeOverlays(order[i]);
   }
@@ -355,7 +468,7 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     }
   }
 
-  function applyEffects(handler) {
+  function applyEffects(handler, source) {
     for (var i = 0; i < handler.effects.length; i++) {
       var effect = handler.effects[i];
       if (effect.kind === 'navigate') {
@@ -373,11 +486,11 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
         else diagnostic('invalid-toggle', effect.state);
       } else if (effect.kind === 'open') {
         var opened = overlayFor(current, effect.target);
-        if (opened) opened.classList.remove(CLOSED);
+        if (opened) openOverlay(opened, source);
         else diagnostic('unknown-overlay', effect.target);
       } else if (effect.kind === 'close') {
         var closed = overlayFor(current, effect.target);
-        if (closed) closed.classList.add(CLOSED);
+        if (closed) closeOverlay(closed);
         else diagnostic('unknown-overlay', effect.target);
       }
     }
@@ -419,6 +532,11 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     if (!screen) return false;
     if (key === current) return true;
 
+    var leavingModal = modalFocus.length > 0;
+    if (current !== null) closeOverlays(current);
+    modalFocus = [];
+    pendingFocus = null;
+    updateModalInert();
     for (var i = 0; i < order.length; i++) {
       var k = order[i];
       if (k === key) screens[k].classList.add(ON);
@@ -440,6 +558,7 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     markActive(key);
     applyVariantScopes();
     applyOutcomes();
+    if (leavingModal) focusScreen();
 
     if (writeFragment) {
       var fragment = R.fragments[Number(key)] || key;
@@ -471,9 +590,10 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
         var normalized = interactionFor(current, typed, signatures[typedIndex]);
         if (!normalized) continue;
         matched = true;
-        if (guardPasses(normalized.guard)) applyEffects(normalized);
+        if (guardPasses(normalized.guard)) applyEffects(normalized, typed);
       }
       if (matched) {
+        restoreModalFocus();
         event.preventDefault();
         return;
       }
@@ -501,7 +621,7 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
       var opened = overlayFor(current, opener.getAttribute(${embedJson(OPENS_ATTR)}));
       if (opened) {
         event.preventDefault();
-        opened.classList.remove(CLOSED);
+        openOverlay(opened, opener);
         return;
       }
     }
@@ -511,7 +631,9 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
       var toggled = overlayFor(current, toggler.getAttribute(${embedJson(TOGGLES_ATTR)}));
       if (toggled) {
         event.preventDefault();
-        toggled.classList.toggle(CLOSED);
+        if (toggled.classList.contains(CLOSED)) openOverlay(toggled, toggler);
+        else closeOverlay(toggled);
+        restoreModalFocus();
         return;
       }
     }
@@ -523,7 +645,8 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
       var action = (actor.getAttribute(${embedJson(ACTION_ATTR)}) || '').trim();
       if (action === 'close' || action === 'back') {
         event.preventDefault();
-        closeOverlays(current);
+        dismissOverlay();
+        restoreModalFocus();
         return;
       }
       if (action !== '') diagnostic('unknown-action', action);
@@ -532,7 +655,8 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     // Clicking a modal's own backdrop dismisses it, the way a real one does.
     var backdrop = event.target;
     if (backdrop && backdrop.classList && backdrop.classList.contains(P + '-modal-backdrop')) {
-      backdrop.classList.add(CLOSED);
+      closeOverlay(backdrop);
+      restoreModalFocus();
     }
 
     // Every branch above cancels the default only when it RESOLVES an intent,
@@ -556,7 +680,22 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
   });
 
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && current !== null) closeOverlays(current);
+    var top = topModal();
+    if (event.key === 'Escape' && current !== null) {
+      if (top) event.preventDefault();
+      dismissOverlay();
+      restoreModalFocus();
+    } else if (event.key === 'Tab' && top) {
+      var controls = modalControls(top.dialog);
+      var first = controls[0];
+      var last = controls[controls.length - 1];
+      if (!first) { event.preventDefault(); top.dialog.focus(); }
+      else if (!top.dialog.contains(document.activeElement) || (!event.shiftKey && document.activeElement === last)) {
+        event.preventDefault(); first.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      }
+    }
   });
 
   window.addEventListener('hashchange', function () {
