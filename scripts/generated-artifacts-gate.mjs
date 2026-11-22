@@ -1,7 +1,8 @@
 // Generated-artifact freshness gate — the post-Build half.
 //
 // Run the generators, then assert the working tree is unchanged. If a generator
-// produces something different from what is committed, the commit is stale.
+// produces something different from the committed or explicitly verified staged
+// tree, that tree is stale.
 //
 // The judgement is `git status`, not `git diff`, and the difference is the whole
 // point. `git diff` compares the index and the working tree, so it is blind to
@@ -78,15 +79,20 @@ function bullets(paths) {
   return paths.map((path) => `    ${path}`).join('\n')
 }
 
+const testedTree = process.env.WIREWEAVE_TESTED_TREE
+if (testedTree !== undefined && git(['write-tree'])[0] !== testedTree) {
+  console.error('✖ Staged tree differs from the release verification tree.')
+  process.exit(1)
+}
+
 const tracked = git(['ls-files', '--', ...SCOPE])
 const untracked = git(['ls-files', '--others', '--exclude-standard', '--', ...SCOPE])
 const ignored = git(['ls-files', '--others', '--ignored', '--exclude-standard', '--', ...SCOPE])
 
-// Tracked artifacts whose content changed or that vanished. Porcelain v1 lines
-// are `XY <path>`; the status letters are what distinguish a rewrite from a
-// deletion, so they are kept for the report rather than stripped.
+// Porcelain v1 reports index and worktree status separately. A pure staged
+// modification belongs to the baseline only when the verifier bound that tree.
 const changed = git(['status', '--porcelain=v1', '--', ...SCOPE]).filter(
-  (line) => !line.startsWith('??'),
+  (line) => !line.startsWith('??') && !(testedTree !== undefined && line.startsWith('M ')),
 )
 const modified = changed.filter((line) => !/^.?D/.test(line)).map((line) => line.slice(3))
 const deleted = changed.filter((line) => /^.?D/.test(line)).map((line) => line.slice(3))
