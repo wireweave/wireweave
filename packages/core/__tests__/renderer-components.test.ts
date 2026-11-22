@@ -5,8 +5,15 @@
  */
 
 import { describe, it, expect } from 'vitest'
+import { JSDOM } from 'jsdom'
 import { parse, validate } from '../src'
-import { render, generateComponentStyles, defaultTheme } from '../src/renderer'
+import {
+  render,
+  renderSite,
+  renderToHtml,
+  generateComponentStyles,
+  defaultTheme,
+} from '../src/renderer'
 
 describe('Component Rendering', () => {
   describe('Container Components', () => {
@@ -917,5 +924,63 @@ describe('Interactive Attributes', () => {
 
       expect(result.html).toContain('id="main-drawer"')
     })
+  })
+})
+
+describe('modal authored accessible names', () => {
+  it('escapes the authored title on the inner idless dialog in legacy output', () => {
+    const title = 'Review "X" & <Threads>'
+    const doc = parse('page { modal ' + JSON.stringify(title) + ' { text "Body" } }')
+    for (const html of [render(doc).html, renderToHtml(doc), renderSite(doc)]) {
+      const dom = new JSDOM(html)
+      const dialog = dom.window.document.querySelector('[role="dialog"]')!
+      expect(dialog.getAttribute('aria-label')).toBe(title)
+      expect(dialog.querySelector('h2')?.textContent).toBe(title)
+      expect(dialog.getAttribute('aria-labelledby')).toBeNull()
+      expect(dialog.getAttribute('id')).toBeNull()
+      expect(dialog.querySelector('h2')?.getAttribute('id')).toBeNull()
+      expect(html).toContain('aria-label="Review &quot;X&quot; &amp; &lt;Threads&gt;"')
+      dom.window.close()
+    }
+  })
+  it.each([undefined, '', '   '])(
+    'does not fabricate an accessible name for a blank title %j',
+    (title) => {
+      const dom = new JSDOM(
+        render(
+          parse(
+            'page { modal ' +
+              (title === undefined ? '' : JSON.stringify(title) + ' ') +
+              '{ text "Body" } }',
+          ),
+        ).html,
+      )
+      expect(dom.window.document.querySelector('[role="dialog"]')?.hasAttribute('aria-label')).toBe(
+        false,
+      )
+      dom.window.close()
+    },
+  )
+  it('keeps repeated authored overlay ids scoped without introducing title ids', () => {
+    const dom = new JSDOM(
+      renderSite(
+        parse(`page "First" { modal "X selected" id=review { text "X" } }
+page "Second" { modal "Threads selected" id=review { text "Threads" } }`),
+      ),
+    )
+    const document = dom.window.document
+    expect(
+      [...document.querySelectorAll('[role="dialog"]')].map((el) => el.getAttribute('aria-label')),
+    ).toEqual(['X selected', 'Threads selected'])
+    expect([...document.querySelectorAll('.wf-modal-backdrop')].map((el) => el.id)).toEqual([
+      's0-review',
+      's1-review',
+    ])
+    const ids = [...document.querySelectorAll('[id]')].map((el) => el.id)
+    expect(new Set(ids).size).toBe(ids.length)
+    expect(
+      [...document.querySelectorAll('[role="dialog"] h2')].every((el) => !el.hasAttribute('id')),
+    ).toBe(true)
+    dom.window.close()
   })
 })
