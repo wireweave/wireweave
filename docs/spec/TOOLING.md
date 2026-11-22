@@ -8,6 +8,37 @@ The npm library, SDK local dispatch, CLI, MCP server, markdown integration and e
 
 `@wireweave/core` publishes ESM and CJS with declarations. Public subpaths are `.`, `/parser`, `/renderer`, `/spec`, `/app`, `/interaction`. `/spec` exports the language/schema/catalog fingerprints and a URI-to-bytes resolver containing the exact immutable transitive schema closure, including the product Registry schema and its digest. Public npm consumers validate offline using those bundled resources; they need no private workspace, product service, account or network schema resolver. Every export in the release manifest must exist in the packed artifact, have substantive contents and resolve all imports. Importing any entry is side-effect-free: no process globals, prototype mutation, filesystem/network I/O, timers or account initialization. Core does not depend on host, SDK, provider or Wireweave binding packages.
 
+The installed `/spec` source-resource surface is `languageSourceResources` and
+`resolveLanguageSourceResource(uri)`. It embeds exact UTF-8 bytes (as immutable text),
+SHA-256 digests, byte lengths and media types for LANGUAGE.md, RUNTIME.md, TOOLING.md
+language.ebnf and schema.json, with the supplying package name/version. Resource URIs are
+content-addressed opaque identities: only exact listed URIs resolve; unknown URIs,
+fragments and arbitrary URLs return null without I/O. No caller-controlled path is read.
+This is a source asset catalog, not a complete language profile or conformance claim.
+`languageSchemaSource` has `coverage: 'partial'`. Its `resource` holds the exact
+public Core schema source and its byte length and SHA-256 digest. `schemaId` and
+`dialectId` identify the schema and declared dialect. Each `externalRefs` item
+records the reference as written and its fragment-free target `resourceId`.
+The current external reference targets the product Registry definition. The inventory
+does not resolve those identifiers, embed the product Registry, or establish
+transitive validation closure. Consumers requiring the complete contract above
+must fail closed until they have verified its full closure.
+
+`languageCatalogFingerprint` in `/spec` identifies the generated Core DSL catalog. Scope `wireweave-core-dsl-catalog-v1` includes
+`GRAMMAR_ELEMENTS`, `GRAMMAR_BLOCK_NODE_TYPES`, `GRAMMAR_CHILD_KEYWORDS`,
+`COMPONENT_SPECS`, `BLOCK_NODE_SPECS`, `ATTRIBUTE_SPECS`, node-type-keyed
+`ATTRIBUTE_OVERRIDES`, and `LUCIDE_ICON_NAMES` (IDs only). It includes descriptions
+and excludes glyph paths. Canonicalization `wireweave-sorted-json-v1` encodes
+`{scope, canonicalization, catalog}` as compact JSON, sorts object keys by UTF-16
+code units and preserves array order. JSON scalar encodings follow ECMAScript
+`JSON.stringify`; unsupported values, sparse arrays and cycles fail generation.
+The UTF-8 bytes of that envelope produce `byteLength` and the
+`sha256:`-prefixed `digest`. Consumers can reconstruct the envelope from the
+eight named exports and the two version identifiers. Build-time generation keeps imports independent of
+filesystem access, network access and Node crypto. This fingerprint covers the
+listed catalog values; schema closure, runtime and full language conformance
+need separate evidence.
+
 The release pins Node engine, Core/language/schema versions, icon and Unicode datasets, renderer/runtime digest and supported browser profiles. Tool discovery reports these values. A client cannot claim support from a package name or semver range alone. The installed release is selected at installation/admission; a plugin does not download npm latest during every invocation.
 
 ## 2. Pure library API
@@ -66,7 +97,7 @@ Transport request IDs identify delivery; idempotency keys identify repeatable ef
 
 ## 4. CLI
 
-The binary is `wireweave`. Node >=22.13.0 and the exact package version in the installed ToolchainProfile are required. `--version` prints tool, Core, language, schema and runtime versions; `--help` prints the catalog for those versions. Installation can use `npm install --global @wireweave/cli@<pinned-version>` or an installed package manager lockfile. Angle-bracket values denote user-supplied versions, not literal shell arguments.
+The binary is `wireweave`. Node >=22.22.2 and the exact package version in the installed ToolchainProfile are required. `--version` prints tool, Core, language, schema and runtime versions; `--help` prints the catalog for those versions. Installation can use `npm install --global @wireweave/cli@<pinned-version>` or an installed package manager lockfile. Angle-bracket values denote user-supplied versions, not literal shell arguments.
 
 All local commands accept `--language-version 4.0.0`, `--format json|summary`, `--diagnostics <path>` and a byte-limit profile. Diagnostic output goes to stderr unless a file is selected; successful primary output goes to stdout or `--output`. Multiple input globs expand before Core execution, are sorted by normalized relative path and are recorded in the input manifest.
 

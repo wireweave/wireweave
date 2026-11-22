@@ -23,7 +23,26 @@ const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex')
 export function packageManagerEnvironment(scratch, { offline = false } = {}) {
   // npm and pnpm 11 have distinct configuration prefixes. Keep both explicit;
   // the caller's pnpm lifecycle/PATH must not decide whether hooks can run.
+  const network = Object.fromEntries(
+    [
+      'HTTP_PROXY',
+      'HTTPS_PROXY',
+      'ALL_PROXY',
+      'NO_PROXY',
+      'http_proxy',
+      'https_proxy',
+      'all_proxy',
+      'no_proxy',
+      'NODE_EXTRA_CA_CERTS',
+      'SSL_CERT_FILE',
+      'SSL_CERT_DIR',
+      'npm_config_cafile',
+    ]
+      .filter((name) => process.env[name] !== undefined)
+      .map((name) => [name, process.env[name]]),
+  )
   return {
+    ...network,
     PATH: process.env.PATH,
     TMPDIR: scratch,
     CI: 'true',

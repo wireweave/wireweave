@@ -1,10 +1,10 @@
 name: CI
 
 # Pull requests and versioned releases use the same verification contract.
-# Pushes remain owned by publish.yml: develop -> beta, main -> stable.
+# Publication remains separate: develop -> beta, main -> stable.
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, release/v2.0.0]
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -55,6 +55,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ci-verification-${{ github.run_id }}-${{ github.run_attempt }}
-          path: .local/release-evidence/*.json
+          path: |
+            .local/release-evidence/*.json
+            .local/verification/cli-*/
           include-hidden-files: true
           if-no-files-found: warn

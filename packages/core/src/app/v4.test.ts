@@ -732,3 +732,17 @@ describe('native executable operations', () => {
     dom.window.close()
   })
 })
+
+describe('standalone authored viewport document box', () => {
+  it('does not add browser body margins outside the fixed authored board', () => {
+    const artifact = value(linkAndCompileApp(bundle(app(page('button "Save" id=save')))))
+    const { dom } = browser(artifact)
+    try {
+      expect(dom.window.getComputedStyle(dom.window.document.body).marginLeft).toBe('0px')
+      expect(dom.window.getComputedStyle(dom.window.document.body).marginRight).toBe('0px')
+      expect(dom.window.document.querySelector('#wireweave-app')).not.toBeNull()
+    } finally {
+      dom.window.close()
+    }
+  })
+})

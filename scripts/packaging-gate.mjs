@@ -28,10 +28,19 @@
 //                                            (after Build)
 
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from 'node:fs'
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  rmSync,
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 
 import { publishedPackages } from './published-packages.mjs'
 import { workspaceProjects } from './workspace-projects.mjs'
@@ -443,6 +452,27 @@ function publishPathIsPnpm() {
   )
 }
 
+function verifyPackedCoreCatalog(tarball, destination) {
+  const consumer = realpathSync(mkdtempSync(join(destination, 'core-catalog-')))
+  const packageRoot = join(consumer, 'node_modules', '@wireweave', 'core')
+  mkdirSync(packageRoot, { recursive: true })
+  execFileSync('tar', ['-xzf', tarball, '--strip-components=1', '-C', packageRoot])
+  const probe = join(consumer, 'verify.mjs')
+  copyFileSync(new URL('./verify-packed-core-catalog.mjs', import.meta.url), probe)
+  copyFileSync(
+    new URL('../docs/spec/schema.json', import.meta.url),
+    join(consumer, 'expected-schema.json'),
+  )
+  const flag = permissionFlag()
+  if (!flag) throw new Error('Node filesystem permissions unavailable for packed Core check')
+  execFileSync(process.execPath, [flag, `--allow-fs-read=${consumer}`, probe], {
+    cwd: consumer,
+    env: {},
+    stdio: 'inherit',
+    timeout: 15_000,
+  })
+}
+
 function checkTarballs() {
   const failures = []
   const destination = mkdtempSync(join(tmpdir(), 'wireweave-pack-'))
@@ -544,6 +574,31 @@ function checkTarballs() {
             'gets an empty module or no types.',
         )
       }
+      if (
+        pkg.name === '@wireweave/core' &&
+        manifest.exports?.['./spec'] &&
+        !missing.length &&
+        !hollow.length
+      ) {
+        try {
+          verifyPackedCoreCatalog(path, destination)
+        } catch (error) {
+          failures.push(`${pkg.name}: packed catalog verification failed: ${error.message}`)
+        }
+        try {
+          execFileSync(
+            process.execPath,
+            [fileURLToPath(new URL('./verify-packed-core-app.mjs', import.meta.url)), path],
+            {
+              env: {},
+              stdio: 'inherit',
+              timeout: 30_000,
+            },
+          )
+        } catch (error) {
+          failures.push(`${pkg.name}: packed app verification failed: ${error.message}`)
+        }
+      }
     }
   } finally {
     rmSync(destination, { recursive: true, force: true })
@@ -604,7 +659,7 @@ const PROBE_SCRIPT = fileURLToPath(import.meta.url)
  *
  * The flag is detected rather than hardcoded because it was renamed:
  * --experimental-permission on Node 22, --permission from Node 23. This repo's
- * engines floor is 22.13, so both are reachable and neither can be assumed.
+ * engines floor is 22.22.2, so both are reachable and neither can be assumed.
  * When neither works the gate still runs with its other detectors and says so,
  * rather than silently narrowing.
  */

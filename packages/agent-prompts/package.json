@@ -23,7 +23,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.22.2"
   },
   "scripts": {
     "build": "tsup",
@@ -37,7 +37,7 @@
     "format:check": "prettier --check .",
     "knip": "knip",
     "publint": "publint --strict",
-    "packlint": "packlint check",
+    "packlint": "pnpm --dir ../.. exec node scripts/packaging-gate.mjs --check && publint --strict",
     "clean": "rm -rf dist"
   },
   "lint-staged": {
@@ -53,18 +53,17 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
-    "@packlint/cli": "^0.0.2",
     "@types/node": "^22.20.2",
-    "eslint": "^10.10.0",
+    "eslint": "^10.15.0",
     "husky": "^9.1.7",
-    "knip": "^6.35.1",
+    "knip": "^6.45.1",
     "lint-staged": "^16.4.0",
     "prettier": "^3.9.6",
     "publint": "^0.3.24",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.70.0",
-    "vitest": "^4.1.11"
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^4.1.12"
   },
   "keywords": [
     "wireframe",

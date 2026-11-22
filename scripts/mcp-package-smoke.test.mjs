@@ -29,6 +29,40 @@ const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
 const EXPECTED = ['wireweave_parse', 'wireweave_render_html_code']
 const manifest = { name: PACKAGE_NAME, version: '1.2.3', bin: { 'wireweave-mcp': 'server.mjs' } }
 
+test('clean consumer preserves proxy and CA routing without inheriting credentials or lifecycle policy', async () => {
+  const output = await runCommand(
+    process.execPath,
+    [
+      '--input-type=module',
+      '-e',
+      `
+    import { packageManagerEnvironment } from './scripts/mcp-package-smoke.mjs'
+    process.stdout.write(JSON.stringify(packageManagerEnvironment('/tmp/consumer-fixture')))
+  `,
+    ],
+    {
+      cwd: ROOT,
+      env: {
+        PATH: process.env.PATH,
+        HTTPS_PROXY: 'http://proxy.example.invalid:3128',
+        NO_PROXY: '127.0.0.1,localhost',
+        npm_config_cafile: '/tmp/consumer-fixture/ca.pem',
+        WIREWEAVE_API_KEY: 'synthetic-test-credential',
+        npm_config_ignore_scripts: 'false',
+      },
+    },
+  )
+  const env = JSON.parse(output)
+  assert.equal(env.HTTPS_PROXY, 'http://proxy.example.invalid:3128')
+  assert.equal(env.NO_PROXY, '127.0.0.1,localhost')
+  assert.equal(env.npm_config_cafile, '/tmp/consumer-fixture/ca.pem')
+  assert.equal(env.npm_config_ignore_scripts, 'true')
+  assert.equal(env.pnpm_config_ignore_scripts, 'true')
+  assert.equal(env.npm_config_registry, 'https://registry.npmjs.org/')
+  assert.equal('WIREWEAVE_API_KEY' in env, false)
+  assert.equal('NODE_TLS_REJECT_UNAUTHORIZED' in env, false)
+})
+
 function makeConsumer(consumer, mode = 'ok', override = {}) {
   const target = join(consumer, 'node_modules', PACKAGE_NAME)
   const bin = join(consumer, 'node_modules', '.bin')

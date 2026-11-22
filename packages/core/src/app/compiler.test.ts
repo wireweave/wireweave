@@ -144,6 +144,80 @@ const fixture = (steps: JsonObject[], exhaustion = 'error'): JsonObject => ({
   exhaustion,
 })
 
+describe('primary actions in the compiled neutral application', () => {
+  it('styles a primary route link and action button while preserving native semantics', () => {
+    const artifact = unwrap(
+      compileApp(
+        linked(`
+app review entry={namespace=main,id=changes} {
+  module main namespace=main {
+    page "Changes" id=changes {
+      link "Choose channel" id=choose navigate=review primary
+      link "Ordinary navigation" id=ordinary navigate=review
+    }
+    page "Review" id=review {
+      button "Approve" id=approve primary ghost
+      button "Unavailable" id=unavailable primary ghost disabled
+      button "Ordinary ghost" id=ordinaryGhost ghost
+    }
+  }
+}
+`),
+      ),
+    )
+    expect(artifact.html).toContain(
+      '.wf-primary-action:not(:disabled,[aria-disabled=true]):hover{background:#3f3f46;cursor:pointer}',
+    )
+    expect(artifact.html).toMatch(
+      /<a[^>]*class="[^"]*wf-primary-action[^"]*"[^>]*href="#wf\/main\/review"[^>]*>Choose channel<\/a>/,
+    )
+    expect(artifact.html).toMatch(
+      /<button[^>]*class="[^"]*wf-primary-action[^"]*"[^>]*type="button"[^>]*>Approve<\/button>/,
+    )
+    expect(artifact.html).toMatch(
+      /<button[^>]*wf-primary-action[^>]* disabled[^>]*>Unavailable<\/button>/,
+    )
+    expect(artifact.html).toMatch(
+      /<a[^>]*class="(?![^"]*wf-primary-action)[^"]*"[^>]*>Ordinary navigation<\/a>/,
+    )
+    for (const label of ['Approve', 'Unavailable', 'Ordinary ghost']) {
+      const renderedId = artifact.html.match(
+        new RegExp(`<button id="([^"]+)"[^>]*>${label}</button>`),
+      )?.[1]
+      expect(renderedId).toBeDefined()
+      const transparentRule = `.${renderedId}{background:transparent;border-color:transparent`
+      expect(artifact.html.includes(transparentRule)).toBe(label === 'Ordinary ghost')
+    }
+  })
+
+  it('lets the authored action row control cross-axis alignment of primary actions', () => {
+    const { html, sourceMap } = unwrap(
+      compileApp(
+        linked(
+          appSource(
+            `row id=actions align=center gap=12px justify=end {
+              button "Save" id=save primary
+              link "Continue" id=next navigate=review primary
+              button "Cancel" id=cancel h=64
+            }`,
+            [],
+            [],
+            'page "Review" id=review {}',
+          ),
+        ),
+      ),
+    )
+    const row = sourceMap.find(({ identity }) => identity.localId === 'actions')
+    expect(row).toBeDefined()
+    expect(html).toContain(
+      `.${row!.renderedId}{gap:12px;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:flex-end;align-items:center}`,
+    )
+    const primaryRule = html.match(/\.wf-primary-action\{([^}]+)\}/)?.[1]
+    expect(primaryRule).toContain('align-items:center')
+    expect(primaryRule).not.toContain('align-self:')
+  })
+})
+
 describe('the canonical virtual-clock conformance corpus', () => {
   it.each(corpus.runtimeCases)(
     '$id executes the real reducer and matches exact observations',
@@ -723,6 +797,28 @@ describe('compile-time runtime admission', () => {
     expect(html).toContain('width:144px')
     expect(html).toContain('data-wf-tooling="view"')
     expect(html).not.toContain(' style=')
+  })
+  it('uses the gap-free stack default and preserves explicit stack and field spacing', () => {
+    const { html, sourceMap } = unwrap(
+      compileApp(
+        linked(
+          appSource(`
+            stack id=compact { button "Save" id=save button "Reset" id=reset }
+            stack id=roomy gap=12px { button "Export" id=exportButton }
+            input "Display name" id=displayName
+          `),
+        ),
+      ),
+    )
+    const renderedId = (id: string) => sourceMap.find(({ identity }) => identity.localId === id)!
+    expect(html).toContain(
+      `.${renderedId('compact').renderedId}{display:flex;flex-direction:column;`,
+    )
+    expect(html).toContain(
+      `.${renderedId('roomy').renderedId}{gap:12px;display:flex;flex-direction:column;`,
+    )
+    expect(html).not.toMatch(/#wireweave-app \.wf-stack[^{]*\{[^}]*\bgap:/)
+    expect(html).toContain('.wf-field{display:flex;flex-direction:column;gap:8px}')
   })
   it('fails closed for non-decoded asset or font bytes and remote image URLs', () => {
     rejected(appSource('image id=logo src="https://example.test/logo.svg" alt="Logo"'), 'WW_ASSET')

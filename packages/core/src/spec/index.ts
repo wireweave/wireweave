@@ -24,3 +24,10 @@ export * from './types'
 export * from './components'
 export * from './attributes'
 export * from './attribute-overrides'
+export {
+  languageSchemaSource,
+  languageSourceResources,
+  resolveLanguageSourceResource,
+} from './language-resources'
+export type { LanguageSourceResource } from './language-resources'
+export { languageCatalogFingerprint } from './catalog-fingerprint.generated'

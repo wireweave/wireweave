@@ -60,6 +60,7 @@ test('all release checks run once, generated sources precede build, and artifact
     'syntax',
     'generated-artifacts',
     'dist-freshness',
+    'local-cli-smoke',
     'typecheck',
     'lint',
     'format',
@@ -74,6 +75,15 @@ test('all release checks run once, generated sources precede build, and artifact
     assert.ok(ids.indexOf(id) > ids.indexOf('build'), `${id} must follow build`)
   }
   assert.equal(ids.at(-1), 'installed-mcp')
+  assert.ok(ids.indexOf('local-cli-smoke') > ids.indexOf('dist-freshness'))
+  assert.deepEqual(
+    plan.find((step) => step.id === 'local-cli-smoke'),
+    {
+      id: 'local-cli-smoke',
+      command: process.execPath,
+      args: ['scripts/verify-local-tools.mjs', 'drive', 'all'],
+    },
+  )
   assert.deepEqual(plan.find((step) => step.id === 'dependency-audit').args, [
     'audit',
     '--audit-level',
@@ -293,6 +303,7 @@ function stepBody(name) {
 }
 
 test('both workflows share release verification and publish preserves branch/OIDC policy', () => {
+  assert.match(ci, /pull_request:\s+branches: \[main, develop, release\/v2\.0\.0\]/)
   for (const workflow of [ci, publish]) {
     assert.equal(workflow.match(/run: pnpm release:verify /g)?.length, 1)
     assert.match(workflow, /if: always\(\)/)

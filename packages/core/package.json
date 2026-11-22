@@ -116,7 +116,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.22.2"
   },
   "scripts": {
     "build:grammar": "peggy --format es -o src/parser/generated-parser.js src/grammar/wireframe.peggy",
@@ -125,13 +125,13 @@
     "build:icons": "node scripts/generate-icons.mjs",
     "build:icon-names": "node scripts/extract-icon-names.mjs",
     "build:ts": "tsup",
-    "build": "pnpm build:grammar && pnpm build:spec && pnpm build:icons && pnpm build:icon-names && pnpm build:ts",
+    "build": "pnpm build:grammar && pnpm build:spec && pnpm build:icons && pnpm build:icon-names && pnpm build:language-resources && pnpm build:catalog-fingerprint && pnpm build:native-runtime && pnpm build:ts",
     "postbuild": "node ../../scripts/dist-freshness-gate.mjs --write .",
     "check:parser-sync": "node scripts/check-generated-parser.mjs",
     "check:spec-sync": "node scripts/extract-grammar-elements.mjs --check",
     "check:icons-sync": "node scripts/generate-icons.mjs --check",
     "check:icon-names-sync": "node scripts/extract-icon-names.mjs --check",
-    "pretest": "pnpm run check:parser-sync && pnpm run check:spec-sync && pnpm run check:icons-sync && pnpm run check:icon-names-sync",
+    "pretest": "pnpm run check:parser-sync && pnpm run check:spec-sync && pnpm run check:icons-sync && pnpm run check:icon-names-sync && pnpm run check:language-resources-sync && pnpm run check:catalog-fingerprint-sync && pnpm run check:native-runtime-sync",
     "test": "pnpm test:generators && vitest run",
     "test:generators": "node --test scripts/*.test.mjs",
     "test:watch": "vitest",
@@ -144,31 +144,37 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "knip": "knip",
-    "publint": "publint --strict"
+    "publint": "publint --strict",
+    "build:language-resources": "node scripts/generate-language-resources.mjs",
+    "check:language-resources-sync": "node scripts/generate-language-resources.mjs --check",
+    "build:catalog-fingerprint": "node scripts/generate-catalog-fingerprint.mjs",
+    "check:catalog-fingerprint-sync": "node scripts/generate-catalog-fingerprint.mjs --check",
+    "build:native-runtime": "node scripts/generate-native-runtime.mjs",
+    "check:native-runtime-sync": "node scripts/generate-native-runtime.mjs --check"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
-    "@storybook/html": "^10.6.0",
-    "@storybook/html-vite": "^10.6.0",
+    "@storybook/html": "^10.6.7",
+    "@storybook/html-vite": "^10.6.7",
     "@types/jsdom": "^28.0.3",
     "@types/node": "^25.9.6",
-    "@vitest/coverage-v8": "^4.1.11",
-    "eslint": "^10.10.0",
+    "@vitest/coverage-v8": "^4.1.12",
+    "eslint": "^10.15.0",
     "husky": "^9.1.7",
     "jsdom": "^30.0.1",
-    "knip": "^6.35.1",
+    "knip": "^6.45.1",
     "lint-staged": "^16.4.0",
     "lucide": "^0.562.0",
     "peggy": "^5.1.0",
     "prettier": "^3.9.6",
     "publint": "^0.3.24",
-    "storybook": "^10.6.0",
+    "storybook": "^10.6.7",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.70.0",
-    "vitest": "^4.1.11"
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^4.1.12"
   },
   "keywords": [
     "wireframe",

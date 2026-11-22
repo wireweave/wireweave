@@ -23,7 +23,7 @@ Core and deterministic tools run locally without an account or API key. The priv
 
 ## Workspace commands
 
-Use Node >=22.13.0 and pnpm >=11.0.0, with the repository's pinned `packageManager` and lockfile. Internal dependencies use `workspace:*`.
+Use Node >=22.22.2 and pnpm >=11.0.0, with the repository's pinned `packageManager` and lockfile. Internal dependencies use `workspace:*`.
 
 | Command                                 | Purpose                                                                                 |
 | --------------------------------------- | --------------------------------------------------------------------------------------- |

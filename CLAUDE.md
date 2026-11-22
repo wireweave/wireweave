@@ -1,5 +1,7 @@
 # Wireweave public monorepo contract
 
+Read [AGENTS.md](AGENTS.md) for the autonomous development loop and executable verification entry point.
+
 This repository owns the public language engine, deterministic tools and client adapters. The permanent language/model contract is `docs/spec/LANGUAGE.md`; execution/output is `docs/spec/RUNTIME.md`; public APIs, adapters and release evidence are `docs/spec/TOOLING.md`. Grammar/schema/examples beside them are canonical release inputs. Package inventory and workspace/publication commands live in README.md.
 
 Core accepts explicit immutable inputs and produces deterministic values. It owns no filesystem/network I/O, provider call, credentials, project persistence, interview, generation plan or UX decision. Public adapters supply authorized host seams and consume Core. The private `agent-harness` repository owns reusable orchestration; its Wireweave binding owns generation/context/repair policies. Product contracts live in `wireweave-ssot`; an external product-definition system is a separate integration and Wireweave is a dogfood binding.

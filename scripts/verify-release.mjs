@@ -79,6 +79,7 @@ export function verificationPlan(packages) {
         ]
       : []),
     pnpm('dist-freshness', 'run', 'dist:check'),
+    node('local-cli-smoke', 'scripts/verify-local-tools.mjs', 'drive', 'all'),
     pnpm('typecheck', 'run', 'typecheck'),
     pnpm('lint', 'run', 'lint'),
     pnpm('format', 'run', 'format:check'),
