@@ -798,6 +798,28 @@ describe('compile-time runtime admission', () => {
     expect(html).toContain('data-wf-tooling="view"')
     expect(html).not.toContain(' style=')
   })
+  it('uses the gap-free stack default and preserves explicit stack and field spacing', () => {
+    const { html, sourceMap } = unwrap(
+      compileApp(
+        linked(
+          appSource(`
+            stack id=compact { button "Save" id=save button "Reset" id=reset }
+            stack id=roomy gap=12px { button "Export" id=exportButton }
+            input "Display name" id=displayName
+          `),
+        ),
+      ),
+    )
+    const renderedId = (id: string) => sourceMap.find(({ identity }) => identity.localId === id)!
+    expect(html).toContain(
+      `.${renderedId('compact').renderedId}{display:flex;flex-direction:column;`,
+    )
+    expect(html).toContain(
+      `.${renderedId('roomy').renderedId}{gap:12px;display:flex;flex-direction:column;`,
+    )
+    expect(html).not.toMatch(/#wireweave-app \.wf-stack[^{]*\{[^}]*\bgap:/)
+    expect(html).toContain('.wf-field{display:flex;flex-direction:column;gap:8px}')
+  })
   it('fails closed for non-decoded asset or font bytes and remote image URLs', () => {
     rejected(appSource('image id=logo src="https://example.test/logo.svg" alt="Logo"'), 'WW_ASSET')
     const sourceText = appSource('text "Home"').replace(
