@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.18
+
+### Patch Changes
+
+- [#57](https://github.com/wireweave/wireweave/pull/57) [`629c989`](https://github.com/wireweave/wireweave/commit/629c98967527bbbf7acbd027bf2659215a42ca98) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Give rendered modal dialogs the escaped nonblank authored title as their accessible name without adding title IDs or changing visible headings and scoped overlay identities.
+
 ## 4.0.0-beta.17
 
 ### Patch Changes
