@@ -1,5 +1,16 @@
 # @wireweave/cli
 
+## 0.2.0-beta.16
+
+### Patch Changes
+
+- [#42](https://github.com/wireweave/wireweave/pull/42) [`045dde7`](https://github.com/wireweave/wireweave/commit/045dde7d537c75c6778df9b506c9d84f27988d95) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Use the tested Node.js 22.22.2 compatibility floor consistently across package engines, local tooling and installation guidance. Update vulnerable runtime and development dependency closures, including MCP SDK and its explicitly supplied patched Zod peer. Replace the abandoned, failing Packlint dependency with the existing strict packaging verifiers while retaining its command entry point.
+
+  Clean installed-package verification preserves the environment's proxy and certificate routing while keeping credentials, lifecycle execution and unrelated user configuration isolated. This changes installation compatibility and verification, not language semantics or release channels.
+
+- Updated dependencies [[`045dde7`](https://github.com/wireweave/wireweave/commit/045dde7d537c75c6778df9b506c9d84f27988d95)]:
+  - @wireweave/sdk@0.2.0-beta.16
+
 ## 0.2.0-beta.15
 
 ### Patch Changes

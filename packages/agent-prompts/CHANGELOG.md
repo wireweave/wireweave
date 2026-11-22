@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0-beta.9
+
+### Patch Changes
+
+- [#49](https://github.com/wireweave/wireweave/pull/49) [`8bc5cdd`](https://github.com/wireweave/wireweave/commit/8bc5cdd248b3784ef7fb6b6c5f00f31d15d16e76) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Remove the standalone app document's default body margin so a fixed authored board fits a matching host viewport without extra horizontal overflow. Keep wider authored boards fixed and preserve genuine control overflow diagnostics.
+
+  Clarify literal pixel units and intentional layout composition in the generation grammar guide.
+
+- [#42](https://github.com/wireweave/wireweave/pull/42) [`045dde7`](https://github.com/wireweave/wireweave/commit/045dde7d537c75c6778df9b506c9d84f27988d95) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Use the tested Node.js 22.22.2 compatibility floor consistently across package engines, local tooling and installation guidance. Update vulnerable runtime and development dependency closures, including MCP SDK and its explicitly supplied patched Zod peer. Replace the abandoned, failing Packlint dependency with the existing strict packaging verifiers while retaining its command entry point.
+
+  Clean installed-package verification preserves the environment's proxy and certificate routing while keeping credentials, lifecycle execution and unrelated user configuration isolated. This changes installation compatibility and verification, not language semantics or release channels.
+
 ## 0.2.0-beta.8
 
 ### Patch Changes

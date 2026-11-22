@@ -1,5 +1,18 @@
 # @wireweave/sdk
 
+## 0.2.0-beta.16
+
+### Patch Changes
+
+- [#42](https://github.com/wireweave/wireweave/pull/42) [`045dde7`](https://github.com/wireweave/wireweave/commit/045dde7d537c75c6778df9b506c9d84f27988d95) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Use the tested Node.js 22.22.2 compatibility floor consistently across package engines, local tooling and installation guidance. Update vulnerable runtime and development dependency closures, including MCP SDK and its explicitly supplied patched Zod peer. Replace the abandoned, failing Packlint dependency with the existing strict packaging verifiers while retaining its command entry point.
+
+  Clean installed-package verification preserves the environment's proxy and certificate routing while keeping credentials, lifecycle execution and unrelated user configuration isolated. This changes installation compatibility and verification, not language semantics or release channels.
+
+- Updated dependencies [[`c833025`](https://github.com/wireweave/wireweave/commit/c83302598d76d131bed02c166842a5f0c77c0718), [`4c9dfd5`](https://github.com/wireweave/wireweave/commit/4c9dfd57d180cbb897a4a457f18731589be3b5dd), [`b730485`](https://github.com/wireweave/wireweave/commit/b7304850f502b3abafc6fb9ec88b8f66bf328600), [`36c5d71`](https://github.com/wireweave/wireweave/commit/36c5d713c50bddebf227b367fc0b74f1b2676de1), [`8bc5cdd`](https://github.com/wireweave/wireweave/commit/8bc5cdd248b3784ef7fb6b6c5f00f31d15d16e76), [`aea716c`](https://github.com/wireweave/wireweave/commit/aea716cf52460ed142481ff1fd40cd59ebffd975), [`10d4289`](https://github.com/wireweave/wireweave/commit/10d4289106a8593fb8b096792f53ae52a2673857), [`045dde7`](https://github.com/wireweave/wireweave/commit/045dde7d537c75c6778df9b506c9d84f27988d95), [`6a9fb63`](https://github.com/wireweave/wireweave/commit/6a9fb639ae005626cf5c37719d20f29c76bc2ce2), [`3523dfd`](https://github.com/wireweave/wireweave/commit/3523dfd9ebc60da40ae215186ef9c521319658ae)]:
+  - @wireweave/core@4.0.0-beta.16
+  - @wireweave/language-data@1.6.0-beta.11
+  - @wireweave/ux-rules@1.5.0-beta.16
+
 ## 0.2.0-beta.15
 
 ### Patch Changes

@@ -1,5 +1,42 @@
 # Changelog
 
+## 4.0.0-beta.16
+
+### Minor Changes
+
+- [#44](https://github.com/wireweave/wireweave/pull/44) [`c833025`](https://github.com/wireweave/wireweave/commit/c83302598d76d131bed02c166842a5f0c77c0718) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Add the public `/spec` language-source resource catalog and exact local resolver
+  for immutable canonical guide and grammar bytes, with SHA-256 fingerprints,
+  UTF-8 byte lengths, content-addressed identities and supplying package metadata.
+  Unknown resource references return null without filesystem or network lookup.
+
+  This additive source catalog does not provide a complete language profile,
+  transitive schema closure, runtime fingerprint or browser conformance evidence.
+  The external product Registry schema closure remains explicitly unavailable.
+
+- [#46](https://github.com/wireweave/wireweave/pull/46) [`aea716c`](https://github.com/wireweave/wireweave/commit/aea716cf52460ed142481ff1fd40cd59ebffd975) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Expose the exact public DSL schema source and its declared external references through `@wireweave/core/spec` as partial schema evidence.
+
+- [#45](https://github.com/wireweave/wireweave/pull/45) [`10d4289`](https://github.com/wireweave/wireweave/commit/10d4289106a8593fb8b096792f53ae52a2673857) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Expose a versioned DSL catalog fingerprint through `@wireweave/core/spec`.
+
+### Patch Changes
+
+- [#50](https://github.com/wireweave/wireweave/pull/50) [`4c9dfd5`](https://github.com/wireweave/wireweave/commit/4c9dfd57d180cbb897a4a457f18731589be3b5dd) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Honor the authored row alignment when rendering primary buttons and links in standalone V4 apps.
+
+- [#51](https://github.com/wireweave/wireweave/pull/51) [`b730485`](https://github.com/wireweave/wireweave/commit/b7304850f502b3abafc6fb9ec88b8f66bf328600) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Use the documented zero gap for V4 stacks without an explicit gap. Preserve authored stack gaps and label-to-input spacing.
+
+- [#47](https://github.com/wireweave/wireweave/pull/47) [`36c5d71`](https://github.com/wireweave/wireweave/commit/36c5d713c50bddebf227b367fc0b74f1b2676de1) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep standalone app HTML and its exact runtime CSP digest stable across package formats and downstream bundlers.
+
+- [#49](https://github.com/wireweave/wireweave/pull/49) [`8bc5cdd`](https://github.com/wireweave/wireweave/commit/8bc5cdd248b3784ef7fb6b6c5f00f31d15d16e76) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Remove the standalone app document's default body margin so a fixed authored board fits a matching host viewport without extra horizontal overflow. Keep wider authored boards fixed and preserve genuine control overflow diagnostics.
+
+  Clarify literal pixel units and intentional layout composition in the generation grammar guide.
+
+- [#42](https://github.com/wireweave/wireweave/pull/42) [`045dde7`](https://github.com/wireweave/wireweave/commit/045dde7d537c75c6778df9b506c9d84f27988d95) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Use the tested Node.js 22.22.2 compatibility floor consistently across package engines, local tooling and installation guidance. Update vulnerable runtime and development dependency closures, including MCP SDK and its explicitly supplied patched Zod peer. Replace the abandoned, failing Packlint dependency with the existing strict packaging verifiers while retaining its command entry point.
+
+  Clean installed-package verification preserves the environment's proxy and certificate routing while keeping credentials, lifecycle execution and unrelated user configuration isolated. This changes installation compatibility and verification, not language semantics or release channels.
+
+- [#48](https://github.com/wireweave/wireweave/pull/48) [`6a9fb63`](https://github.com/wireweave/wireweave/commit/6a9fb639ae005626cf5c37719d20f29c76bc2ce2) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Give enabled primary V4 links and buttons pointer feedback while keeping disabled and keyboard-focus treatments distinct.
+
+- [#48](https://github.com/wireweave/wireweave/pull/48) [`3523dfd`](https://github.com/wireweave/wireweave/commit/3523dfd9ebc60da40ae215186ef9c521319658ae) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Render primary V4 buttons and actionable links with a shared neutral treatment while preserving their native roles and keyboard behavior. The filled primary treatment takes precedence when a button also uses the ghost presentation.
+
 ## 4.0.0-beta.15
 
 ### Patch Changes
