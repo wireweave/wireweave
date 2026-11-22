@@ -1,8 +1,38 @@
 import { describe, expect, it } from 'vitest'
 import { buildCompactGrammarPrompt, buildGrammarPrompt } from '../src/index.js'
+import { parse } from '../../core/src/parser/index.js'
 
 describe('buildGrammarPrompt', () => {
   const prompt = buildGrammarPrompt()
+
+  it('assembles explicit heading guidance with valid DSL while preserving independent contexts', () => {
+    const line = prompt.split('\n').find((value) => value.startsWith('- HEADING LEVELS:'))!
+    expect(line).toContain('page title with level=1')
+    expect(line).toContain('main section/card headings with level=2')
+    expect(line).toContain('level=3 and deeper')
+    expect(line).toContain('Each separate page starts its own hierarchy')
+    expect(line).toContain(
+      'dialogs and other independent contexts keep their product-specific hierarchy',
+    )
+    expect(line).toContain('instead of using title merely to enlarge text')
+    const examples = line.slice(line.indexOf('For example: ') + 'For example: '.length).split('; ')
+    const code = `page "Heading guide" {\n${examples.join('\n')}\n}`
+    const parsed = parse(code)
+    expect(parsed.children[0]?.children?.map((node) => node.type)).toEqual([
+      'Title',
+      'Title',
+      'Text',
+    ])
+    expect(
+      parsed.children[0]?.children
+        ?.filter((node) => node.type === 'Title')
+        .map((node) => node.level),
+    ).toEqual([1, 2])
+    // Every page can declare its own level-1 title: this is guidance, not a blanket gate.
+    expect(() =>
+      parse('page "First" { title "First" level=1 } page "Second" { title "Second" level=1 }'),
+    ).not.toThrow()
+  })
 
   it('returns a non-empty string', () => {
     expect(typeof prompt).toBe('string')
