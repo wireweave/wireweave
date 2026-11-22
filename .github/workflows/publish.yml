@@ -40,9 +40,6 @@ jobs:
           node-version-file: .nvmrc
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
-      - name: Update npm for trusted publishing
-        # npm 11 supports OIDC and the repository's Node 22.22.2 floor.
-        run: npm install -g npm@11
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Configure Git
@@ -74,6 +71,19 @@ jobs:
         env:
           WIREWEAVE_TESTED_TREE: ${{ steps.version.outputs.tree }}
         run: pnpm release:verify --report .local/release-evidence/verification.json
+
+      - name: Setup Node.js for trusted publishing
+        uses: actions/setup-node@v6
+        with:
+          # This LTS distribution bundles npm 11.19.1 for OIDC publishing.
+          node-version: '24.22.3'
+          package-manager-cache: false
+      - name: Verify bundled npm for trusted publishing
+        run: |
+          node --version
+          npm_version="$(npm --version)"
+          echo "npm $npm_version"
+          test "$npm_version" = 11.19.1
 
       - name: Commit verified versions and push without rebasing
         id: committed
