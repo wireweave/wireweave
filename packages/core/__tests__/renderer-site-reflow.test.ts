@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { JSDOM } from 'jsdom'
 import { parse } from '../src/parser'
@@ -16,6 +17,38 @@ page "Next" id=next { link "Back" navigate=review }`
 const labels = { label: 'Presentation', fixed: 'Fixed', reflow: 'Reflow' }
 
 describe('opt-in legacy site presentation', () => {
+  it('gives the unchanged public table a reversible keyboard scroll stop only in Reflow', () => {
+    const demo = readFileSync(new URL('./corpus/e2-demo/demo.wf', import.meta.url), 'utf8')
+    const dom = new JSDOM(renderSite(parse(demo), { entry: 'Dashboard', viewControls: labels }), {
+      runScripts: 'dangerously',
+      url: 'https://local.test/',
+    })
+    const d = dom.window.document
+    const table = d.querySelector('table')!
+    const rows = table.innerHTML
+    const page = table.closest('.wf-page')!
+    const geometry = page.getAttribute('style')
+    expect(table.hasAttribute('tabindex')).toBe(false)
+    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
+    expect(table.tabIndex).toBe(0)
+    expect(d.querySelector('table')).toBe(table)
+    expect(table.innerHTML).toBe(rows)
+    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="fixed"]')!.click()
+    expect(table.hasAttribute('tabindex')).toBe(false)
+    expect(table.innerHTML).toBe(rows)
+    expect(page.getAttribute('style')).toBe(geometry)
+    // Existing focus policy and two-dimensional drawing content stay owned.
+    table.setAttribute('tabindex', '-1')
+    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
+    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="fixed"]')!.click()
+    expect(table.getAttribute('tabindex')).toBe('-1')
+    table.removeAttribute('tabindex')
+    table.parentElement!.classList.add('wf-relative')
+    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
+    expect(table.hasAttribute('tabindex')).toBe(false)
+    dom.window.close()
+  })
+
   it('is absent by default and starts Fixed only when requested', () => {
     const plain = new JSDOM(renderSite(parse(source)))
     expect(plain.window.document.querySelector('[data-wf-view-controls]')).toBeNull()

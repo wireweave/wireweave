@@ -23,7 +23,7 @@ ${site} .${prefix}-page${outsideDrawing} {
 }
 /* No reflow declaration descends into the legacy positioned drawing root.
    Only ordinary flow groups are restacked. Canvas/relative drawings and
-   tables keep their two-dimensional structure and require their own region-specific overflow treatment. */
+   tables keep their two-dimensional structure in a local scroll region. */
 ${site} :is(.${prefix}-row, .${prefix}-col, .${prefix}-stack, .${prefix}-header,
   .${prefix}-main, .${prefix}-footer, .${prefix}-section, .${prefix}-card, .${prefix}-slot)${outsideDrawing} {
   flex-direction: column !important; flex: 0 1 auto !important;
@@ -46,6 +46,12 @@ ${site} h5.${prefix}-title${outsideDrawing} { font-size: 1.125rem !important; }
 ${site} h6.${prefix}-title${outsideDrawing} { font-size: 1rem !important; }
 ${site} :is(.${prefix}-input, .${prefix}-textarea, .${prefix}-select)${outsideDrawing} {
   min-width: 0; max-width: 100%; height: auto !important;
+}
+/* Keep the native table/row/cell DOM while confining horizontal reading to
+   the table itself. Rem sizing lets root text enlargement reach its cells. */
+${site} table.${prefix}-table${outsideDrawing} {
+  display: block; width: 100%; max-width: 100%; min-width: 0;
+  overflow-x: auto; font-size: 1rem !important;
 }
 ${site} .${prefix}-modal-backdrop${outsideDrawing} { position: fixed; padding: .5rem; }
 ${site} .${prefix}-modal${outsideDrawing} {

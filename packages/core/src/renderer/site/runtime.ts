@@ -120,6 +120,20 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     var mode = button.getAttribute('data-wf-view-choice');
     if (mode !== 'fixed' && mode !== 'reflow') return;
     site.setAttribute('data-wf-view', mode);
+    // The same semantic table becomes its own keyboard-scrollable region.
+    // Do not alter authored tabindex values or positioned drawing subtrees.
+    var tables = site.querySelectorAll('table.' + P + '-table');
+    for (var t = 0; t < tables.length; t++) {
+      var table = tables[t];
+      if (table.closest('.' + P + '-relative')) continue;
+      if (mode === 'reflow' && !table.hasAttribute('tabindex')) {
+        table.setAttribute('tabindex', '0');
+        table.setAttribute('data-wf-reflow-tabstop', '');
+      } else if (mode === 'fixed' && table.hasAttribute('data-wf-reflow-tabstop')) {
+        table.removeAttribute('tabindex');
+        table.removeAttribute('data-wf-reflow-tabstop');
+      }
+    }
     var choices = viewControls.querySelectorAll('[data-wf-view-choice]');
     for (var v = 0; v < choices.length; v++) {
       choices[v].setAttribute('aria-pressed', String(choices[v] === button));
