@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.21
+
+### Patch Changes
+
+- [#62](https://github.com/wireweave/wireweave/pull/62) [`e80f430`](https://github.com/wireweave/wireweave/commit/e80f430a15d1c505aca1be046f3f5be193ef8768) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Add optional caller-localized Fixed/Reflow presentation controls to legacy renderSite, preserving one DOM and runtime, unsaved form values, modal focus and authored fixed dimensions. Existing callers remain unchanged unless they opt in; region-specific two-dimensional layouts still require separate verification.
+
 ## 4.0.0-beta.20
 
 ### Patch Changes

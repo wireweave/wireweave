@@ -1,5 +1,12 @@
 # @wireweave/cli
 
+## 0.2.0-beta.22
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wireweave/sdk@0.2.0-beta.22
+
 ## 0.2.0-beta.21
 
 ### Patch Changes
