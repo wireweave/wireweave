@@ -4,6 +4,8 @@ export interface SiteViewControls {
   label: string
   fixed: string
   reflow: string
+  /** Accessible fallback for overflowing tables without an authored caption/label. */
+  tableScrollLabel?: string
 }
 
 export function siteViewStyles(prefix: string): string {
@@ -23,7 +25,8 @@ ${site} .${prefix}-page${outsideDrawing} {
 }
 /* No reflow declaration descends into the legacy positioned drawing root.
    Only ordinary flow groups are restacked. Canvas/relative drawings and
-   tables keep their two-dimensional structure and require their own region-specific overflow treatment. */
+   tables keep their two-dimensional structure. Flow tables get a separate
+   local scroll container below; positioned drawings remain untouched. */
 ${site} :is(.${prefix}-row, .${prefix}-col, .${prefix}-stack, .${prefix}-header,
   .${prefix}-main, .${prefix}-footer, .${prefix}-section, .${prefix}-card, .${prefix}-slot)${outsideDrawing} {
   flex-direction: column !important; flex: 0 1 auto !important;
@@ -47,6 +50,12 @@ ${site} h6.${prefix}-title${outsideDrawing} { font-size: 1rem !important; }
 ${site} :is(.${prefix}-input, .${prefix}-textarea, .${prefix}-select)${outsideDrawing} {
   min-width: 0; max-width: 100%; height: auto !important;
 }
+/* Fixed keeps the original table formatting context. Only the opt-in local
+   wrapper scrolls; table/row/cell display and semantics remain native. */
+${site} .${prefix}-table-scroll${outsideDrawing} {
+  display: block; width: 100%; max-width: 100%; min-width: 0; overflow-x: auto;
+}
+${site} table.${prefix}-table${outsideDrawing} { font-size: 1rem !important; }
 ${site} .${prefix}-modal-backdrop${outsideDrawing} { position: fixed; padding: .5rem; }
 ${site} .${prefix}-modal${outsideDrawing} {
   min-width: 0 !important; width: 100% !important; max-width: 100% !important;
