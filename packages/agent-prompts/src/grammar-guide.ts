@@ -12,6 +12,9 @@
  * into a system message for any LLM client.
  */
 
+const HEADER_TEXT_GROUPING_EXAMPLES =
+  'Stacked: header { col gap=2 { title "Evidence review" level=1 text "Inspect the selected change." muted } }; Inline: header { row gap=3 align=center wrap { title "Evidence review" level=1 text "Pending manual review" muted } }'
+
 export function buildGrammarPrompt(): string {
   return `You are a Wireweave DSL code generator.
 
@@ -300,6 +303,7 @@ Wireframes are judged on layout quality, not just valid syntax. Follow these com
 - SYMMETRIC MARGINS & SPACING: Use consistent, symmetric padding and gaps. Give header/main/footer the same horizontal padding (e.g. p=4) so content edges line up. Use ONE gap value within a group rather than ad-hoc per-item margins. Left and right insets should match; avoid lopsided spacing.
 - SPACING UNITS: Use supported p/px/py/pt/pr/pb/pl and gap attributes, not an invented padding attribute. Unitless spacing is a token (p=4 is 16px; p=16 is 64px); use a literal unit for a pixel requirement (p=16px, gap=12px). An outer host gutter is not internal content padding. Give the authored content region explicit edge insets and align related headings, content and actions on those same edges.
 - READING & ACTION HIERARCHY: Derive the reading order and primary decision from the confirmed screen/slot requirements. Use a bounded readable content column and deliberate vertical groups. Reserve primary for the main decision; keep revise/evidence/recovery controls secondary and separate navigation from the decision group. Avoid wrapping every group in a heavy bordered card. Do not invent decisions or hide required controls to simplify the layout.
+- HEADER TEXT GROUPS: A header is a horizontal flex row by default, without an automatic gap between direct children. For a stacked title and description, put them in a col with an explicit gap; for deliberately inline text, use a row with an explicit gap and wrap where needed. Preserve intentional inline headers; do not force every header to be vertical or resize the authored board to repair text grouping. ${HEADER_TEXT_GROUPING_EXAMPLES}
 - HEADING LEVELS: Unless the confirmed product specifies a different hierarchy, author the page title with level=1, main section/card headings with level=2, and nested group headings with lower ranks (level=3 and deeper). Set levels explicitly rather than leaving every title at the default. Each separate page starts its own hierarchy; dialogs and other independent contexts keep their product-specific hierarchy. Use text, with supported size/weight attributes when needed, for large descriptive copy instead of using title merely to enlarge text. For example: title "Evidence review" level=1; title "Selected evidence" level=2; text "Check the selected change and citation."
 - COMPACT INTENT: Use the confirmed viewport profile and shell slots. Keep authored board geometry fixed; host resizing is not a new responsive profile. Specify an intentional main scroll region when content exceeds its profile, with navigation reachable in that region or a separate footer. Use wrapping action rows or stacked groups with explicit gaps where space is limited. Grammar/navigation validity does not establish rendered geometry or visual acceptance.
 - CHAT-REGION COMPOSITION: A chat / conversation / messaging screen is three stacked regions: (1) header with the contact/title, (2) main scroll holding the message list (alternate alignment — incoming left, outgoing right), and (3) a bottom input bar as a row pinned below main: row gap=2 { input "" placeholder="Message" flex=1  button "" icon="send" aria="Send" primary }. The composer is its OWN row outside the scroll area, never inside the message list.
@@ -362,6 +366,7 @@ repeat N { … } draws its body N times — write repeat 6 { use skeletonCard() 
 # LAYOUT GUIDANCE
 - Grid of N peer items: row [wrap] with equal col flex=1 children (column count fits N) — don't stack peers in one column.
 - Symmetric spacing: same horizontal padding on header/main/footer; one consistent gap per group; match left/right insets.
+- HEADER TEXT GROUPS: Header defaults to a horizontal flex row, not a title/subtitle stack. Use col with explicit gap for stacked text, or row with explicit gap/wrap for intentional inline text. Preserve inline headers and authored board size. ${HEADER_TEXT_GROUPING_EXAMPLES}
 - Spacing units: p/px/py and gap, NOT padding. Unitless values are tokens (p=16 is 64px); literal p=16px is 16px. Author internal edge insets; a host gutter is not padding. Align headings/content/actions intentionally.
 - Reading/actions: follow confirmed screen/slot requirements; bounded readable column, deliberate vertical groups, one primary decision, secondary revise/evidence/recovery, separate navigation; avoid excessive bordered cards.
 - Compact: preserve the confirmed fixed board/profile and shell slots. Use an intentional main scroll region and reachable navigation/footer, wrapping/stacked actions with gaps. Navigation validity is not geometry or visual acceptance.

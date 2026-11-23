@@ -152,3 +152,34 @@ describe('buildCompactGrammarPrompt', () => {
     expect(prompt).toMatch(/exactly one of navigate\/opens\/toggles\/action/)
   })
 })
+
+describe.each([
+  ['full', buildGrammarPrompt],
+  ['compact', buildCompactGrammarPrompt],
+] as const)('%s header text grouping', (_name, buildPrompt) => {
+  it('assembles valid stacked and intentional inline header examples', () => {
+    const prompt = buildPrompt()
+    const line = prompt.split('\n').find((value) => value.startsWith('- HEADER TEXT GROUPS:'))!
+    expect(line).toContain('horizontal flex row')
+    expect(line).toContain('explicit gap')
+    expect(line).toContain('inline headers')
+    expect(line).toContain('authored board')
+    const examples = line.slice(line.indexOf('Stacked: ') + 'Stacked: '.length).split('; Inline: ')
+    expect(examples).toHaveLength(2)
+    const groups = examples.map((example) => {
+      const doc = parse(`page "Header grouping" viewport="1280x800" { ${example} }`)
+      const header = doc.children[0]?.children?.[0]
+      expect(header?.type).toBe('Header')
+      expect(header?.children).toHaveLength(1)
+      const group = header?.children?.[0]
+      expect(group?.children?.map((child) => child.type)).toEqual(['Title', 'Text'])
+      return group
+    })
+    expect(groups[0]).toMatchObject({ type: 'Col', gap: 2 })
+    expect(groups[1]).toMatchObject({ type: 'Row', gap: 3, wrap: true })
+    // This is composition guidance, not a new validator or forced reflow rule.
+    expect(() =>
+      parse('page "Inline remains legal" { header { title "Title" text "Description" } }'),
+    ).not.toThrow()
+  })
+})
