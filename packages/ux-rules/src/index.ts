@@ -155,7 +155,9 @@ export function validateUX(
     siblings: AnyNode[],
     index: number,
     depth: number,
+    page?: AnyNode,
   ): boolean {
+    const containingPage = node.type === 'Page' ? node : page
     const rootNode = ast.children?.[0]
     const context: UXRuleContext = {
       path,
@@ -164,6 +166,7 @@ export function validateUX(
       siblings,
       index,
       depth,
+      ...(containingPage === undefined ? {} : { page: containingPage }),
     }
 
     // Apply rules that match this node type
@@ -205,6 +208,7 @@ export function validateUX(
             children,
             i,
             depth + 1,
+            containingPage,
           )
           if (!shouldContinue) return false
         }
