@@ -36,7 +36,14 @@ export type { PlacedPage } from './canvas-renderer'
 
 // Site composition — the whole document as one navigable HTML file.
 export { renderSite, buildSiteModel } from './site'
-export type { SiteOptions, SiteModel, SiteScreen, SiteShell, ShellMiss } from './site'
+export type {
+  SiteOptions,
+  SiteViewControls,
+  SiteModel,
+  SiteScreen,
+  SiteShell,
+  ShellMiss,
+} from './site'
 
 /**
  * Interaction intent, as the renderer decided it.
