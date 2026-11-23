@@ -83,6 +83,72 @@ describe('opt-in legacy site presentation', () => {
     dom.window.close()
   })
 
+  it('creates table regions on modal/state reveal before focus, without resize or mode re-entry', () => {
+    const corpus = readFileSync(new URL('./corpus/e2-demo/demo.wf', import.meta.url), 'utf8')
+    const tableSource = corpus.match(/table \[[\s\S]*?\n        \]/)![0]
+    const engineering = source
+      .replace('button "Close" action=close', `${tableSource} button "Close" action=close`)
+      .replace('text "Local state retained"', `text "Local state retained" ${tableSource}`)
+      .replace(
+        'section visibleWhen=',
+        'button "Hide details" on={ event=click, effects=[{ kind=reset, state=marked }] } section visibleWhen=',
+      )
+    const html = renderSite(parse(engineering), { viewControls: labels })
+    // Studio's scoped language/fail-closed shim matches this compatible prefix.
+    expect(html).toContain('<div class="wf-view-controls" data-wf-view-controls role="group"')
+    const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://local.test/' })
+    const d = dom.window.document
+    for (const table of d.querySelectorAll('table')) {
+      vi.spyOn(table, 'getClientRects').mockReturnValue({ length: 1 } as DOMRectList)
+    }
+    Object.defineProperties(dom.window.HTMLElement.prototype, {
+      clientWidth: {
+        configurable: true,
+        get() {
+          return 200
+        },
+      },
+      scrollWidth: {
+        configurable: true,
+        get() {
+          return 600
+        },
+      },
+    })
+    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
+    expect(d.querySelectorAll('[data-wf-table-scroll]')).toHaveLength(0)
+    const opener = d.querySelector<HTMLButtonElement>('[data-opens="check"]')!
+    opener.focus()
+    opener.click()
+    const dialog = d.querySelector('[role="dialog"]')!
+    const region = dialog.querySelector<HTMLElement>('[data-wf-table-scroll]')!
+    expect(region.tabIndex).toBe(0)
+    expect(d.activeElement).toBe(region)
+    const close = dialog.querySelector<HTMLButtonElement>('button')!
+    close.focus()
+    close.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Tab', bubbles: true }))
+    expect(d.activeElement).toBe(region)
+    region.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
+    expect(d.activeElement).toBe(opener)
+    expect(region.hasAttribute('tabindex')).toBe(false)
+    const mark = [...d.querySelectorAll<HTMLButtonElement>('button')].find(
+      (e) => e.textContent === 'Mark reviewed locally',
+    )!
+    mark.click()
+    const stateRegion = d.querySelector('section[hidden]')
+    expect(stateRegion).toBeNull()
+    const visibleTable = [...d.querySelectorAll('table')].find(
+      (e) => !e.closest('[role="dialog"]'),
+    )!
+    expect(visibleTable.parentElement!.tabIndex).toBe(0)
+    const hide = [...d.querySelectorAll<HTMLButtonElement>('button')].find(
+      (e) => e.textContent === 'Hide details',
+    )!
+    hide.click()
+    expect(visibleTable.parentElement!.hasAttribute('tabindex')).toBe(false)
+    dom.window.close()
+  })
+
   it('is absent by default and starts Fixed only when requested', () => {
     const plain = new JSDOM(renderSite(parse(source)))
     expect(plain.window.document.querySelector('[data-wf-view-controls]')).toBeNull()

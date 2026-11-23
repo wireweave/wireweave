@@ -378,7 +378,7 @@ export function renderSite(document: WireframeDocument, options: SiteOptions = {
   ])
 
   const viewControls = controls
-    ? `<div class="${prefix}-view-controls" data-wf-view-controls data-wf-table-scroll-label="${escapeAttr(controls.tableScrollLabel ?? 'Scrollable table')}" role="group" aria-label="${escapeAttr(controls.label)}"><button type="button" data-wf-view-choice="fixed" aria-pressed="true">${escapeText(controls.fixed)}</button><button type="button" data-wf-view-choice="reflow" aria-pressed="false">${escapeText(controls.reflow)}</button></div>`
+    ? `<div class="${prefix}-view-controls" data-wf-view-controls role="group" data-wf-table-scroll-label="${escapeAttr(controls.tableScrollLabel ?? 'Scrollable table')}" aria-label="${escapeAttr(controls.label)}"><button type="button" data-wf-view-choice="fixed" aria-pressed="true">${escapeText(controls.fixed)}</button><button type="button" data-wf-view-choice="reflow" aria-pressed="false">${escapeText(controls.reflow)}</button></div>`
     : ''
 
   return `<!DOCTYPE html>

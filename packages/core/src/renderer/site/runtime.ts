@@ -464,11 +464,12 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     if (!overlay.classList.contains(CLOSED)) return;
     overlay.classList.remove(CLOSED);
     pendingFocus = null;
-    if (!overlay.classList.contains(P + '-modal-backdrop')) return;
+    if (!overlay.classList.contains(P + '-modal-backdrop')) { updateTableRegions(); return; }
     var dialog = overlay.querySelector('[role="dialog"]');
     if (!dialog) return;
     modalFocus.push({ overlay: overlay, dialog: dialog, opener: opener, key: current });
     updateModalInert();
+    updateTableRegions();
     var preferred = dialog.querySelector('[autofocus]');
     var controls = modalControls(dialog);
     if (preferred && canFocus(preferred)) preferred.focus();
@@ -488,9 +489,11 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
       for (var j = i; j < modalFocus.length; j++) modalFocus[j].overlay.classList.add(CLOSED);
       modalFocus.splice(i);
       updateModalInert();
+      updateTableRegions();
       pendingFocus = record;
       return;
     }
+    updateTableRegions();
   }
 
   function restoreModalFocus() {
@@ -534,6 +537,7 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
         enabled[j].setAttribute('aria-disabled', 'true');
       }
     }
+    updateTableRegions();
   }
 
   function applyVariantScopes() {
@@ -638,7 +642,6 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     markActive(key);
     applyVariantScopes();
     applyOutcomes();
-    updateTableRegions();
     if (leavingModal) focusScreen();
 
     if (writeFragment) {
