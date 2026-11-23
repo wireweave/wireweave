@@ -92,6 +92,35 @@ describe('opt-in legacy site presentation', () => {
     dom.window.close()
   })
 
+  it('excludes every positioned drawing descendant from reflow rules', () => {
+    const dom = new JSDOM(
+      renderSite(
+        parse(`page "Drawing" {
+      relative w=480 h=240 {
+        row w=360 h=180 anchor=top-left {
+          card w=160 h=120 {
+            col gap=2 { text "Positioned caption" size=lg button "Drawing action" }
+          }
+          card w=120 h=100 { text "Sibling" }
+        }
+      }
+    }`),
+        { viewControls: labels },
+      ),
+    )
+    const d = dom.window.document
+    d.querySelector('.wf-site')!.setAttribute('data-wf-view', 'reflow')
+    const rules = [...d.styleSheets]
+      .flatMap((sheet) => [...sheet.cssRules])
+      .filter((rule): rule is CSSStyleRule => 'selectorText' in rule)
+      .filter((rule) => rule.selectorText.includes('[data-wf-view="reflow"]'))
+    expect(rules.length).toBeGreaterThan(5)
+    for (const node of d.querySelectorAll('.wf-relative, .wf-relative *')) {
+      for (const rule of rules) expect(node.matches(rule.selectorText)).toBe(false)
+    }
+    dom.window.close()
+  })
+
   it('escapes caller-localized names with a custom prefix and refuses blank labels', () => {
     const dom = new JSDOM(
       renderSite(parse(source), {
