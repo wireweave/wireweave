@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0-beta.11
+
+### Patch Changes
+
+- [#61](https://github.com/wireweave/wireweave/pull/61) [`45d298c`](https://github.com/wireweave/wireweave/commit/45d298cb8a0ab0e632b811b62f7501ce9f7ad367) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Explain the horizontal header default and show explicitly spaced stacked and inline title/description groups in both assembled grammar guides, without changing authored board geometry.
+
 ## 0.2.0-beta.10
 
 ### Patch Changes

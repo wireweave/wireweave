@@ -39,6 +39,7 @@
     "core-variant-scope",
     "core-wf-printer",
     "engines-node-floor",
+    "explicit-header-text-groups",
     "fixed-app-runtime-html",
     "fixed-standalone-board-document",
     "heading-level-guidance",
