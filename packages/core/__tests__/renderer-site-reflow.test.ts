@@ -85,7 +85,7 @@ describe('opt-in legacy site presentation', () => {
 
   it('creates table regions on modal/state reveal before focus, without resize or mode re-entry', () => {
     const corpus = readFileSync(new URL('./corpus/e2-demo/demo.wf', import.meta.url), 'utf8')
-    const tableSource = corpus.match(/table \[[\s\S]*?\n        \]/)![0]
+    const tableSource = corpus.match(/table \[[\s\S]*?\n {8}\]/)![0]
     const engineering = source
       .replace('button "Close" action=close', `${tableSource} button "Close" action=close`)
       .replace('text "Local state retained"', `text "Local state retained" ${tableSource}`)
