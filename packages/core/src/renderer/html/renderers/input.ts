@@ -110,7 +110,9 @@ export function renderTextarea(node: TextareaNode, ctx: RenderContext): string {
   const textarea = `<textarea${ctx.buildAttrsString(attrs)}${styleAttr}>${ctx.escapeHtml(node.value || '')}</textarea>`
 
   if (node.label) {
-    return renderField(node.label, textarea, ctx)
+    // Native implicit association needs no generated id, so idless and repeated
+    // controls stay independent without changing the existing field geometry.
+    return `<label class="${ctx.prefix}-field"><span class="${ctx.prefix}-input-label">${ctx.escapeHtml(node.label)}</span>\n${textarea}</label>`
   }
 
   return textarea
