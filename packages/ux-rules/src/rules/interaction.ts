@@ -33,15 +33,16 @@ export const buttonHasAction: UXRule = {
     const hasTo = 'to' in node
     const hasNavigate = 'navigate' in node
     const opens =
-      'opens' in node && typeof node.opens === 'string' && node.opens.trim() !== ''
+      'opens' in node && typeof node.opens === 'string' && node.opens !== ''
         ? node.opens
         : undefined
     const toggles =
-      'toggles' in node && typeof node.toggles === 'string' && node.toggles.trim() !== ''
+      'toggles' in node && typeof node.toggles === 'string' && node.toggles !== ''
         ? node.toggles
         : undefined
-    // The runtime consumes nonblank opens first, even when it cannot resolve.
-    // Never credit a secondary toggle as a fallback for a broken open.
+    // Initial overlay reset uses raw opens truthiness, without trimming. A
+    // nonempty unresolved opens can leave toggles initially visible, even if
+    // click handling later falls through. Do not credit that secondary toggle.
     const target = opens ?? toggles
     const hasOverlay = target !== undefined && context.localOverlayTargets?.get(target) === true
     const hasLink = 'link' in node

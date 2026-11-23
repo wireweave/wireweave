@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parse } from '@wireweave/core'
+import { parse, renderSite } from '@wireweave/core'
 import { getChildren, validateUX } from '../../src'
 
 const issues = (code: string) => validateUX(parse(code)).issues.map((issue) => issue.ruleId)
@@ -84,8 +84,17 @@ describe('overlay resolution boundaries', () => {
 })
 
 describe('overlay priority and validation-local indexing', () => {
-  it.each(['opens=wrong toggles=good', 'opens=missing toggles=good'])(
-    'does not credit a secondary toggle after nonblank opens (%s)',
+  it('preserves whitespace in the actual renderer attribute used by initial reset', () => {
+    const html = renderSite(
+      parse(
+        'page { button "Review" opens=" " toggles=good modal "Good" id=good { button "Return" action=close } }',
+      ),
+    )
+    expect(html).toContain('data-opens=" "')
+    expect(html).toContain('data-toggles="good"')
+  })
+  it.each(['opens=wrong toggles=good', 'opens=missing toggles=good', 'opens=" " toggles=good'])(
+    'does not credit a secondary toggle after nonempty opens (%s)',
     (attributes) => {
       expect(
         issues(
@@ -94,18 +103,16 @@ describe('overlay priority and validation-local indexing', () => {
       ).toContain('interaction-button-action')
     },
   )
-  it.each([
-    'toggles=good',
-    'opens="" toggles=good',
-    'opens=" " toggles=good',
-    'opens=good toggles=missing',
-  ])('uses the effective overlay intent (%s)', (attributes) => {
-    expect(
-      issues(
-        `page { button "Review" ${attributes} modal "Good" id=good { button "Return" action=close } }`,
-      ),
-    ).not.toContain('interaction-button-action')
-  })
+  it.each(['toggles=good', 'opens="" toggles=good', 'opens=good toggles=missing'])(
+    'uses the effective overlay intent (%s)',
+    (attributes) => {
+      expect(
+        issues(
+          `page { button "Review" ${attributes} modal "Good" id=good { button "Return" action=close } }`,
+        ),
+      ).not.toContain('interaction-button-action')
+    },
+  )
   it('indexes a page once rather than walking it for every valid button', () => {
     const countReads = (count: number) => {
       const doc = parse(
