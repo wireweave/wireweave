@@ -82,3 +82,65 @@ describe('overlay resolution boundaries', () => {
     expect(validateUX(doc).issues.map((issue) => issue.ruleId)).toContain('usability-modal-close')
   })
 })
+
+describe('overlay priority and validation-local indexing', () => {
+  it.each(['opens=wrong toggles=good', 'opens=missing toggles=good'])(
+    'does not credit a secondary toggle after nonblank opens (%s)',
+    (attributes) => {
+      expect(
+        issues(
+          `page { button "Review" ${attributes} text "Not an overlay" id=wrong modal "Good" id=good { button "Return" action=close } }`,
+        ),
+      ).toContain('interaction-button-action')
+    },
+  )
+  it.each([
+    'toggles=good',
+    'opens="" toggles=good',
+    'opens=" " toggles=good',
+    'opens=good toggles=missing',
+  ])('uses the effective overlay intent (%s)', (attributes) => {
+    expect(
+      issues(
+        `page { button "Review" ${attributes} modal "Good" id=good { button "Return" action=close } }`,
+      ),
+    ).not.toContain('interaction-button-action')
+  })
+  it('indexes a page once rather than walking it for every valid button', () => {
+    const countReads = (count: number) => {
+      const doc = parse(
+        `page { ${'button "Review" opens=good '.repeat(count)} modal "Good" id=good { button "Return" action=close } }`,
+      )
+      const modal = getChildren(doc.children[0]).find((node) => node.type === 'Modal')!
+      const original = JSON.stringify(doc)
+      let reads = 0
+      Object.defineProperty(modal, 'id', {
+        enumerable: true,
+        configurable: true,
+        get: () => {
+          reads++
+          return 'good'
+        },
+      })
+      const result = validateUX(doc, { categories: ['interaction'] })
+      const measured = reads
+      expect(result.issues).toHaveLength(0)
+      expect(JSON.stringify(doc)).toBe(original)
+      return measured
+    }
+    expect(countReads(250)).toBeLessThanOrEqual(countReads(10) + 2)
+  })
+  it('rebuilds the index on the next validation after source changes', () => {
+    const doc = parse(
+      'page { button "Review" opens=good modal "Good" id=good { button "Return" action=close } }',
+    )
+    expect(validateUX(doc).issues.map((issue) => issue.ruleId)).not.toContain(
+      'interaction-button-action',
+    )
+    const modal = getChildren(doc.children[0]).find((node) => node.type === 'Modal')!
+    Object.assign(modal, { id: 'changed' })
+    expect(validateUX(doc).issues.map((issue) => issue.ruleId)).toContain(
+      'interaction-button-action',
+    )
+  })
+})

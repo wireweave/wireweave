@@ -32,30 +32,18 @@ export const buttonHasAction: UXRule = {
     const hasHref = 'href' in node
     const hasTo = 'to' in node
     const hasNavigate = 'navigate' in node
-    const targets = [
-      'opens' in node ? node.opens : undefined,
-      'toggles' in node ? node.toggles : undefined,
-    ].filter((value): value is string => typeof value === 'string' && value.trim() !== '')
-    const page = context.page ?? context.root
-    const hasOverlay = targets.some((target) => {
-      let matches = 0
-      let overlay = false
-      const visit = (candidate: AnyNode, reachable: boolean) => {
-        const available = reachable && !('visibleWhen' in candidate || 'when' in candidate)
-        if ('id' in candidate && candidate.id === target) {
-          matches++
-          overlay = available && (candidate.type === 'Modal' || candidate.type === 'Drawer')
-        }
-        // Count even unproven/nested duplicate IDs: they can shadow a target
-        // in the emitted DOM, but cannot establish a reachable local overlay.
-        const childrenReachable =
-          available && candidate.type !== 'Modal' && candidate.type !== 'Drawer'
-        if (hasChildren(candidate))
-          candidate.children.forEach((child) => visit(child, childrenReachable))
-      }
-      if (page?.type === 'Page') visit(page, true)
-      return matches === 1 && overlay
-    })
+    const opens =
+      'opens' in node && typeof node.opens === 'string' && node.opens.trim() !== ''
+        ? node.opens
+        : undefined
+    const toggles =
+      'toggles' in node && typeof node.toggles === 'string' && node.toggles.trim() !== ''
+        ? node.toggles
+        : undefined
+    // The runtime consumes nonblank opens first, even when it cannot resolve.
+    // Never credit a secondary toggle as a fallback for a broken open.
+    const target = opens ?? toggles
+    const hasOverlay = target !== undefined && context.localOverlayTargets?.get(target) === true
     const hasLink = 'link' in node
     // Check for submit button type (buttonType attribute, not node.type)
     const hasSubmit =
