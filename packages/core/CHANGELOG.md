@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.19
+
+### Patch Changes
+
+- [#58](https://github.com/wireweave/wireweave/pull/58) [`510f9ae`](https://github.com/wireweave/wireweave/commit/510f9ae0d0959ea2c026d4820c07cd36fc0833dc) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Associate textarea controls with their authored visible labels for accessible naming and native label-click focus without generating additional IDs or changing layout.
+
 ## 4.0.0-beta.18
 
 ### Patch Changes
