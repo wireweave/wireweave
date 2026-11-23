@@ -120,25 +120,75 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     var mode = button.getAttribute('data-wf-view-choice');
     if (mode !== 'fixed' && mode !== 'reflow') return;
     site.setAttribute('data-wf-view', mode);
-    // The same semantic table becomes its own keyboard-scrollable region.
-    // Do not alter authored tabindex values or positioned drawing subtrees.
-    var tables = site.querySelectorAll('table.' + P + '-table');
-    for (var t = 0; t < tables.length; t++) {
-      var table = tables[t];
-      if (table.closest('.' + P + '-relative')) continue;
-      if (mode === 'reflow' && !table.hasAttribute('tabindex')) {
-        table.setAttribute('tabindex', '0');
-        table.setAttribute('data-wf-reflow-tabstop', '');
-      } else if (mode === 'fixed' && table.hasAttribute('data-wf-reflow-tabstop')) {
-        table.removeAttribute('tabindex');
-        table.removeAttribute('data-wf-reflow-tabstop');
-      }
-    }
+    updateTableRegions();
     var choices = viewControls.querySelectorAll('[data-wf-view-choice]');
     for (var v = 0; v < choices.length; v++) {
       choices[v].setAttribute('aria-pressed', String(choices[v] === button));
     }
   });
+
+  // Wrap only opted-in flow tables; never restyle or clone their semantic DOM.
+  var tableResize = viewControls && typeof ResizeObserver !== 'undefined'
+    ? new ResizeObserver(function () { scheduleTableRegions(); }) : null;
+  var tableUpdatePending = false;
+  function scheduleTableRegions() {
+    if (tableUpdatePending) return;
+    tableUpdatePending = true;
+    (window.requestAnimationFrame || window.setTimeout)(function () {
+      tableUpdatePending = false;
+      updateTableRegions();
+    });
+  }
+  function updateTableRegions() {
+    if (!viewControls) return;
+    var reflow = site.getAttribute('data-wf-view') === 'reflow';
+    var tables = site.querySelectorAll('table.' + P + '-table');
+    for (var t = 0; t < tables.length; t++) {
+      var table = tables[t];
+      var region = table.parentElement;
+      var owned = region && region.hasAttribute('data-wf-table-scroll');
+      var visible = !table.closest('.' + P + '-relative') && canFocus(table)
+        && table.getClientRects().length > 0;
+      if (reflow && visible && !owned) {
+        region = document.createElement('div');
+        region.className = P + '-table-scroll';
+        region.setAttribute('data-wf-table-scroll', '');
+        table.parentNode.insertBefore(region, table);
+        region.appendChild(table);
+        owned = true;
+        if (tableResize) { tableResize.observe(region); tableResize.observe(table); }
+      }
+      if (!owned) continue;
+      if (!reflow) {
+        region.removeAttribute('role');
+        region.removeAttribute('aria-label');
+        region.removeAttribute('tabindex');
+        region.parentNode.insertBefore(table, region);
+        region.remove();
+        if (tableResize) { tableResize.unobserve(region); tableResize.unobserve(table); }
+        continue;
+      }
+      var overflow = reflow && visible && region.scrollWidth > region.clientWidth + 1;
+      if (overflow) {
+        var caption = table.caption;
+        var authoredLabel = table.getAttribute('aria-label');
+        var label = (authoredLabel && authoredLabel.trim() ? authoredLabel : null) || (caption && caption.textContent.trim())
+          || viewControls.getAttribute('data-wf-table-scroll-label');
+        region.setAttribute('role', 'region');
+        region.setAttribute('aria-label', label);
+        if (!table.hasAttribute('tabindex')) region.setAttribute('tabindex', '0');
+        else region.removeAttribute('tabindex');
+      } else {
+        region.removeAttribute('role');
+        region.removeAttribute('aria-label');
+        region.removeAttribute('tabindex');
+      }
+    }
+  }
+  if (viewControls) {
+    window.addEventListener('resize', scheduleTableRegions);
+    if (document.fonts) document.fonts.ready.then(scheduleTableRegions);
+  }
 
   var screens = {};
   var order = [];
@@ -588,6 +638,7 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     markActive(key);
     applyVariantScopes();
     applyOutcomes();
+    updateTableRegions();
     if (leavingModal) focusScreen();
 
     if (writeFragment) {

@@ -2,4 +2,4 @@
 '@wireweave/core': patch
 ---
 
-Keep tables locally scrollable and keyboard reachable in opt-in legacy Reflow, and let their text follow root text sizing without changing Fixed mode or positioned drawings.
+Keep native tables in local scroll containers in opt-in legacy Reflow, with keyboard entry only for visible overflowing regions and text following root text sizing. Preserve Fixed mode, authored tabindex and positioned drawings.

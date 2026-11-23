@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { JSDOM } from 'jsdom'
 import { parse } from '../src/parser'
 import { renderSite } from '../src/renderer'
@@ -17,35 +17,69 @@ page "Next" id=next { link "Back" navigate=review }`
 const labels = { label: 'Presentation', fixed: 'Fixed', reflow: 'Reflow' }
 
 describe('opt-in legacy site presentation', () => {
-  it('gives the unchanged public table a reversible keyboard scroll stop only in Reflow', () => {
+  it('owns a reversible overflow region without changing native tables or authored focus', () => {
     const demo = readFileSync(new URL('./corpus/e2-demo/demo.wf', import.meta.url), 'utf8')
-    const dom = new JSDOM(renderSite(parse(demo), { entry: 'Dashboard', viewControls: labels }), {
-      runScripts: 'dangerously',
-      url: 'https://local.test/',
-    })
+    const dom = new JSDOM(
+      renderSite(parse(demo), {
+        entry: 'Dashboard',
+        viewControls: { ...labels, tableScrollLabel: '표 읽기 "영역"' },
+      }),
+      { runScripts: 'dangerously', url: 'https://local.test/' },
+    )
     const d = dom.window.document
     const table = d.querySelector('table')!
-    const rows = table.innerHTML
+    table.setAttribute('aria-label', '   ')
+    const original = table.outerHTML
     const page = table.closest('.wf-page')!
     const geometry = page.getAttribute('style')
-    expect(table.hasAttribute('tabindex')).toBe(false)
-    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
-    expect(table.tabIndex).toBe(0)
-    expect(d.querySelector('table')).toBe(table)
-    expect(table.innerHTML).toBe(rows)
-    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="fixed"]')!.click()
-    expect(table.hasAttribute('tabindex')).toBe(false)
-    expect(table.innerHTML).toBe(rows)
+    // JSDOM has no layout; only the real browser regression measures overflow.
+    vi.spyOn(table, 'getClientRects').mockReturnValue({ length: 1 } as DOMRectList)
+    let available = 200
+    Object.defineProperties(dom.window.HTMLElement.prototype, {
+      clientWidth: {
+        configurable: true,
+        get() {
+          return available
+        },
+      },
+      scrollWidth: {
+        configurable: true,
+        get() {
+          return 600
+        },
+      },
+    })
+    const reflow = d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!
+    const fixed = d.querySelector<HTMLButtonElement>('[data-wf-view-choice="fixed"]')!
+    expect(d.querySelector('[data-wf-table-scroll]')).toBeNull()
+    reflow.click()
+    const region = table.parentElement!
+    expect(region.getAttribute('role')).toBe('region')
+    expect(region.getAttribute('aria-label')).toBe('표 읽기 "영역"')
+    expect(region.tabIndex).toBe(0)
+    expect(table.outerHTML).toBe(original)
+    available = 800
+    reflow.click()
+    expect(region.hasAttribute('tabindex')).toBe(false)
+    expect(region.hasAttribute('role')).toBe(false)
+    available = 200
+    reflow.click()
+    expect(region.tabIndex).toBe(0)
+    fixed.click()
+    expect(region.hasAttribute('tabindex')).toBe(false)
+    expect(region.hasAttribute('role')).toBe(false)
+    expect(region.isConnected).toBe(false)
+    expect(table.outerHTML).toBe(original)
     expect(page.getAttribute('style')).toBe(geometry)
-    // Existing focus policy and two-dimensional drawing content stay owned.
     table.setAttribute('tabindex', '-1')
-    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
-    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="fixed"]')!.click()
+    reflow.click()
+    fixed.click()
     expect(table.getAttribute('tabindex')).toBe('-1')
-    table.removeAttribute('tabindex')
+    expect(region.hasAttribute('tabindex')).toBe(false)
     table.parentElement!.classList.add('wf-relative')
-    d.querySelector<HTMLButtonElement>('[data-wf-view-choice="reflow"]')!.click()
-    expect(table.hasAttribute('tabindex')).toBe(false)
+    table.removeAttribute('tabindex')
+    reflow.click()
+    expect(table.parentElement!.hasAttribute('data-wf-table-scroll')).toBe(false)
     dom.window.close()
   })
 
