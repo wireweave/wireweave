@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0-beta.21
+
+### Patch Changes
+
+- [#60](https://github.com/wireweave/wireweave/pull/60) [`8281f17`](https://github.com/wireweave/wireweave/commit/8281f175aece70a878835f3637e4540fb14d4641) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Recognize resolvable page-local overlay actions and reachable authored modal close buttons when reporting missing interactions. Keep missing, ambiguous, cross-page and unreachable controls flagged.
+
 ## 1.5.0-beta.20
 
 ### Patch Changes
