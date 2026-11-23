@@ -26,6 +26,12 @@ function renderField(label: string, control: string, ctx: RenderContext): string
   return `<div class="${ctx.prefix}-field"><label class="${ctx.prefix}-input-label">${ctx.escapeHtml(label)}</label>\n${control}</div>`
 }
 
+/** Native association for a field containing exactly one labelable control.
+ * No generated ids: repeated and scoped instances remain independent. */
+function renderNativeField(label: string, control: string, ctx: RenderContext): string {
+  return `<label class="${ctx.prefix}-field"><span class="${ctx.prefix}-input-label">${ctx.escapeHtml(label)}</span>\n${control}</label>`
+}
+
 /**
  * Render Input node
  */
@@ -82,7 +88,7 @@ export function renderInput(node: InputNode, ctx: RenderContext): string {
   // Don't show label if it's the default "Label" and input has a placeholder
   const shouldShowLabel2 = node.label && !(node.label === 'Label' && node.placeholder)
   if (shouldShowLabel2) {
-    return renderField(node.label!, input, ctx)
+    return renderNativeField(node.label!, input, ctx)
   }
 
   return input
@@ -110,9 +116,7 @@ export function renderTextarea(node: TextareaNode, ctx: RenderContext): string {
   const textarea = `<textarea${ctx.buildAttrsString(attrs)}${styleAttr}>${ctx.escapeHtml(node.value || '')}</textarea>`
 
   if (node.label) {
-    // Native implicit association needs no generated id, so idless and repeated
-    // controls stay independent without changing the existing field geometry.
-    return `<label class="${ctx.prefix}-field"><span class="${ctx.prefix}-input-label">${ctx.escapeHtml(node.label)}</span>\n${textarea}</label>`
+    return renderNativeField(node.label, textarea, ctx)
   }
 
   return textarea
@@ -159,7 +163,7 @@ export function renderSelect(node: SelectNode, ctx: RenderContext): string {
   const select = `<select${ctx.buildAttrsString(attrs)}${styleAttr}>\n${placeholder}${options}\n</select>`
 
   if (node.label) {
-    return renderField(node.label, select, ctx)
+    return renderNativeField(node.label, select, ctx)
   }
 
   return select
@@ -258,7 +262,7 @@ export function renderSlider(node: SliderNode, ctx: RenderContext): string {
   const slider = `<input${ctx.buildAttrsString(attrs)}${styleAttr} />`
 
   if (node.label) {
-    return renderField(node.label, slider, ctx)
+    return renderNativeField(node.label, slider, ctx)
   }
 
   return slider
