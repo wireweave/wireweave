@@ -32,6 +32,19 @@ export const buttonHasAction: UXRule = {
     const hasHref = 'href' in node
     const hasTo = 'to' in node
     const hasNavigate = 'navigate' in node
+    const opens =
+      'opens' in node && typeof node.opens === 'string' && node.opens !== ''
+        ? node.opens
+        : undefined
+    const toggles =
+      'toggles' in node && typeof node.toggles === 'string' && node.toggles !== ''
+        ? node.toggles
+        : undefined
+    // Initial overlay reset uses raw opens truthiness, without trimming. A
+    // nonempty unresolved opens can leave toggles initially visible, even if
+    // click handling later falls through. Do not credit that secondary toggle.
+    const target = opens ?? toggles
+    const hasOverlay = target !== undefined && context.localOverlayTargets?.get(target) === true
     const hasLink = 'link' in node
     // Check for submit button type (buttonType attribute, not node.type)
     const hasSubmit =
@@ -47,6 +60,7 @@ export const buttonHasAction: UXRule = {
       !hasHref &&
       !hasTo &&
       !hasNavigate &&
+      !hasOverlay &&
       !hasLink &&
       !hasSubmit &&
       !hasFormSubmit

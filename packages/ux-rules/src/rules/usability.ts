@@ -171,9 +171,15 @@ export const modalCloseButton: UXRule = {
       return null
     }
 
-    // Look for a close button or cancel button
-    const hasCloseButton = hasChildMatching(node, (child) => {
+    // A nested overlay's close dismisses itself, not this modal. Conditional
+    // branches and disabled controls cannot establish an available dismissal.
+    const closesThisModal = (child: AnyNode): boolean => {
+      if ('visibleWhen' in child || 'when' in child) return false
+      if (child.type === 'Modal' || child.type === 'Drawer') return false
       if (child.type === 'Button') {
+        if (child.disabled) return false
+        // Authored close semantics do not depend on a particular locale/label.
+        if ('action' in child && child.action === 'close') return true
         const content = getNodeText(child).toLowerCase()
         const icon = 'icon' in child ? String(child.icon || '').toLowerCase() : ''
         return CLOSE_WORDS.some((w) => content.includes(w) || icon.includes(w))
@@ -182,8 +188,9 @@ export const modalCloseButton: UXRule = {
         const name = 'name' in child ? String(child.name || '').toLowerCase() : ''
         return name === 'x' || name === 'close'
       }
-      return false
-    })
+      return getChildren(child).some(closesThisModal)
+    }
+    const hasCloseButton = getChildren(node).some(closesThisModal)
 
     if (!hasCloseButton) {
       return {

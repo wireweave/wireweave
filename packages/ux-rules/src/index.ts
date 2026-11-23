@@ -18,7 +18,7 @@ import type {
 } from './types'
 import { allRules, getRulesForCategories } from './rules'
 import { REFERENCE_COMPLEXITY } from './constants'
-import { isAnyNode, toAnyNodeArray } from './utils'
+import { getChildren, isAnyNode, toAnyNodeArray } from './utils'
 
 // Re-export types
 export * from './types'
@@ -145,6 +145,34 @@ export function validateUX(
     return true
   }
 
+  // Owned by this validation call only: no AST mutation or cross-run cache.
+  const overlayIndexes = new WeakMap<AnyNode, ReadonlyMap<string, boolean>>()
+  function overlaysFor(page: AnyNode): ReadonlyMap<string, boolean> {
+    const cached = overlayIndexes.get(page)
+    if (cached !== undefined) return cached
+    const targets = new Map<string, boolean>()
+    const visit = (candidate: AnyNode, reachable: boolean) => {
+      const available = reachable && !('visibleWhen' in candidate || 'when' in candidate)
+      const id = 'id' in candidate ? candidate.id : undefined
+      if (typeof id === 'string') {
+        // Any duplicate DOM identity invalidates the target, including a
+        // hidden/nested or non-overlay declaration that could shadow it.
+        targets.set(
+          id,
+          !targets.has(id) &&
+            available &&
+            (candidate.type === 'Modal' || candidate.type === 'Drawer'),
+        )
+      }
+      const childrenReachable =
+        available && candidate.type !== 'Modal' && candidate.type !== 'Drawer'
+      getChildren(candidate).forEach((child) => visit(child, childrenReachable))
+    }
+    visit(page, true)
+    overlayIndexes.set(page, targets)
+    return targets
+  }
+
   /**
    * Walk the AST and apply rules
    */
@@ -155,7 +183,9 @@ export function validateUX(
     siblings: AnyNode[],
     index: number,
     depth: number,
+    page?: AnyNode,
   ): boolean {
+    const containingPage = node.type === 'Page' ? node : page
     const rootNode = ast.children?.[0]
     const context: UXRuleContext = {
       path,
@@ -164,6 +194,9 @@ export function validateUX(
       siblings,
       index,
       depth,
+      ...(containingPage === undefined
+        ? {}
+        : { page: containingPage, localOverlayTargets: overlaysFor(containingPage) }),
     }
 
     // Apply rules that match this node type
@@ -205,6 +238,7 @@ export function validateUX(
             children,
             i,
             depth + 1,
+            containingPage,
           )
           if (!shouldContinue) return false
         }

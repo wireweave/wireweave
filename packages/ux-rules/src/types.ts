@@ -120,6 +120,10 @@ export interface UXRule {
  * Context provided to rule check functions
  */
 export interface UXRuleContext {
+  /** Validation-local page target index; true only for a unique reachable overlay. */
+  localOverlayTargets?: ReadonlyMap<string, boolean>
+  /** Containing authored page, when traversing a page (never a sibling page). */
+  page?: AnyNode
   /** Path to current node */
   path: string
   /** Parent node (if any) */
