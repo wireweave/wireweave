@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.22
+
+### Patch Changes
+
+- [#63](https://github.com/wireweave/wireweave/pull/63) [`979c06f`](https://github.com/wireweave/wireweave/commit/979c06f3978c8e28dce5580337b8a74d3aeac47f) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep native tables in local scroll containers in opt-in legacy Reflow, with keyboard entry only for visible overflowing regions and text following root text sizing. Preserve Fixed mode, authored tabindex and positioned drawings.
+
 ## 4.0.0-beta.21
 
 ### Patch Changes

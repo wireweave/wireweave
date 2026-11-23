@@ -57,6 +57,7 @@
     "side-effects-declarations",
     "site-modal-focus",
     "tidy-drafts-read",
+    "tidy-tables-reflow",
     "ux-rules-content-authoring",
     "v2-secure-toolchain",
     "v4-primary-action-hover",
