@@ -143,7 +143,11 @@ describe('label and control render as one field', () => {
 
     for (const [source, control] of cases) {
       const { html } = render(parse(source))
-      expect(html, source).toMatch(/<div class="wf-field"><label class="wf-input-label">/)
+      expect(html, source).toMatch(
+        control === '<textarea'
+          ? /<label class="wf-field"><span class="wf-input-label">/
+          : /<div class="wf-field"><label class="wf-input-label">/,
+      )
       expect(html, source).toContain(control)
     }
   })
