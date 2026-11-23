@@ -129,7 +129,7 @@ describe('label and control render as one field', () => {
     const { html } = render(parse('page { select "현재 프로젝트" ["A", "B"] }'))
 
     expect(html).toMatch(
-      /<div class="wf-field"><label class="wf-input-label">현재 프로젝트<\/label>\s*<select/,
+      /<label class="wf-field"><span class="wf-input-label">현재 프로젝트<\/span>\s*<select/,
     )
   })
 
@@ -144,7 +144,7 @@ describe('label and control render as one field', () => {
     for (const [source, control] of cases) {
       const { html } = render(parse(source))
       expect(html, source).toMatch(
-        control === '<textarea'
+        control !== '<div class="wf-input-wrapper"'
           ? /<label class="wf-field"><span class="wf-input-label">/
           : /<div class="wf-field"><label class="wf-input-label">/,
       )
@@ -153,12 +153,10 @@ describe('label and control render as one field', () => {
   })
 
   /**
-   * The property the defect actually violated: inside a flex row, no label is
-   * a DIRECT child of the row. As a direct child it is an independent flex
-   * item and lands beside the control instead of above it — in the e-torch
-   * header it overlapped the nav links.
+   * The caption must not be an independent flex item. A native label can be
+   * the field wrapper, but it must keep the caption and control together.
    */
-  it('no label is a direct flex item of the row that holds its control', () => {
+  it('no independent caption is a direct flex item of the row', () => {
     const source =
       'page { row { title "e-torch" select "현재 프로젝트" ["A", "B"] avatar "사용자" } }'
     const { html } = render(parse(source))
@@ -184,7 +182,7 @@ describe('label and control render as one field', () => {
 
     const children = rowChildren(html)
     expect(children.length).toBeGreaterThan(0)
-    expect(children.filter((tag) => tag.startsWith('<label'))).toEqual([])
+    expect(children.filter((tag) => tag.startsWith('<label'))).toEqual(['<label class="wf-field">'])
     // The field wrapper is the row's child in the label's place.
     expect(children.some((tag) => tag.includes('wf-field'))).toBe(true)
   })
@@ -248,10 +246,7 @@ describe('markup classes are defined by the stylesheet', () => {
 
     // Control: the check can fail. Re-introducing the class the defect emitted
     // must be reported, or the assertion below proves nothing.
-    const withDeadClass = html.replace(
-      '<div class="wf-field"',
-      '<div class="wf-component-instance"',
-    )
+    const withDeadClass = html.replace('class="wf-field"', 'class="wf-component-instance"')
     expect(withDeadClass).not.toBe(html)
     expect(undefinedClasses(withDeadClass, css)).toContain('wf-component-instance')
 

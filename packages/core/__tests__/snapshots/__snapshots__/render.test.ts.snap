@@ -4024,10 +4024,10 @@ exports[`Render Snapshots > Complex Page Snapshots > should render login page 1`
             <div class="wf-col wf-col-4">
                     <div class="wf-card wf-card-flex" style="padding: 24px">
                               <h2 class="wf-title" style="margin-bottom: 24px">Sign In</h2>
-                              <div class="wf-field"><label class="wf-input-label">Email</label>
-                              <input class="wf-input" type="email" required="required" style="margin-bottom: 16px" /></div>
-                              <div class="wf-field"><label class="wf-input-label">Password</label>
-                              <input class="wf-input" type="password" required="required" style="margin-bottom: 16px" /></div>
+                              <label class="wf-field"><span class="wf-input-label">Email</span>
+                              <input class="wf-input" type="email" required="required" style="margin-bottom: 16px" /></label>
+                              <label class="wf-field"><span class="wf-input-label">Password</span>
+                              <input class="wf-input" type="password" required="required" style="margin-bottom: 16px" /></label>
                               <button class="wf-button wf-button-primary">Sign In</button>
                     </div>
             </div>
@@ -8148,12 +8148,12 @@ exports[`Render Snapshots > HTML Snapshots > should render form elements 1`] = `
 "<div class="wf-page" style="position: relative; width: 1440px; height: 900px; overflow: hidden" data-viewport-width="1440" data-viewport-height="900" data-viewport-label="Desktop">
   <div class="wf-card wf-card-flex" style="padding: 16px">
       <div class="wf-row">
-            <div class="wf-field"><label class="wf-input-label">Email</label>
-            <input class="wf-input" type="email" placeholder="Enter email" required="required" /></div>
+            <label class="wf-field"><span class="wf-input-label">Email</span>
+            <input class="wf-input" type="email" placeholder="Enter email" required="required" /></label>
       </div>
       <div class="wf-row">
-            <div class="wf-field"><label class="wf-input-label">Password</label>
-            <input class="wf-input" type="password" required="required" /></div>
+            <label class="wf-field"><span class="wf-input-label">Password</span>
+            <input class="wf-input" type="password" required="required" /></label>
       </div>
       <div class="wf-row">
             <label class="wf-checkbox"><input type="checkbox" /><span>Remember me</span></label>
@@ -14255,8 +14255,8 @@ svg.wf-icon-xl { width: 32px; height: 32px; }
       </style>
       <div class="wf-page" style="position: relative; width: 1440px; height: 900px; overflow: hidden" data-viewport-width="1440" data-viewport-height="900" data-viewport-label="Desktop">
   <div class="wf-card wf-card-flex">
-      <div class="wf-field"><label class="wf-input-label">Name</label>
-      <input class="wf-input" type="text" placeholder="Enter name" /></div>
+      <label class="wf-field"><span class="wf-input-label">Name</span>
+      <input class="wf-input" type="text" placeholder="Enter name" /></label>
       <button class="wf-button wf-button-primary">Submit</button>
   </div>
 </div>
