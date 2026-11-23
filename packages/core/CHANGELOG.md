@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.20
+
+### Patch Changes
+
+- [#59](https://github.com/wireweave/wireweave/pull/59) [`c5abc7e`](https://github.com/wireweave/wireweave/commit/c5abc7ebdc733d335d47cef4753c5823b1026633) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Associate visible captions with plain inputs, selects and sliders using native labels, preserving field layout and independent repeated controls without generating IDs. Icon-adorned inputs retain their existing rendering.
+
 ## 4.0.0-beta.19
 
 ### Patch Changes

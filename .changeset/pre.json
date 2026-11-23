@@ -50,6 +50,7 @@
     "packaging-entry-fields",
     "packaging-types-conditions",
     "partial-core-schema-source",
+    "plain-fields-native-labels",
     "quiet-catalog-proof",
     "side-effects-declarations",
     "site-modal-focus",
