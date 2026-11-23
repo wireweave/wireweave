@@ -51,6 +51,9 @@ import type { RenderOptions } from '../types'
 import { buildSiteModel } from './model'
 import type { SiteModel, SiteScreen, SiteShell } from './model'
 import { generateSiteStyles } from './styles'
+import { siteViewStyles } from './reflow'
+import type { SiteViewControls } from './reflow'
+export type { SiteViewControls } from './reflow'
 import { ID_SCOPE_ATTR, siteRuntime } from './runtime'
 import type { SiteRuntimeRegistry } from './runtime'
 
@@ -88,6 +91,10 @@ export interface SiteOptions extends Pick<
    * between the call and the HTML.
    */
   entry?: string
+  /** Opt-in localized Fixed/Reflow controls; defaults to Fixed. Reflow is a
+   * style presentation of ordinary flow content, not a new authored profile.
+   * Drawings/tables and other two-dimensional regions retain their structure. */
+  viewControls?: SiteViewControls
 }
 
 const DEFAULT_PREFIX = 'wf'
@@ -298,6 +305,13 @@ function compactRuntimeInteractions(
  */
 export function renderSite(document: WireframeDocument, options: SiteOptions = {}): string {
   const prefix = options.classPrefix ?? DEFAULT_PREFIX
+  const controls = options.viewControls
+  if (
+    controls &&
+    [controls.label, controls.fixed, controls.reflow].some((label) => !label.trim())
+  ) {
+    throw new Error('Site view control labels must be nonblank')
+  }
   // Site composition renders through `renderFragment`, which bypasses
   // `HtmlRenderer.render` and its expansion — so fold `repeat` here, once, and
   // let the screen model and the interaction model see the same expanded tree.
@@ -329,7 +343,10 @@ export function renderSite(document: WireframeDocument, options: SiteOptions = {
     .join('\n')
 
   const theme = options.theme === 'dark' ? darkTheme : defaultTheme
-  const css = generateStyles(theme, prefix, options.annotationStyle) + generateSiteStyles(prefix)
+  const css =
+    generateStyles(theme, prefix, options.annotationStyle) +
+    generateSiteStyles(prefix) +
+    (controls ? siteViewStyles(prefix) : '')
 
   const entry = resolveEntry(model, options)
   const fragments = model.screens.map((screen) => screen.name ?? String(screen.index))
@@ -348,11 +365,16 @@ export function renderSite(document: WireframeDocument, options: SiteOptions = {
 
   const body = [shells, standalone].filter((part) => part.length > 0).join('\n')
   const siteAttrs = attrs([
+    ['data-wf-view', controls ? 'fixed' : undefined],
     ['data-screen-count', String(model.screens.length)],
     ['data-shell-count', String(model.shells.length)],
     ['data-wf-entry-unresolved', entry.unresolved],
     ['data-wf-diagnostic-count', String(interactionModel.diagnostics.length)],
   ])
+
+  const viewControls = controls
+    ? `<div class="${prefix}-view-controls" data-wf-view-controls role="group" aria-label="${escapeAttr(controls.label)}"><button type="button" data-wf-view-choice="fixed" aria-pressed="true">${escapeText(controls.fixed)}</button><button type="button" data-wf-view-choice="reflow" aria-pressed="false">${escapeText(controls.reflow)}</button></div>`
+    : ''
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -392,6 +414,7 @@ ${css}
 </style>
 </head>
 <body>
+${viewControls}
 <div class="${prefix}-site"${siteAttrs}>
 ${body}
 </div>

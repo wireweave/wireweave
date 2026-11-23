@@ -111,6 +111,21 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
   var site = document.querySelector('.' + P + '-site');
   if (!site) return;
 
+  var viewControls = site.hasAttribute('data-wf-view')
+    ? document.querySelector('[data-wf-view-controls]') : null;
+  if (viewControls) viewControls.addEventListener('click', function (event) {
+    if (topModal()) return;
+    var button = event.target.closest('[data-wf-view-choice]');
+    if (!button || !viewControls.contains(button)) return;
+    var mode = button.getAttribute('data-wf-view-choice');
+    if (mode !== 'fixed' && mode !== 'reflow') return;
+    site.setAttribute('data-wf-view', mode);
+    var choices = viewControls.querySelectorAll('[data-wf-view-choice]');
+    for (var v = 0; v < choices.length; v++) {
+      choices[v].setAttribute('aria-pressed', String(choices[v] === button));
+    }
+  });
+
   var screens = {};
   var order = [];
   var shellOf = {};
@@ -358,6 +373,7 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     for (var i = 0; i < modalInert.length; i++) modalInert[i].removeAttribute('inert');
     modalInert = [];
     var top = topModal();
+    if (viewControls) viewControls.toggleAttribute('inert', !!top);
     if (!top) return;
     for (var node = top.overlay; node && node !== site; node = node.parentElement) {
       var siblings = node.parentElement.children;
