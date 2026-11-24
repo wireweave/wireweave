@@ -268,3 +268,6 @@ ${css}
 
   return { svg, width, height }
 }
+
+export { renderLocalPagePreview, LOCAL_PAGE_PROFILE } from './local-preview'
+export type { LocalPagePreviewResult } from './local-preview'
