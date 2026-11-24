@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.23
+
+### Patch Changes
+
+- [#64](https://github.com/wireweave/wireweave/pull/64) [`4d4166a`](https://github.com/wireweave/wireweave/commit/4d4166aedd3738149924485e4a351f548edef08c) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep oversized fixed renderSite boards reachable from both horizontal edges while preserving centered placement when the authored board fits.
+
 ## 4.0.0-beta.22
 
 ### Patch Changes
