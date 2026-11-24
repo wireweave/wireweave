@@ -33,3 +33,6 @@ An already installed browser can be selected with `--executable /absolute/path/t
 The bounded browser regression checks standalone and shared-shell boards at narrow
 and wide sizes, both horizontal edges, unchanged authored dimensions and a focused
 trailing action. It downloads nothing and does not establish native or AT acceptance.
+Use `--surface document` with the same browser regression for single-page
+`renderToHtml` framing, also used by the SDK's `fullDocument: true` path.
+Multipage document framing remains independently start-aligned.

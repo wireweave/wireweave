@@ -137,7 +137,7 @@ export function renderToHtml(document: WireframeDocument, options: RenderOptions
   const prefix = options.classPrefix ?? 'wf'
 
   // Viewport framing depends on page count:
-  //   Single page → center in the viewport (looks nice for one small board).
+  //   Single page → safely center when it fits, otherwise keep the start reachable.
   //   Multi-page  → the canvas is a bounded layout usually wider/taller than the
   //     viewport; anchor it top-left so every screen stays reachable by scrolling.
   //     Centering an oversized canvas pushes its left/top edge into a negative,
@@ -146,7 +146,7 @@ export function renderToHtml(document: WireframeDocument, options: RenderOptions
   const isMultiPage = documentPages(document).length > 1
   const bodyAlign = isMultiPage
     ? 'justify-content: flex-start;\n  align-items: flex-start;'
-    : 'justify-content: center;\n  align-items: center;'
+    : 'justify-content: flex-start;\n  justify-content: safe center;\n  align-items: flex-start;\n  align-items: safe center;'
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -155,7 +155,7 @@ export function renderToHtml(document: WireframeDocument, options: RenderOptions
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wireframe</title>
   <style>
-/* Viewport framing: center a single page, anchor a multi-page canvas top-left */
+/* Viewport framing: safely center a single page, anchor a multi-page canvas top-left */
 html, body {
   margin: 0;
   padding: 0;

@@ -87,8 +87,10 @@ describe('Renderer', () => {
     // rule's alignment is meaningful here.
     const singlePageBody = `body {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  justify-content: safe center;
+  align-items: flex-start;
+  align-items: safe center;
   padding: 24px;
   box-sizing: border-box;
 }`
@@ -100,7 +102,7 @@ describe('Renderer', () => {
   box-sizing: border-box;
 }`
 
-    it('centers a single page in the viewport', () => {
+    it('safely centers a single page with accessible start fallbacks', () => {
       const doc = parse('page "Solo" viewport="1280x800" { text "x" }')
       const html = renderToHtml(doc)
 
