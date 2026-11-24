@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.24
+
+### Patch Changes
+
+- [#65](https://github.com/wireweave/wireweave/pull/65) [`ded6ac6`](https://github.com/wireweave/wireweave/commit/ded6ac64ca7fa8a996e41d2d2ab2c52ea5c9e3f5) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep both edges of oversized single-page HTML documents scroll-reachable, including SDK fullDocument output, while safely centering boards that fit. Multipage framing is unchanged.
+
 ## 4.0.0-beta.23
 
 ### Patch Changes
