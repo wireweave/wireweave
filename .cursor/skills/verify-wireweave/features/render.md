@@ -36,3 +36,11 @@ trailing action. It downloads nothing and does not establish native or AT accept
 Use `--surface document` with the same browser regression for single-page
 `renderToHtml` framing, also used by the SDK's `fullDocument: true` path.
 Multipage document framing remains independently start-aligned.
+
+## Bounded local Page preview
+
+`renderLocalPagePreview(source)` emits a separate `local-page-1` document or a diagnostic with no HTML. Use only public Page inputs with plain fields and one explicitly addressed modal. Mount the complete result in an opaque-origin `sandbox="allow-scripts"` iframe. Check the emitted runtime bytes against both its SHA-256 result and the leading CSP hash; no authored script, navigation/resource/closure or unresolved target may be admitted. Existing rendering surfaces do not opt in.
+
+In an offline browser at narrow and wide viewports, edit a field, open the modal from its actual button, wrap Tab/Shift+Tab, close and Escape back to the opener, and verify no host state/navigation or outbound requests. Scroll both fixed-board edges and reach the last modal action with long content. Recreate the document and observe initial values/closed modal. Record browser and actual iframe dimensions; this is not Studio/native, provider or whole-app evidence. Unit negative controls cover unsupported nodes/actions/targets, input bounds and exact fixed-runtime hashing.
+
+After building, run `node scripts/verify-local-page.mjs --playwright /absolute/path/to/playwright/index.js` (optional `--executable` for an installed Chromium and `--report` for retained JSON). This public-only browser backstop checks normal/tall modal, narrow/wide board edges, keyboard/focus, reset, no requests and unchanged parent. It downloads nothing.
