@@ -4044,7 +4044,7 @@ exports[`Render Snapshots > Full HTML Document Snapshots > should render complet
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wireframe</title>
   <style>
-/* Viewport framing: center a single page, anchor a multi-page canvas top-left */
+/* Viewport framing: safely center a single page, anchor a multi-page canvas top-left */
 html, body {
   margin: 0;
   padding: 0;
@@ -4053,8 +4053,10 @@ html, body {
 }
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  justify-content: safe center;
+  align-items: flex-start;
+  align-items: safe center;
   padding: 24px;
   box-sizing: border-box;
 }
@@ -6072,7 +6074,7 @@ exports[`Render Snapshots > Full HTML Document Snapshots > should render complet
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wireframe</title>
   <style>
-/* Viewport framing: center a single page, anchor a multi-page canvas top-left */
+/* Viewport framing: safely center a single page, anchor a multi-page canvas top-left */
 html, body {
   margin: 0;
   padding: 0;
@@ -6081,8 +6083,10 @@ html, body {
 }
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  justify-content: safe center;
+  align-items: flex-start;
+  align-items: safe center;
   padding: 24px;
   box-sizing: border-box;
 }
