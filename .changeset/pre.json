@@ -46,6 +46,7 @@
     "language-data-core-dependency",
     "layout-site-beta",
     "legacy-site-reflow-view",
+    "local-page-preview",
     "markdown-plugin-layout-compat",
     "mcp-security-contract",
     "modal-authored-name",

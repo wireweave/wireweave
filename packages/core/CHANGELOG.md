@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.25
+
+### Patch Changes
+
+- [#66](https://github.com/wireweave/wireweave/pull/66) [`64091e9`](https://github.com/wireweave/wireweave/commit/64091e9251e0b7c682946b5971a47c7497788bbd) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Add an explicit bounded single-Page local execution preview with fixed hashed runtime, no external effects, and fail-closed unsupported-input diagnostics. Existing renderers remain unchanged.
+
 ## 4.0.0-beta.24
 
 ### Patch Changes
