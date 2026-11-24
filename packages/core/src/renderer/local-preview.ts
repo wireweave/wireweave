@@ -127,6 +127,8 @@ export function renderLocalPagePreview(source: string): LocalPagePreviewResult {
           throw new Error('invalid-target')
         ids.add(n.id)
       }
+      if (n.disabled !== undefined && typeof n.disabled !== 'boolean')
+        throw new Error('unsupported-profile')
       if (type === 'Input' && n.inputType !== undefined && n.inputType !== 'text')
         throw new Error('unsupported-profile')
       if (type === 'Modal') {
@@ -144,9 +146,10 @@ export function renderLocalPagePreview(source: string): LocalPagePreviewResult {
       if (type === 'Button') {
         if (typeof n.opens === 'string' && n.action === undefined && !inModal) {
           targets.push(n.opens)
-          opens++
-        } else if (n.action === 'close' && n.opens === undefined && inModal) closes++
-        else throw new Error('invalid-target')
+          if (!n.disabled) opens++
+        } else if (n.action === 'close' && n.opens === undefined && inModal) {
+          if (!n.disabled) closes++
+        } else throw new Error('invalid-target')
       }
       if (
         Array.isArray(n.children) &&

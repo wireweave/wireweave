@@ -60,6 +60,28 @@ describe('bounded local Page execution profile', () => {
     expect(result).not.toHaveProperty('html')
   })
 
+  it.each([
+    'button "Open" opens=review disabled modal "Review" id=review { button "Close" action=close }',
+    'button "Open" opens=review modal "Review" id=review { button "Close" action=close disabled }',
+  ])('refuses a modal whose required control is disabled: %s', (body) => {
+    expect(renderLocalPagePreview(`page { ${body} }`)).toEqual({
+      ok: false,
+      diagnostic: 'invalid-target',
+    })
+  })
+
+  it('preserves valid disabled siblings alongside enabled required controls', () => {
+    const result = renderLocalPagePreview(
+      'page { button "Disabled opener" opens=review disabled button "Open" opens=review disabled=false modal "Review" id=review { button "Disabled closer" action=close disabled button "Close" action=close disabled=false } }',
+    )
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.html.match(/disabled="disabled"/g)).toHaveLength(2)
+      expect(result.html).toContain('Disabled opener')
+      expect(result.html).toContain('Disabled closer')
+    }
+  })
+
   it('escapes authored text without allowing authored markup or script', () => {
     const result = renderLocalPagePreview(
       'page { text "<script>not executable</script>" textarea "Draft" value="<b>text</b>" }',

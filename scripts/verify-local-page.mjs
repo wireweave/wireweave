@@ -25,7 +25,7 @@ try {
     [1280, 800, false],
     [800, 600, true],
   ]) {
-    const source = `page "Review" viewport="1280x800" { main { col gap=4 { title "Review draft" level=1 text "Local preview only" } textarea "Draft" value="Initial draft" row { button "Review" w=160 opens=review } col h=620 { text "Public scroll content" } modal "Review draft" id=review w=480 { input "Review note" value="Initial note" ${long ? 'col h=700 { text "Long local content" }' : ''} row { button "Cancel" w=120 action=close } } } }`
+    const source = `page "Review" viewport="1280x800" { main { col gap=4 { title "Review draft" level=1 text "Local preview only" } textarea "Draft" value="Initial draft" row { button "Unavailable review" w=160 opens=review disabled button "Review" w=160 opens=review disabled=false } col h=620 { text "Public scroll content" } modal "Review draft" id=review w=480 { input "Review note" value="Initial note" ${long ? 'col h=700 { text "Long local content" }' : ''} row { button "Unavailable cancel" w=120 action=close disabled button "Cancel" w=120 action=close disabled=false } } } }`
     const result = renderLocalPagePreview(source)
     assert(result.ok, JSON.stringify(result))
     const p = await browser.newPage({ viewport: { width, height } })
@@ -69,11 +69,13 @@ try {
     const edge = await measure()
     assert(edge.right <= width + 0.5)
     await f.getByRole('textbox', { name: 'Draft', exact: true }).fill('Edited, not saved')
+    assert(await f.getByRole('button', { name: 'Unavailable review', exact: true }).isDisabled())
     const opener = f.getByRole('button', { name: 'Review', exact: true })
     await opener.focus()
     await p.keyboard.press('Enter')
     const dialog = f.getByRole('dialog', { name: 'Review draft', exact: true })
     await dialog.waitFor({ state: 'visible' })
+    assert(await f.getByRole('button', { name: 'Unavailable cancel', exact: true }).isDisabled())
     const note = f.getByRole('textbox', { name: 'Review note', exact: true })
     assert(await note.evaluate((e) => e === globalThis.document.activeElement))
     await note.fill('Local edit')
