@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { parse, renderToHtml } from '@wireweave/core'
 
 import { localToolNames } from './generated/tools.js'
 import {
@@ -143,7 +144,7 @@ describe('localDispatch: wireweave_render_html_code', () => {
       css?: string
     }
     expect(payload.success).toBe(true)
-    expect(payload.html).toContain('<html')
+    expect(payload.html).toBe(renderToHtml(parse(VALID_SOURCE), { theme: 'dark' }))
     expect(payload.css).toBeUndefined()
   })
 

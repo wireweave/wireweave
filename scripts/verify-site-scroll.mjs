@@ -1,4 +1,4 @@
-// Bounded real-browser regression for legacy renderSite fixed-board access.
+// Bounded real-browser regression for legacy fixed-board document access.
 // No browser download, provider, filesystem authority or canonical app assertion.
 import assert from 'node:assert/strict'
 import { createRequire } from 'node:module'
@@ -11,10 +11,12 @@ const { values } = parseArgs({
     playwright: { type: 'string' },
     executable: { type: 'string' },
     'core-entry': { type: 'string' },
+    surface: { type: 'string', default: 'site' },
   },
 })
 assert(values.playwright, 'Pass --playwright with an already installed Playwright module')
-const { parse, renderSite } = await import(
+assert(['site', 'document'].includes(values.surface), 'surface must be site or document')
+const { parse, renderSite, renderToHtml } = await import(
   values['core-entry']
     ? pathToFileURL(resolve(values['core-entry'])).href
     : new URL('../packages/core/dist/index.js', import.meta.url).href
@@ -25,12 +27,12 @@ const browser = await chromium.launch(
 )
 const results = []
 try {
-  for (const shell of [false, true]) {
+  for (const shell of values.surface === 'site' ? [false, true] : [false]) {
     const source = `${shell ? 'layout app { header { text "Shell" } slot }' : ''}
 page "Review" id=review ${shell ? 'uses=app' : ''} viewport="1280x800" {
   main { title "Review" level=1 col height=620 { text "Public scroll regression" } row { button "Continue" } }
 }`
-    const html = renderSite(parse(source))
+    const html = values.surface === 'site' ? renderSite(parse(source)) : renderToHtml(parse(source))
     const context = await browser.newContext({
       viewport: { width: 800, height: 600 },
       offline: true,
@@ -90,7 +92,9 @@ page "Review" id=review ${shell ? 'uses=app' : ''} viewport="1280x800" {
       await context.close()
     }
   }
-  console.log(JSON.stringify({ browser: browser.version(), results }, null, 2))
+  console.log(
+    JSON.stringify({ browser: browser.version(), surface: values.surface, results }, null, 2),
+  )
 } finally {
   await browser.close()
 }
