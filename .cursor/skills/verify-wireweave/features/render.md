@@ -26,3 +26,10 @@ For exported site changes, activate the authored modal with keyboard input at a 
 `renderSite(document, {viewControls: {label, fixed, reflow}})` adds localized presentation buttons and starts Fixed. Existing callers omit the option and get no controls. Reflow restacks ordinary row/column/landmark/card content and uses scalable form/text typography on the same DOM; it does not rewrite authored viewport metadata or create another runtime. Tables, drawings and explicitly positioned regions need their own two-dimensional overflow verification; this option alone is not a whole-document WCAG claim.
 
 At 320 CSS px with 200% root text sizing, verify readable flow content and reachable form/review actions without horizontal page overflow. Preserve the exact unsaved value, selection and node identity across the switch; check keyboard review → dialog → Escape → opener focus and inert presentation controls while the dialog is open. Switch back and compare the exact original fixed frame dimensions and inline styles. Check default omission, custom prefix/localized escaping, routes and state separately. Studio's ordinary Demo must opt in only after adopting the verified official Core artifact; CLI/Handoff callers remain unchanged.
+
+For fixed-board site scrolling, build Core and run
+`node scripts/verify-site-scroll.mjs --playwright /absolute/path/to/installed/playwright`.
+An already installed browser can be selected with `--executable /absolute/path/to/chromium`.
+The bounded browser regression checks standalone and shared-shell boards at narrow
+and wide sizes, both horizontal edges, unchanged authored dimensions and a focused
+trailing action. It downloads nothing and does not establish native or AT acceptance.
