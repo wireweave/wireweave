@@ -29,7 +29,10 @@ export function generateSiteStyles(prefix: string): string {
 
 .${prefix}-site {
   display: flex;
-  justify-content: center;
+  /* Keep the leading edge accessible when the authored frame overflows.
+     Engines without safe alignment retain the start fallback. */
+  justify-content: flex-start;
+  justify-content: safe center;
   align-items: flex-start;
 }
 
