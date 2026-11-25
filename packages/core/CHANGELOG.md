@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.26
+
+### Patch Changes
+
+- [#67](https://github.com/wireweave/wireweave/pull/67) [`9da0e8f`](https://github.com/wireweave/wireweave/commit/9da0e8f06aa1884503e965fe2a4062d801765821) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Expose an exact opt-in, syntax-only profile for one standalone V4 Page module. Bind its descriptor to Core package/catalog/source resources and explicitly exclude linking, rendering, full schema closure and host authority.
+
 ## 4.0.0-beta.25
 
 ### Patch Changes

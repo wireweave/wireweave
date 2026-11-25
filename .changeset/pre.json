@@ -59,6 +59,7 @@
     "safe-site-centering",
     "side-effects-declarations",
     "site-modal-focus",
+    "standalone-module-source-profile",
     "tidy-drafts-read",
     "tidy-tables-reflow",
     "ux-rules-content-authoring",
