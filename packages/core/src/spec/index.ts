@@ -30,4 +30,6 @@ export {
   resolveLanguageSourceResource,
 } from './language-resources'
 export type { LanguageSourceResource } from './language-resources'
+export { verifyLanguageSchemaPair } from './schema-pair'
+export type { LanguageSchemaPairPin, LanguageSchemaPairResult } from './schema-pair'
 export { languageCatalogFingerprint } from './catalog-fingerprint.generated'
