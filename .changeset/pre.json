@@ -29,6 +29,7 @@
     "core-language-source-resources",
     "core-layout-state",
     "core-nested-parameter-references",
+    "core-offline-schema-reference-closure",
     "core-page-guard-narrowing",
     "core-page-variants",
     "core-primary-action-row-alignment",

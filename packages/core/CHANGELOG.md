@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.30
+
+### Patch Changes
+
+- [#72](https://github.com/wireweave/wireweave/pull/72) [`c4bdbe2`](https://github.com/wireweave/wireweave/commit/c4bdbe2345dd33809faf4978c16e9c9ce124a657) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Verify explicitly pinned offline schema reference closure, and optionally require it before linking and compiling a Core AppBundle. Schema instance validation and profile admission remain separate.
+
 ## 4.0.0-beta.29
 
 ### Patch Changes
