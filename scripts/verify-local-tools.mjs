@@ -119,7 +119,7 @@ if (command === 'doctor') {
     }
     if (feature === 'app' || feature === 'all') {
       const require = createRequire(join(root, 'packages/sdk/package.json'))
-      const { parse } = require('@wireweave/core')
+      const { parse, printV4Module } = require('@wireweave/core')
       const {
         createAppBundle,
         linkApp,
@@ -132,6 +132,16 @@ if (command === 'doctor') {
       assert.ok(fixture, 'Canonical minimal-navigation fixture is required')
       writeFileSync(join(evidence, 'app.wf'), fixture.source)
       const parsed = parse(fixture.source, { languageVersion: '4.0.0', sourceId: 'app.wf' })
+      const moduleOptions = { languageVersion: '4.0.0', sourceId: 'main.wf' }
+      const module = parse(fixture.moduleSources.main, moduleOptions)
+      const canonicalModule = printV4Module(module)
+      const reparsedModule = parse(canonicalModule, moduleOptions)
+      const { sourceDigest: _firstDigest, ...originalSemantics } = module.modules[0]
+      const { sourceDigest: _secondDigest, ...printedSemantics } = reparsedModule.modules[0]
+      assert.deepEqual(printedSemantics, originalSemantics)
+      assert.equal(printV4Module(reparsedModule), canonicalModule)
+      assert.throws(() => printV4Module(parsed), TypeError)
+      report.checks.push('public Core 4 explicit module parse/print round-trip')
       const unwrap = (result) => {
         assert.equal(result.ok, true, JSON.stringify(result.diagnostics))
         return result.value

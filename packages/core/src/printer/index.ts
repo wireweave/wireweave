@@ -62,3 +62,5 @@
  */
 
 export { printWireframe, formatWireframeCode } from './print'
+
+export { printV4Module } from './v4-module'

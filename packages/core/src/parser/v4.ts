@@ -95,6 +95,7 @@ const idPattern = /^[A-Za-z_][A-Za-z0-9_-]{0,127}$/
 const parameterReference = /^\$([A-Za-z_][A-Za-z0-9_-]{0,127})$/
 const spans = new WeakMap<object, V4SourceSpan>()
 const fieldSpans = new WeakMap<object, Map<string, V4SourceSpan>>()
+const explicitModuleDocuments = new WeakSet<ParsedDocument>()
 
 /** Original-source metadata is kept outside the canonical JSON document. */
 export function getV4SourceSpan(value: object): Readonly<V4SourceSpan> | undefined {
@@ -107,6 +108,15 @@ export function getV4SourceSpan(value: object): Readonly<V4SourceSpan> | undefin
  */
 export function hasV4ApplicationEnvelope(document: ParsedDocument): boolean {
   return fieldSpans.has(document.app)
+}
+
+/** Parser provenance for the explicit single-module document form. */
+export function isExplicitV4ModuleDocument(document: ParsedDocument): boolean {
+  return explicitModuleDocuments.has(document)
+}
+
+export function requiresV4PrimitiveBlock(kind: PrimitiveKind): boolean {
+  return kind === 'page' || containers.has(kind) || kind === 'tab' || kind === 'nav-group'
 }
 
 function isObject(value: unknown): value is JsonObject {
@@ -450,6 +460,7 @@ class CanonicalParser {
         },
       },
     }
+    const explicitModule = this.at('module')
     if (this.accept('app')) {
       result.app.id = this.identifier()
       const attrs = this.attrs(new Set(['entry', 'profile', 'states', 'registry', 'fixtures']))
@@ -467,7 +478,7 @@ class CanonicalParser {
         result.modules.push(this.module())
       }
       this.expect('}')
-    } else if (this.at('module')) result.modules.push(this.module())
+    } else if (explicitModule) result.modules.push(this.module())
     else {
       const module: CanonicalModule = {
         id: 'main',
@@ -494,6 +505,7 @@ class CanonicalParser {
         'schema',
       )
     }
+    if (explicitModule) explicitModuleDocuments.add(result)
     return result
   }
 
@@ -796,7 +808,7 @@ class CanonicalParser {
       } finally {
         this.formDepth--
       }
-    } else if (kind === 'page' || containers.has(kind) || kind === 'tab' || kind === 'nav-group') {
+    } else if (requiresV4PrimitiveBlock(kind)) {
       result.children = kind === 'nav-group' ? this.itemBlock('nav-group') : this.block()
     } else if (kind === 'list-item' && this.at('{')) result.children = this.itemBlock('list')
     else if (

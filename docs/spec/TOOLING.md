@@ -105,6 +105,17 @@ App asset admission is deterministic and fail-closed. Each declared asset must h
 
 `RuntimeInput` is a closed union of `event`, `advanceClock`, `reset` and `address`. Event sources use the complete `LinkedIdentity`. `click`, `submit`, `focus` and `blur` carry no `value`, `checked` or `key`; `keydown` carries a string `key` only; `input` and `change` carry a native control payload: `value` for text-like/select/slider controls or boolean `checked` for checkbox/radio/switch controls. Unknown fields, wrong payload types, undefined values, mismatched event fields, invalid source identities and events from inactive, hidden or disabled controls are rejected atomically. Drivers cannot inject lifecycle events, fixture responses or operation outcomes.
 
+The public root export `printV4Module(parsedDocument)` prints one explicit V4
+module parsed by this Core instance. It uses the canonical text rules in
+[LANGUAGE §2](LANGUAGE.md#2-lexical-contract-and-canonical-text) and rejects
+application envelopes, bare fragments, detached ASTs, and inspection-only
+component-use IDs. Use `parse(source, {languageVersion: '4.0.0'})` to obtain the
+document. Reparse the result to obtain its new source spans and module digest.
+An import retains the pinned digest of its dependency. Printing a module
+does not rewrite its dependents. For `createAppBundle`, supply the exact
+declaration bytes identified by each reparsed module's source span. The legacy
+fragment `printWireframe` and `formatWireframeCode` APIs keep their existing inputs.
+
 ## 3. SDK dispatch and I/O admission
 
 `dispatch({schemaVersion,requestId,tool,input,execution,output})` has `execution=local|remote`. The default is local. Local dispatch calls the functions above in-process and cannot read credentials. Remote dispatch requires an explicit endpoint/account capability and source transmission grant. Generation calls use `contract:harness/protocol`, not an alternative parser or opaque hosted generation path.
