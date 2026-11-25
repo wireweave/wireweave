@@ -244,3 +244,10 @@ export function getErrors(source: string): ParseErrorInfo[] {
   const result = tryParse(source)
   return result.errors
 }
+
+export {
+  standaloneModuleSyntaxProfileBytes,
+  standaloneModuleSyntaxProfileRef,
+  verifyStandaloneModuleSyntax,
+} from './standalone-module-profile'
+export type { StandaloneModuleSyntaxResult } from './standalone-module-profile'
