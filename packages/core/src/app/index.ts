@@ -21,3 +21,6 @@ export type { RuntimeBrowserEffect, RuntimeInput, RuntimeSnapshot, RuntimeTrace 
 
 export { extractTransitions } from './transitions'
 export type { LinkedTransition, LinkedTransitionGraph, LinkedTransitionTarget } from './transitions'
+
+export { compileAppWithSchemaReferenceClosure } from './schema-closure-compile'
+export type { SchemaReferenceClosureCompileResult } from './schema-closure-compile'
