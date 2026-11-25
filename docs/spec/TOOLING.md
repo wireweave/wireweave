@@ -34,6 +34,24 @@ owns selection of the digest pins and validation of the transitive schema
 references and AppBundle. The pair does not confer profile or run admission,
 and its product schema is never added to the public source resource catalog.
 
+`verifyLanguageSchemaReferenceClosure` in `/spec` checks that pair and explicitly pinned
+dependencies for static reference closure. Resource identity is the exact
+fragment-free, canonical HTTPS or URN schema URI, SHA-256 digest and UTF-8 byte length.
+Each supplied dependency includes those pins and its actual UTF-8 bytes. It resolves root
+references and JSON Pointer fragments only at schema locations in those
+resources, with no fetch, filesystem, relative external URI or fallback. It
+refuses duplicate or unused resources, references outside the closed set,
+embedded resource identities, named anchors and dynamic references. The result
+contains only resource identities sorted by URI and their digest, computed from
+UTF-8 compact JSON with fields `schemaId`, `digest`, `byteLength` in that order. The limit is 16
+resources at 512 KiB each, 2 MiB in total, and 16,384 schema nodes at depth 64.
+`compileAppWithSchemaReferenceClosure` in `/app` checks that closure before calling
+`linkApp` and `compileApp` on the supplied AppBundle. Success returns the actual
+compiler artifact with `schemaReferenceClosureDigest`. It does not validate AppBundle
+instances against the supplied JSON schemas, establish catalog trust or admit generation.
+Hosts still own those checks. This explicit input path does not satisfy the
+separate public bundled-closure condition.
+
 `@wireweave/core/parser` additionally exports the opt-in
 `standaloneModuleSyntaxProfileBytes`, `standaloneModuleSyntaxProfileRef` and
 `verifyStandaloneModuleSyntax(source, exactProfileRef)`. The Core-owned descriptor

@@ -33,3 +33,9 @@ export type { LanguageSourceResource } from './language-resources'
 export { verifyLanguageSchemaPair } from './schema-pair'
 export type { LanguageSchemaPairPin, LanguageSchemaPairResult } from './schema-pair'
 export { languageCatalogFingerprint } from './catalog-fingerprint.generated'
+
+export { verifyLanguageSchemaReferenceClosure } from './schema-closure'
+export type {
+  LanguageSchemaReferenceClosureResult,
+  LanguageSchemaResourceInput,
+} from './schema-closure'
