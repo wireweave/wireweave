@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.0-beta.27
+
+### Minor Changes
+
+- [#68](https://github.com/wireweave/wireweave/pull/68) [`7cdca5c`](https://github.com/wireweave/wireweave/commit/7cdca5ca1db7bacf92e66fdb8a18a31493638182) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Add a public printer for explicit parsed V4 module documents. It keeps authored
+  module semantics and reference digests intact and rejects AST forms that the
+  module printer cannot faithfully represent.
+
 ## 4.0.0-beta.26
 
 ### Patch Changes

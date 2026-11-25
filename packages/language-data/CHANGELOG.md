@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.6.0-beta.22
+
+### Patch Changes
+
+- Updated dependencies [[`7cdca5c`](https://github.com/wireweave/wireweave/commit/7cdca5ca1db7bacf92e66fdb8a18a31493638182)]:
+  - @wireweave/core@4.0.0-beta.27
+
 ## 1.6.0-beta.21
 
 ### Patch Changes
