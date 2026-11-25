@@ -24,6 +24,16 @@ does not resolve those identifiers, embed the product Registry, or establish
 transitive validation closure. Consumers requiring the complete contract above
 must fail closed until they have verified its full closure.
 
+For hosts with a private product schema, `verifyLanguageSchemaPair` in `/spec`
+checks the selected Core and product schema digests against the installed Core
+schema source and explicitly supplied product UTF-8 bytes (up to 512 KiB). It
+also checks the exact Registry resource identity, dialect and definition. It
+returns the verified source pair for the host's offline schema validator.
+Missing, stale or malformed inputs fail without lookup or fallback. The host
+owns selection of the digest pins and validation of the transitive schema
+references and AppBundle. The pair does not confer profile or run admission,
+and its product schema is never added to the public source resource catalog.
+
 `@wireweave/core/parser` additionally exports the opt-in
 `standaloneModuleSyntaxProfileBytes`, `standaloneModuleSyntaxProfileRef` and
 `verifyStandaloneModuleSyntax(source, exactProfileRef)`. The Core-owned descriptor
