@@ -18,3 +18,6 @@ export type {
   SourceMapEntry,
 } from './v4'
 export type { RuntimeBrowserEffect, RuntimeInput, RuntimeSnapshot, RuntimeTrace } from './compiler'
+
+export { extractTransitions } from './transitions'
+export type { LinkedTransition, LinkedTransitionGraph, LinkedTransitionTarget } from './transitions'

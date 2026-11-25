@@ -116,6 +116,18 @@ does not rewrite its dependents. For `createAppBundle`, supply the exact
 declaration bytes identified by each reparsed module's source span. The legacy
 fragment `printWireframe` and `formatWireframeCode` APIs keep their existing inputs.
 
+`extractTransitions(linkedApp)` is available from the root and `/app` exports.
+It returns an immutable graph bound to the model digest. Nodes list linked
+screens and their declared variants. Each edge carries the linked source-map
+entry (including any shell or component instance), handler id, event, optional
+key and guard, operation id, execution class, dependencies, failure policy and
+obligation references. Targets distinguish a fixed screen with push/replace
+history, a declared external URL, history traversal with no fixed destination,
+and a scenario reset to the pinned entry. The graph projects executable route
+operations after shorthand normalization. It does not run a handler, prove
+reachability, or infer navigation from labels, ordinary hrefs or non-route
+effects. A detached or fabricated linked value is rejected.
+
 ## 3. SDK dispatch and I/O admission
 
 `dispatch({schemaVersion,requestId,tool,input,execution,output})` has `execution=local|remote`. The default is local. Local dispatch calls the functions above in-process and cannot read credentials. Remote dispatch requires an explicit endpoint/account capability and source transmission grant. Generation calls use `contract:harness/protocol`, not an alternative parser or opaque hosted generation path.

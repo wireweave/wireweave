@@ -125,6 +125,7 @@ if (command === 'doctor') {
         linkApp,
         compileApp,
         createRuntime,
+        extractTransitions,
         reduceEvent,
       } = require('@wireweave/core/app')
       const corpus = JSON.parse(readFileSync(join(root, 'docs/spec/examples.json'), 'utf8'))
@@ -170,20 +171,23 @@ if (command === 'doctor') {
       )
       const initial = createRuntime(linked)
       assert.deepEqual(initial.route, { namespace: 'main', id: 'home' })
-      const identity = (id) => {
-        const entry = linked.sourceMap.find((item) => item.identity.localId === id)
-        assert.ok(entry, `Missing authored control identity: ${id}`)
-        return entry.identity
+      const transitions = extractTransitions(linked)
+      assert.equal(transitions.modelDigest, artifact.modelDigest)
+      const transition = (id, target) => {
+        const edge = transitions.edges.find((item) => item.source.identity.localId === id)
+        assert.ok(edge, `Missing authored route operation: ${id}`)
+        assert.deepEqual(edge.target, { kind: 'screen', route: target, history: 'push' })
+        return edge.source.identity
       }
       const settings = reduceEvent(initial, {
         kind: 'event',
-        source: identity('settingsLink'),
+        source: transition('settingsLink', { namespace: 'main', id: 'settings' }),
         event: 'click',
       })
       assert.deepEqual(settings.route, { namespace: 'main', id: 'settings' })
       const returned = reduceEvent(settings, {
         kind: 'event',
-        source: identity('homeLink'),
+        source: transition('homeLink', { namespace: 'main', id: 'home' }),
         event: 'click',
       })
       assert.deepEqual(returned.route, { namespace: 'main', id: 'home' })
@@ -198,7 +202,7 @@ if (command === 'doctor') {
         `${JSON.stringify({ fixture: fixture.id, manifest: artifact.manifest, actions: ['settingsLink:click', 'homeLink:click'], routes: [initial.route, settings.route, returned.route] }, null, 2)}\n`,
       )
       report.checks.push(
-        'public Core 4 AppBundle compile/digest and authored runtime Home -> Settings -> Home',
+        'public Core 4 AppBundle compile/digest, linked transitions and authored runtime Home -> Settings -> Home',
       )
     }
     report.ok = true

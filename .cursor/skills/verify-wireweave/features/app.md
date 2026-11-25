@@ -5,7 +5,7 @@
 - Parse canonical language 4.0.0 and admit an explicit AppBundle.
 - Round-trip an explicit V4 module through the public `printV4Module` export.
 - Link and compile deterministic standalone HTML with a matching digest.
-- Reduce authored navigation events through the public runtime API.
+- Extract route operations and reduce those authored events through the public runtime API.
 
 ## How to get to it (user POV)
 
