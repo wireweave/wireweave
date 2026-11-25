@@ -1,5 +1,5 @@
 /** Core-owned, syntax-only source profile. Never app linkage or run admission. */
-import { tryParseV4, getV4SourceSpan } from './v4'
+import { tryParseV4, getV4SourceSpan, hasV4ApplicationEnvelope } from './v4'
 import { digestV4 } from './v4-lexical'
 import { languageSourceResources } from '../spec/language-resources'
 import { languageCatalogFingerprint } from '../spec/catalog-fingerprint.generated'
@@ -34,12 +34,14 @@ export const standaloneModuleSyntaxProfileBytes = JSON.stringify({
   schemaVersion: '1.0.0',
   version: '1.0.0',
 })
+const profileDigest = digestV4(standaloneModuleSyntaxProfileBytes)
 export const standaloneModuleSyntaxProfileRef = Object.freeze({
   kind: 'LanguageProfile',
   origin: 'urn:wireweave:core',
   id: 'wireweave.standalone-module-syntax',
-  revision: '1.0.0',
-  digest: digestV4(standaloneModuleSyntaxProfileBytes),
+  // Format versions remain in the descriptor; the artifact revision is immutable content.
+  revision: profileDigest,
+  digest: profileDigest,
 })
 export type StandaloneModuleSyntaxResult =
   | {
@@ -88,7 +90,7 @@ export function verifyStandaloneModuleSyntax(
     document.modules.length !== 1 ||
     !span ||
     !/^module\b/u.test(source.slice(span.start, span.end)) ||
-    document.app.entry ||
+    hasV4ApplicationEnvelope(document) ||
     module.imports.length ||
     document.states.length ||
     document.fixtures.length ||

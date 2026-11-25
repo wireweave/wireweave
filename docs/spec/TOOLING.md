@@ -28,7 +28,11 @@ must fail closed until they have verified its full closure.
 `standaloneModuleSyntaxProfileBytes`, `standaloneModuleSyntaxProfileRef` and
 `verifyStandaloneModuleSyntax(source, exactProfileRef)`. The Core-owned descriptor
 is canonical UTF-8 JSON, hash-bound to its exact package version, catalog and source
-resource identities. Its coverage is **standalone-module-syntax-only**: explicit V4
+resource identities. Descriptor `schemaVersion` and `version` identify its format/profile recipe;
+the ArtifactRef `revision` is its exact content digest, so different package/catalog/resource
+bytes cannot reuse one immutable revision. This is content identity, not release issuance or
+owner authorization. Envelope exclusion uses original parser provenance independently of
+the projected `app.entry` field. Its coverage is **standalone-module-syntax-only**: explicit V4
 module syntax, one Page with an explicit ID, no imports, Application envelope, states, fixtures or
 Registry entries, within 65,536 source UTF-8 bytes. Local definitions/references are
 parsed but not resolved. Missing/wrong profile identity returns no successful result;

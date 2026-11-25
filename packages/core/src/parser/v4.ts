@@ -102,6 +102,13 @@ export function getV4SourceSpan(value: object): Readonly<V4SourceSpan> | undefin
   return span === undefined ? undefined : Object.freeze({ ...span })
 }
 
+/** Internal original-parse provenance, independent of projected entry fields.
+ * Not part of canonical AST bytes; cloned/caller-authored ASTs do not acquire it.
+ */
+export function hasV4ApplicationEnvelope(document: ParsedDocument): boolean {
+  return fieldSpans.has(document.app)
+}
+
 function isObject(value: unknown): value is JsonObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
