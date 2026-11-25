@@ -55,6 +55,7 @@
     "packaging-entry-fields",
     "packaging-types-conditions",
     "partial-core-schema-source",
+    "pin-offline-language-schema-pair",
     "plain-fields-native-labels",
     "quiet-catalog-proof",
     "safe-single-page-framing",

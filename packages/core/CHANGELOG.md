@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.29
+
+### Patch Changes
+
+- [#71](https://github.com/wireweave/wireweave/pull/71) [`506b876`](https://github.com/wireweave/wireweave/commit/506b87620632d797579c4c91a089a57a3ad477cc) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Verify that an installed Core schema and host-supplied private Registry schema match the host's selected source digests before offline validation.
+
 ## 4.0.0-beta.28
 
 ### Minor Changes
