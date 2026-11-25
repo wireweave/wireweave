@@ -86,6 +86,53 @@ describe('public V4 module printer', () => {
     )
   })
 
+  it('requires exact printed bytes and a disjoint namespace before linking a first screen', () => {
+    const base = parse(existing, options)
+    const original = parse(firstScreen, options)
+    const printed = printV4Module(original)
+    const candidate = parse(printed, options)
+    const appOptions = {
+      id: 'orders',
+      entry: { namespace: 'base', id: 'home' },
+      profile: base.app.profile,
+      registry: base.registry,
+      states: base.states,
+      fixtures: base.fixtures,
+    }
+    const stale = createAppBundle([base, candidate], {
+      ...appOptions,
+      moduleSources: { base: existing, review: sourceBytes(original, firstScreen) },
+    })
+    expect(stale).toMatchObject({ ok: false, value: null, html: null })
+    expect(stale.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'WW_IMPORT',
+        messageKey: 'app.source-content-mismatch',
+      }),
+    )
+
+    const collisionSource = printV4Module(
+      parse(firstScreen.replace('namespace=review', 'namespace=base'), options),
+    )
+    const collision = parse(collisionSource, options)
+    const result = linkApp(
+      value(
+        createAppBundle([base, collision], {
+          ...appOptions,
+          moduleSources: { base: existing, review: sourceBytes(collision, collisionSource) },
+        }),
+      ),
+    )
+    expect(result).toMatchObject({ ok: false, value: null, html: null })
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'WW_DUPLICATE_ID',
+        messageKey: 'app.duplicate-namespace',
+        details: { namespace: 'base' },
+      }),
+    )
+  })
+
   for (const fixture of examples.valid) {
     for (const [id, source] of Object.entries(fixture.moduleSources)) {
       it(`preserves ${fixture.id}/${id} module semantics`, () => {
