@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.0-beta.28
+
+### Minor Changes
+
+- [#69](https://github.com/wireweave/wireweave/pull/69) [`07f711b`](https://github.com/wireweave/wireweave/commit/07f711b7f7c3c656ff3bcb7764178cd72ee47462) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Expose authored V4 route transitions from a linked application. The graph keeps
+  the linked source identities, handler guards, operation dependencies and exact
+  targets used by Core's runtime.
+
 ## 4.0.0-beta.27
 
 ### Minor Changes

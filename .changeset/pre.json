@@ -36,6 +36,7 @@
     "core-site-gutter-and-instance-marker",
     "core-spec-subpath",
     "core-stack-default-gap",
+    "core-v4-linked-transitions",
     "core-v4-module-printer",
     "core-variant-scope",
     "core-wf-printer",
