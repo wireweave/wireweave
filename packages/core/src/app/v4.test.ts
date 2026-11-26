@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { JSDOM, VirtualConsole } from 'jsdom'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { getV4SourceSpan, parse, type ParsedDocument } from '../parser'
 import {
   compileApp,
@@ -693,6 +693,45 @@ describe('native executable operations', () => {
         ?.getAttribute('data-wf-screen'),
     ).toBe('#wf/main/home')
     expect(dom.window.document.activeElement?.getAttribute('data-wf-kind')).toBe('page')
+    expect(errors).toEqual([])
+    dom.window.close()
+  })
+
+  it('reveals the destination start on authored navigation without resetting browser Back', async () => {
+    const artifact = value(
+      renderSite(
+        bundle(
+          app(`
+      ${page('button "Open archive" id=openArchive navigate=archive')}
+      page "Archive" id=archive { button "Return" id=return navigate=home }
+    `),
+        ),
+      ),
+    )
+    const { dom, errors } = browser(artifact)
+    const { document, history } = dom.window
+    const scroll = vi.fn()
+    dom.window.scrollTo = scroll
+    Object.defineProperty(dom.window, 'scrollY', { value: 300 })
+    const opener = document.querySelector<HTMLButtonElement>(
+      '[data-wf-screen]:not([hidden]) button',
+    )!
+    opener.focus()
+    opener.click()
+    expect(scroll).toHaveBeenCalledExactlyOnceWith({ left: 0, top: 0, behavior: 'instant' })
+    expect(
+      document.activeElement?.closest('[data-wf-screen]')?.getAttribute('data-wf-screen'),
+    ).toBe('#wf/main/archive')
+
+    const back = new Promise<void>((resolve) =>
+      dom.window.addEventListener('hashchange', () => resolve(), { once: true }),
+    )
+    history.back()
+    await back
+    expect(scroll).toHaveBeenCalledTimes(1)
+    expect(
+      document.activeElement?.closest('[data-wf-screen]')?.getAttribute('data-wf-screen'),
+    ).toBe('#wf/main/home')
     expect(errors).toEqual([])
     dom.window.close()
   })

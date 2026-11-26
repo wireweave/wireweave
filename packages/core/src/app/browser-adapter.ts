@@ -18,6 +18,8 @@ export function browserAdapter(engine: RuntimeEngine, program: RuntimeProgram): 
     last = performance.now(),
     timer: ReturnType<typeof setTimeout> | undefined
   let projectedFocus: string | null | undefined
+  let projectedScreen: string | undefined
+  let revealRouteStart = false
   let projectionTimer: ReturnType<typeof setTimeout> | undefined
   const queue: { input: RuntimeInput; sequence: number | null; deferProjection: boolean }[] = []
   let composition: { id: string; value: string } | null = null
@@ -57,8 +59,10 @@ export function browserAdapter(engine: RuntimeEngine, program: RuntimeProgram): 
       ? entry.sequence
       : null
   }
-  function effectCommands(): void {
+  function effectCommands(authoredNavigation = true): void {
+    if (!authoredNavigation) revealRouteStart = false
     for (const effect of state.effects) {
+      revealRouteStart = authoredNavigation && (effect.kind === 'push' || effect.kind === 'replace')
       if (effect.kind === 'push') history.pushState(metadata(effect.sequence), '', effect.fragment)
       else if (effect.kind === 'replace')
         history.replaceState(metadata(effect.sequence), '', effect.fragment)
@@ -249,13 +253,26 @@ export function browserAdapter(engine: RuntimeEngine, program: RuntimeProgram): 
       const lastTrace = state.trace.at(-1)
       if (lastTrace) root.setAttribute('data-wf-operation-result', lastTrace.result)
       document.getElementById('wf-runtime-trace')!.textContent = JSON.stringify(state.trace)
+      // Reveal the new screen when it owns the default route focus. Preserve
+      // browser history scrolling and any explicitly focused destination control.
+      const revealStart =
+        revealRouteStart &&
+        active !== undefined &&
+        projectedScreen !== undefined &&
+        active.id !== projectedScreen &&
+        state.focus === active.id
+      revealRouteStart = false
+      projectedScreen = active?.id
       if (state.focus && state.focus !== projectedFocus) {
         const focus = focusElement(state.focus)
         if (focus && focus !== document.activeElement && !focus.closest('[hidden],[inert]'))
-          focus.focus()
+          focus.focus({ preventScroll: revealStart })
       } else if (!state.route && projectedFocus !== null) {
         const heading = routeError.querySelector<HTMLElement>('h1')
         heading?.focus()
+      }
+      if (revealStart && (window.scrollX || window.scrollY)) {
+        window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
       }
       projectedFocus = state.focus
     } finally {
@@ -275,7 +292,7 @@ export function browserAdapter(engine: RuntimeEngine, program: RuntimeProgram): 
       while (queue.length) {
         const item = queue.shift()!
         state = engine.reduce(state, item.input, item.sequence)
-        effectCommands()
+        effectCommands(item.input.kind !== 'address' && item.input.kind !== 'reset')
         if (item.deferProjection) {
           // Native activation delivers click before input/change. Preserve its
           // transient control value until that platform event task completes.
