@@ -122,6 +122,21 @@ export class Element {
     this.classes = new Set((attrs.get('class') ?? '').split(/\s+/).filter(Boolean))
   }
 
+  get parentElement(): Element | null {
+    return this.parentNode
+  }
+
+  contains(element: Element): boolean {
+    for (let node: Element | null = element; node; node = node.parentNode) {
+      if (node === this) return true
+    }
+    return false
+  }
+
+  focus(): void {
+    // Focus behavior is asserted by the JSDOM and browser tests.
+  }
+
   getAttribute(name: string): string | null {
     this.reads.push(name)
     return this.attrs.has(name) ? (this.attrs.get(name) as string) : null
@@ -282,7 +297,14 @@ export function runRuntime(script: string, markup: string): RuntimeHost {
   }
   const location = { hash: '' }
 
-  runInNewContext(script, { document: documentStub, window: { addEventListener }, location })
+  runInNewContext(script, {
+    document: documentStub,
+    window: {
+      addEventListener,
+      getComputedStyle: () => ({ display: 'block', visibility: 'visible' }),
+    },
+    location,
+  })
 
   return {
     root,

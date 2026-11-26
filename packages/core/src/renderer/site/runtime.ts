@@ -450,14 +450,15 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     }
   }
 
-  function focusScreen() {
+  function focusScreen(atStart) {
     var screen = screens[current];
     if (!screen) return;
-    var target = screen.querySelector('h1, h2, [role="heading"]') || screen;
+    // A screen navigation starts its tab order before every authored control.
+    var target = atStart ? screen : screen.querySelector('h1, h2, [role="heading"]') || screen;
     if (!canFocus(target)) target = screen;
     if (!canFocus(target)) return;
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-    target.focus();
+    target.focus({ preventScroll: !!atStart });
   }
 
   function openOverlay(overlay, opener) {
@@ -642,20 +643,22 @@ export function siteRuntime(registry: SiteRuntimeRegistry, prefix: string): stri
     markActive(key);
     applyVariantScopes();
     applyOutcomes();
-    if (leavingModal) focusScreen();
-
     if (writeFragment) {
       var fragment = R.fragments[Number(key)] || key;
       // The resulting hashchange re-enters show() with the key already current,
       // which returns early — the fragment and the screen cannot fight.
       if (location.hash.slice(1) !== fragment) location.hash = fragment;
-    }
+      // Begin keyboard navigation at the destination without scrolling the
+      // embedding document. Initial entry and hash history keep browser scrolling.
+      focusScreen(true);
+      if (window.scrollX || window.scrollY) window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
+    } else if (leavingModal) focusScreen();
     return true;
   }
 
   function fromFragment() {
     var raw = location.hash.slice(1);
-    if (raw === '') return null;
+    if (raw === '') return String(R.entry);
     var decoded = raw;
     try {
       decoded = decodeURIComponent(raw);
