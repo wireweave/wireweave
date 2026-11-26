@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0-beta.33
+
+### Patch Changes
+
+- Updated dependencies [[`7b22fe6`](https://github.com/wireweave/wireweave/commit/7b22fe692ff832f2e8e2626f4ab41e6dd6f1240b)]:
+  - @wireweave/core@4.0.0-beta.32
+
 ## 1.5.0-beta.32
 
 ### Patch Changes

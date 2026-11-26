@@ -1,7 +1,7 @@
 // Generated from canonical docs/spec sources. Do not edit.
 export const LANGUAGE_RESOURCE_PACKAGE = {
   name: '@wireweave/core',
-  version: '4.0.0-beta.31',
+  version: '4.0.0-beta.32',
 } as const
 export const LANGUAGE_RESOURCE_DATA = [
   {

@@ -60,6 +60,7 @@
     "plain-fields-native-labels",
     "quiet-catalog-proof",
     "reveal-app-route-start",
+    "reveal-legacy-handoff-screen-start",
     "safe-single-page-framing",
     "safe-site-centering",
     "side-effects-declarations",

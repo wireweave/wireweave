@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0.0-beta.32
+
+### Patch Changes
+
+- [#74](https://github.com/wireweave/wireweave/pull/74) [`7b22fe6`](https://github.com/wireweave/wireweave/commit/7b22fe692ff832f2e8e2626f4ab41e6dd6f1240b) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Reveal and focus the destination screen after authored navigation in standalone site HTML.
+  Restore the configured entry when browser Back returns to the original unfragmented address.
+
 ## 4.0.0-beta.31
 
 ### Patch Changes
