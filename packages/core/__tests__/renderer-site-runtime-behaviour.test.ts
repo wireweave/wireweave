@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { JSDOM } from 'jsdom'
 
 import { parse } from '../src/parser'
@@ -82,6 +82,44 @@ describe('site runtime: clicks that reach the browser', () => {
         .querySelector('[data-current-screen]')
         ?.getAttribute('data-current-screen'),
     ).not.toBeNull()
+  })
+
+  it('reveals and focuses an authored destination without taking over browser Back', async () => {
+    const dom = mount(
+      renderSite(
+        parse(`
+      page "Draft" id=draft { button "Open archive" navigate=archive }
+      page "Archive" id=archive { button "Back to draft" title "Archive heading" level=1 }
+    `),
+      ),
+    )
+    try {
+      const { document, history } = dom.window
+      expect(document.activeElement).toBe(document.body)
+      const scroll = vi.fn()
+      dom.window.scrollTo = scroll
+      Object.defineProperty(dom.window, 'scrollY', { value: 300 })
+      const hashChanged = () =>
+        new Promise<void>((resolve) => {
+          dom.window.addEventListener('hashchange', () => resolve(), { once: true })
+        })
+      const entered = hashChanged()
+      document.querySelector<HTMLButtonElement>('button[data-navigate="archive"]')!.click()
+      await entered
+      expect(scroll).toHaveBeenCalledExactlyOnceWith({ left: 0, top: 0, behavior: 'instant' })
+      expect(document.activeElement).toBe(document.querySelector('[data-screen-name="archive"]'))
+      expect(document.activeElement?.getAttribute('tabindex')).toBe('-1')
+
+      const returned = hashChanged()
+      history.back()
+      await returned
+      expect(
+        document.querySelector('[data-current-screen]')?.getAttribute('data-current-screen'),
+      ).toBe('0')
+      expect(scroll).toHaveBeenCalledTimes(1)
+    } finally {
+      dom.window.close()
+    }
   })
 
   it('a real authored href is left alone — the guard is not "cancel every link"', () => {
