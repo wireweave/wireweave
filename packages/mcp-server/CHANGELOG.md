@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.0-beta.32
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wireweave/sdk@0.2.0-beta.32
+
 ## 1.9.0-beta.31
 
 ### Patch Changes

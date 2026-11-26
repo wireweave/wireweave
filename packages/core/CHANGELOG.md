@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.31
+
+### Patch Changes
+
+- [#73](https://github.com/wireweave/wireweave/pull/73) [`659b70a`](https://github.com/wireweave/wireweave/commit/659b70a050f7318aa9b7635f4b5157b2420619b8) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Reveal the start of the destination screen in compiled V4 HTML after authored navigation from a scrolled screen.
+
 ## 4.0.0-beta.30
 
 ### Patch Changes
