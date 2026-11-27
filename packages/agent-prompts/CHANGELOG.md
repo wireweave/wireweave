@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0-beta.12
+
+### Patch Changes
+
+- [#77](https://github.com/wireweave/wireweave/pull/77) [`94dcd95`](https://github.com/wireweave/wireweave/commit/94dcd951bb30db852581f5e508d6926046adbca8) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Include the existing MIT license terms and copyright notice in the Agent Prompts package.
+
 ## 0.2.0-beta.11
 
 ### Patch Changes
