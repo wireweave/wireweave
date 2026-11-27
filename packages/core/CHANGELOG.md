@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.35
+
+### Patch Changes
+
+- [#78](https://github.com/wireweave/wireweave/pull/78) [`61b1128`](https://github.com/wireweave/wireweave/commit/61b1128f1bed85b2f75a150afe35da168444264e) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Report the full rejected V4 route, including any authored variant, and distinguish a missing screen from an unknown variant in link diagnostics.
+
 ## 4.0.0-beta.34
 
 ### Patch Changes

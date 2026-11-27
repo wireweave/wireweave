@@ -37,6 +37,7 @@
     "core-page-variants",
     "core-primary-action-row-alignment",
     "core-repeat-syntax",
+    "core-route-diagnostic-address",
     "core-site-gutter-and-instance-marker",
     "core-spec-subpath",
     "core-stack-default-gap",
