@@ -107,6 +107,32 @@ describe('canonical AppBundle contract', () => {
     dom.window.close()
   })
 
+  it.each([
+    ['missing', 'draft', 'missing-screen'],
+    ['review', 'typoOne', 'unknown-variant'],
+    ['review', 'typoTwo', 'unknown-variant'],
+  ])('reports the exact invalid authored entry %s:%s', (id, variant, reason) => {
+    const source = `app demo entry={namespace=main,id=${id},variant=${variant}} {
+      module main namespace=main {
+        page "Review" id=review variants=[draft,ready,approved] {
+          button "Draft only" id=draftOnly when=draft
+          button "Ready only" id=readyOnly when=ready
+          button "Approved only" id=approvedOnly when=approved
+        }
+      }
+    }`
+    const result = renderSite(bundle(source))
+    failure(result, 'WW_ROUTE')
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'WW_ROUTE',
+        phase: 'link',
+        messageKey: 'app.unresolved-route',
+        details: { namespace: 'main', id, variant, reason },
+      }),
+    )
+  })
+
   it('rejects forged bundle and linked JSON even when its public shape matches', () => {
     const candidate = bundle(app(page()))
     const linked = value(linkApp(candidate))
