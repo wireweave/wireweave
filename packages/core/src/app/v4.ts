@@ -550,7 +550,13 @@ class Linker {
         aliases.add(imported.namespace)
         const target = this.moduleById.get(imported.moduleId)
         if (target === undefined || target.sourceDigest !== imported.digest) {
-          this.error('WW_IMPORT', 'app.import-digest-or-module', imported)
+          this.error('WW_IMPORT', 'app.import-digest-or-module', imported, {
+            reason: target === undefined ? 'missing-module' : 'digest-mismatch',
+            moduleId: imported.moduleId,
+            alias: imported.namespace,
+            declaredDigest: imported.digest,
+            ...(target === undefined ? {} : { actualDigest: target.sourceDigest }),
+          })
           continue
         }
         edges.push(target.id)
