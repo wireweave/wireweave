@@ -798,6 +798,38 @@ describe('compile-time runtime admission', () => {
     expect(html).toContain('data-wf-tooling="view"')
     expect(html).not.toContain(' style=')
   })
+  it('bounds viewport-relative shell padding only in the accessible view', () => {
+    const { html, sourceMap } = unwrap(
+      compileApp(
+        linked(`language "4.0.0"
+app reviewDesk entry={namespace=desk,id=draft} {
+  module desk namespace=desk {
+    layout reviewFrame {
+      header id=banner p=10vw px=2rem pr=3vw { title "Review desk" }
+      main id=body px=12vw { slot; }
+    }
+    page "Draft" id=draft uses=reviewFrame {
+      stack id=content px=4vw gap=12px { link "Open approval" id=forward navigate=approval primary }
+    }
+    page "Approval" id=approval uses=reviewFrame { title "Approval" }
+  }
+}`),
+      ),
+    )
+    const selector = (id: string) =>
+      `.${sourceMap.find(({ identity }) => identity.localId === id)!.renderedId}`
+    const accessible = '#wireweave-app[data-wf-view=accessible] '
+    expect(html).toContain(`#wireweave-app ${selector('body')}{padding-inline:172.8px}`)
+    expect(html).toContain(
+      `${accessible}${selector('body')}{padding-left:min(172.8px,25%);padding-right:min(172.8px,25%)}`,
+    )
+    expect(html).toContain(
+      `#wireweave-app ${selector('banner')}{padding:144px;padding-inline:32px;padding-right:43.2px}`,
+    )
+    expect(html).toContain(`${accessible}${selector('banner')}{padding-right:min(43.2px,25%)}`)
+    expect(html).not.toContain(`${accessible}${selector('content')}`)
+  })
+
   it('uses the gap-free stack default and preserves explicit stack and field spacing', () => {
     const { html, sourceMap } = unwrap(
       compileApp(

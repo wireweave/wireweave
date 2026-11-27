@@ -511,6 +511,22 @@ class HtmlArtifact {
     if (['text', 'title', 'link'].includes(kind) && a.align !== undefined)
       styles.push(`text-align:${textValue(a.align)}`)
     if (styles.length) this.rules.push(`#wireweave-app .${entry.renderedId}{${styles.join(';')}}`)
+    if (entry.identity.instanceRoot.kind === 'shell') {
+      // Keep authored viewport units in fixed mode. In the accessible shell,
+      // viewport-derived padding can take at most half the containing width.
+      const accessiblePadding: string[] = []
+      for (const [side, value] of [
+        ['left', a.pl ?? a.px ?? a.p],
+        ['right', a.pr ?? a.px ?? a.p],
+      ] as const) {
+        if (object(value) && value.unit === 'vw')
+          accessiblePadding.push(`padding-${side}:min(${length(value, 'width', true)},25%)`)
+      }
+      if (accessiblePadding.length)
+        this.rules.push(
+          `#wireweave-app[data-wf-view=accessible] .${entry.renderedId}{${accessiblePadding.join(';')}}`,
+        )
+    }
   }
   html(): string {
     const bundle = this.data.bundle
