@@ -191,6 +191,38 @@ describe('canonical admission and dependency closure', () => {
     ])
   })
 
+  it.each(['missing-module', 'digest-mismatch'])(
+    'locates the authored import and reports how to fix a %s',
+    (reason) => {
+      const shared = 'module library namespace=lib { export component Card; component Card {} }'
+      const moduleId = reason === 'missing-module' ? 'missing' : 'library'
+      const declaredDigest = hash('previous library contents')
+      const declaration = `import common from="${moduleId}" digest="${declaredDigest}" symbols=[{kind=component,id=Card}]`
+      const main = `module main namespace=main {
+${declaration}
+${page('use Card from="common" id=sharedCard')} }`
+      const source = `app demo entry={namespace=main,id=home} { ${shared} ${main} }`
+      const output = renderSite(bundle(source))
+      failure(output, 'WW_IMPORT')
+      const error = output.diagnostics.find(
+        (item) => item.messageKey === 'app.import-digest-or-module',
+      )
+      expect(error).toMatchObject({
+        code: 'WW_IMPORT',
+        phase: 'link',
+        sourceId: 'main.wf',
+        details: {
+          reason,
+          moduleId,
+          alias: 'common',
+          declaredDigest,
+          ...(reason === 'digest-mismatch' ? { actualDigest: hash(shared) } : {}),
+        },
+      })
+      expect(main.slice(error!.start, error!.end)).toBe(declaration)
+    },
+  )
+
   it.each(['digest', 'export', 'symbol', 'module'])(
     'rejects a missing import %s contract',
     (kind) => {
