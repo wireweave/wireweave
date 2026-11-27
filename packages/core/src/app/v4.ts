@@ -844,6 +844,8 @@ class Linker {
       this.error(code, 'app.unresolved-route', node, {
         namespace: reference.namespace,
         id: reference.id,
+        ...(reference.variant === undefined ? {} : { variant: reference.variant }),
+        reason: target === undefined ? 'missing-screen' : 'unknown-variant',
       })
       return undefined
     }
