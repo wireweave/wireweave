@@ -18,6 +18,7 @@
     "agent-prompts-interaction-wiring",
     "agent-prompts-test-boundary",
     "core-a11y-icons",
+    "core-accessible-shell-gutters",
     "core-anchor-navigation",
     "core-app-assets-runtime-validation",
     "core-app-runtime",

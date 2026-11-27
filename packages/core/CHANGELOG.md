@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.33
+
+### Patch Changes
+
+- [#75](https://github.com/wireweave/wireweave/pull/75) [`fdf1637`](https://github.com/wireweave/wireweave/commit/fdf16375e92eb70dd4b05f5977fcb2c8821d0784) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep shared-shell content and navigation usable at narrow widths by bounding viewport-relative horizontal padding in the standalone V4 accessible view. Fixed layouts retain their authored spacing.
+
 ## 4.0.0-beta.32
 
 ### Patch Changes
