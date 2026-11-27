@@ -1,5 +1,14 @@
 # @wireweave/sdk
 
+## 0.2.0-beta.35
+
+### Patch Changes
+
+- Updated dependencies [[`b44e84e`](https://github.com/wireweave/wireweave/commit/b44e84e12c2c29d007d8e741499bbd815e1112ca)]:
+  - @wireweave/core@4.0.0-beta.34
+  - @wireweave/language-data@1.6.0-beta.29
+  - @wireweave/ux-rules@1.5.0-beta.35
+
 ## 0.2.0-beta.34
 
 ### Patch Changes

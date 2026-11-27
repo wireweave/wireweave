@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.34
+
+### Patch Changes
+
+- [#76](https://github.com/wireweave/wireweave/pull/76) [`b44e84e`](https://github.com/wireweave/wireweave/commit/b44e84e12c2c29d007d8e741499bbd815e1112ca) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Distinguish missing V4 import modules from stale digests in link diagnostics, with the target module and the declared and available digests.
+
 ## 4.0.0-beta.33
 
 ### Patch Changes

@@ -28,6 +28,7 @@
     "core-dom-anchors",
     "core-extract-apis",
     "core-helper-bundles",
+    "core-import-diagnostic-details",
     "core-language-source-resources",
     "core-layout-state",
     "core-nested-parameter-references",
