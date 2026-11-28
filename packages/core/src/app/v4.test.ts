@@ -640,6 +640,49 @@ describe('the actual exported document', () => {
     dom.window.close()
   })
 
+  it('keeps shared page navigation current across variants of the same screen', async () => {
+    const linked = value(
+      linkApp(
+        bundle(`app demo entry={namespace=main,id=review,variant=ready} {
+          module main namespace=main {
+            layout shell {
+              nav { item "Inbox" id=inboxNav navigate=inbox item "Review" id=reviewNav navigate=review }
+              row gap=24px w=1120px { main w=800px { slot; } sidebar w=296px { text "Progress" } }
+            }
+            page "Inbox" id=inbox uses=shell { text "Planning inbox" }
+            page "Review" id=review uses=shell variants=[draft,ready,approved] {
+              text "Draft" when=draft
+              text "Ready" when=ready
+              text "Approved" when=approved
+            }
+          }
+        }`),
+      ),
+    )
+    const { dom, errors } = browser(value(compileApp(linked)))
+    const { document } = dom.window
+    const current = () =>
+      [...document.querySelectorAll('nav [aria-current=page]')].map((item) => item.textContent)
+    expect(current()).toEqual(['Review'])
+    const open = async (address: string) => {
+      const changed = new Promise((resolve) =>
+        dom.window.addEventListener('hashchange', resolve, { once: true }),
+      )
+      dom.window.location.hash = address
+      await changed
+    }
+    for (const variant of ['draft', 'approved']) {
+      await open(`#wf/main/review?variant=${variant}`)
+      expect(current()).toEqual(['Review'])
+    }
+    await open('#wf/main/inbox')
+    expect(current()).toEqual(['Inbox'])
+    await open('#wf/main/missing')
+    expect(current()).toEqual([])
+    expect(errors).toEqual([])
+    dom.window.close()
+  })
+
   it('resolves imported navigation aliases to the target namespace', () => {
     const shared =
       'module library namespace=actual { export page settings; page "Settings" id=settings {} }'

@@ -115,6 +115,9 @@ export function browserAdapter(engine: RuntimeEngine, program: RuntimeProgram): 
         'aria-busy',
         String(state.suspended || Object.keys(state.requests).length > 0),
       )
+      const currentBoard = active
+        ? `#wf/${encodeURIComponent(active.route.namespace)}/${encodeURIComponent(active.route.id)}`
+        : null
       for (const node of program.nodes) {
         const el = element(node.id)
         if (!el) continue
@@ -212,7 +215,10 @@ export function browserAdapter(engine: RuntimeEngine, program: RuntimeProgram): 
         if (node.attributes.dismissible === true && ['toast', 'alert'].includes(node.kind))
           el.hidden = el.hidden || state.expanded[node.id] === false
         if (el instanceof HTMLAnchorElement) {
-          if (el.getAttribute('href') === state.address) el.setAttribute('aria-current', 'page')
+          const href = el.getAttribute('href')
+          // Page navigation identifies the board, not its current review projection.
+          if (href === state.address || (node.kind === 'nav-item' && href && href === currentBoard))
+            el.setAttribute('aria-current', 'page')
           else el.removeAttribute('aria-current')
         }
         if (node.attributes.data) {
