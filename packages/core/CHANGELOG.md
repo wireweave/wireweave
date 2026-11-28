@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.37
+
+### Patch Changes
+
+- [#80](https://github.com/wireweave/wireweave/pull/80) [`6d74502`](https://github.com/wireweave/wireweave/commit/6d74502c7558183da701f2f108f6c07b7a3042a4) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep the authored V4 navigation item current when the same page displays a different review variant.
+
 ## 4.0.0-beta.36
 
 ### Patch Changes
