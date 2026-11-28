@@ -31,6 +31,7 @@
     "core-import-diagnostic-details",
     "core-language-source-resources",
     "core-layout-state",
+    "core-local-modal-style-scope",
     "core-nested-parameter-references",
     "core-offline-schema-reference-closure",
     "core-page-guard-narrowing",

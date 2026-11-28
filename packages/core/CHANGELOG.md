@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0-beta.36
+
+### Patch Changes
+
+- [#79](https://github.com/wireweave/wireweave/pull/79) [`8b141e6`](https://github.com/wireweave/wireweave/commit/8b141e68d5aba463e0961f4f3509d97d65a0681e) Thanks [@Seungwoo321](https://github.com/Seungwoo321)! - Keep local page preview dialogs in the page's style scope so typography and textarea sizing match surrounding content.
+
 ## 4.0.0-beta.35
 
 ### Patch Changes
